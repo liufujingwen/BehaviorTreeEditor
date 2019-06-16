@@ -1,0 +1,11 @@
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\bin\Debug\BehaviorTreeEditor.exe.config
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\bin\Debug\BehaviorTreeEditor.exe
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\bin\Debug\BehaviorTreeEditor.pdb
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.MainForm.resources
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.Properties.Resources.resources
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.csproj.GenerateResource.cache
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.exe
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.pdb
+C:\Users\Administrator\Desktop\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.ContentUserControl.resources
