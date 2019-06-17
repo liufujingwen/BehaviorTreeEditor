@@ -123,6 +123,7 @@
     <Content Include="Resources\import.bmp" />
     <Content Include="Resources\layout.bmp" />
     <Content Include="Resources\left.bmp" />
+    <None Include="Resources\LeftArrow.png" />
     <Content Include="Resources\little.bmp" />
     <Content Include="Resources\magnifier.bmp" />
     <Content Include="Resources\matrix.bmp" />
@@ -145,6 +146,7 @@
     <Content Include="Resources\refresh.bmp" />
     <Content Include="Resources\resolved .png" />
     <Content Include="Resources\right.bmp" />
+    <None Include="Resources\RightArrow.png" />
     <Content Include="Resources\rotate.bmp" />
     <Content Include="Resources\run.bmp" />
     <Content Include="Resources\save.bmp" />

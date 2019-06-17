@@ -144,38 +144,42 @@ namespace BehaviorTreeEditor.UIControls
         //
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (m_Node1.IsContains(e.Location))
+            Point point = TranformPoint(e.Location);
+
+            if (m_Node1.IsContains(point))
             {
                 SelectedNode = m_Node1;
             }
-            else if (m_Node2.IsContains(e.Location))
+            else if (m_Node2.IsContains(point))
             {
                 SelectedNode = m_Node2;
             }
+
+            Console.WriteLine(point);
         }
 
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            //Console.WriteLine("鼠标移动：" + e);
-            //if (m_Node != null)
-            //{
-            //    m_Node.Drag(e.Location);
-            //}
-            //Matrix matrix = m_Graphics.Transform;
-            //Point[] points = new Point[3];
-            //var a = matrix* e.Location;
+
+            Point point = TranformPoint(e.Location);
+
             if (e.Button == MouseButtons.Left)
             {
-                Point point = e.Location;
                 //point.X = (int)(point.X * m_ZoomScale);
                 //point.Y = (int)(point.Y * m_ZoomScale);
-
                 if (SelectedNode != null)
                 {
                     SelectedNode.Drag(point);
                 }
             }
-            
+
+        }
+
+        private Point TranformPoint(Point point)
+        {
+            point.X = (int)(point.X / m_ZoomScale);
+            point.Y = (int)(point.Y / m_ZoomScale);
+            return point;
         }
 
         private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
