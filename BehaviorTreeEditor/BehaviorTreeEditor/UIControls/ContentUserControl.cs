@@ -48,8 +48,8 @@ namespace BehaviorTreeEditor.UIControls
             this.MouseWheel += ContentUserControl_MouseWheel;
 
             m_Graphics = this.CreateGraphics();
-            m_PenNormal = new Pen(Color.Black, 1f);
-            m_PenBold = new Pen(Color.Black, 2);
+            m_PenNormal = new Pen(Color.Gray, 1f);
+            m_PenBold = new Pen(Color.Gray, 2f);
             timer1.Start();
         }
 
@@ -115,7 +115,7 @@ namespace BehaviorTreeEditor.UIControls
 
         public void DrawIcon()
         {
-            BezierLink.Draw(m_Graphics, EditorUtility.LineNormalPen, m_Node1, m_Node2, Color.Green, 1);
+            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2);
             m_Node1.Draw(m_PenNormal, m_Graphics);
             m_Node2.Draw(m_PenNormal, m_Graphics);
 

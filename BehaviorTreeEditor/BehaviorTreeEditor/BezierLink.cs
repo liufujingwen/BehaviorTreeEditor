@@ -9,8 +9,22 @@ namespace BehaviorTreeEditor
 {
     public static class BezierLink
     {
-        public static void Draw(Graphics graphics, Pen pen, BaseNodeDesigner fromNode, BaseNodeDesigner toNode, Color linkColor, float linkWidth)
+        private static Point[] ArrowPoint = new Point[3];
+        private static Pen ms_LinePen = null;
+        private static Brush ms_ArrowBrush = null;
+
+        public static void Draw(Graphics graphics, BaseNodeDesigner fromNode, BaseNodeDesigner toNode, Color linkColor, float linkWidth)
         {
+            if (ms_LinePen == null)
+            {
+                ms_LinePen = new Pen(linkColor, linkWidth);
+            }
+
+            if (ms_ArrowBrush == null)
+            {
+                ms_ArrowBrush = new SolidBrush(linkColor);
+            }
+
             Rectangle fromTitleRect = fromNode.TitleRect;
             Rectangle toTitleRect = toNode.TitleRect;
 
@@ -54,7 +68,7 @@ namespace BehaviorTreeEditor
 
             ////求出两点距离
             double distance = Math.Sqrt(Math.Abs(toPoint.X - fromPoint.X) * Math.Abs(toPoint.X - fromPoint.X) + Math.Abs(toPoint.Y - fromPoint.Y) * Math.Abs(toPoint.Y - fromPoint.Y));
-            int num = (int)Math.Min(distance * 0.5f, 80);
+            int num = (int)Math.Min(distance * 0.5f, 40);
 
             Point fromTangent = fromPoint;
             fromTangent.X = fromTangent.X + (int)(fromTangentDir * num);
@@ -64,19 +78,14 @@ namespace BehaviorTreeEditor
             Point toTangent = toPoint;
             toTangent.X = toTangent.X + (int)(toTangentDir * num);
 
-            graphics.DrawBezier(pen, fromPoint, fromTangent, toTangent, toPoint);
-
-
-            if (toTangentDir > 0)
-            {
-                graphics.DrawImage(EditorUtility.LeftArrowImage, new Point(tempPoint.X, toPoint.Y - EditorUtility.LeftArrowImage.Height / 2 - 2));
-            }
-            else
-            {
-                graphics.DrawImage(EditorUtility.RightArrowImage, new Point(tempPoint.X - EditorUtility.RightArrowImage.Width, toPoint.Y - EditorUtility.RightArrowImage.Height / 2 - 2));
-            }
+            graphics.DrawBezier(ms_LinePen, fromPoint, fromTangent, toTangent, toPoint);
 
             //画箭头
+            ArrowPoint[0] = tempPoint;
+            ArrowPoint[1] = new Point(tempPoint.X + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.Y + 5);
+            ArrowPoint[2] = new Point(tempPoint.X + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.Y - 5);
+            graphics.FillPolygon(ms_ArrowBrush, ArrowPoint);
+
         }
     }
 }
