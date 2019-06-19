@@ -14,7 +14,7 @@ namespace BehaviorTreeEditor.UIControls
 {
     public partial class ContentUserControl : UserControl
     {
-        private const float MaxViewSize = 50000f;
+        private const int MaxViewSize = 50000;
         private const int GridMinorSize = 12;
         private const int GridMajorSize = 120;
         private Graphics m_Graphics = null;
@@ -41,6 +41,7 @@ namespace BehaviorTreeEditor.UIControls
         //记录上一次鼠标位置
         private Vector2 m_MousePoint;
 
+        private bool m_PanNode;
 
         public ContentUserControl()
         {
@@ -100,7 +101,7 @@ namespace BehaviorTreeEditor.UIControls
             Rect scaledViewSize = new Rect((int)m_ScaledViewSize.x, (int)m_ScaledViewSize.y, (int)m_ScaledViewSize.width, (int)m_ScaledViewSize.height);
 
             m_BufferedGraphicsContext = BufferedGraphicsManager.Current;
-            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, scaledViewSize);
+            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, m_ViewSize);
             m_Graphics = m_BufferedGraphics.Graphics;
             m_Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
@@ -114,7 +115,7 @@ namespace BehaviorTreeEditor.UIControls
 
             m_BufferedGraphics.Render();
 
-            UpdateScrollPosition(m_ScrollPosition);
+            AutoPanNodes(3.5f);
         }
 
         protected void UpdateScrollPosition(Vector2 position)
@@ -125,6 +126,7 @@ namespace BehaviorTreeEditor.UIControls
 
         private void End(object sender, PaintEventArgs e)
         {
+
         }
 
         /// <summary>
@@ -229,51 +231,44 @@ namespace BehaviorTreeEditor.UIControls
             SelectedNode.AddPoint(delta);
         }
 
-        private bool AutoPanNodes(float speed)
+        private void AutoPanNodes(float speed)
         {
+            if (SelectedNode == null)
+                return;
+
+            if (MouseButtons != MouseButtons.Left)
+                return;
+
+            m_PanNode = false;
             Vector2 delta = Vector2.zero;
             var a = MousePosition;
             Console.WriteLine(m_MousePoint);
-            if (m_MousePoint.x > m_ScaledViewSize.width - 100)
-            {
-                delta.x += speed;
-            }
-
-            if ((m_MousePoint.x < m_ScaledViewSize.x + 100) && m_ScrollPosition.x > 0f)
+            if (m_MousePoint.x > m_ScaledViewSize.width - 50)
             {
                 delta.x -= speed;
             }
 
-            if (m_MousePoint.y > m_ScaledViewSize.height - 50f)
+            if ((m_MousePoint.x < m_ScaledViewSize.x + 50) && m_ScrollPosition.x > 0f)
             {
-                delta.y += speed;
+                delta.x += speed;
             }
 
-            if ((m_MousePoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
+            if (m_MousePoint.y > m_ScaledViewSize.height - 50f)
             {
                 delta.y -= speed;
             }
 
-            if (delta != Vector2.zero)
+            if ((m_MousePoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
             {
-                if (SelectedNode != null)
-                {
-                    SelectedNode.AddPoint(delta);
-                    return true;
-                }
-
-                //UpdateScrollPosition(m_ScrollPosition + delta);
-
-                //for (int i = 0; i < selection.Count; i++)
-                //{
-                //    BaseNodeDesigner node = selection[i];
-                //    node.position.position += delta;
-                //}
-                //UpdateScrollPosition(scrollPosition + delta);
-                //Repaint();
+                delta.y += speed;
             }
 
-            return false;
+            if (delta != Vector2.zero)
+            {
+                m_PanNode = true;
+                m_Node2.AddPoint(delta);
+                UpdateScrollPosition(m_ScrollPosition + delta);
+            }
         }
 
         private Vector2 TranformPoint(Vector2 point)
