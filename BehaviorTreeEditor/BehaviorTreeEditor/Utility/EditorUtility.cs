@@ -27,6 +27,5 @@ namespace BehaviorTreeEditor
         public static Pen LineNormalPen = new Pen(Color.Green, 2);//节点连线
         public static int ArrowWidth = 17;//箭头宽度像素
         public static int ArrowHeight = 10;//箭头高度度像素
-
     }
 }

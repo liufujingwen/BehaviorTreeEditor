@@ -14,6 +14,7 @@ namespace BehaviorTreeEditor.UIControls
 {
     public partial class ContentUserControl : UserControl
     {
+        private const float MaxViewSize = 50000f;
         private const int GridMinorSize = 12;
         private const int GridMajorSize = 120;
         private Graphics m_Graphics = null;
@@ -22,15 +23,16 @@ namespace BehaviorTreeEditor.UIControls
         private Pen m_PenNormal = null;
         private Pen m_PenBold = null;
         private Point m_Offset = new Point(0, 0);
-        private Rectangle m_Rect;
+        private Rect m_ViewSize;//原来视窗大小，没有经过缩放的大小
+        private Rect m_ScaledViewSize; //缩放后的视窗大小
 
         BaseNodeDesigner m_Node1;
         BaseNodeDesigner m_Node2;
 
-        private float m_ZoomScale = 1;
+        private float m_ZoomScale = 1.0f;
 
         private BaseNodeDesigner SelectedNode = null;
-        private Rectangle Rect;
+        private Rect Rect;
 
         public ContentUserControl()
         {
@@ -61,11 +63,20 @@ namespace BehaviorTreeEditor.UIControls
 
         private void ContentUserControl_Paint(object sender, PaintEventArgs e)
         {
+            Begin(sender, e);
+            End(sender, e);
+        }
+
+        private void Begin(object sender, PaintEventArgs e)
+        {
+            //获取视窗大小
+            m_ViewSize = new Rect(e.ClipRectangle);
+            float scale = 1.0f / m_ZoomScale;
+            m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
+            Rect scaledViewSize = new Rect((int)m_ScaledViewSize.x, (int)m_ScaledViewSize.y, (int)m_ScaledViewSize.width, (int)m_ScaledViewSize.height);
+
             m_BufferedGraphicsContext = BufferedGraphicsManager.Current;
-            Rect = e.ClipRectangle;
-            Rect.Width = m_ZoomScale <= 1.0f ? (int)(Rect.Width / m_ZoomScale) : Rect.Width;
-            Rect.Height = m_ZoomScale <= 1.0f ? (int)(Rect.Height / m_ZoomScale) : Rect.Height;
-            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, Rect);
+            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, scaledViewSize);
             m_Graphics = m_BufferedGraphics.Graphics;
             m_Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
@@ -80,31 +91,37 @@ namespace BehaviorTreeEditor.UIControls
             m_BufferedGraphics.Render();
         }
 
+
+
+        private void End(object sender, PaintEventArgs e)
+        {
+        }
+
         /// <summary>
         /// 画背景格子
         /// </summary>
         private void DrawGrid()
         {
-            this.DrawGridLines(m_PenNormal, Rect, GridMinorSize, m_Offset);
-            this.DrawGridLines(m_PenBold, Rect, GridMajorSize, m_Offset);
+            this.DrawGridLines(m_PenNormal, m_ScaledViewSize, GridMinorSize, m_Offset);
+            this.DrawGridLines(m_PenBold, m_ScaledViewSize, GridMajorSize, m_Offset);
         }
 
         /// <summary>
         /// 画格子线
         /// </summary>
-        private void DrawGridLines(Pen pen, Rectangle rect, int gridSize, Point offset)
+        private void DrawGridLines(Pen pen, RectangleF rect, int gridSize, PointF offset)
         {
-            for (int i = rect.X + (offset.X < 0 ? gridSize : 0) + offset.X % gridSize; i < rect.X + rect.Width; i = i + gridSize)
+            for (float i = rect.X + (offset.X < 0 ? gridSize : 0) + offset.X % gridSize; i < rect.X + rect.Width; i = i + gridSize)
             {
-                this.DrawLine(pen, new Point(i, rect.Y), new Point(i, rect.Y + rect.Height));
+                this.DrawLine(pen, new PointF(i, rect.Y), new PointF(i, rect.Y + rect.Height));
             }
-            for (int j = rect.Y + (offset.Y < 0 ? gridSize : 0) + offset.Y % gridSize; j < rect.Y + rect.Height; j = j + gridSize)
+            for (float j = rect.Y + (offset.Y < 0 ? gridSize : 0) + offset.Y % gridSize; j < rect.Y + rect.Height; j = j + gridSize)
             {
-                this.DrawLine(pen, new Point(rect.X, j), new Point(rect.X + rect.Width, j));
+                this.DrawLine(pen, new PointF(rect.X, j), new PointF(rect.X + rect.Width, j));
             }
         }
 
-        private void DrawLine(Pen pen, Point p1, Point p2)
+        private void DrawLine(Pen pen, PointF p1, PointF p2)
         {
             m_Graphics.DrawLine(pen, p1, p2);
         }
@@ -130,15 +147,15 @@ namespace BehaviorTreeEditor.UIControls
         }
 
         /// <summary>
-        /// 鼠标滚轮时间
+        /// 鼠标滚轮
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">ScrollEventArgs</param>
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
+            Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             m_ZoomScale += e.Delta * 0.0003f;
-            m_ZoomScale = Math.Max(0.5f, m_ZoomScale);
-            m_ZoomScale = Math.Min(2.0f, m_ZoomScale);
+            m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
         }
 
         //
