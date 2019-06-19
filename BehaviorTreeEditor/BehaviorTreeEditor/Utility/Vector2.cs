@@ -312,5 +312,15 @@ namespace BehaviorTreeEditor
         {
             return new Vector2(point);
         }
+
+        public static implicit operator Point(Vector2 vector)
+        {
+            return new Point((int)vector.x, (int)vector.y);
+        }
+
+        public static explicit operator Vector2(Point point)
+        {
+            return new Vector2(point);
+        }
     }
 }

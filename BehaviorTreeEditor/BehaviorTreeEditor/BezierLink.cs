@@ -9,7 +9,7 @@ namespace BehaviorTreeEditor
 {
     public static class BezierLink
     {
-        private static Point[] ArrowPoint = new Point[3];
+        private static PointF[] ArrowPoint = new PointF[3];
         private static Pen ms_LinePen = null;
         private static Brush ms_ArrowBrush = null;
 
@@ -28,8 +28,8 @@ namespace BehaviorTreeEditor
             Rectangle fromTitleRect = fromNode.TitleRect;
             Rectangle toTitleRect = toNode.TitleRect;
 
-            Point fromPoint = default(Point);
-            Point toPoint = default(Point);
+            Vector2 fromPoint = Vector2.zero;
+            Vector2 toPoint = Vector2.zero;
 
             int fromTangentDir = 1;
             int toTangentDir = 1;
@@ -67,24 +67,24 @@ namespace BehaviorTreeEditor
             }
 
             ////求出两点距离
-            double distance = Math.Sqrt(Math.Abs(toPoint.X - fromPoint.X) * Math.Abs(toPoint.X - fromPoint.X) + Math.Abs(toPoint.Y - fromPoint.Y) * Math.Abs(toPoint.Y - fromPoint.Y));
+            double distance = (toPoint - fromPoint).magnitude;
             int num = (int)Math.Min(distance * 0.5f, 40);
 
-            Point fromTangent = fromPoint;
-            fromTangent.X = fromTangent.X + (int)(fromTangentDir * num);
+            Vector2 fromTangent = fromPoint;
+            fromTangent.x = fromTangent.x + (int)(fromTangentDir * num);
 
-            Point tempPoint = toPoint;
-            toPoint.X = toPoint.X + (int)(toTangentDir * EditorUtility.ArrowWidth);
-            Point toTangent = toPoint;
-            toTangent.X = toTangent.X + (int)(toTangentDir * num);
+            Vector2 tempPoint = toPoint;
+            toPoint.x = toPoint.x + (int)(toTangentDir * EditorUtility.ArrowWidth);
+            Vector2 toTangent = toPoint;
+            toTangent.x = toTangent.x + (int)(toTangentDir * num);
 
             graphics.DrawBezier(ms_LinePen, fromPoint, fromTangent, toTangent, toPoint);
 
             //画箭头
             ArrowPoint[0] = tempPoint;
-            ArrowPoint[1] = new Point(tempPoint.X + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.Y + 5);
-            ArrowPoint[2] = new Point(tempPoint.X + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.Y - 5);
-            graphics.FillPolygon(ms_ArrowBrush, ArrowPoint);
+            ArrowPoint[1] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y + 5);
+            ArrowPoint[2] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y - 5);
+            graphics.FillPolygon(ms_ArrowBrush,(PointF[]) ArrowPoint);
 
         }
     }

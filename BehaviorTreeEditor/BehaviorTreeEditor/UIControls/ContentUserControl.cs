@@ -22,9 +22,10 @@ namespace BehaviorTreeEditor.UIControls
         private BufferedGraphics m_BufferedGraphics = null;
         private Pen m_PenNormal = null;
         private Pen m_PenBold = null;
-        private Point m_Offset = new Point(0, 0);
+        private Vector2 m_Offset = Vector2.zero;
         private Rect m_ViewSize;//原来视窗大小，没有经过缩放的大小
         private Rect m_ScaledViewSize; //缩放后的视窗大小
+        private Vector2 m_ScrollPosition;
 
         BaseNodeDesigner m_Node1;
         BaseNodeDesigner m_Node2;
@@ -32,13 +33,28 @@ namespace BehaviorTreeEditor.UIControls
         private float m_ZoomScale = 1.0f;
 
         private BaseNodeDesigner SelectedNode = null;
-        private Rect Rect;
+
+        private float m_Deltaltime;
+        private DateTime m_DrawTime;
+        private int m_Fps = 0;
+
+        //记录上一次鼠标位置
+        private Vector2 m_MousePoint;
+
 
         public ContentUserControl()
         {
             InitializeComponent();
-            m_Node1 = new BaseNodeDesigner("并行节点", new Rectangle(100, 100, 150, 50));
-            m_Node2 = new BaseNodeDesigner("顺序节点", new Rectangle(400, 100, 150, 50));
+            m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100, 100, 150, 50));
+            m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400, 100, 150, 50));
+        }
+
+        public static Vector2 Center
+        {
+            get
+            {
+                return new Vector2(MaxViewSize * 0.5f, MaxViewSize * 0.5f);
+            }
         }
 
         private void ContentUserControl_Load(object sender, EventArgs e)
@@ -49,6 +65,9 @@ namespace BehaviorTreeEditor.UIControls
 
             this.MouseWheel += ContentUserControl_MouseWheel;
 
+            UpdateScrollPosition(Center);
+
+            m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
             m_PenNormal = new Pen(Color.Gray, 1f);
             m_PenBold = new Pen(Color.Gray, 2f);
@@ -69,9 +88,14 @@ namespace BehaviorTreeEditor.UIControls
 
         private void Begin(object sender, PaintEventArgs e)
         {
+            //计算帧时间、fps
+            m_Deltaltime = (float)(DateTime.Now - m_DrawTime).TotalSeconds;
+            m_Fps = (int)(1 / m_Deltaltime);
+            m_DrawTime = DateTime.Now;
+
             //获取视窗大小
             m_ViewSize = new Rect(e.ClipRectangle);
-            float scale = 1.0f / m_ZoomScale;
+            float scale = m_ZoomScale < 1.0f ? 1.0f / m_ZoomScale : m_ZoomScale;
             m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
             Rect scaledViewSize = new Rect((int)m_ScaledViewSize.x, (int)m_ScaledViewSize.y, (int)m_ScaledViewSize.width, (int)m_ScaledViewSize.height);
 
@@ -89,9 +113,15 @@ namespace BehaviorTreeEditor.UIControls
             DrawIcon();
 
             m_BufferedGraphics.Render();
+
+            UpdateScrollPosition(m_ScrollPosition);
         }
 
-
+        protected void UpdateScrollPosition(Vector2 position)
+        {
+            m_Offset = m_Offset + (m_ScrollPosition - position);
+            m_ScrollPosition = position;
+        }
 
         private void End(object sender, PaintEventArgs e)
         {
@@ -109,19 +139,19 @@ namespace BehaviorTreeEditor.UIControls
         /// <summary>
         /// 画格子线
         /// </summary>
-        private void DrawGridLines(Pen pen, RectangleF rect, int gridSize, PointF offset)
+        private void DrawGridLines(Pen pen, Rect rect, int gridSize, Vector2 offset)
         {
-            for (float i = rect.X + (offset.X < 0 ? gridSize : 0) + offset.X % gridSize; i < rect.X + rect.Width; i = i + gridSize)
+            for (float i = rect.x + (offset.x < 0 ? gridSize : 0) + offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
             {
-                this.DrawLine(pen, new PointF(i, rect.Y), new PointF(i, rect.Y + rect.Height));
+                this.DrawLine(pen, new Vector2(i, rect.y), new Vector2(i, rect.y + rect.height));
             }
-            for (float j = rect.Y + (offset.Y < 0 ? gridSize : 0) + offset.Y % gridSize; j < rect.Y + rect.Height; j = j + gridSize)
+            for (float j = rect.y + (offset.y < 0 ? gridSize : 0) + offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
             {
-                this.DrawLine(pen, new PointF(rect.X, j), new PointF(rect.X + rect.Width, j));
+                this.DrawLine(pen, new Vector2(rect.x, j), new Vector2(rect.x + rect.width, j));
             }
         }
 
-        private void DrawLine(Pen pen, PointF p1, PointF p2)
+        private void DrawLine(Pen pen, Vector2 p1, Vector2 p2)
         {
             m_Graphics.DrawLine(pen, p1, p2);
         }
@@ -156,52 +186,106 @@ namespace BehaviorTreeEditor.UIControls
             Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
+            //UpdateScrollPosition(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
+            UpdateScrollPosition((m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
         }
 
         //
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            Point point = TranformPoint(e.Location);
-
-            if (m_Node1.IsContains(point))
+            if (m_Node1.IsContains(m_MousePoint))
             {
                 SelectedNode = m_Node1;
             }
-            else if (m_Node2.IsContains(point))
+            else if (m_Node2.IsContains(m_MousePoint))
             {
                 SelectedNode = m_Node2;
             }
-
-            Console.WriteLine(point);
         }
 
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-
-            Point point = TranformPoint(e.Location);
+            Vector2 currentMousePoint = TranformPoint((Vector2)e.Location);
+            Vector2 mouseOffset = currentMousePoint - m_MousePoint;
+            m_MousePoint = currentMousePoint;
 
             if (e.Button == MouseButtons.Left)
             {
-                //point.X = (int)(point.X * m_ZoomScale);
-                //point.Y = (int)(point.Y * m_ZoomScale);
                 if (SelectedNode != null)
                 {
-                    SelectedNode.Drag(point);
+                    DragNodes(mouseOffset);
                 }
             }
-
         }
 
-        private Point TranformPoint(Point point)
+        /// <summary>
+        /// 拖拽节点
+        /// </summary>
+        /// <param name="delta">偏移量</param>
+        private void DragNodes(Vector2 delta)
         {
-            point.X = (int)(point.X / m_ZoomScale);
-            point.Y = (int)(point.Y / m_ZoomScale);
-            return point;
+            if (SelectedNode == null)
+                return;
+            SelectedNode.AddPoint(delta);
+        }
+
+        private bool AutoPanNodes(float speed)
+        {
+            Vector2 delta = Vector2.zero;
+            var a = MousePosition;
+            Console.WriteLine(m_MousePoint);
+            if (m_MousePoint.x > m_ScaledViewSize.width - 100)
+            {
+                delta.x += speed;
+            }
+
+            if ((m_MousePoint.x < m_ScaledViewSize.x + 100) && m_ScrollPosition.x > 0f)
+            {
+                delta.x -= speed;
+            }
+
+            if (m_MousePoint.y > m_ScaledViewSize.height - 50f)
+            {
+                delta.y += speed;
+            }
+
+            if ((m_MousePoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
+            {
+                delta.y -= speed;
+            }
+
+            if (delta != Vector2.zero)
+            {
+                if (SelectedNode != null)
+                {
+                    SelectedNode.AddPoint(delta);
+                    return true;
+                }
+
+                //UpdateScrollPosition(m_ScrollPosition + delta);
+
+                //for (int i = 0; i < selection.Count; i++)
+                //{
+                //    BaseNodeDesigner node = selection[i];
+                //    node.position.position += delta;
+                //}
+                //UpdateScrollPosition(scrollPosition + delta);
+                //Repaint();
+            }
+
+            return false;
+        }
+
+        private Vector2 TranformPoint(Vector2 point)
+        {
+            return point / m_ZoomScale;
         }
 
         private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
         {
             SelectedNode = null;
         }
+
+
     }
 }
