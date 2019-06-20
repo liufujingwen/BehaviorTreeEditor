@@ -13,7 +13,7 @@ namespace BehaviorTreeEditor
         private static Pen ms_LinePen = null;
         private static Brush ms_ArrowBrush = null;
 
-        public static void Draw(Graphics graphics, BaseNodeDesigner fromNode, BaseNodeDesigner toNode, Color linkColor, float linkWidth)
+        public static void Draw(Graphics graphics, BaseNodeDesigner fromNode, BaseNodeDesigner toNode, Color linkColor, float linkWidth, Vector2 offset)
         {
             if (ms_LinePen == null)
             {
@@ -25,8 +25,8 @@ namespace BehaviorTreeEditor
                 ms_ArrowBrush = new SolidBrush(linkColor);
             }
 
-            Rectangle fromTitleRect = fromNode.TitleRect;
-            Rectangle toTitleRect = toNode.TitleRect;
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
+            Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
 
             Vector2 fromPoint = Vector2.zero;
             Vector2 toPoint = Vector2.zero;
@@ -35,33 +35,33 @@ namespace BehaviorTreeEditor
             int toTangentDir = 1;
 
             //结束点x在开始点x右边
-            if (toTitleRect.X > fromTitleRect.X + toTitleRect.Width)
+            if (toTitleRect.x > fromTitleRect.x + toTitleRect.width)
             {
-                fromPoint = fromNode.RightLinkPoint;
-                toPoint = toNode.LeftLinkPoint;
+                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
+                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
                 fromTangentDir = 1;
                 toTangentDir = -1;
             }
             //结束点x在起始点x + width范围
-            else if (toTitleRect.X >= fromTitleRect.X && fromTitleRect.X <= (fromTitleRect.X + fromTitleRect.Width))
+            else if (toTitleRect.x >= fromTitleRect.x && fromTitleRect.x <= (fromTitleRect.x + fromTitleRect.width))
             {
-                fromPoint = fromNode.RightLinkPoint;
-                toPoint = toNode.RightLinkPoint;
+                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
+                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
                 fromTangentDir = 1;
                 toTangentDir = 1;
             }
-            else if ((toTitleRect.X + toTitleRect.Width) >= fromTitleRect.X)
+            else if ((toTitleRect.x + toTitleRect.width) >= fromTitleRect.x)
             {
-                fromPoint = fromNode.LeftLinkPoint;
-                toPoint = toNode.LeftLinkPoint;
+                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
+                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
                 fromTangentDir = -1;
                 toTangentDir = -1;
             }
             //结束点x在开始点x左边
-            else if ((toTitleRect.X + toTitleRect.Width) < fromTitleRect.X)
+            else if ((toTitleRect.x + toTitleRect.width) < fromTitleRect.x)
             {
-                fromPoint = fromNode.LeftLinkPoint;
-                toPoint = toNode.RightLinkPoint;
+                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
+                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
                 fromTangentDir = -1;
                 toTangentDir = 1;
             }
@@ -84,7 +84,7 @@ namespace BehaviorTreeEditor
             ArrowPoint[0] = tempPoint;
             ArrowPoint[1] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y + 5);
             ArrowPoint[2] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y - 5);
-            graphics.FillPolygon(ms_ArrowBrush,(PointF[]) ArrowPoint);
+            graphics.FillPolygon(ms_ArrowBrush, (PointF[])ArrowPoint);
 
         }
     }

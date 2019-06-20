@@ -308,6 +308,20 @@ namespace BehaviorTreeEditor
             return string.Format("(x:{0}, y:{1}, width:{2}, height:{3})", (object)this.x.ToString(format), (object)this.y.ToString(format), (object)this.width.ToString(format), (object)this.height.ToString(format));
         }
 
+        public static Rect operator +(Rect a, Vector2 b)
+        {
+            a.x += b.x;
+            a.y += b.y;
+            return a;
+        }
+
+        public static Rect operator -(Rect a, Vector2 b)
+        {
+            a.x -= b.x;
+            a.y -= b.y;
+            return a;
+        }
+
         public static implicit operator RectangleF(Rect rect)
         {
             return new RectangleF(rect.x, rect.y, rect.width, rect.height);

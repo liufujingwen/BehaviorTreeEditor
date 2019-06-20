@@ -46,8 +46,7 @@ namespace BehaviorTreeEditor.UIControls
         public ContentUserControl()
         {
             InitializeComponent();
-            m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100, 100, 150, 50));
-            m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400, 100, 150, 50));
+
         }
 
         public static Vector2 Center
@@ -66,7 +65,10 @@ namespace BehaviorTreeEditor.UIControls
 
             this.MouseWheel += ContentUserControl_MouseWheel;
 
-            UpdateScrollPosition(Center);
+            UpdateScrollPosition(new Vector2(0, 0));
+
+            m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
+            m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
 
             m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
@@ -87,6 +89,16 @@ namespace BehaviorTreeEditor.UIControls
             End(sender, e);
         }
 
+        //刷新Rect
+        private void UpdateRect()
+        {
+            //获取视窗大小
+            var a = new Vector2(this.Width, this.Height);
+            m_ViewSize = new Rect(0, 0, this.Width, this.Height);
+            float scale = m_ZoomScale < 1.0f ? 1.0f / m_ZoomScale : m_ZoomScale;
+            m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
+        }
+
         private void Begin(object sender, PaintEventArgs e)
         {
             //计算帧时间、fps
@@ -94,14 +106,11 @@ namespace BehaviorTreeEditor.UIControls
             m_Fps = (int)(1 / m_Deltaltime);
             m_DrawTime = DateTime.Now;
 
-            //获取视窗大小
-            m_ViewSize = new Rect(e.ClipRectangle);
-            float scale = m_ZoomScale < 1.0f ? 1.0f / m_ZoomScale : m_ZoomScale;
-            m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
-            Rect scaledViewSize = new Rect((int)m_ScaledViewSize.x, (int)m_ScaledViewSize.y, (int)m_ScaledViewSize.width, (int)m_ScaledViewSize.height);
+            //刷新Rect
+            UpdateRect();
 
             m_BufferedGraphicsContext = BufferedGraphicsManager.Current;
-            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, m_ViewSize);
+            m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, e.ClipRectangle);
             m_Graphics = m_BufferedGraphics.Graphics;
             m_Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
@@ -164,10 +173,9 @@ namespace BehaviorTreeEditor.UIControls
 
         public void DrawIcon()
         {
-            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2);
-            m_Node1.Draw(m_PenNormal, m_Graphics);
-            m_Node2.Draw(m_PenNormal, m_Graphics);
-
+            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
+            EditorUtility.Draw(m_Node1, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
+            EditorUtility.Draw(m_Node2, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
         }
 
         private void ContentUserControl_MouseClick(object sender, MouseEventArgs e)
@@ -185,16 +193,18 @@ namespace BehaviorTreeEditor.UIControls
         /// <param name="e">ScrollEventArgs</param>
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
-            Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
-            //UpdateScrollPosition(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
-            UpdateScrollPosition((m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
+            UpdateRect();
+            Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
+            UpdateScrollPosition(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
         }
 
         //
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
+            Vector2 localMousePoint = LocalToWorldPoint(m_MousePoint);
+
             if (m_Node1.IsContains(m_MousePoint))
             {
                 SelectedNode = m_Node1;
@@ -207,7 +217,7 @@ namespace BehaviorTreeEditor.UIControls
 
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            Vector2 currentMousePoint = TranformPoint((Vector2)e.Location);
+            Vector2 currentMousePoint = (Vector2)e.Location / m_ZoomScale;
             Vector2 mouseOffset = currentMousePoint - m_MousePoint;
             m_MousePoint = currentMousePoint;
 
@@ -242,7 +252,7 @@ namespace BehaviorTreeEditor.UIControls
             m_PanNode = false;
             Vector2 delta = Vector2.zero;
             var a = MousePosition;
-            Console.WriteLine(m_MousePoint);
+
             if (m_MousePoint.x > m_ScaledViewSize.width - 50)
             {
                 delta.x -= speed;
@@ -271,9 +281,14 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
-        private Vector2 TranformPoint(Vector2 point)
+        public Vector2 LocalToWorldPoint(Vector2 point)
         {
-            return point / m_ZoomScale;
+            return point / m_ZoomScale - m_Offset;
+        }
+
+        public Vector2 WorldToLocalPoint(Vector2 point)
+        {
+            return (point + m_Offset) * m_ZoomScale;
         }
 
         private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
