@@ -95,7 +95,7 @@ namespace BehaviorTreeEditor.UIControls
             //获取视窗大小
             var a = new Vector2(this.Width, this.Height);
             m_ViewSize = new Rect(0, 0, this.Width, this.Height);
-            float scale = m_ZoomScale < 1.0f ? 1.0f / m_ZoomScale : m_ZoomScale;
+            float scale = 1f / m_ZoomScale;
             m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
         }
 
@@ -125,6 +125,8 @@ namespace BehaviorTreeEditor.UIControls
             m_BufferedGraphics.Render();
 
             AutoPanNodes(3.5f);
+
+            UpdateScrollPosition(m_ScrollPosition);
         }
 
         protected void UpdateScrollPosition(Vector2 position)
@@ -203,13 +205,13 @@ namespace BehaviorTreeEditor.UIControls
         //
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            Vector2 localMousePoint = LocalToWorldPoint(m_MousePoint);
+            Vector2 worldMousePoint = LocalToWorldPoint(m_MousePoint);
 
-            if (m_Node1.IsContains(m_MousePoint))
+            if (m_Node1.IsContains(worldMousePoint))
             {
                 SelectedNode = m_Node1;
             }
-            else if (m_Node2.IsContains(m_MousePoint))
+            else if (m_Node2.IsContains(worldMousePoint))
             {
                 SelectedNode = m_Node2;
             }
@@ -217,7 +219,7 @@ namespace BehaviorTreeEditor.UIControls
 
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            Vector2 currentMousePoint = (Vector2)e.Location / m_ZoomScale;
+            Vector2 currentMousePoint = (Vector2)e.Location;
             Vector2 mouseOffset = currentMousePoint - m_MousePoint;
             m_MousePoint = currentMousePoint;
 
@@ -225,7 +227,8 @@ namespace BehaviorTreeEditor.UIControls
             {
                 if (SelectedNode != null)
                 {
-                    DragNodes(mouseOffset);
+                    Console.WriteLine(LocalToWorldPoint(mouseOffset) + "    " + mouseOffset);
+                    DragNodes(LocalToWorldPoint(mouseOffset));
                 }
             }
         }
@@ -253,17 +256,17 @@ namespace BehaviorTreeEditor.UIControls
             Vector2 delta = Vector2.zero;
             var a = MousePosition;
 
-            if (m_MousePoint.x > m_ScaledViewSize.width - 50)
+            if (m_MousePoint.x > m_ScaledViewSize.width + m_ScrollPosition.x - 50)
             {
                 delta.x -= speed;
             }
 
-            if ((m_MousePoint.x < m_ScaledViewSize.x + 50) && m_ScrollPosition.x > 0f)
+            if ((m_MousePoint.x < m_ScrollPosition.x + 50) && m_ScrollPosition.x > 0f)
             {
                 delta.x += speed;
             }
 
-            if (m_MousePoint.y > m_ScaledViewSize.height - 50f)
+            if (m_MousePoint.y > m_ScaledViewSize.height + m_ScrollPosition.y - 50f)
             {
                 delta.y -= speed;
             }
