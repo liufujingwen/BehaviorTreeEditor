@@ -34,25 +34,25 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 30;
+            this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ContentUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ContentUserControl";
-            this.Size = new System.Drawing.Size(880, 456);
+            this.Size = new System.Drawing.Size(660, 365);
             this.Load += new System.EventHandler(this.ContentUserControl_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ContentUserControl_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseUp);
             this.ResumeLayout(false);
+
         }
 
         #endregion

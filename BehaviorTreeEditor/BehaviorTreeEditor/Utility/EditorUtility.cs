@@ -71,6 +71,10 @@ namespace BehaviorTreeEditor
             graphics.FillRectangle(EditorUtility.ContentBrush, contentRect);
             //画边框
             graphics.DrawRectangle(pen, node.Rect - offset);
+
+            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.TitleFormat);
+            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.TitleFormat);
+
         }
     }
 }

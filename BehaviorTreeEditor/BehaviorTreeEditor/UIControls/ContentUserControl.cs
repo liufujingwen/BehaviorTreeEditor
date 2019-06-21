@@ -14,7 +14,6 @@ namespace BehaviorTreeEditor.UIControls
 {
     public partial class ContentUserControl : UserControl
     {
-        private const int MaxViewSize = 50000;
         private const int GridMinorSize = 12;
         private const int GridMajorSize = 120;
         private Graphics m_Graphics = null;
@@ -31,7 +30,7 @@ namespace BehaviorTreeEditor.UIControls
         BaseNodeDesigner m_Node2;
 
         //当前缩放
-        private float m_ZoomScale = 1.0f;
+        private float m_ZoomScale = 1f;
 
         private BaseNodeDesigner SelectedNode = null;
 
@@ -83,7 +82,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             get
             {
-                return new Vector2(MaxViewSize * 0.5f, MaxViewSize * 0.5f);
+                return new Vector2(5000, 5000);
             }
         }
 
@@ -95,8 +94,7 @@ namespace BehaviorTreeEditor.UIControls
 
             this.MouseWheel += ContentUserControl_MouseWheel;
 
-            UpdateScrollPosition(new Vector2(0, 0));
-            //UpdateScrollPosition(Center);
+            UpdateOffset(Center);
 
             m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
             m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
@@ -160,10 +158,9 @@ namespace BehaviorTreeEditor.UIControls
 
             //AutoPanNodes(3.5f);
 
-            UpdateScrollPosition(m_ScrollPosition);
         }
 
-        protected void UpdateScrollPosition(Vector2 position)
+        protected void UpdateOffset(Vector2 position)
         {
             m_Offset = m_Offset + (m_ScrollPosition - position);
             m_ScrollPosition = position;
@@ -207,7 +204,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             DrawGrid();
             DrawIcon();
-            AutoPanNodes(3.5f);
+            AutoPanNodes(3.0f);
         }
 
         private void DrawIcon()
@@ -215,14 +212,6 @@ namespace BehaviorTreeEditor.UIControls
             BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
             EditorUtility.Draw(m_Node1, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
             EditorUtility.Draw(m_Node2, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
-        }
-
-        private void DoNodeEvents()
-        {
-            if (MouseButtons != MouseButtons.Left)
-                return;
-
-            DragNodes();
         }
 
         /// <summary>
@@ -236,7 +225,7 @@ namespace BehaviorTreeEditor.UIControls
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
             UpdateRect();
             Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
-            UpdateScrollPosition(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
+            UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
         }
 
         //
@@ -274,11 +263,9 @@ namespace BehaviorTreeEditor.UIControls
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             Vector2 currentMousePoint = (Vector2)e.Location;
-            m_Deltal = currentMousePoint - m_MouseLocalPoint;
+            m_Deltal = (currentMousePoint - m_MouseLocalPoint) / m_ZoomScale;
             m_MouseLocalPoint = currentMousePoint;
             m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
-
-            Console.WriteLine("当前Local坐标：" + m_MouseLocalPoint + " 当前世界坐标:" + m_MouseWorldPoint);
 
             if (MouseButtons == MouseButtons.Left && m_CurrentEvent == Event.MouseDown && m_SelectionNodes.Count > 0)
             {
@@ -290,8 +277,8 @@ namespace BehaviorTreeEditor.UIControls
                         continue;
                     node.Rect += m_Deltal;
                 }
+                this.Refresh();
             }
-            m_DragingNode = false;
         }
 
         private void DragNodes()
@@ -350,38 +337,38 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             Vector2 delta = Vector2.zero;
-            var a = MousePosition;
 
-            if (m_MouseLocalPoint.x > m_ScaledViewSize.width + m_ScrollPosition.x - 50)
-            {
-                delta.x -= speed;
-            }
-
-            if ((m_MouseLocalPoint.x < m_ScrollPosition.x + 50) && m_ScrollPosition.x > 0f)
+            if (m_MouseLocalPoint.x > m_ViewSize.width - 50)
             {
                 delta.x += speed;
             }
 
-            if (m_MouseLocalPoint.y > m_ScaledViewSize.height + m_ScrollPosition.y - 50f)
+            if ((m_MouseLocalPoint.x < m_ViewSize.x + 50))
             {
-                delta.y -= speed;
+                delta.x -= speed;
             }
 
-            if ((m_MouseLocalPoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
+            if (m_MouseLocalPoint.y > m_ViewSize.height - 50f)
             {
                 delta.y += speed;
             }
 
+            if ((m_MouseLocalPoint.y < m_ViewSize.y + 50f))
+            {
+                delta.y -= speed;
+            }
+
             if (delta != Vector2.zero)
             {
+                delta /= m_ZoomScale;
                 for (int i = 0; i < m_SelectionNodes.Count; i++)
                 {
                     BaseNodeDesigner node = m_SelectionNodes[i];
                     if (node == null)
                         continue;
-                    node.Rect -= delta;
+                    node.Rect += delta;
                 }
-                UpdateScrollPosition(m_ScrollPosition + delta);
+                UpdateOffset(m_ScrollPosition - delta);
             }
         }
 
@@ -394,7 +381,5 @@ namespace BehaviorTreeEditor.UIControls
         {
             return (point - m_Offset) * m_ZoomScale;
         }
-
-
     }
 }
