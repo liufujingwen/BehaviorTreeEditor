@@ -88,13 +88,16 @@ namespace BehaviorTreeEditor.UIControls
 
             this.MouseWheel += ContentUserControl_MouseWheel;
 
-            UpdateOffset(Center);
+            //UpdateOffset(Center);
 
             m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
             m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
 
             m_Nodes.Add(m_Node1);
             m_Nodes.Add(m_Node2);
+
+            UpdateRect();
+            CenterView();
 
             m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
@@ -192,6 +195,15 @@ namespace BehaviorTreeEditor.UIControls
                 EditorUtility.Draw(node, m_Graphics, m_Offset, true);
             }
 
+            //绘制框选矩形
+            if (m_SelectionMode == SelectionMode.Rect)
+            {
+                Vector2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
+                Vector2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
+                Rect rect = FromToRect(tmpStartLocalPoint, tmpEndLocalPoint);
+                m_Graphics.DrawRectangle(EditorUtility.SelectionModePen, rect);
+            }
+
             AutoPanNodes(3.0f);
         }
 
@@ -239,11 +251,15 @@ namespace BehaviorTreeEditor.UIControls
                         m_SelectionNodes.Clear();
                         m_SelectionNodes.Add(node);
                     }
+
+                    return;
                 }
                 else
                 {
                     m_SelectionNodes.Clear();
                 }
+
+                m_SelectionMode = SelectionMode.Pick;
             }
 
         }
@@ -253,6 +269,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             //标记鼠标弹起
             m_MouseDown = false;
+            m_SelectionMode = SelectionMode.None;
         }
 
         //鼠标移动事件
@@ -263,15 +280,28 @@ namespace BehaviorTreeEditor.UIControls
             m_MouseLocalPoint = currentMousePoint;
             m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
             //按下鼠标左键且
-            if (MouseButtons == MouseButtons.Left && m_MouseDown && m_SelectionNodes.Count > 0)
+            if (MouseButtons == MouseButtons.Left && m_MouseDown)
             {
-                for (int i = 0; i < m_SelectionNodes.Count; i++)
+                //框选节点
+                if (m_SelectionMode == SelectionMode.Pick || m_SelectionMode == SelectionMode.Rect)
                 {
-                    BaseNodeDesigner node = m_SelectionNodes[i];
-                    if (node == null)
-                        continue;
-                    node.Rect += m_Deltal;
+                    m_SelectionMode = SelectionMode.Rect;
+                    SelectNodesInRect(FromToRect(m_SelectionStartPosition, m_MouseWorldPoint));
                 }
+                else
+                {
+                    if (m_SelectionNodes.Count > 0)
+                    {
+                        for (int i = 0; i < m_SelectionNodes.Count; i++)
+                        {
+                            BaseNodeDesigner node = m_SelectionNodes[i];
+                            if (node == null)
+                                continue;
+                            node.Rect += m_Deltal;
+                        }
+                    }
+                }
+
                 this.Refresh();
             }
         }
@@ -347,7 +377,10 @@ namespace BehaviorTreeEditor.UIControls
 
         private void AutoPanNodes(float speed)
         {
-            if (MouseButtons != MouseButtons.Left)
+            if (!m_MouseDown)
+                return;
+
+            if (m_SelectionMode != SelectionMode.None)
                 return;
 
             if (m_SelectionNodes.Count == 0)
@@ -387,6 +420,71 @@ namespace BehaviorTreeEditor.UIControls
                 }
                 UpdateOffset(m_ScrollPosition + delta);
             }
+        }
+
+
+        /// <summary>
+        /// 获取矩形范围
+        /// </summary>
+        /// <param name="start">起始点</param>
+        /// <param name="end">结束点</param>
+        /// <returns></returns>
+        private Rect FromToRect(Vector2 start, Vector2 end)
+        {
+            Rect rect = new Rect(start.x, start.y, end.x - start.x, end.y - start.y);
+            if (rect.width < 0f)
+            {
+                rect.x = rect.x + rect.width;
+                rect.width = -rect.width;
+            }
+            if (rect.height < 0f)
+            {
+                rect.y = rect.y + rect.height;
+                rect.height = -rect.height;
+            }
+            return rect;
+        }
+
+        /// <summary>
+        /// 选择在指定范围内的节点
+        /// </summary>
+        /// <param name="r"></param>
+        private void SelectNodesInRect(Rect r)
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                BaseNodeDesigner node = m_Nodes[i];
+                Rect rect = node.Rect;
+                if (rect.xMax < r.x || rect.x > r.xMax || rect.yMax < r.y || rect.y > r.yMax)
+                {
+                    m_SelectionNodes.Remove(node);
+                    continue;
+                }
+                if (!m_SelectionNodes.Contains(node))
+                {
+                    m_SelectionNodes.Add(node);
+                }
+            }
+        }
+
+        //视图居中
+        public void CenterView()
+        {
+            Vector2 center = Vector2.zero;
+            if (m_Nodes.Count > 0)
+            {
+                for (int i = 0; i < m_Nodes.Count; i++)
+                {
+                    BaseNodeDesigner node = m_Nodes[i];
+                    center += new Vector2(node.Rect.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
+                }
+                center /= m_Nodes.Count;
+            }
+            else
+            {
+                center = Center;
+            }
+            UpdateOffset(center);
         }
 
         public Vector2 LocalToWorldPoint(Vector2 point)

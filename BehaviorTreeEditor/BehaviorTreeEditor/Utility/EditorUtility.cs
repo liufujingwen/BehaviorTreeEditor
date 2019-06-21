@@ -16,6 +16,8 @@ namespace BehaviorTreeEditor
             ContentBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
             TitleFormat.LineAlignment = StringAlignment.Center;
             TitleFormat.Alignment = StringAlignment.Center;
+            //框选范围用虚线
+            SelectionModePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
 
         //普通格子线 画笔
@@ -30,6 +32,8 @@ namespace BehaviorTreeEditor
         public static Pen NodeNormalPen = new Pen(Color.White, 2);
         //节点选中 画笔
         public static Pen NodeSelectedPen = new Pen(Color.Orange, 4);
+        //框选范围 画笔
+        public static Pen SelectionModePen = new Pen(Color.Red, 2);
 
         //节点字体
         public static Font NodeFont = new Font("宋体", 15, FontStyle.Regular);
