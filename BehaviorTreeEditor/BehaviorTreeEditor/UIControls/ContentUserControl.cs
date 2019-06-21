@@ -30,6 +30,7 @@ namespace BehaviorTreeEditor.UIControls
         BaseNodeDesigner m_Node1;
         BaseNodeDesigner m_Node2;
 
+        //当前缩放
         private float m_ZoomScale = 1.0f;
 
         private BaseNodeDesigner SelectedNode = null;
@@ -38,10 +39,39 @@ namespace BehaviorTreeEditor.UIControls
         private DateTime m_DrawTime;
         private int m_Fps = 0;
 
-        //记录上一次鼠标位置
-        private Vector2 m_MousePoint;
+        //记录上一次鼠标位置(坐标系为Local)
+        private Vector2 m_MouseLocalPoint;
+        //记录上一次鼠标位置(坐标系为World)
+        private Vector2 m_MouseWorldPoint;
+        //当前事件
+        private Event m_CurrentEvent;
+        //是否正在拖拽节点
+        private bool m_DragingNode = false;
+        //鼠标移动偏移量
+        private Vector2 m_Deltal;
 
-        private bool m_PanNode;
+        private SelectionMode m_SelectionMode;
+        private Vector2 m_SelectionStartPosition;
+
+        private List<BaseNodeDesigner> m_Nodes = new List<BaseNodeDesigner>();
+        private List<BaseNodeDesigner> m_SelectionNodes = new List<BaseNodeDesigner>();
+
+
+        public enum Event
+        {
+            None,
+            MouseDown,
+            MouseUp,
+            MouseDrag,
+            PanNode,
+        }
+
+        public enum SelectionMode
+        {
+            None,
+            Pick,
+            Rect,
+        }
 
         public ContentUserControl()
         {
@@ -66,9 +96,13 @@ namespace BehaviorTreeEditor.UIControls
             this.MouseWheel += ContentUserControl_MouseWheel;
 
             UpdateScrollPosition(new Vector2(0, 0));
+            //UpdateScrollPosition(Center);
 
             m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
             m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
+
+            m_Nodes.Add(m_Node1);
+            m_Nodes.Add(m_Node2);
 
             m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
@@ -99,6 +133,7 @@ namespace BehaviorTreeEditor.UIControls
             m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
         }
 
+
         private void Begin(object sender, PaintEventArgs e)
         {
             //计算帧时间、fps
@@ -119,12 +154,11 @@ namespace BehaviorTreeEditor.UIControls
             matrix.Scale(m_ZoomScale, m_ZoomScale);
             m_Graphics.Transform = matrix;
 
-            DrawGrid();
-            DrawIcon();
+            DoNodes();
 
             m_BufferedGraphics.Render();
 
-            AutoPanNodes(3.5f);
+            //AutoPanNodes(3.5f);
 
             UpdateScrollPosition(m_ScrollPosition);
         }
@@ -169,23 +203,26 @@ namespace BehaviorTreeEditor.UIControls
             m_Graphics.DrawLine(pen, p1, p2);
         }
 
-        private void ContentUserControl_Resize(object sender, EventArgs e)
+        private void DoNodes()
         {
+            DrawGrid();
+            DrawIcon();
+            AutoPanNodes(3.5f);
         }
 
-        public void DrawIcon()
+        private void DrawIcon()
         {
             BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
             EditorUtility.Draw(m_Node1, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
             EditorUtility.Draw(m_Node2, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
         }
 
-        private void ContentUserControl_MouseClick(object sender, MouseEventArgs e)
+        private void DoNodeEvents()
         {
-            //if (m_Node.Contains(e.Location))
-            //{
-            //    MessageBox.Show(e.ToString());
-            //}
+            if (MouseButtons != MouseButtons.Left)
+                return;
+
+            DragNodes();
         }
 
         /// <summary>
@@ -205,98 +242,157 @@ namespace BehaviorTreeEditor.UIControls
         //
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            Vector2 worldMousePoint = LocalToWorldPoint(m_MousePoint);
+            m_CurrentEvent = Event.MouseDown;
 
-            if (m_Node1.IsContains(worldMousePoint))
+            //处理选择节点
+            if (e.Button == MouseButtons.Left)
             {
-                SelectedNode = m_Node1;
+                m_SelectionStartPosition = m_MouseWorldPoint;
+                BaseNodeDesigner node = MouseOverNode();
+                //Transition transition = MouseOverTransition();
+
+                if (node != null)
+                {
+                    if (!m_SelectionNodes.Contains(node))
+                    {
+                        m_SelectionNodes.Clear();
+                        m_SelectionNodes.Add(node);
+                    }
+                }
             }
-            else if (m_Node2.IsContains(worldMousePoint))
-            {
-                SelectedNode = m_Node2;
-            }
+
+        }
+
+        private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            m_CurrentEvent = Event.MouseUp;
+            m_SelectionNodes.Clear();
+            m_DragingNode = false;
+
         }
 
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             Vector2 currentMousePoint = (Vector2)e.Location;
-            Vector2 mouseOffset = currentMousePoint - m_MousePoint;
-            m_MousePoint = currentMousePoint;
+            m_Deltal = currentMousePoint - m_MouseLocalPoint;
+            m_MouseLocalPoint = currentMousePoint;
+            m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
 
-            if (e.Button == MouseButtons.Left)
+            Console.WriteLine("当前Local坐标：" + m_MouseLocalPoint + " 当前世界坐标:" + m_MouseWorldPoint);
+
+            if (MouseButtons == MouseButtons.Left && m_CurrentEvent == Event.MouseDown && m_SelectionNodes.Count > 0)
             {
-                if (SelectedNode != null)
+                m_DragingNode = true;
+                for (int i = 0; i < m_SelectionNodes.Count; i++)
                 {
-                    Console.WriteLine(LocalToWorldPoint(mouseOffset) + "    " + mouseOffset);
-                    DragNodes(LocalToWorldPoint(mouseOffset));
+                    BaseNodeDesigner node = m_SelectionNodes[i];
+                    if (node == null)
+                        continue;
+                    node.Rect += m_Deltal;
                 }
             }
+            m_DragingNode = false;
         }
 
-        /// <summary>
-        /// 拖拽节点
-        /// </summary>
-        /// <param name="delta">偏移量</param>
-        private void DragNodes(Vector2 delta)
+        private void DragNodes()
         {
-            if (SelectedNode == null)
-                return;
-            SelectedNode.AddPoint(delta);
+
+
         }
+
+        private BaseNodeDesigner MouseOverNode()
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                BaseNodeDesigner node = m_Nodes[i];
+                if (node.Rect.Contains(m_MouseWorldPoint))
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        //private Transition MouseOverTransition()
+        //{
+        //    for (int i = 0; i < mCurrentSkillData.nodeList.Count; i++)
+        //    {
+        //        BaseNodeDesigner node = (BaseNodeDesigner)mCurrentSkillData.nodeList[i];
+        //        if (node is BaseCompositeNodeDesigner)
+        //        {
+        //            BaseCompositeNodeDesigner compositeNodeDesigner = node as BaseCompositeNodeDesigner;
+        //            for (int j = 0; j < compositeNodeDesigner.transitionList.Count; j++)
+        //            {
+        //                Transition transition = compositeNodeDesigner.transitionList[j];
+        //                if (transition != null)
+        //                {
+        //                    Vector3 start = transition.fromNode.position.center;
+        //                    Vector3 end = transition.toNode.position.center;
+        //                    Vector3 cross = Vector3.Cross((start - end).normalized, Vector3.forward);
+        //                    if (HandleUtility.DistanceToLine(start, end) < 3f)
+        //                    {
+        //                        return transition;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return null;
+        //}
 
         private void AutoPanNodes(float speed)
         {
-            if (SelectedNode == null)
-                return;
-
             if (MouseButtons != MouseButtons.Left)
                 return;
 
-            m_PanNode = false;
+            if (m_SelectionNodes.Count == 0)
+                return;
+
             Vector2 delta = Vector2.zero;
             var a = MousePosition;
 
-            if (m_MousePoint.x > m_ScaledViewSize.width + m_ScrollPosition.x - 50)
+            if (m_MouseLocalPoint.x > m_ScaledViewSize.width + m_ScrollPosition.x - 50)
             {
                 delta.x -= speed;
             }
 
-            if ((m_MousePoint.x < m_ScrollPosition.x + 50) && m_ScrollPosition.x > 0f)
+            if ((m_MouseLocalPoint.x < m_ScrollPosition.x + 50) && m_ScrollPosition.x > 0f)
             {
                 delta.x += speed;
             }
 
-            if (m_MousePoint.y > m_ScaledViewSize.height + m_ScrollPosition.y - 50f)
+            if (m_MouseLocalPoint.y > m_ScaledViewSize.height + m_ScrollPosition.y - 50f)
             {
                 delta.y -= speed;
             }
 
-            if ((m_MousePoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
+            if ((m_MouseLocalPoint.y < m_ScaledViewSize.y + 50f) && m_ScrollPosition.y > 0f)
             {
                 delta.y += speed;
             }
 
             if (delta != Vector2.zero)
             {
-                m_PanNode = true;
-                m_Node2.AddPoint(delta);
+                for (int i = 0; i < m_SelectionNodes.Count; i++)
+                {
+                    BaseNodeDesigner node = m_SelectionNodes[i];
+                    if (node == null)
+                        continue;
+                    node.Rect -= delta;
+                }
                 UpdateScrollPosition(m_ScrollPosition + delta);
             }
         }
 
         public Vector2 LocalToWorldPoint(Vector2 point)
         {
-            return point / m_ZoomScale - m_Offset;
+            return point / m_ZoomScale + m_Offset;
         }
 
         public Vector2 WorldToLocalPoint(Vector2 point)
         {
-            return (point + m_Offset) * m_ZoomScale;
-        }
-
-        private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            SelectedNode = null;
+            return (point - m_Offset) * m_ZoomScale;
         }
 
 

@@ -13,18 +13,6 @@ namespace BehaviorTreeEditor
         public string Name = string.Empty;//名字
         public Rect Rect;
 
-        //public Rect Rect
-        //{
-        //    get
-        //    {
-        //        return new Rect(TitleRect.x, TitleRect.y, ContentRect.width, TitleRect.height + ContentRect.height);
-        //    }
-        //}
-
-        
-
-       
-
         public BaseNodeDesigner(string name, Rect rect)
         {
             Name = name;
@@ -32,9 +20,6 @@ namespace BehaviorTreeEditor
             rect.height = Math.Max(rect.height, EditorUtility.TitleNodeHeight * 2);
 
         }
-
-
-       
 
         /// <summary>
         /// 指定点是否在控件范围内
@@ -46,10 +31,5 @@ namespace BehaviorTreeEditor
             return Rect.Contains(point);
         }
 
-        public void AddPoint(Vector2 delta)
-        {
-            Rect.x += delta.x;
-            Rect.y += delta.y;
-        }
     }
 }
