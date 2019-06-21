@@ -32,8 +32,10 @@ namespace BehaviorTreeEditor
         public static Pen NodeNormalPen = new Pen(Color.White, 2);
         //节点选中 画笔
         public static Pen NodeSelectedPen = new Pen(Color.Orange, 4);
+        //框选笔刷
+        public static Brush SelectionModeBrush = new SolidBrush(Color.FromArgb(50, Color.Green));
         //框选范围 画笔
-        public static Pen SelectionModePen = new Pen(Color.Red, 2);
+        public static Pen SelectionModePen = new Pen(Color.Green, 1.5f);
 
         //节点字体
         public static Font NodeFont = new Font("宋体", 15, FontStyle.Regular);

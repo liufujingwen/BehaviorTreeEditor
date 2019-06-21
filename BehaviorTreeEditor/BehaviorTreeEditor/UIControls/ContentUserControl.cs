@@ -46,12 +46,16 @@ namespace BehaviorTreeEditor.UIControls
         private Vector2 m_MouseLocalPoint;
         //记录上一次鼠标位置(坐标系为World)
         private Vector2 m_MouseWorldPoint;
-        //鼠标是否按下
-        private bool m_MouseDown = false;
-        //是否按下左Ctrl键
-        private bool m_LControlKeyDown = false;
         //鼠标移动偏移量
         private Vector2 m_Deltal;
+        //鼠标是否按下
+        private bool m_MouseDown = false;
+        //是否按下鼠标滚轮
+        private bool m_MouseMiddle = false;
+
+        //是否按下左Ctrl键
+        private bool m_LControlKeyDown = false;
+
 
         private SelectionMode m_SelectionMode;
         private Vector2 m_SelectionStartPosition;
@@ -195,15 +199,7 @@ namespace BehaviorTreeEditor.UIControls
                 EditorUtility.Draw(node, m_Graphics, m_Offset, true);
             }
 
-            //绘制框选矩形
-            if (m_SelectionMode == SelectionMode.Rect)
-            {
-                Vector2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
-                Vector2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
-                Rect rect = FromToRect(tmpStartLocalPoint, tmpEndLocalPoint);
-                m_Graphics.DrawRectangle(EditorUtility.SelectionModePen, rect);
-            }
-
+            DrawSelectionRect();
             AutoPanNodes(3.0f);
         }
 
@@ -222,12 +218,12 @@ namespace BehaviorTreeEditor.UIControls
         //鼠标按下事件
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            //标记鼠标按下
-            m_MouseDown = true;
-
             //处理选择节点
             if (e.Button == MouseButtons.Left)
             {
+                //标记鼠标按下
+                m_MouseDown = true;
+                
                 m_SelectionStartPosition = m_MouseWorldPoint;
                 BaseNodeDesigner node = MouseOverNode();
                 //Transition transition = MouseOverTransition();
@@ -261,7 +257,10 @@ namespace BehaviorTreeEditor.UIControls
 
                 m_SelectionMode = SelectionMode.Pick;
             }
-
+            else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+            {
+                m_MouseMiddle = true;
+            }
         }
 
         //鼠标弹起事件
@@ -269,6 +268,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             //标记鼠标弹起
             m_MouseDown = false;
+            m_MouseMiddle = false;
             m_SelectionMode = SelectionMode.None;
         }
 
@@ -290,6 +290,7 @@ namespace BehaviorTreeEditor.UIControls
                 }
                 else
                 {
+                    //拖拽选中节点
                     if (m_SelectionNodes.Count > 0)
                     {
                         for (int i = 0; i < m_SelectionNodes.Count; i++)
@@ -302,6 +303,12 @@ namespace BehaviorTreeEditor.UIControls
                     }
                 }
 
+                this.Refresh();
+            }
+            //按下鼠标滚轮移动View
+            else if (m_MouseMiddle)
+            {
+                DragView();
                 this.Refresh();
             }
         }
@@ -374,6 +381,21 @@ namespace BehaviorTreeEditor.UIControls
 
         //    return null;
         //}
+
+
+        //绘制框选矩形
+        private void DrawSelectionRect()
+        {
+            if (m_SelectionMode != SelectionMode.Rect)
+                return;
+
+            Vector2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
+            Vector2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
+            Rect rect = FromToRect(tmpStartLocalPoint, tmpEndLocalPoint);
+            m_Graphics.DrawRectangle(EditorUtility.SelectionModePen, rect);
+            m_Graphics.FillRectangle(EditorUtility.SelectionModeBrush, rect);
+
+        }
 
         private void AutoPanNodes(float speed)
         {
@@ -497,6 +519,13 @@ namespace BehaviorTreeEditor.UIControls
             return (point - m_Offset) * m_ZoomScale;
         }
 
+        private void DragView()
+        {
+            if (!m_MouseMiddle)
+                return;
 
+            UpdateOffset(m_ScrollPosition - m_Deltal);
+
+        }
     }
 }
