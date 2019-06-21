@@ -223,7 +223,7 @@ namespace BehaviorTreeEditor.UIControls
             {
                 //标记鼠标按下
                 m_MouseDown = true;
-                
+
                 m_SelectionStartPosition = m_MouseWorldPoint;
                 BaseNodeDesigner node = MouseOverNode();
                 //Transition transition = MouseOverTransition();
