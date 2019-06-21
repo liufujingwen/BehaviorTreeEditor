@@ -162,7 +162,7 @@ namespace BehaviorTreeEditor.UIControls
 
         protected void UpdateOffset(Vector2 position)
         {
-            m_Offset = m_Offset + (m_ScrollPosition - position);
+            m_Offset = m_Offset - (m_ScrollPosition - position);
             m_ScrollPosition = position;
         }
 
@@ -368,7 +368,7 @@ namespace BehaviorTreeEditor.UIControls
                         continue;
                     node.Rect += delta;
                 }
-                UpdateOffset(m_ScrollPosition - delta);
+                UpdateOffset(m_ScrollPosition + delta);
             }
         }
 
