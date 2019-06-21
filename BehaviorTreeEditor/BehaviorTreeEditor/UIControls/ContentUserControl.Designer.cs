@@ -48,6 +48,8 @@
             this.Size = new System.Drawing.Size(660, 365);
             this.Load += new System.EventHandler(this.ContentUserControl_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ContentUserControl_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ContentUserControl_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ContentUserControl_KeyUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseUp);

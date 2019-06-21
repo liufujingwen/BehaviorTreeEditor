@@ -19,11 +19,14 @@ namespace BehaviorTreeEditor.UIControls
         private Graphics m_Graphics = null;
         private BufferedGraphicsContext m_BufferedGraphicsContext = null;
         private BufferedGraphics m_BufferedGraphics = null;
-        private Pen m_PenNormal = null;
-        private Pen m_PenBold = null;
+
+        //偏移
         private Vector2 m_Offset = Vector2.zero;
-        private Rect m_ViewSize;//原来视窗大小，没有经过缩放的大小
-        private Rect m_ScaledViewSize; //缩放后的视窗大小
+        //原来视窗大小，没有经过缩放的大小
+        private Rect m_ViewSize;
+        //缩放后的视窗大小
+        private Rect m_ScaledViewSize;
+        //滑动起始位置
         private Vector2 m_ScrollPosition;
 
         BaseNodeDesigner m_Node1;
@@ -32,20 +35,21 @@ namespace BehaviorTreeEditor.UIControls
         //当前缩放
         private float m_ZoomScale = 1f;
 
-        private BaseNodeDesigner SelectedNode = null;
-
+        //帧时间
         private float m_Deltaltime;
+        //当前渲染时间
         private DateTime m_DrawTime;
+        //PFS
         private int m_Fps = 0;
 
         //记录上一次鼠标位置(坐标系为Local)
         private Vector2 m_MouseLocalPoint;
         //记录上一次鼠标位置(坐标系为World)
         private Vector2 m_MouseWorldPoint;
-        //当前事件
-        private Event m_CurrentEvent;
-        //是否正在拖拽节点
-        private bool m_DragingNode = false;
+        //鼠标是否按下
+        private bool m_MouseDown = false;
+        //是否按下左Ctrl键
+        private bool m_LControlKeyDown = false;
         //鼠标移动偏移量
         private Vector2 m_Deltal;
 
@@ -54,16 +58,6 @@ namespace BehaviorTreeEditor.UIControls
 
         private List<BaseNodeDesigner> m_Nodes = new List<BaseNodeDesigner>();
         private List<BaseNodeDesigner> m_SelectionNodes = new List<BaseNodeDesigner>();
-
-
-        public enum Event
-        {
-            None,
-            MouseDown,
-            MouseUp,
-            MouseDrag,
-            PanNode,
-        }
 
         public enum SelectionMode
         {
@@ -104,8 +98,6 @@ namespace BehaviorTreeEditor.UIControls
 
             m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
-            m_PenNormal = new Pen(Color.Gray, 1f);
-            m_PenBold = new Pen(Color.Gray, 2f);
             timer1.Start();
         }
 
@@ -147,23 +139,16 @@ namespace BehaviorTreeEditor.UIControls
             m_Graphics = m_BufferedGraphics.Graphics;
             m_Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
-
             Matrix matrix = m_Graphics.Transform;
             matrix.Scale(m_ZoomScale, m_ZoomScale);
             m_Graphics.Transform = matrix;
 
+            //画格子线
+            DrawGrid();
+            //绘制节点
             DoNodes();
-
+            //Render
             m_BufferedGraphics.Render();
-
-            //AutoPanNodes(3.5f);
-
-        }
-
-        protected void UpdateOffset(Vector2 position)
-        {
-            m_Offset = m_Offset - (m_ScrollPosition - position);
-            m_ScrollPosition = position;
         }
 
         private void End(object sender, PaintEventArgs e)
@@ -171,54 +156,48 @@ namespace BehaviorTreeEditor.UIControls
 
         }
 
+        //更新偏移坐标
+        protected void UpdateOffset(Vector2 position)
+        {
+            m_Offset = m_Offset - (m_ScrollPosition - position);
+            m_ScrollPosition = position;
+        }
+
         /// <summary>
         /// 画背景格子
         /// </summary>
         private void DrawGrid()
         {
-            this.DrawGridLines(m_PenNormal, m_ScaledViewSize, GridMinorSize, m_Offset);
-            this.DrawGridLines(m_PenBold, m_ScaledViewSize, GridMajorSize, m_Offset);
-        }
-
-        /// <summary>
-        /// 画格子线
-        /// </summary>
-        private void DrawGridLines(Pen pen, Rect rect, int gridSize, Vector2 offset)
-        {
-            for (float i = rect.x + (offset.x < 0 ? gridSize : 0) + offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
-            {
-                this.DrawLine(pen, new Vector2(i, rect.y), new Vector2(i, rect.y + rect.height));
-            }
-            for (float j = rect.y + (offset.y < 0 ? gridSize : 0) + offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
-            {
-                this.DrawLine(pen, new Vector2(rect.x, j), new Vector2(rect.x + rect.width, j));
-            }
-        }
-
-        private void DrawLine(Pen pen, Vector2 p1, Vector2 p2)
-        {
-            m_Graphics.DrawLine(pen, p1, p2);
+            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMinorSize, m_Offset, true);
+            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMajorSize, m_Offset, false);
         }
 
         private void DoNodes()
         {
-            DrawGrid();
-            DrawIcon();
+            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                BaseNodeDesigner node = m_Nodes[i];
+                if (node == null)
+                    continue;
+                EditorUtility.Draw(node, m_Graphics, m_Offset, false);
+            }
+
+            for (int i = 0; i < m_SelectionNodes.Count; i++)
+            {
+                BaseNodeDesigner node = m_SelectionNodes[i];
+                if (node == null)
+                    continue;
+                EditorUtility.Draw(node, m_Graphics, m_Offset, true);
+            }
+
             AutoPanNodes(3.0f);
         }
 
-        private void DrawIcon()
-        {
-            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
-            EditorUtility.Draw(m_Node1, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
-            EditorUtility.Draw(m_Node2, m_PenNormal, m_Graphics, m_Offset, m_ZoomScale);
-        }
+        #region Winform Event
 
-        /// <summary>
-        /// 鼠标滚轮
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">ScrollEventArgs</param>
+        // 鼠标滚轮事件
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
             m_ZoomScale += e.Delta * 0.0003f;
@@ -228,10 +207,11 @@ namespace BehaviorTreeEditor.UIControls
             UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
         }
 
-        //
+        //鼠标按下事件
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
-            m_CurrentEvent = Event.MouseDown;
+            //标记鼠标按下
+            m_MouseDown = true;
 
             //处理选择节点
             if (e.Button == MouseButtons.Left)
@@ -242,34 +222,49 @@ namespace BehaviorTreeEditor.UIControls
 
                 if (node != null)
                 {
-                    if (!m_SelectionNodes.Contains(node))
+                    if (m_LControlKeyDown)
+                    {
+                        //如果按住Control键就变成反选，并且可以多选
+                        if (!m_SelectionNodes.Contains(node))
+                        {
+                            m_SelectionNodes.Add(node);
+                        }
+                        else
+                        {
+                            m_SelectionNodes.Remove(node);
+                        }
+                    }
+                    else if (!m_SelectionNodes.Contains(node))
                     {
                         m_SelectionNodes.Clear();
                         m_SelectionNodes.Add(node);
                     }
                 }
+                else
+                {
+                    m_SelectionNodes.Clear();
+                }
             }
 
         }
 
+        //鼠标弹起事件
         private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
         {
-            m_CurrentEvent = Event.MouseUp;
-            m_SelectionNodes.Clear();
-            m_DragingNode = false;
-
+            //标记鼠标弹起
+            m_MouseDown = false;
         }
 
+        //鼠标移动事件
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             Vector2 currentMousePoint = (Vector2)e.Location;
             m_Deltal = (currentMousePoint - m_MouseLocalPoint) / m_ZoomScale;
             m_MouseLocalPoint = currentMousePoint;
             m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
-
-            if (MouseButtons == MouseButtons.Left && m_CurrentEvent == Event.MouseDown && m_SelectionNodes.Count > 0)
+            //按下鼠标左键且
+            if (MouseButtons == MouseButtons.Left && m_MouseDown && m_SelectionNodes.Count > 0)
             {
-                m_DragingNode = true;
                 for (int i = 0; i < m_SelectionNodes.Count; i++)
                 {
                     BaseNodeDesigner node = m_SelectionNodes[i];
@@ -281,12 +276,34 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
-        private void DragNodes()
+        //按键按下事件
+        private void ContentUserControl_KeyDown(object sender, KeyEventArgs e)
         {
-
-
+            Console.WriteLine("KeyDown：" + e.KeyCode);
+            switch (e.KeyCode)
+            {
+                case Keys.ControlKey:
+                    m_LControlKeyDown = true;
+                    break;
+            }
         }
 
+        //释放按键
+        private void ContentUserControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.ControlKey:
+                    m_LControlKeyDown = false;
+                    break;
+            }
+
+            Console.WriteLine("KeyUp：" + e.KeyCode);
+        }
+
+        #endregion
+
+        //当前鼠标悬停节点
         private BaseNodeDesigner MouseOverNode()
         {
             for (int i = 0; i < m_Nodes.Count; i++)
@@ -381,5 +398,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             return (point - m_Offset) * m_ZoomScale;
         }
+
+
     }
 }
