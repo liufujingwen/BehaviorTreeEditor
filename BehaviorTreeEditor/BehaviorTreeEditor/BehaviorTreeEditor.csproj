@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BezierLink.cs" />
+    <Compile Include="Data\NodeData.cs" />
     <Compile Include="EditorEx.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -54,6 +55,9 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\NodeType.cs" />
+    <Compile Include="NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="NodeDesigner\Transition.cs" />
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -61,7 +65,7 @@
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility\Mathf.cs" />
-    <Compile Include="NodeDesigner\BaseNodeDesigner.cs" />
+    <Compile Include="NodeDesigner\NodeDesigner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIControls\ContentUserControl.cs">
@@ -111,6 +115,7 @@
     <Content Include="Resources\add.bmp" />
     <Content Include="Resources\browser.bmp" />
     <Content Include="Resources\brush.bmp" />
+    <None Include="Resources\CenterIcon.png" />
     <Content Include="Resources\combine.bmp" />
     <Content Include="Resources\compile.bmp" />
     <Content Include="Resources\conflict.png" />
@@ -119,8 +124,10 @@
     <Content Include="Resources\cut.bmp" />
     <Content Include="Resources\data.bmp" />
     <Content Include="Resources\delete.bmp" />
+    <None Include="Resources\DeleteIcon.png" />
     <Content Include="Resources\double.bmp" />
     <Content Include="Resources\down.bmp" />
+    <None Include="Resources\DownIcon.png" />
     <Content Include="Resources\erase.bmp" />
     <Content Include="Resources\error.bmp" />
     <Content Include="Resources\export.bmp" />
@@ -171,9 +178,11 @@
     <Content Include="Resources\texture.bmp" />
     <Content Include="Resources\three.bmp" />
     <Content Include="Resources\toolbox.bmp" />
+    <None Include="Resources\TransitionIcon.png" />
     <Content Include="Resources\undo.bmp" />
     <Content Include="Resources\unity.png" />
     <Content Include="Resources\up.bmp" />
+    <None Include="Resources\UpIcon.png" />
     <Content Include="Resources\UV.bmp" />
     <Content Include="Resources\vector.bmp" />
     <Content Include="Resources\vertex.bmp" />

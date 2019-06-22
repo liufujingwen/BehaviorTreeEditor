@@ -36,8 +36,8 @@ namespace BehaviorTreeEditor.UIControls
         //滑动起始位置
         private Vector2 m_ScrollPosition;
 
-        BaseNodeDesigner m_Node1;
-        BaseNodeDesigner m_Node2;
+        NodeDesigner m_Node1;
+        NodeDesigner m_Node2;
 
         //当前缩放
         private float m_ZoomScale = 1f;
@@ -59,16 +59,15 @@ namespace BehaviorTreeEditor.UIControls
         private bool m_MouseDown = false;
         //是否按下鼠标滚轮
         private bool m_MouseMiddle = false;
-
         //是否按下左Ctrl键
         private bool m_LControlKeyDown = false;
 
-
         private SelectionMode m_SelectionMode;
         private Vector2 m_SelectionStartPosition;
+        private NodeDesigner m_FromNode;
 
-        private List<BaseNodeDesigner> m_Nodes = new List<BaseNodeDesigner>();
-        private List<BaseNodeDesigner> m_SelectionNodes = new List<BaseNodeDesigner>();
+        private AgentDesigner m_Agent = new AgentDesigner();
+        private List<NodeDesigner> m_SelectionNodes = new List<NodeDesigner>();
 
         public enum SelectionMode
         {
@@ -97,18 +96,11 @@ namespace BehaviorTreeEditor.UIControls
             m_ZoomScalerUserControl.SetVisible(false);
             this.Controls.Add(m_ZoomScalerUserControl);
 
-
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
 
             this.MouseWheel += ContentUserControl_MouseWheel;
-
-            m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
-            m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
-
-            m_Nodes.Add(m_Node1);
-            m_Nodes.Add(m_Node2);
 
             UpdateRect();
             CenterView();
@@ -140,6 +132,14 @@ namespace BehaviorTreeEditor.UIControls
             m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
         }
 
+        private void UpdateMousePoint(object sender, MouseEventArgs e)
+        {
+            Vector2 currentMousePoint = (Vector2)e.Location;
+            m_Deltal = (currentMousePoint - m_MouseLocalPoint) / m_ZoomScale;
+            m_MouseLocalPoint = currentMousePoint;
+            m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
+
+        }
 
         private void Begin(object sender, PaintEventArgs e)
         {
@@ -191,11 +191,13 @@ namespace BehaviorTreeEditor.UIControls
 
         private void DoNodes()
         {
-            BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
+            //BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
 
-            for (int i = 0; i < m_Nodes.Count; i++)
+            DoTransitions();
+
+            for (int i = 0; i < m_Agent.Nodes.Count; i++)
             {
-                BaseNodeDesigner node = m_Nodes[i];
+                NodeDesigner node = m_Agent.Nodes[i];
                 if (node == null)
                     continue;
                 EditorUtility.Draw(node, m_Graphics, m_Offset, false);
@@ -203,7 +205,7 @@ namespace BehaviorTreeEditor.UIControls
 
             for (int i = 0; i < m_SelectionNodes.Count; i++)
             {
-                BaseNodeDesigner node = m_SelectionNodes[i];
+                NodeDesigner node = m_SelectionNodes[i];
                 if (node == null)
                     continue;
                 EditorUtility.Draw(node, m_Graphics, m_Offset, true);
@@ -213,11 +215,109 @@ namespace BehaviorTreeEditor.UIControls
             AutoPanNodes(3.0f);
         }
 
+        //画节点连线
+        private void DoTransitions()
+        {
+            if (m_FromNode != null)
+            {
+                BezierLink.Draw(m_Graphics, m_FromNode, m_MouseLocalPoint, Color.Blue, 2, m_Offset);
+            }
+
+            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            {
+                NodeDesigner node_i = m_Agent.Nodes[i];
+                if (node_i == null)
+                    continue;
+
+                if (node_i.Transitions == null || node_i.Transitions.Count == 0)
+                    continue;
+
+                for (int ii = 0; ii < node_i.Transitions.Count; ii++)
+                {
+                    Transition node_ii = node_i.Transitions[ii];
+                    if (node_ii == null)
+                        continue;
+
+                    BezierLink.Draw(m_Graphics, node_ii.FromNode, node_ii.ToNode, Color.Blue, 2, m_Offset);
+                }
+            }
+        }
+
+        private void AddTransition(NodeDesigner fromNode, NodeDesigner toNode)
+        {
+            if (fromNode == null || toNode == null)
+                return;
+
+            //子节点不能指向父节点
+            if (fromNode.ParentNode == toNode)
+                return;
+
+            //节点只有拥有一个父节点
+            if (toNode.ParentNode != null)
+                return;
+
+            //if (fromNode is BaseActionNodeDesigner)
+            //{
+            //    ShowNotification(FsmContent.actionNodeAddTips);
+            //    return;
+            //}
+
+            //if (fromNode is BaseDecoratorNodeDesigner)
+            //{
+            //    BaseDecoratorNodeDesigner decoratorNodeDesigner = fromNode as BaseDecoratorNodeDesigner;
+            //    if (decoratorNodeDesigner.transitionList.Count == 1)
+            //    {
+            //        ShowNotification(FsmContent.decoratorNodeAddTips);
+            //        return;
+            //    }
+            //}
+
+            //if (fromNode is BaseCompositeNodeDesigner)
+            //{
+            //    BaseCompositeNodeDesigner compositeNodeDesigner = fromNode as BaseCompositeNodeDesigner;
+            //    //检测toNode节点是否已经添加了
+            //    for (int i = 0; i < compositeNodeDesigner.transitionList.Count; i++)
+            //    {
+            //        Transition transition = compositeNodeDesigner.transitionList[i];
+            //        if (transition != null)
+            //        {
+            //            if (transition.toNode == toNode)
+            //                return;
+            //        }
+            //    }
+
+            //    //子节点不能指向父节点
+            //    if (toNode is BaseCompositeNodeDesigner)
+            //    {
+            //        BaseCompositeNodeDesigner tempNode = toNode as BaseCompositeNodeDesigner;
+            //        if (tempNode.transitionList.Count > 0)
+            //        {
+            //            for (int i = 0; i < tempNode.transitionList.Count; i++)
+            //            {
+            //                Transition tansition = tempNode.transitionList[i];
+            //                if (tansition != null)
+            //                {
+            //                    if (tansition.toNode == fromNode)
+            //                        return;
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    compositeNodeDesigner.AddNode(toNode);
+            //}
+
+            fromNode.AddNode(toNode);
+        }
+
         #region Winform Event
 
         // 鼠标滚轮事件
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
+            if (nodeContextMenuStrip.Visible || viewContextMenuStrip.Visible)
+                return;
+
             m_ZoomScalerUserControl.SetVisible(true);
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
@@ -231,18 +331,35 @@ namespace BehaviorTreeEditor.UIControls
         //鼠标按下事件
         private void ContentUserControl_MouseDown(object sender, MouseEventArgs e)
         {
+            UpdateMousePoint(sender, e);
+
             //处理选择节点
             if (e.Button == MouseButtons.Left)
             {
                 //标记鼠标按下
                 m_MouseDown = true;
-
                 m_SelectionStartPosition = m_MouseWorldPoint;
-                BaseNodeDesigner node = MouseOverNode();
-                //Transition transition = MouseOverTransition();
+                NodeDesigner node = MouseOverNode();
+                Transition transition = MouseOverTransition();
+
+                //选中线，开始节点需要改为选中状态
+                if (transition != null && node == null)
+                {
+                    this.m_SelectionNodes.Clear();
+                    this.m_SelectionNodes.Add(transition.FromNode);
+                    //SelectTransition(transition);
+                    return;
+                }
 
                 if (node != null)
                 {
+                    if (m_FromNode != null)
+                    {
+                        AddTransition(m_FromNode, node);
+                        m_FromNode = null;
+                        return;
+                    }
+
                     if (m_LControlKeyDown)
                     {
                         //如果按住Control键就变成反选，并且可以多选
@@ -268,17 +385,46 @@ namespace BehaviorTreeEditor.UIControls
                     m_SelectionNodes.Clear();
                 }
 
+                m_FromNode = null;
                 m_SelectionMode = SelectionMode.Pick;
             }
+            //点击鼠标滚轮
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
                 m_MouseMiddle = true;
+            }
+            //点击鼠标右键
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (m_LControlKeyDown)
+                    return;
+
+                NodeDesigner node = MouseOverNode();
+                if (node != null)
+                {
+                    if (!m_SelectionNodes.Contains(node))
+                    {
+                        m_SelectionNodes.Clear();
+                        m_SelectionNodes.Add(node);
+                    }
+                }
+
+                if (m_SelectionNodes.Count > 0)
+                {
+                    ShowNodeContextMenu();
+                }
+                else
+                {
+                    ShowViewContextMenu();
+                }
             }
         }
 
         //鼠标弹起事件
         private void ContentUserControl_MouseUp(object sender, MouseEventArgs e)
         {
+            UpdateMousePoint(sender, e);
+
             //标记鼠标弹起
             m_MouseDown = false;
             m_MouseMiddle = false;
@@ -289,13 +435,17 @@ namespace BehaviorTreeEditor.UIControls
         //鼠标移动事件
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            Vector2 currentMousePoint = (Vector2)e.Location;
-            m_Deltal = (currentMousePoint - m_MouseLocalPoint) / m_ZoomScale;
-            m_MouseLocalPoint = currentMousePoint;
-            m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
-            //按下鼠标左键且
+            UpdateMousePoint(sender, e);
+
+            //按下鼠标左键且没有按Ctrl键
             if (MouseButtons == MouseButtons.Left && m_MouseDown)
             {
+                //按下Ctrl键不让拖拽
+                if (m_LControlKeyDown)
+                {
+                    return;
+                }
+
                 //框选节点
                 if (m_SelectionMode == SelectionMode.Pick || m_SelectionMode == SelectionMode.Rect)
                 {
@@ -309,7 +459,7 @@ namespace BehaviorTreeEditor.UIControls
                     {
                         for (int i = 0; i < m_SelectionNodes.Count; i++)
                         {
-                            BaseNodeDesigner node = m_SelectionNodes[i];
+                            NodeDesigner node = m_SelectionNodes[i];
                             if (node == null)
                                 continue;
                             node.Rect += m_Deltal;
@@ -359,19 +509,63 @@ namespace BehaviorTreeEditor.UIControls
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
         }
 
-        private void autoPanTimer_Tick(object sender, EventArgs e)
+        #endregion
+
+        #region Content Menu Event
+
+        //删除节点
+        private void 连线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoPanNodes(6.0f);
+            m_FromNode = m_SelectionNodes[0];
+        }
+
+        //删除节点
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectionNodes.Count == 0)
+                return;
+
+            for (int i = 0; i < m_SelectionNodes.Count; i++)
+            {
+                NodeDesigner node = m_SelectionNodes[i];
+                if (node == null)
+                    continue;
+                m_Agent.Remove(node);
+            }
+            m_SelectionNodes.Clear();
+        }
+
+        //添加节点
+        private void addNodeItem_Click(object sender, EventArgs e)
+        {
+            NodeDesigner node = new NodeDesigner();
+            node.ID = m_Agent.GenNodeID();
+            node.Name = "测试节点";
+            node.ClassType = "Sequence";
+            node.Rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+            m_Agent.AddNode(node);
+
+            m_SelectionNodes.Clear();
+            m_SelectionNodes.Add(node);
+        }
+
+        //居中
+        private void centerItem_Click(object sender, EventArgs e)
+        {
+            CenterView();
         }
 
         #endregion
 
         //当前鼠标悬停节点
-        private BaseNodeDesigner MouseOverNode()
+        private NodeDesigner MouseOverNode()
         {
-            for (int i = 0; i < m_Nodes.Count; i++)
+            if (m_Agent == null)
+                return null;
+
+            for (int i = 0; i < m_Agent.Nodes.Count; i++)
             {
-                BaseNodeDesigner node = m_Nodes[i];
+                NodeDesigner node = m_Agent.Nodes[i];
                 if (node.Rect.Contains(m_MouseWorldPoint))
                 {
                     return node;
@@ -380,33 +574,32 @@ namespace BehaviorTreeEditor.UIControls
             return null;
         }
 
-        //private Transition MouseOverTransition()
-        //{
-        //    for (int i = 0; i < mCurrentSkillData.nodeList.Count; i++)
-        //    {
-        //        BaseNodeDesigner node = (BaseNodeDesigner)mCurrentSkillData.nodeList[i];
-        //        if (node is BaseCompositeNodeDesigner)
-        //        {
-        //            BaseCompositeNodeDesigner compositeNodeDesigner = node as BaseCompositeNodeDesigner;
-        //            for (int j = 0; j < compositeNodeDesigner.transitionList.Count; j++)
-        //            {
-        //                Transition transition = compositeNodeDesigner.transitionList[j];
-        //                if (transition != null)
-        //                {
-        //                    Vector3 start = transition.fromNode.position.center;
-        //                    Vector3 end = transition.toNode.position.center;
-        //                    Vector3 cross = Vector3.Cross((start - end).normalized, Vector3.forward);
-        //                    if (HandleUtility.DistanceToLine(start, end) < 3f)
-        //                    {
-        //                        return transition;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
+        private Transition MouseOverTransition()
+        {
+            if (m_Agent == null)
+                return null;
 
-        //    return null;
-        //}
+            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            {
+                NodeDesigner node = (NodeDesigner)m_Agent.Nodes[i];
+                if (node.Transitions.Count > 0)
+                {
+                    for (int ii = 0; ii < node.Transitions.Count; ii++)
+                    {
+                        Transition transition = node.Transitions[ii];
+                        if (transition != null)
+                        {
+                            if (BezierLink.CheckPointAt(transition.FromNode, transition.ToNode, m_MouseLocalPoint, m_Offset))
+                            {
+                                return transition;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
 
 
         //绘制框选矩形
@@ -461,7 +654,7 @@ namespace BehaviorTreeEditor.UIControls
                 delta /= m_ZoomScale;
                 for (int i = 0; i < m_SelectionNodes.Count; i++)
                 {
-                    BaseNodeDesigner node = m_SelectionNodes[i];
+                    NodeDesigner node = m_SelectionNodes[i];
                     if (node == null)
                         continue;
                     node.Rect += delta;
@@ -498,9 +691,12 @@ namespace BehaviorTreeEditor.UIControls
         /// <param name="r"></param>
         private void SelectNodesInRect(Rect r)
         {
-            for (int i = 0; i < m_Nodes.Count; i++)
+            if (m_Agent == null)
+                return;
+
+            for (int i = 0; i < m_Agent.Nodes.Count; i++)
             {
-                BaseNodeDesigner node = m_Nodes[i];
+                NodeDesigner node = m_Agent.Nodes[i];
                 Rect rect = node.Rect;
                 if (rect.xMax < r.x || rect.x > r.xMax || rect.yMax < r.y || rect.y > r.yMax)
                 {
@@ -518,14 +714,14 @@ namespace BehaviorTreeEditor.UIControls
         public void CenterView()
         {
             Vector2 center = Vector2.zero;
-            if (m_Nodes.Count > 0)
+            if (m_Agent != null && m_Agent.Nodes.Count > 0)
             {
-                for (int i = 0; i < m_Nodes.Count; i++)
+                for (int i = 0; i < m_Agent.Nodes.Count; i++)
                 {
-                    BaseNodeDesigner node = m_Nodes[i];
+                    NodeDesigner node = m_Agent.Nodes[i];
                     center += new Vector2(node.Rect.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
                 }
-                center /= m_Nodes.Count;
+                center /= m_Agent.Nodes.Count;
             }
             else
             {
@@ -541,6 +737,34 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             UpdateOffset(m_ScrollPosition - m_Deltal);
+        }
+
+        /// 显示节点菜单上下文
+        private void ShowNodeContextMenu()
+        {
+            if (m_SelectionNodes.Count == 0)
+                return;
+
+            //隐藏上移、下移、连线
+            if (m_SelectionNodes.Count > 1)
+            {
+                nodeContextMenuStrip.Items[0].Visible = false;
+                nodeContextMenuStrip.Items[2].Visible = false;
+                nodeContextMenuStrip.Items[3].Visible = false;
+            }
+
+            nodeContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
+            this.Refresh();
+        }
+
+        //显示视图菜单上下文
+        private void ShowViewContextMenu()
+        {
+            if (m_SelectionNodes.Count > 0)
+                return;
+
+            viewContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
+            this.Refresh();
         }
 
         public Vector2 LocalToWorldPoint(Vector2 point)

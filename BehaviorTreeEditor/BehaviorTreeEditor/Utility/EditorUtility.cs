@@ -12,10 +12,10 @@ namespace BehaviorTreeEditor
     {
         static EditorUtility()
         {
-            TitleBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
-            ContentBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
-            TitleFormat.LineAlignment = StringAlignment.Center;
-            TitleFormat.Alignment = StringAlignment.Center;
+            NodeTitleBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
+            NodeContentBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
+            NameStringFormat.LineAlignment = StringAlignment.Center;
+            NameStringFormat.Alignment = StringAlignment.Center;
             //框选范围用虚线
             SelectionModePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
@@ -45,34 +45,40 @@ namespace BehaviorTreeEditor
         //节点字体
         public static Font NodeFont = new Font("宋体", 15, FontStyle.Regular);
         public static Brush NodeBrush = new SolidBrush(Color.White);
-        public static int TitleNodeHeight = 30;//标题节点高
-        public static TextureBrush TitleBrush = new TextureBrush(Resources.NodeBackground_Dark);//普通状态图片
-        public static TextureBrush ContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
-        public static StringFormat TitleFormat = new StringFormat(StringFormatFlags.NoWrap);
+        //标题节点高
+        public static int TitleNodeHeight = 30;
+        //节点最小宽度
+        public static int NodeWidth = 150;
+        //节点最小高度
+        public static int NodeHeight = 80;
+        //普通状态图片
+        public static TextureBrush NodeTitleBrush = new TextureBrush(Resources.NodeBackground_Dark);
+        public static TextureBrush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
+        public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
 
         public static int ArrowWidth = 17;//箭头宽度像素
         public static int ArrowHeight = 10;//箭头高度度像素
 
         //节点标题Rect
-        public static Rect GetTitleRect(BaseNodeDesigner node, Vector2 offset)
+        public static Rect GetTitleRect(NodeDesigner node, Vector2 offset)
         {
             return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, EditorUtility.TitleNodeHeight);
         }
 
         //节点内存Rect
-        public static Rect GetContentRect(BaseNodeDesigner node, Vector2 offset)
+        public static Rect GetContentRect(NodeDesigner node, Vector2 offset)
         {
             return new Rect(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight - offset.y, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
         }
 
         //左边连接点
-        public static Vector2 GetLeftLinkPoint(BaseNodeDesigner node, Vector2 offset)
+        public static Vector2 GetLeftLinkPoint(NodeDesigner node, Vector2 offset)
         {
             return new Vector2(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
         }
 
         //右边连接点
-        public static Vector2 GetRightLinkPoint(BaseNodeDesigner node, Vector2 offset)
+        public static Vector2 GetRightLinkPoint(NodeDesigner node, Vector2 offset)
         {
             return new Vector2(node.Rect.x + node.Rect.width - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
         }
@@ -116,17 +122,17 @@ namespace BehaviorTreeEditor
         /// <param name="graphics">graphics</param>
         /// <param name="offset">偏移</param>
         /// <param name="on">是否选中</param>
-        public static void Draw(BaseNodeDesigner node, Graphics graphics, Vector2 offset, bool on)
+        public static void Draw(NodeDesigner node, Graphics graphics, Vector2 offset, bool on)
         {
             Rect titleRect = GetTitleRect(node, offset);
             Rect contentRect = GetContentRect(node, offset);
 
             //画标题底框
-            graphics.FillRectangle(EditorUtility.TitleBrush, titleRect);
+            graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);
             //标题
-            graphics.DrawString(node.Name, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.TitleFormat);
+            graphics.DrawString(node.Name, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
             //画内容底框
-            graphics.FillRectangle(EditorUtility.ContentBrush, contentRect);
+            graphics.FillRectangle(EditorUtility.NodeContentBrush, contentRect);
             //选中边框
             graphics.DrawRectangle(EditorUtility.NodeNormalPen, node.Rect - offset);
 
@@ -135,8 +141,8 @@ namespace BehaviorTreeEditor
                 graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
             }
 
-            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.TitleFormat);
-            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.TitleFormat);
+            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.NameStringFormat);
+            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.NameStringFormat);
 
         }
     }
