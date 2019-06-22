@@ -54,6 +54,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\ZoomScalerUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\ZoomScalerUserControl.Designer.cs">
+      <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility\Mathf.cs" />
     <Compile Include="NodeDesigner\BaseNodeDesigner.cs" />
     <Compile Include="Program.cs" />
@@ -82,6 +88,9 @@
     </Compile>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\ZoomScalerUserControl.resx">
+      <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

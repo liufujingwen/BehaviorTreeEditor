@@ -14,6 +14,13 @@ namespace BehaviorTreeEditor.UIControls
 {
     public partial class ContentUserControl : UserControl
     {
+        private static ContentUserControl ms_Instance;
+        public static ContentUserControl Instance
+        {
+            get { return ms_Instance; }
+        }
+
+        private ZoomScalerUserControl m_ZoomScalerUserControl;
         private const int GridMinorSize = 12;
         private const int GridMajorSize = 120;
         private Graphics m_Graphics = null;
@@ -72,8 +79,8 @@ namespace BehaviorTreeEditor.UIControls
 
         public ContentUserControl()
         {
+            ms_Instance = this;
             InitializeComponent();
-
         }
 
         public static Vector2 Center
@@ -86,13 +93,16 @@ namespace BehaviorTreeEditor.UIControls
 
         private void ContentUserControl_Load(object sender, EventArgs e)
         {
+            m_ZoomScalerUserControl = new ZoomScalerUserControl(EditorUtility.ZoomScaleMin, EditorUtility.ZoomScaleMax);
+            m_ZoomScalerUserControl.SetVisible(false);
+            this.Controls.Add(m_ZoomScalerUserControl);
+
+
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
 
             this.MouseWheel += ContentUserControl_MouseWheel;
-
-            //UpdateOffset(Center);
 
             m_Node1 = new BaseNodeDesigner("并行节点", new Rect(100 + m_Offset.x, 100 + m_Offset.y, 150, 100));
             m_Node2 = new BaseNodeDesigner("顺序节点", new Rect(400 + m_Offset.x, 100 + m_Offset.y, 150, 100));
@@ -208,11 +218,13 @@ namespace BehaviorTreeEditor.UIControls
         // 鼠标滚轮事件
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
+            m_ZoomScalerUserControl.SetVisible(true);
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
             UpdateRect();
             Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
+            m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
         }
 
         //鼠标按下事件
@@ -338,6 +350,13 @@ namespace BehaviorTreeEditor.UIControls
             Console.WriteLine("KeyUp：" + e.KeyCode);
         }
 
+        //控件大小改变通知事件
+        private void ContentUserControl_Resize(object sender, EventArgs e)
+        {
+            m_ZoomScalerUserControl.Location = new Point(Width / 2 - m_ZoomScalerUserControl.Width / 2 + 2, Height - m_ZoomScalerUserControl.Height - 2);
+            m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+        }
+
         #endregion
 
         //当前鼠标悬停节点
@@ -444,7 +463,6 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
-
         /// <summary>
         /// 获取矩形范围
         /// </summary>
@@ -509,6 +527,15 @@ namespace BehaviorTreeEditor.UIControls
             UpdateOffset(center);
         }
 
+        //按下鼠标滚轮键拖动视图
+        private void DragView()
+        {
+            if (!m_MouseMiddle)
+                return;
+
+            UpdateOffset(m_ScrollPosition - m_Deltal);
+        }
+
         public Vector2 LocalToWorldPoint(Vector2 point)
         {
             return point / m_ZoomScale + m_Offset;
@@ -519,13 +546,6 @@ namespace BehaviorTreeEditor.UIControls
             return (point - m_Offset) * m_ZoomScale;
         }
 
-        private void DragView()
-        {
-            if (!m_MouseMiddle)
-                return;
 
-            UpdateOffset(m_ScrollPosition - m_Deltal);
-
-        }
     }
 }

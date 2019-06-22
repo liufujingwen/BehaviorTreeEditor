@@ -20,6 +20,11 @@ namespace BehaviorTreeEditor
             SelectionModePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
 
+        //视图缩放最小值
+        public static float ZoomScaleMin = 0.5f;
+        //视图缩放最大值
+        public static float ZoomScaleMax = 2.0f;
+
         //普通格子线 画笔
         public static Pen LineNormalPen = new Pen(Color.Gray, 1);
         //粗格子线 画笔
