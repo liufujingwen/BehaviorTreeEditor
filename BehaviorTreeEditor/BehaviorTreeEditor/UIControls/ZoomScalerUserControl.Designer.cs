@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.zoom = new System.Windows.Forms.Label();
             this.zoomBar = new System.Windows.Forms.TrackBar();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.autoHideTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.zoomBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,10 +64,10 @@
             this.zoomBar.TabIndex = 3;
             this.zoomBar.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
-            // timer1
+            // autoHideTimer
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.autoHideTimer.Interval = 2000;
+            this.autoHideTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ZoomScalerUserControl
             // 
@@ -89,6 +89,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label zoom;
         private System.Windows.Forms.TrackBar zoomBar;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer autoHideTimer;
     }
 }

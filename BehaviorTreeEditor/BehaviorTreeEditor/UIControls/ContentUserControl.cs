@@ -115,11 +115,11 @@ namespace BehaviorTreeEditor.UIControls
 
             m_DrawTime = DateTime.Now;
             m_Graphics = this.CreateGraphics();
-            timer1.Start();
+            refreshTimer.Start();
         }
 
         //定时器控制刷新频率
-        private void timer1_Tick(object sender, EventArgs e)
+        private void refreshTimer_Tick(object sender, EventArgs e)
         {
             this.Refresh();
         }
@@ -225,6 +225,7 @@ namespace BehaviorTreeEditor.UIControls
             Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+            this.Refresh();
         }
 
         //鼠标按下事件
@@ -282,6 +283,7 @@ namespace BehaviorTreeEditor.UIControls
             m_MouseDown = false;
             m_MouseMiddle = false;
             m_SelectionMode = SelectionMode.None;
+            this.Refresh();
         }
 
         //鼠标移动事件
@@ -355,6 +357,11 @@ namespace BehaviorTreeEditor.UIControls
         {
             m_ZoomScalerUserControl.Location = new Point(Width / 2 - m_ZoomScalerUserControl.Width / 2 + 2, Height - m_ZoomScalerUserControl.Height - 2);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+        }
+
+        private void autoPanTimer_Tick(object sender, EventArgs e)
+        {
+            AutoPanNodes(6.0f);
         }
 
         #endregion

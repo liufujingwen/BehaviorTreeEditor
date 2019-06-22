@@ -36,9 +36,9 @@ namespace BehaviorTreeEditor.UIControls
         public void SetVisible(bool visible)
         {
             this.Visible = visible;
-            this.timer1.Stop();
+            this.autoHideTimer.Stop();
             if (visible)
-                timer1.Start();
+                autoHideTimer.Start();
         }
 
         //设置当前缩放大小
