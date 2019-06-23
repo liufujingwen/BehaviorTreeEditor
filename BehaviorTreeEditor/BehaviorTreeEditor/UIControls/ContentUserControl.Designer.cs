@@ -152,7 +152,7 @@
             this.删除连线ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除连线ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除连线ToolStripMenuItem.Name = "删除连线ToolStripMenuItem";
-            this.删除连线ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除连线ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.删除连线ToolStripMenuItem.Text = "删除连线";
             this.删除连线ToolStripMenuItem.Click += new System.EventHandler(this.删除连线ToolStripMenuItem_Click);
             // 
@@ -161,14 +161,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.Black;
             this.DoubleBuffered = true;
             this.Name = "ContentUserControl";
             this.Size = new System.Drawing.Size(660, 368);
             this.Load += new System.EventHandler(this.ContentUserControl_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ContentUserControl_Paint);
+            this.Enter += new System.EventHandler(this.ContentUserControl_Enter);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ContentUserControl_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ContentUserControl_KeyUp);
+            this.Leave += new System.EventHandler(this.ContentUserControl_Leave);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseUp);

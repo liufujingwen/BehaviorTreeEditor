@@ -29,6 +29,9 @@ namespace BehaviorTreeEditor
             splitContainer1.Panel2.Controls.Add(m_ContentUserControl);
         }
 
-       
+        private void MainForm_Leave(object sender, EventArgs e)
+        {
+            Console.WriteLine("KeyUp：");
+        }
     }
 }

@@ -219,6 +219,8 @@ namespace BehaviorTreeEditor.UIControls
         //画节点连线
         private void DoTransitions()
         {
+            
+
             if (m_FromNode != null)
             {
                 BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseLocalPoint / m_ZoomScale, m_Offset);
@@ -248,7 +250,6 @@ namespace BehaviorTreeEditor.UIControls
             {
                 BezierLink.DrawNodeToNode(m_Graphics, m_SelectedTransition.FromNode, m_SelectedTransition.ToNode, true, m_Offset);
             }
-
         }
 
         public void SelectTransition(Transition transition)
@@ -507,23 +508,25 @@ namespace BehaviorTreeEditor.UIControls
         private void ContentUserControl_KeyDown(object sender, KeyEventArgs e)
         {
             Console.WriteLine("KeyDown：" + e.KeyCode);
-            switch (e.KeyCode)
+            if (!e.Alt && !e.Shift && e.KeyCode == Keys.ControlKey)
             {
-                case Keys.ControlKey:
-                    m_LControlKeyDown = true;
-                    break;
+                m_LControlKeyDown = true;
             }
+            else
+            {
+                m_LControlKeyDown = false;
+            }
+
         }
 
         //释放按键
         private void ContentUserControl_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (e.KeyCode == Keys.ControlKey)
             {
-                case Keys.ControlKey:
-                    m_LControlKeyDown = false;
-                    break;
+                m_LControlKeyDown = false;
             }
+           
 
             Console.WriteLine("KeyUp：" + e.KeyCode);
         }
@@ -533,6 +536,18 @@ namespace BehaviorTreeEditor.UIControls
         {
             m_ZoomScalerUserControl.Location = new Point(Width / 2 - m_ZoomScalerUserControl.Width / 2 + 2, Height - m_ZoomScalerUserControl.Height - 2);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+        }
+
+        //视图失焦
+        private void ContentUserControl_Leave(object sender, EventArgs e)
+        {
+            m_LControlKeyDown = false;
+        }
+
+        //视图激活
+        private void ContentUserControl_Enter(object sender, EventArgs e)
+        {
+            m_LControlKeyDown = false;
         }
 
         #endregion

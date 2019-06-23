@@ -26,7 +26,7 @@ namespace BehaviorTreeEditor
         {
             Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
 
-            Vector2 fromPoint = Vector2.zero;
+            Vector2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset); ;
             Vector2 toPoint = endPoint;
 
             int fromTangentDir = 1;
@@ -35,28 +35,10 @@ namespace BehaviorTreeEditor
             //结束点x在开始点x右边
             if (endPoint.x > fromTitleRect.x + fromTitleRect.width)
             {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                fromTangentDir = 1;
                 toTangentDir = -1;
             }
-            //结束点x在起始点x + width范围
-            else if (endPoint.x >= fromTitleRect.x && fromTitleRect.x <= (fromTitleRect.x + fromTitleRect.width))
+            else
             {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                fromTangentDir = 1;
-                toTangentDir = 1;
-            }
-            else if ((endPoint.x + fromTitleRect.width) >= fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                fromTangentDir = -1;
-                toTangentDir = -1;
-            }
-            //结束点x在开始点x左边
-            else if ((endPoint.x + fromTitleRect.width) < fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                fromTangentDir = -1;
                 toTangentDir = 1;
             }
 
@@ -90,45 +72,13 @@ namespace BehaviorTreeEditor
             Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
             Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
 
-            Vector2 fromPoint = Vector2.zero;
-            Vector2 toPoint = Vector2.zero;
+            Vector2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
+            Vector2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
 
             int fromTangentDir = 1;
-            int toTangentDir = 1;
+            int toTangentDir = -1;
 
-            //结束点x在开始点x右边
-            if (toTitleRect.x > fromTitleRect.x + toTitleRect.width)
-            {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
-                fromTangentDir = 1;
-                toTangentDir = -1;
-            }
-            //结束点x在起始点x + width范围
-            else if (toTitleRect.x >= fromTitleRect.x && fromTitleRect.x <= (fromTitleRect.x + fromTitleRect.width))
-            {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
-                fromTangentDir = 1;
-                toTangentDir = 1;
-            }
-            else if ((toTitleRect.x + toTitleRect.width) >= fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
-                fromTangentDir = -1;
-                toTangentDir = -1;
-            }
-            //结束点x在开始点x左边
-            else if ((toTitleRect.x + toTitleRect.width) < fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
-                fromTangentDir = -1;
-                toTangentDir = 1;
-            }
-
-            ////求出两点距离
+            //求出两点距离
             double distance = (toPoint - fromPoint).magnitude;
             int num = (int)Math.Min(distance * 0.5f, 40);
 
@@ -155,45 +105,13 @@ namespace BehaviorTreeEditor
             Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
             Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
 
-            Vector2 fromPoint = Vector2.zero;
-            Vector2 toPoint = Vector2.zero;
+            Vector2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
+            Vector2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
 
             int fromTangentDir = 1;
-            int toTangentDir = 1;
+            int toTangentDir = -1;
 
-            //结束点x在开始点x右边
-            if (toTitleRect.x > fromTitleRect.x + toTitleRect.width)
-            {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
-                fromTangentDir = 1;
-                toTangentDir = -1;
-            }
-            //结束点x在起始点x + width范围
-            else if (toTitleRect.x >= fromTitleRect.x && fromTitleRect.x <= (fromTitleRect.x + fromTitleRect.width))
-            {
-                fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
-                fromTangentDir = 1;
-                toTangentDir = 1;
-            }
-            else if ((toTitleRect.x + toTitleRect.width) >= fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
-                fromTangentDir = -1;
-                toTangentDir = -1;
-            }
-            //结束点x在开始点x左边
-            else if ((toTitleRect.x + toTitleRect.width) < fromTitleRect.x)
-            {
-                fromPoint = EditorUtility.GetLeftLinkPoint(fromNode, offset);
-                toPoint = EditorUtility.GetRightLinkPoint(toNode, offset);
-                fromTangentDir = -1;
-                toTangentDir = 1;
-            }
-
-            ////求出两点距离
+            //求出两点距离
             double distance = (toPoint - fromPoint).magnitude;
             int num = (int)Math.Min(distance * 0.5f, 40);
 

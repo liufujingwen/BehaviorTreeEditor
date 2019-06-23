@@ -12,8 +12,6 @@ namespace BehaviorTreeEditor
     {
         static EditorUtility()
         {
-            NodeTitleBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
-            NodeContentBrush.WrapMode = System.Drawing.Drawing2D.WrapMode.Tile;
             NameStringFormat.LineAlignment = StringAlignment.Center;
             NameStringFormat.Alignment = StringAlignment.Center;
             //框选范围用虚线
@@ -27,20 +25,20 @@ namespace BehaviorTreeEditor
         //视图缩放最大值
         public static float ZoomScaleMax = 2.0f;
         //普通格子线 画笔
-        public static Pen LineNormalPen = new Pen(Color.Gray, 1);
+        public static Pen LineNormalPen = new Pen(Color.FromArgb(8, 8, 8), 1);
         //粗格子线 画笔
-        public static Pen LineBoldPen = new Pen(Color.Gray, 2);
+        public static Pen LineBoldPen = new Pen(Color.FromArgb(8, 8, 8), 2);
 
         #endregion
 
         #region ==================Transition===================
 
         //节点普通连线 画笔
-        public static Pen TransitionNormalPen = new Pen(Color.Green, 2);
+        public static Pen TransitionNormalPen = new Pen(Color.White, 2);
         //节点普通连线 画笔
         public static Pen TransitionSelectedPen = new Pen(Color.Orange, 2);
         //普通箭头 笔刷
-        public static Brush ArrowNormalBrush = new SolidBrush(Color.Green);
+        public static Brush ArrowNormalBrush = new SolidBrush(Color.White);
         //普通箭头 笔刷
         public static Brush ArrowSelectedBrush = new SolidBrush(Color.Orange);
         //箭头宽度像素
@@ -68,10 +66,10 @@ namespace BehaviorTreeEditor
         //节点最小宽度
         public static int NodeWidth = 150;
         //节点最小高度
-        public static int NodeHeight = 80;
+        public static int NodeHeight = 60;
         //普通状态图片
-        public static TextureBrush NodeTitleBrush = new TextureBrush(Resources.NodeBackground_Dark);
-        public static TextureBrush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
+        public static Brush NodeTitleBrush = new SolidBrush(Color.FromArgb(255, 54, 74, 85));
+        public static Brush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
         public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
 
         #endregion
@@ -145,14 +143,16 @@ namespace BehaviorTreeEditor
             Rect contentRect = GetContentRect(node, offset);
 
             //画标题底框
+            //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);
             //标题
             graphics.DrawString(node.Name, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
             //画内容底框
             graphics.FillRectangle(EditorUtility.NodeContentBrush, contentRect);
-            //选中边框
-            graphics.DrawRectangle(EditorUtility.NodeNormalPen, node.Rect - offset);
 
+            //graphics.DrawRectangle(EditorUtility.NodeNormalPen, node.Rect - offset);
+
+            //选中边框
             if (on)
             {
                 graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
