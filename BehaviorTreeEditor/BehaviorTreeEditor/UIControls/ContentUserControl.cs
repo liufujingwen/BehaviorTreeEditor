@@ -67,6 +67,7 @@ namespace BehaviorTreeEditor.UIControls
         private NodeDesigner m_FromNode;
 
         private AgentDesigner m_Agent = new AgentDesigner();
+        private Transition m_SelectedTransition;
         private List<NodeDesigner> m_SelectionNodes = new List<NodeDesigner>();
 
         public enum SelectionMode
@@ -154,7 +155,7 @@ namespace BehaviorTreeEditor.UIControls
             m_BufferedGraphicsContext = BufferedGraphicsManager.Current;
             m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, e.ClipRectangle);
             m_Graphics = m_BufferedGraphics.Graphics;
-            m_Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            m_Graphics.SmoothingMode = SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
             Matrix matrix = m_Graphics.Transform;
             matrix.Scale(m_ZoomScale, m_ZoomScale);
@@ -220,7 +221,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             if (m_FromNode != null)
             {
-                BezierLink.Draw(m_Graphics, m_FromNode, m_MouseLocalPoint, Color.Blue, 2, m_Offset);
+                BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseLocalPoint / m_ZoomScale, m_Offset);
             }
 
             for (int i = 0; i < m_Agent.Nodes.Count; i++)
@@ -238,9 +239,25 @@ namespace BehaviorTreeEditor.UIControls
                     if (node_ii == null)
                         continue;
 
-                    BezierLink.Draw(m_Graphics, node_ii.FromNode, node_ii.ToNode, Color.Blue, 2, m_Offset);
+                    BezierLink.DrawNodeToNode(m_Graphics, node_ii.FromNode, node_ii.ToNode, false, m_Offset);
                 }
             }
+
+            //绘制选中线
+            if (m_SelectedTransition != null)
+            {
+                BezierLink.DrawNodeToNode(m_Graphics, m_SelectedTransition.FromNode, m_SelectedTransition.ToNode, true, m_Offset);
+            }
+
+        }
+
+        public void SelectTransition(Transition transition)
+        {
+            if (m_SelectedTransition == transition)
+            {
+                return;
+            }
+            m_SelectedTransition = transition;
         }
 
         private void AddTransition(NodeDesigner fromNode, NodeDesigner toNode)
@@ -315,7 +332,7 @@ namespace BehaviorTreeEditor.UIControls
         // 鼠标滚轮事件
         private void ContentUserControl_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (nodeContextMenuStrip.Visible || viewContextMenuStrip.Visible)
+            if (nodeContextMenuStrip.Visible || viewContextMenuStrip.Visible || transitionContextMenuStrip.Visible)
                 return;
 
             m_ZoomScalerUserControl.SetVisible(true);
@@ -346,13 +363,15 @@ namespace BehaviorTreeEditor.UIControls
                 if (transition != null && node == null)
                 {
                     this.m_SelectionNodes.Clear();
-                    this.m_SelectionNodes.Add(transition.FromNode);
-                    //SelectTransition(transition);
+                    //this.m_SelectionNodes.Add(transition.FromNode);
+                    SelectTransition(transition);
                     return;
                 }
 
                 if (node != null)
                 {
+                    SelectTransition(null);
+
                     if (m_FromNode != null)
                     {
                         AddTransition(m_FromNode, node);
@@ -387,6 +406,7 @@ namespace BehaviorTreeEditor.UIControls
 
                 m_FromNode = null;
                 m_SelectionMode = SelectionMode.Pick;
+                SelectTransition(null);
             }
             //点击鼠标滚轮
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
@@ -400,6 +420,8 @@ namespace BehaviorTreeEditor.UIControls
                     return;
 
                 NodeDesigner node = MouseOverNode();
+                Transition transition = MouseOverTransition();
+
                 if (node != null)
                 {
                     if (!m_SelectionNodes.Contains(node))
@@ -412,6 +434,10 @@ namespace BehaviorTreeEditor.UIControls
                 if (m_SelectionNodes.Count > 0)
                 {
                     ShowNodeContextMenu();
+                }
+                else if (m_SelectedTransition != null)
+                {
+                    ShowTransitionContextMenu();
                 }
                 else
                 {
@@ -544,9 +570,15 @@ namespace BehaviorTreeEditor.UIControls
             node.ClassType = "Sequence";
             node.Rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
             m_Agent.AddNode(node);
+        }
 
-            m_SelectionNodes.Clear();
-            m_SelectionNodes.Add(node);
+        private void 删除连线ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectedTransition == null)
+                return;
+
+            m_Agent.RemoveTranstion(m_SelectedTransition);
+            SelectTransition(null);
         }
 
         //居中
@@ -589,7 +621,7 @@ namespace BehaviorTreeEditor.UIControls
                         Transition transition = node.Transitions[ii];
                         if (transition != null)
                         {
-                            if (BezierLink.CheckPointAt(transition.FromNode, transition.ToNode, m_MouseLocalPoint, m_Offset))
+                            if (BezierLink.CheckPointAt(transition.FromNode, transition.ToNode, m_MouseLocalPoint / m_ZoomScale, m_Offset))
                             {
                                 return transition;
                             }
@@ -767,6 +799,16 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
+        //显示连线菜单上下文
+        private void ShowTransitionContextMenu()
+        {
+            if (m_SelectedTransition == null)
+                return;
+
+            transitionContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
+            this.Refresh();
+        }
+
         public Vector2 LocalToWorldPoint(Vector2 point)
         {
             return point / m_ZoomScale + m_Offset;
@@ -777,6 +819,6 @@ namespace BehaviorTreeEditor.UIControls
             return (point - m_Offset) * m_ZoomScale;
         }
 
-
+        
     }
 }

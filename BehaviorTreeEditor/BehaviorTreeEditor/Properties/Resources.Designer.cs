@@ -443,16 +443,6 @@ namespace BehaviorTreeEditor.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap NodeBackground_Dark001 {
-            get {
-                object obj = ResourceManager.GetObject("NodeBackground_Dark001", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap NodeBackground_Light {
             get {
                 object obj = ResourceManager.GetObject("NodeBackground_Light", resourceCulture);

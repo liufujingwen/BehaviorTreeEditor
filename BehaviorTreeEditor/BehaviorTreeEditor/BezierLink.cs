@@ -10,8 +10,8 @@ namespace BehaviorTreeEditor
     public static class BezierLink
     {
         private static PointF[] ArrowPoint = new PointF[3];
-        private static Pen ms_LinePen = null;
-        private static Brush ms_ArrowBrush = null;
+        //private static Pen ms_LinePen = null;
+        //private static Brush ms_ArrowBrush = null;
 
         /// <summary>
         /// 绘制贝塞尔曲线，节点 -> 指定点
@@ -22,18 +22,8 @@ namespace BehaviorTreeEditor
         /// <param name="linkColor">线颜色</param>
         /// <param name="linkWidth">线宽度</param>
         /// <param name="offset">偏移</param>
-        public static void Draw(Graphics graphics, NodeDesigner fromNode, Vector2 endPoint, Color linkColor, float linkWidth, Vector2 offset)
+        public static void DrawNodeToPoint(Graphics graphics, NodeDesigner fromNode, Vector2 endPoint, Vector2 offset)
         {
-            if (ms_LinePen == null)
-            {
-                ms_LinePen = new Pen(linkColor, linkWidth);
-            }
-
-            if (ms_ArrowBrush == null)
-            {
-                ms_ArrowBrush = new SolidBrush(linkColor);
-            }
-
             Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
 
             Vector2 fromPoint = Vector2.zero;
@@ -82,27 +72,20 @@ namespace BehaviorTreeEditor
             Vector2 toTangent = toPoint;
             toTangent.x = toTangent.x + (int)(toTangentDir * num);
 
-            graphics.DrawBezier(ms_LinePen, fromPoint, fromTangent, toTangent, toPoint);
+            graphics.DrawBezier(EditorUtility.TransitionNormalPen, fromPoint, fromTangent, toTangent, toPoint);
 
             //画箭头
             ArrowPoint[0] = tempPoint;
             ArrowPoint[1] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y + 5);
             ArrowPoint[2] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y - 5);
-            graphics.FillPolygon(ms_ArrowBrush, (PointF[])ArrowPoint);
+            graphics.FillPolygon(EditorUtility.ArrowNormalBrush, (PointF[])ArrowPoint);
 
         }
 
-        public static void Draw(Graphics graphics, NodeDesigner fromNode, NodeDesigner toNode, Color linkColor, float linkWidth, Vector2 offset)
+        public static void DrawNodeToNode(Graphics graphics, NodeDesigner fromNode, NodeDesigner toNode, bool selected, Vector2 offset)
         {
-            if (ms_LinePen == null)
-            {
-                ms_LinePen = new Pen(linkColor, linkWidth);
-            }
-
-            if (ms_ArrowBrush == null)
-            {
-                ms_ArrowBrush = new SolidBrush(linkColor);
-            }
+            Pen pen = selected ? EditorUtility.TransitionSelectedPen : EditorUtility.TransitionNormalPen;
+            Brush brush = selected ? EditorUtility.ArrowSelectedBrush : EditorUtility.ArrowNormalBrush;
 
             Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
             Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
@@ -157,13 +140,13 @@ namespace BehaviorTreeEditor
             Vector2 toTangent = toPoint;
             toTangent.x = toTangent.x + (int)(toTangentDir * num);
 
-            graphics.DrawBezier(ms_LinePen, fromPoint, fromTangent, toTangent, toPoint);
+            graphics.DrawBezier(pen, fromPoint, fromTangent, toTangent, toPoint);
 
             //画箭头
             ArrowPoint[0] = tempPoint;
             ArrowPoint[1] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y + 5);
             ArrowPoint[2] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y - 5);
-            graphics.FillPolygon(ms_ArrowBrush, (PointF[])ArrowPoint);
+            graphics.FillPolygon(brush, (PointF[])ArrowPoint);
         }
 
         //检测某点是否点击了曲线
@@ -222,12 +205,18 @@ namespace BehaviorTreeEditor
             toTangent.x = toTangent.x + (int)(toTangentDir * num);
 
             float tmpDistance = float.MaxValue;
-            for (float t = 0; t <= 1.0f; t += 0.01f)
+
+            if (distance > 0)
             {
-                Vector2 bezierPoint = BezierPoint(t, fromPoint, fromTangent, toTangent, toPoint);
-                float temp = (localPoint - bezierPoint).magnitude;
-                if (temp < tmpDistance)
-                    tmpDistance = temp;
+                for (float dis = 0; dis < distance;)
+                {
+                    dis += 6;
+                    float t = (float)(dis / distance);
+                    Vector2 bezierPoint = BezierPoint(t, fromPoint, fromTangent, toTangent, toPoint);
+                    float temp = (localPoint - bezierPoint).magnitude;
+                    if (temp < tmpDistance)
+                        tmpDistance = temp;
+                }
             }
 
             if (tmpDistance <= 6)

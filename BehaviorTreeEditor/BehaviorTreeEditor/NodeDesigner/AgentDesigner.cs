@@ -44,12 +44,45 @@ namespace BehaviorTreeEditor
                     NodeDesigner node_i = Nodes[i];
                     if (node_i != null && node_i.ID == node.ID)
                     {
+                        if (node_i.Transitions.Count > 0)
+                        {
+                            //删除Transtion
+                            for (int ii = 0; ii < node_i.Transitions.Count; ii++)
+                            {
+                                Transition transition = node_i.Transitions[ii];
+                                transition.ToNode.ParentNode = null;
+                            }
+                            node_i.Transitions.Clear();
+                        }
+
+                        if (node_i.ParentNode != null)
+                        {
+                            for (int ii = 0; ii < node_i.ParentNode.Transitions.Count; ii++)
+                            {
+                                Transition transition = node_i.ParentNode.Transitions[ii];
+                                if (transition.ToNode == node_i)
+                                {
+                                    node_i.ParentNode.Transitions.RemoveAt(ii);
+                                    break;
+                                }
+                            }
+                        }
+
                         node_i.ParentNode = null;
                         Nodes.RemoveAt(i);
                         break;
                     }
                 }
             }
+        }
+
+        public void RemoveTranstion(Transition transition)
+        {
+            if (transition == null)
+                return;
+
+            transition.FromNode.Transitions.Remove(transition);
+            transition.ToNode.ParentNode = null;
         }
 
         public bool Exist(NodeDesigner node)

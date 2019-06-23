@@ -42,8 +42,11 @@
             this.addNodeItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.centerItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transitionContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.删除连线ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nodeContextMenuStrip.SuspendLayout();
             this.viewContextMenuStrip.SuspendLayout();
+            this.transitionContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // refreshTimer
@@ -61,13 +64,13 @@
             this.toolStripSeparator1,
             this.复制ToolStripMenuItem});
             this.nodeContextMenuStrip.Name = "nodeContextMenuStrip";
-            this.nodeContextMenuStrip.Size = new System.Drawing.Size(181, 142);
+            this.nodeContextMenuStrip.Size = new System.Drawing.Size(101, 120);
             // 
             // 连线ToolStripMenuItem
             // 
             this.连线ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.TransitionIcon;
             this.连线ToolStripMenuItem.Name = "连线ToolStripMenuItem";
-            this.连线ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.连线ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.连线ToolStripMenuItem.Text = "连线";
             this.连线ToolStripMenuItem.Click += new System.EventHandler(this.连线ToolStripMenuItem_Click);
             // 
@@ -76,7 +79,7 @@
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
@@ -137,6 +140,22 @@
             this.centerItem.Text = "居中";
             this.centerItem.Click += new System.EventHandler(this.centerItem_Click);
             // 
+            // transitionContextMenuStrip
+            // 
+            this.transitionContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.删除连线ToolStripMenuItem});
+            this.transitionContextMenuStrip.Name = "transitionContextMenuStrip";
+            this.transitionContextMenuStrip.Size = new System.Drawing.Size(125, 26);
+            // 
+            // 删除连线ToolStripMenuItem
+            // 
+            this.删除连线ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
+            this.删除连线ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.删除连线ToolStripMenuItem.Name = "删除连线ToolStripMenuItem";
+            this.删除连线ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除连线ToolStripMenuItem.Text = "删除连线";
+            this.删除连线ToolStripMenuItem.Click += new System.EventHandler(this.删除连线ToolStripMenuItem_Click);
+            // 
             // ContentUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -156,6 +175,7 @@
             this.Resize += new System.EventHandler(this.ContentUserControl_Resize);
             this.nodeContextMenuStrip.ResumeLayout(false);
             this.viewContextMenuStrip.ResumeLayout(false);
+            this.transitionContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -174,5 +194,7 @@
         private System.Windows.Forms.ToolStripMenuItem addNodeItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem centerItem;
+        private System.Windows.Forms.ContextMenuStrip transitionContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 删除连线ToolStripMenuItem;
     }
 }

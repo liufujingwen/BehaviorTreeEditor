@@ -20,19 +20,37 @@ namespace BehaviorTreeEditor
             SelectionModePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
 
+        #region ==================Background===================
+
         //视图缩放最小值
         public static float ZoomScaleMin = 0.5f;
         //视图缩放最大值
         public static float ZoomScaleMax = 2.0f;
-
         //普通格子线 画笔
         public static Pen LineNormalPen = new Pen(Color.Gray, 1);
         //粗格子线 画笔
         public static Pen LineBoldPen = new Pen(Color.Gray, 2);
+
+        #endregion
+
+        #region ==================Transition===================
+
         //节点普通连线 画笔
         public static Pen TransitionNormalPen = new Pen(Color.Green, 2);
-        //节点选中 画笔
+        //节点普通连线 画笔
         public static Pen TransitionSelectedPen = new Pen(Color.Orange, 2);
+        //普通箭头 笔刷
+        public static Brush ArrowNormalBrush = new SolidBrush(Color.Green);
+        //普通箭头 笔刷
+        public static Brush ArrowSelectedBrush = new SolidBrush(Color.Orange);
+        //箭头宽度像素
+        public static int ArrowWidth = 17;
+        //箭头高度度像素
+        public static int ArrowHeight = 10;
+
+        #endregion
+
+        #region  =================节点=====================
         //节点外框 画笔
         public static Pen NodeNormalPen = new Pen(Color.White, 2);
         //节点选中 画笔
@@ -56,8 +74,7 @@ namespace BehaviorTreeEditor
         public static TextureBrush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
         public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
 
-        public static int ArrowWidth = 17;//箭头宽度像素
-        public static int ArrowHeight = 10;//箭头高度度像素
+        #endregion
 
         //节点标题Rect
         public static Rect GetTitleRect(NodeDesigner node, Vector2 offset)
@@ -141,8 +158,8 @@ namespace BehaviorTreeEditor
                 graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
             }
 
-            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.NameStringFormat);
-            graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.NameStringFormat);
+            //graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.NameStringFormat);
+            //graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.NameStringFormat);
 
         }
     }
