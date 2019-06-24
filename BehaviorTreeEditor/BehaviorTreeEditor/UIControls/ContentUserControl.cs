@@ -534,6 +534,8 @@ namespace BehaviorTreeEditor.UIControls
         //控件大小改变通知事件
         private void ContentUserControl_Resize(object sender, EventArgs e)
         {
+            if (m_ZoomScalerUserControl == null)
+                return;
             m_ZoomScalerUserControl.Location = new Point(Width / 2 - m_ZoomScalerUserControl.Width / 2 + 2, Height - m_ZoomScalerUserControl.Height - 2);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
         }
