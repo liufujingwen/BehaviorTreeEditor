@@ -36,7 +36,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Data\BaseFiled.cs" />
     <Compile Include="Data\IntField.cs" />
     <Compile Include="Data\NodeData.cs" />

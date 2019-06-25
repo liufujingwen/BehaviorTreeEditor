@@ -15,6 +15,12 @@ namespace BehaviorTreeData
 
         public override void Write(ref Writer writer)
         {
+            for (int i = 0; i < length; i++)
+            {
+                continue
+            }
         }
+
+        public 
     }
 }

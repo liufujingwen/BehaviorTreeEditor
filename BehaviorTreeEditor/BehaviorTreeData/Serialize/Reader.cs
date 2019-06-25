@@ -4,26 +4,16 @@ using System.IO;
 
 namespace BehaviorTreeData
 {
-    public struct Key
-    {
-        public bool isNull;
-        public ulong field_number;
-    }
-
     public class Reader
     {
-
         public Reader()
         {
             m_stream = new MemoryStream();
             m_binaryReader = new BinaryReader(m_stream);
-            m_key = new Key();
-            m_key.isNull = true;
         }
 
         BinaryReader m_binaryReader = null;
         MemoryStream m_stream = null;
-        Key m_key;
         int m_index = 0;
         byte[] m_buffer;
 
@@ -51,25 +41,6 @@ namespace BehaviorTreeData
             get { return m_index; }
         }
 
-        Key ReadKey()
-        {
-            Key key = new Key();
-            key.field_number = ulong.MaxValue;
-            key.isNull = false;
-
-            if (m_binaryReader.BaseStream.Position == m_binaryReader.BaseStream.Length)
-            {
-                return key;
-            }
-
-            UInt64 temp = ReadUInt64Variant();
-
-            //舍弃最低3位得到fieldNum
-            key.field_number = temp >> 3;
-            key.isNull = false;
-            return key;
-        }
-
         public BinaryReader binaryReader
         {
             get { return m_binaryReader; }
@@ -89,36 +60,28 @@ namespace BehaviorTreeData
             return value;
         }
 
-        public Reader ReadBoolean(uint key, ref Boolean value)
+        public Reader ReadBoolean(ref Boolean value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    UInt32 temp = ReadUInt32Variant();
-                    value = temp == 1;
-                }
+                UInt32 temp = ReadUInt32Variant();
+                value = temp == 1;
             }
 
             return this;
         }
 
-        public Reader ReadRepeatedBoolean(uint key, ref List<Boolean> value)
+        public Reader ReadRepeatedBoolean(ref List<Boolean> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
+                uint count = ReadUInt32Variant();
 
-                if (m_key.field_number == key)
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<bool>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         UInt32 temp = ReadUInt32Variant();
@@ -130,35 +93,21 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadEnum(uint key, ref int defaultValue)
+        public Reader ReadEnum(ref int Value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    defaultValue = ReadInt32Variant();
-                }
+                Value = ReadInt32Variant();
             }
 
             return this;
         }
 
-        public Reader ReadInt32(uint key, ref Int32 value)
+        public Reader ReadInt32(ref Int32 value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    value = ReadInt32Variant();
-                }
+                value = ReadInt32Variant();
             }
 
             return this;
@@ -166,16 +115,14 @@ namespace BehaviorTreeData
 
         public Reader ReadRepeatedInt32(uint key, ref List<Int32> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
+                uint count = ReadUInt32Variant();
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<int>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         Int32 temp = ReadInt32Variant();
@@ -187,35 +134,25 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadUInt32(uint key, ref UInt32 value)
+        public Reader ReadUInt32(ref UInt32 value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-
-                    value = ReadUInt32Variant();
-                }
+                value = ReadUInt32Variant();
             }
             return this;
         }
 
-        public Reader ReadRepeatedUInt32(uint key, ref List<UInt32> value)
+        public Reader ReadRepeatedUInt32(ref List<UInt32> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
+                uint count = ReadUInt32Variant();
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<uint>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         UInt32 temp = ReadUInt32Variant();
@@ -227,35 +164,26 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadInt64(uint key, ref Int64 value)
+        public Reader ReadInt64(ref Int64 value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    value = ReadInt64Variant();
-                }
+                value = ReadInt64Variant();
             }
 
             return this;
         }
 
-        public Reader ReadRepeatedInt64(uint key, ref List<Int64> value)
+        public Reader ReadRepeatedInt64(ref List<Int64> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
+                uint count = ReadUInt32Variant();
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<long>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         Int64 temp = ReadInt64Variant();
@@ -267,34 +195,25 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadUInt64(uint key, ref UInt64 value)
+        public Reader ReadUInt64(ref UInt64 value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    value = ReadUInt64Variant();
-                }
+                value = ReadUInt64Variant();
             }
             return this;
         }
 
-        public Reader ReadRepeatedUInt64(uint key, ref List<UInt64> value)
+        public Reader ReadRepeatedUInt64(ref List<UInt64> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
+                uint count = ReadUInt32Variant();
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<ulong>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         UInt64 temp = ReadUInt64Variant();
@@ -306,35 +225,27 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadFloat(uint key, ref Single value)
+        public Reader ReadFloat(ref Single value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    value = m_binaryReader.ReadSingle();
-                    m_index += 4;
-                }
+                value = m_binaryReader.ReadSingle();
+                m_index += 4;
             }
+
             return this;
         }
 
-        public Reader ReadRepeatedFloat(uint key, ref List<Single> value)
+        public Reader ReadRepeatedFloat(ref List<Single> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
+                uint count = ReadUInt32Variant();
+                if (count > 0)
                 {
-                    m_key.isNull = true;
+                    if (value == null)
+                        value = new List<float>((int)count);
 
-                    uint count = ReadUInt32Variant();
                     for (int i = 0; i < count; i++)
                     {
                         Single temp = m_binaryReader.ReadSingle();
@@ -347,40 +258,30 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Reader ReadString(uint key, ref String value)
+        public Reader ReadString(ref String value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-                    int length = 0;
-                    while (0 < m_buffer[m_index + length])
-                        ++length;
-                    value = SerializeHelper.UTF8.GetString(m_buffer, m_index, length);
-                    m_index += length + 1;
-                    m_stream.Position += length + 1;
-                }
+                int length = 0;
+                while (0 < m_buffer[m_index + length])
+                    ++length;
+                value = SerializeHelper.UTF8.GetString(m_buffer, m_index, length);
+                m_index += length + 1;
+                m_stream.Position += length + 1;
             }
 
             return this;
         }
 
-        public Reader ReadRepeatedString(uint key, ref List<String> value)
+        public Reader ReadRepeatedString(ref List<String> value)
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
+                uint count = ReadUInt32Variant();
 
-                if (m_key.field_number == key)
+                if (count > 0)
                 {
-                    m_key.isNull = true;
-
-                    uint count = ReadUInt32Variant();
+                    value = new List<string>((int)count);
                     for (int i = 0; i < count; i++)
                     {
                         int length = 0;
@@ -399,49 +300,45 @@ namespace BehaviorTreeData
 
         public Reader ReadItem<T>(uint key, ref T value) where T : Binary
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
-
-                if (m_key.field_number == key)
-                {
-                    m_key.isNull = true;
-
-                    if (value == null)
-                        value = System.Activator.CreateInstance<T>();
-                    Reader reader = this;
-                    value.Read(ref reader);
-                    m_index++;
-                    m_stream.Position++;
-                }
+                if (value == null)
+                    value = System.Activator.CreateInstance<T>();
+                Reader reader = this;
+                value.Read(ref reader);
+                m_index++;
+                m_stream.Position++;
             }
+
             return this;
         }
 
         public Reader ReadRepeatedItem<T>(uint key, ref List<T> value) where T : Binary
         {
-            if (m_index < m_buffer.Length && m_buffer[m_index] != SerializeHelper.MESSAGE_END_FLAG)
+            if (m_index < m_buffer.Length)
             {
-                if (m_key.isNull)
-                    m_key = ReadKey();
+                uint count = ReadUInt32Variant();
 
-                if (m_key.field_number == key)
+                if (count > 0)
                 {
-                    m_key.isNull = true;
-
-                    uint count = ReadUInt32Variant();
-                    for (int i = 0; i < count; i++)
+                    if (count > 0)
                     {
-                        Binary temp = System.Activator.CreateInstance<T>();
-                        Reader loader = this;
-                        temp.Read(ref loader);
-                        m_index++;
-                        m_stream.Position++;
-                        value.Add(temp as T);
+                        if (value == null)
+                            value = new List<T>((int)count);
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            Binary temp = System.Activator.CreateInstance<T>();
+                            Reader loader = this;
+                            temp.Read(ref loader);
+                            m_index++;
+                            m_stream.Position++;
+                            value.Add(temp as T);
+                        }
                     }
                 }
             }
+
             return this;
         }
 

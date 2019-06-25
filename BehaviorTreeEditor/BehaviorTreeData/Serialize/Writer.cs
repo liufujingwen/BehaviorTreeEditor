@@ -43,26 +43,23 @@ namespace BehaviorTreeData
 
         public void WriteUInt16(UInt16 value)
         {
-             m_binaryWriter.Write(value);
+            m_binaryWriter.Write(value);
         }
 
-        public Writer WriteBoolean(uint key, Boolean value, Boolean defaultValue)
+        public Writer WriteBoolean(Boolean value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteUInt32Variant(value ? 1u : 0);
-            }
+            WriteUInt32Variant(value ? 1u : 0);
             return this;
         }
 
-        public Writer WriteRepeatedBoolean(uint key, List<Boolean> value)
+        public Writer WriteRepeatedBoolean(List<Boolean> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Boolean temp = value[i];
                     WriteUInt32Variant(temp ? 1u : 0);
@@ -72,36 +69,28 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteEnum(uint key, Int32 value, Int32 defaultValue)
+        public Writer WriteEnum(ref Int32 value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteInt32Variant(value);
-            }
+            WriteInt32Variant(value);
             return this;
         }
 
-        public Writer WriteString(uint key, String value, String defaultValue)
+        public Writer WriteString(ref String value)
         {
-            bool hasValule = value != null && value != defaultValue;
-
-            if (hasValule)
-            {
-                WriteKey(key, hasValule);
-                value += "\0";
-                m_binaryWriter.Write(SerializeHelper.UTF8.GetBytes(value));
-            }
+            value = value ?? string.Empty;
+            value += "\0";
+            m_binaryWriter.Write(SerializeHelper.UTF8.GetBytes(value));
             return this;
         }
 
-        public Writer WriteRepeatedString(uint key, List<String> value)
+        public Writer WriteRepeatedString(ref List<String> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     string str = value[i];
                     if (str == null)
@@ -115,23 +104,20 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteInt32(uint key, Int32 value, Int32 defaultValue)
+        public Writer WriteInt32(ref Int32 value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteInt32Variant(value);
-            }
+            WriteInt32Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedInt32(uint key, List<Int32> value)
+        public Writer WriteRepeatedInt32(ref List<Int32> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Int32 temp = value[i];
                     WriteInt32Variant(temp);
@@ -141,23 +127,20 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteUInt32(uint key, UInt32 value, UInt32 defaultValue)
+        public Writer WriteUInt32(ref UInt32 value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteUInt32Variant(value);
-            }
+            WriteUInt32Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedUInt32(uint key, List<UInt32> value)
+        public Writer WriteRepeatedUInt32(ref List<UInt32> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)value.Count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     UInt32 temp = value[i];
                     WriteUInt32Variant(temp);
@@ -167,23 +150,20 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteInt64(uint key, Int64 value, Int64 defaultValue)
+        public Writer WriteInt64(ref Int64 value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteInt64Variant(value);
-            }
+            WriteInt64Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedInt64(uint key, List<Int64> value)
+        public Writer WriteRepeatedInt64(ref List<Int64> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Int64 temp = value[i];
                     WriteInt64Variant(temp);
@@ -193,23 +173,20 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteUInt64(uint key, UInt64 value, UInt64 defaultValue)
+        public Writer WriteUInt64(ref UInt64 value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                WriteUInt64Variant(value);
-            }
+            WriteUInt64Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedUInt64(uint key, List<UInt64> value)
+        public Writer WriteRepeatedUInt64(ref List<UInt64> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     UInt64 temp = value[i];
                     WriteUInt64Variant(temp);
@@ -219,23 +196,20 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteFloat(uint key, Single value, Single defaultValue)
+        public Writer WriteFloat(ref Single value)
         {
-            if (value != defaultValue)
-            {
-                WriteKey(key, value != defaultValue);
-                m_binaryWriter.Write(value);
-            }
+            m_binaryWriter.Write(value);
             return this;
         }
 
-        public Writer WriteRepeatedFloat(uint key, List<Single> value)
+        public Writer WriteRepeatedFloat(ref List<Single> value)
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Single temp = value[i];
                     m_binaryWriter.Write(temp);
@@ -245,39 +219,29 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteItem<T>(uint key, T value) where T : Binary
+        public Writer WriteItem<T>(ref T value) where T : Binary
         {
-            if (value != null)
-            {
-                WriteKey(key, value != null);
-                Writer writer = this;
-                value.Write(ref writer);
-                writer.m_binaryWriter.Write(SerializeHelper.MESSAGE_END_FLAG);
-            }
+            Writer writer = this;
+            value.Write(ref writer);
             return this;
         }
 
         public Writer WriteRepeatedItem<T>(uint key, List<T> value) where T : Binary
         {
-            if (value.Count > 0)
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
             {
-                WriteKey(key, value.Count > 0);
-                WriteUInt32Variant((uint)value.Count);
-                for (int i = 0; i < value.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Binary temp = value[i];
                     Writer writer = this;
                     temp.Write(ref writer);
-                    writer.m_binaryWriter.Write(SerializeHelper.MESSAGE_END_FLAG);
                 }
             }
-            return this;
-        }
 
-        void WriteKey(ulong key, bool hasValue)
-        {
-            key = key << 3 | (byte)(hasValue ? 1 : 0);
-            WriteUInt64Variant(key);
+            return this;
         }
 
         #region Variant

@@ -5,32 +5,30 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public static class SerializeHelper
+    public class SerializeHelper
     {
-        public const char MESSAGE_END_FLAG = '|';
         public static Encoding UTF8 = new System.Text.UTF8Encoding(false);
 
-        public static byte[] Serializable<T>(T instance) where T : Binary
+        public byte[] Serialize<T>(T instance) where T : Binary
         {
             Writer writer = new Writer();
-            byte[] buffer = Serializable(writer, instance);
+            byte[] buffer = Serialize(writer, instance);
             writer.Close();
             return buffer;
         }
 
-        public static byte[] Serializable<T>(Writer writer, T instance) where T : Binary
+        public byte[] Serialize<T>(Writer writer, T instance) where T : Binary
         {
             byte[] buffer = null;
             instance.Write(ref writer);
-            writer.writer.Write(SerializeHelper.MESSAGE_END_FLAG);
             buffer = writer.GetBuffer();
             return buffer;
         }
 
-        public static byte[] SerializeToFile<T>(T instance, string path) where T : Binary
+        public byte[] SerializeToFile<T>(T instance, string path) where T : Binary
         {
             Writer writer = new Writer();
-            byte[] buffer = Serializable(writer, instance);
+            byte[] buffer = Serialize(writer, instance);
             writer.Close();
             if (buffer != null)
             {
@@ -42,16 +40,16 @@ namespace BehaviorTreeData
             return buffer;
         }
 
-        public static T DeSerializable<T>(byte[] buffer) where T : Binary
+        public T DeSerialize<T>(byte[] buffer) where T : Binary
         {
             Reader reader = new Reader();
             reader.Load(buffer, 0, buffer.Length);
-            T instance = DeSerializable<T>(reader);
+            T instance = DeSerialize<T>(reader);
             reader.Close();
             return instance;
         }
 
-        public static T DeSerializable<T>(Reader reader) where T : Binary
+        public T DeSerialize<T>(Reader reader) where T : Binary
         {
             T instance = System.Activator.CreateInstance<T>();
             instance.Read(ref reader);
@@ -60,7 +58,7 @@ namespace BehaviorTreeData
             return instance;
         }
 
-        public static void DeSerializable(byte[] buffer, Binary binary)
+        public static void DeSerialize(byte[] buffer, Binary binary)
         {
             Reader reader = new Reader();
             reader.Load(buffer, 0, buffer.Length);
@@ -70,14 +68,14 @@ namespace BehaviorTreeData
             reader.Close();
         }
 
-        public static void DeSerializable(Reader reader, Binary binary)
+        public static void DeSerialize(Reader reader, Binary binary)
         {
             binary.Read(ref reader);
             reader.index++;
             reader.stream.Position++;
         }
 
-        public static T DeSerializableFromFile<T>(string path) where T : Binary
+        public T DeSerializeFromFile<T>(string path) where T : Binary
         {
             T instance = null;
             if (File.Exists(path))
@@ -88,7 +86,7 @@ namespace BehaviorTreeData
                     fs.Read(buffer, 0, buffer.Length);
                     Reader reader = new Reader();
                     reader.Load(buffer, 0, buffer.Length);
-                    instance = DeSerializable<T>(reader);
+                    instance = DeSerialize<T>(reader);
                     reader.Close();
                 }
             }
