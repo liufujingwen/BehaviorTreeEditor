@@ -6,17 +6,19 @@ namespace BehaviorTreeData
 {
     public partial class NodeData : Binary
     {
+        public int ID;
+        public string ClassType;
         public List<BaseFiled> Fileds = new List<BaseFiled>();
         public List<NodeData> Childs = null;
 
         public override void Read(ref Reader reader)
         {
-            reader.Read(ref Fileds).Read(ref Childs);
+            reader.Read(ref ID).Read(ref ClassType).Read(ref Fileds).Read(ref Childs);
         }
 
         public override void Write(ref Writer writer)
         {
-            writer.Write(Fileds).Write(Childs);
+            writer.Write(ID).Write(ClassType).Write(Fileds).Write(Childs);
         }
     }
 }
