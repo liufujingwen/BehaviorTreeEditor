@@ -4,23 +4,18 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public class IntField : BaseFiled
+    public partial class IntField : BaseFiled
     {
-        public int value;
+        public int Value;
 
         public override void Read(ref Reader reader)
         {
-
+            reader.Read(ref FieldName).Read(ref Value);
         }
 
         public override void Write(ref Writer writer)
         {
-            for (int i = 0; i < length; i++)
-            {
-                continue
-            }
+            writer.Write(FieldName).Write(Value);
         }
-
-        public 
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public class ColorField
+    public partial class ColorField
     {
     }
 }

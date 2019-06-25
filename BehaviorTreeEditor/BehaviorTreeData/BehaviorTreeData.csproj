@@ -36,12 +36,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AgentData.cs" />
     <Compile Include="Data\BaseFiled.cs" />
+    <Compile Include="Data\ColorField.cs" />
+    <Compile Include="Data\DoubleField.cs" />
+    <Compile Include="Data\EnumField.cs" />
+    <Compile Include="Data\FloatField.cs" />
     <Compile Include="Data\IntField.cs" />
+    <Compile Include="Data\LongField.cs" />
     <Compile Include="Data\NodeData.cs" />
+    <Compile Include="Data\RepeatDoubleField.cs" />
+    <Compile Include="Data\RepeatFloatField.cs" />
+    <Compile Include="Data\RepeatIntField.cs" />
+    <Compile Include="Data\RepeatLongField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialize\Binary.cs" />
-    <Compile Include="Serialize\PBC.cs" />
+    <Compile Include="Serialize\Serializer.cs" />
     <Compile Include="Serialize\Reader.cs" />
     <Compile Include="Serialize\Writer.cs" />
   </ItemGroup>

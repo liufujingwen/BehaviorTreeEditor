@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BehaviorTreeData\BehaviorTreeData.csproj">
+      <Project>{d62b5446-97c2-4b94-8d52-d05132ca71b4}</Project>
+      <Name>BehaviorTreeData</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

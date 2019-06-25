@@ -36,23 +36,18 @@ namespace BehaviorTreeData
             return m_stream.ToArray();
         }
 
-        public void WriteByte(byte value)
+        public void Write(byte value)
         {
             m_binaryWriter.Write(value);
         }
 
-        public void WriteUInt16(UInt16 value)
-        {
-            m_binaryWriter.Write(value);
-        }
-
-        public Writer WriteBoolean(Boolean value)
+        public Writer Write(bool value)
         {
             WriteUInt32Variant(value ? 1u : 0);
             return this;
         }
 
-        public Writer WriteRepeatedBoolean(List<Boolean> value)
+        public Writer Write(List<bool> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -61,7 +56,7 @@ namespace BehaviorTreeData
             {
                 for (int i = 0; i < count; i++)
                 {
-                    Boolean temp = value[i];
+                    bool temp = value[i];
                     WriteUInt32Variant(temp ? 1u : 0);
                 }
             }
@@ -69,21 +64,15 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteEnum(ref Int32 value)
-        {
-            WriteInt32Variant(value);
-            return this;
-        }
-
-        public Writer WriteString(ref String value)
+        public Writer Write(string value)
         {
             value = value ?? string.Empty;
             value += "\0";
-            m_binaryWriter.Write(SerializeHelper.UTF8.GetBytes(value));
+            m_binaryWriter.Write(Serializer.UTF8.GetBytes(value));
             return this;
         }
 
-        public Writer WriteRepeatedString(ref List<String> value)
+        public Writer Write(List<string> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -97,20 +86,20 @@ namespace BehaviorTreeData
                         str = string.Empty;
                     str += "\0";
 
-                    m_binaryWriter.Write(SerializeHelper.UTF8.GetBytes(str));
+                    m_binaryWriter.Write(Serializer.UTF8.GetBytes(str));
                 }
             }
 
             return this;
         }
 
-        public Writer WriteInt32(ref Int32 value)
+        public Writer Write(int value)
         {
             WriteInt32Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedInt32(ref List<Int32> value)
+        public Writer Write(List<int> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -119,7 +108,7 @@ namespace BehaviorTreeData
             {
                 for (int i = 0; i < count; i++)
                 {
-                    Int32 temp = value[i];
+                    int temp = value[i];
                     WriteInt32Variant(temp);
                 }
             }
@@ -127,13 +116,13 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteUInt32(ref UInt32 value)
+        public Writer Write(uint value)
         {
             WriteUInt32Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedUInt32(ref List<UInt32> value)
+        public Writer Write(List<uint> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)value.Count);
@@ -142,7 +131,7 @@ namespace BehaviorTreeData
             {
                 for (int i = 0; i < count; i++)
                 {
-                    UInt32 temp = value[i];
+                    uint temp = value[i];
                     WriteUInt32Variant(temp);
                 }
             }
@@ -150,13 +139,13 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteInt64(ref Int64 value)
+        public Writer Write(long value)
         {
             WriteInt64Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedInt64(ref List<Int64> value)
+        public Writer Write(List<long> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -173,13 +162,13 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteUInt64(ref UInt64 value)
+        public Writer Write(ulong value)
         {
             WriteUInt64Variant(value);
             return this;
         }
 
-        public Writer WriteRepeatedUInt64(ref List<UInt64> value)
+        public Writer Write(List<ulong> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -196,13 +185,13 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteFloat(ref Single value)
+        public Writer Write(float value)
         {
             m_binaryWriter.Write(value);
             return this;
         }
 
-        public Writer WriteRepeatedFloat(ref List<Single> value)
+        public Writer Write(List<float> value)
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -211,7 +200,7 @@ namespace BehaviorTreeData
             {
                 for (int i = 0; i < count; i++)
                 {
-                    Single temp = value[i];
+                    float temp = value[i];
                     m_binaryWriter.Write(temp);
                 }
             }
@@ -219,14 +208,39 @@ namespace BehaviorTreeData
             return this;
         }
 
-        public Writer WriteItem<T>(ref T value) where T : Binary
+        public Writer Write(double value)
+        {
+            m_binaryWriter.Write(value);
+            return this;
+        }
+
+        public Writer Write(List<double> value)
+        {
+            int count = value == null ? 0 : value.Count;
+            WriteUInt32Variant((uint)count);
+
+            if (count > 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    double temp = value[i];
+                    m_binaryWriter.Write(temp);
+                }
+            }
+
+            return this;
+        }
+
+        public Writer Write<T>(T value) where T : Binary
         {
             Writer writer = this;
+            int typeValue = Serializer.GetValueByType(typeof(T));
+            WriteInt32Variant(typeValue);
             value.Write(ref writer);
             return this;
         }
 
-        public Writer WriteRepeatedItem<T>(uint key, List<T> value) where T : Binary
+        public Writer Write<T>(List<T> value) where T : Binary
         {
             int count = value == null ? 0 : value.Count;
             WriteUInt32Variant((uint)count);
@@ -237,6 +251,7 @@ namespace BehaviorTreeData
                 {
                     Binary temp = value[i];
                     Writer writer = this;
+                    Write(Serializer.GetValueByType(temp.GetType()));
                     temp.Write(ref writer);
                 }
             }
@@ -246,19 +261,19 @@ namespace BehaviorTreeData
 
         #region Variant
 
-        public void WriteInt32Variant(Int32 value)
+        public void WriteInt32Variant(int value)
         {
             //如果是负数需要补码
-            UInt32 temp = value < 0 ? (UInt32)(~Math.Abs(value) + 1) : (UInt32)value;
+            uint temp = value < 0 ? (uint)(~Math.Abs(value) + 1) : (uint)value;
             WriteUInt32Variant(temp);
         }
 
-        public void WriteUInt32Variant(UInt32 value)
+        public void WriteUInt32Variant(uint value)
         {
             do
             {
                 //取7个字节
-                UInt32 temp = (UInt32)(value & 0x7F);//0x7F = ((1 << 7) - 1) = 127
+                uint temp = (uint)(value & 0x7F);//0x7F = ((1 << 7) - 1) = 127
 
                 value >>= 7;
 
@@ -270,19 +285,19 @@ namespace BehaviorTreeData
             while (value != 0);
         }
 
-        public void WriteInt64Variant(Int64 value)
+        public void WriteInt64Variant(long value)
         {
             //如果是负数需要补码
-            UInt64 temp = value < 0 ? (UInt64)(~Math.Abs(value) + 1) : (UInt64)value;
+            ulong temp = value < 0 ? (ulong)(~Math.Abs(value) + 1) : (ulong)value;
             WriteUInt64Variant(temp);
         }
 
-        public void WriteUInt64Variant(UInt64 value)
+        public void WriteUInt64Variant(ulong value)
         {
             do
             {
                 //取7个字节
-                UInt64 temp = (UInt64)(value & 0x7F);//0x7F = ((1 << 7) - 1) = 127
+                ulong temp = (ulong)(value & 0x7F);//0x7F = ((1 << 7) - 1) = 127
 
                 value >>= 7;
 

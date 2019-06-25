@@ -4,19 +4,18 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public partial class NodeData : Binary
+    public partial class RepeatFloatField : BaseFiled
     {
-        public List<BaseFiled> Fileds = new List<BaseFiled>();
-        public List<NodeData> Childs = null;
+        public List<float> Value;
 
         public override void Read(ref Reader reader)
         {
-            reader.Read(ref Fileds).Read(ref Childs);
+            reader.Read(ref FieldName).Read(ref Value);
         }
 
         public override void Write(ref Writer writer)
         {
-            writer.Write(Fileds).Write(Childs);
+            writer.Write(FieldName).Write(Value);
         }
     }
 }
