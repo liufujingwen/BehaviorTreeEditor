@@ -15,6 +15,7 @@ namespace SerializeTest
             TestLongField();
             TestDoubleField();
             TestEnumField();
+            TestBooleanField();
             TestNode();
             Console.ReadLine();
         }
@@ -121,6 +122,20 @@ namespace SerializeTest
             enumField.EnumType = "TestEnum";
             enumField.Value = 100;
             agent.StartNode.Fileds.Add(enumField);
+
+            byte[] bytes = Serializer.Serialize(agent);
+            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+        }
+
+        public static void TestBooleanField()
+        {
+            AgentData agent = new AgentData();
+            agent.StartNode = new NodeData();
+
+            BooleanField booleanField = new BooleanField();
+            booleanField.FieldName = "BooleanField";
+            booleanField.Value = true;
+            agent.StartNode.Fileds.Add(booleanField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);

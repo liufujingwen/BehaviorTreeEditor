@@ -56,8 +56,15 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\NodeType.cs" />
+    <Compile Include="NewWorkSpaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewWorkSpaceForm.Designer.cs">
+      <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NodeDesigner\AgentDesigner.cs" />
     <Compile Include="NodeDesigner\Transition.cs" />
+    <Compile Include="OperationType.cs" />
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -77,8 +84,13 @@
     <Compile Include="Utility\EditorUtility.cs" />
     <Compile Include="Utility\Rect.cs" />
     <Compile Include="Utility\Vector2.cs" />
+    <Compile Include="WorkSpaceData.cs" />
+    <Compile Include="Utility\XmlUtility.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewWorkSpaceForm.resx">
+      <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

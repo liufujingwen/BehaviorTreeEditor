@@ -1,7 +1,33 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BehaviorTreeEditor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EditorTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">行为树编辑器</Value>
+    </Setting>
+    <Setting Name="WorkDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CopyRight" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jingwen</Value>
+    </Setting>
+    <Setting Name="NodeClassFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NodeClass.xml</Value>
+    </Setting>
+    <Setting Name="NodeDesignerDataFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NodeDesignerData.xml</Value>
+    </Setting>
+    <Setting Name="NodeDataFileSuffix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.bytes</Value>
+    </Setting>
+    <Setting Name="NodeDataSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WorkSpaceSetupSuffix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.workspace.xml</Value>
+    </Setting>
+    <Setting Name="WorkSpaceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>

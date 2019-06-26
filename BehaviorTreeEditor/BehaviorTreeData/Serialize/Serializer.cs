@@ -31,6 +31,7 @@ namespace BehaviorTreeData
 
             list.Add(typeof(EnumField));
             list.Add(typeof(ColorField));
+            list.Add(typeof(BooleanField));
 
 
             TypeToValueDic.Clear();
