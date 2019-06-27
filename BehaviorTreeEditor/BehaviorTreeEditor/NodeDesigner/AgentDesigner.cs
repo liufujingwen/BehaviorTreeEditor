@@ -8,6 +8,15 @@ namespace BehaviorTreeEditor
 {
     public class AgentDesigner
     {
+        private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
+
+        public List<FieldDesigner> Fields
+        {
+            get { return m_Fields; }
+            set { m_Fields = value; }
+        }
+
+
         public List<NodeDesigner> Nodes = new List<NodeDesigner>();
 
         public int GenNodeID()

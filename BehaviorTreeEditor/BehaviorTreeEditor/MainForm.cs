@@ -18,12 +18,14 @@ namespace BehaviorTreeEditor
 
         private static MainForm ms_Instance;
 
+
         public static MainForm Instance
         {
             get { return ms_Instance; }
         }
 
         public WorkSpaceData WorkSpaceData;
+        public NodeClasses NodeClasses;
         private ContentUserControl m_ContentUserControl;
 
         public MainForm()
@@ -184,6 +186,10 @@ namespace BehaviorTreeEditor
             MessageBox.Show(msg, title);
         }
 
-
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClassForm classForm = new ClassForm();
+            classForm.ShowDialog();
+        }
     }
 }

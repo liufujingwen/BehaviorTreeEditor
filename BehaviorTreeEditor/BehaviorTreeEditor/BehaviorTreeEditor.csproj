@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddClassForm.Designer.cs">
+      <DependentUpon>AddClassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BezierLink.cs" />
     <Compile Include="Data\NodeData.cs" />
     <Compile Include="EditorEx.cs" />
@@ -68,9 +74,29 @@
     <Compile Include="NewWorkSpaceForm.Designer.cs">
       <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassForm.Designer.cs">
+      <DependentUpon>ClassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="NodeDesigner\BaseFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\FieldDesigner.cs" />
+    <Compile Include="NodeDesigner\FieldType.cs" />
+    <Compile Include="NodeDesigner\IntFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\NodeClass\NodeClass.cs" />
+    <Compile Include="NodeDesigner\NodeClass\NodeClasses.cs" />
+    <Compile Include="NodeDesigner\RepeatIntFieldDesigner.cs" />
     <Compile Include="NodeDesigner\Transition.cs" />
     <Compile Include="OperationType.cs" />
+    <Compile Include="SingletonForm.cs" />
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +118,9 @@
     <Compile Include="Utility\Vector2.cs" />
     <Compile Include="WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
+    <EmbeddedResource Include="AddClassForm.resx">
+      <DependentUpon>AddClassForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewWorkSpaceForm.resx">
       <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClassForm.resx">
+      <DependentUpon>ClassForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -111,6 +143,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
     </EmbeddedResource>
