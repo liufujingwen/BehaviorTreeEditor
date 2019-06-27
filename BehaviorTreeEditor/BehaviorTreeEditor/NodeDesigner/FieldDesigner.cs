@@ -1,16 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BehaviorTreeEditor
 {
+    [Serializable]
     public class FieldDesigner
     {
-        private FieldType m_FieldType;
-        public BaseFieldDesigner Field { get; set; }
+        private int m_ID;
 
+        [Category("常规")]
+        [Description("ID")]
+        [ReadOnly(true)]
+        public int ID
+        {
+            get { return m_ID; }
+            set { m_ID = value; }
+        }
+
+
+        private FieldType m_FieldType;
+
+        [Category("常规")]
+        [DisplayName("字段类型")]
+        [Description("字段类型")]
         public FieldType FieldType
         {
             get { return m_FieldType; }
@@ -20,25 +36,34 @@ namespace BehaviorTreeEditor
                 Field = null;
                 switch (m_FieldType)
                 {
-                    case FieldType.IntFieldType:
+                    case FieldType.IntField:
                         Field = new IntFieldDesigner();
                         break;
-                    case FieldType.LongFieldType:
-                    case FieldType.FloatFieldType:
-                    case FieldType.DoubleFieldType:
-                    case FieldType.ColorFieldType:
-                    case FieldType.EnumFieldType:
-                    case FieldType.BooleanFieldType:
-                    case FieldType.RepeatIntFieldType:
+                    case FieldType.LongField:
+                    case FieldType.FloatField:
+                    case FieldType.DoubleField:
+                    case FieldType.ColorField:
+                    case FieldType.EnumField:
+                    case FieldType.BooleanField:
+                    case FieldType.RepeatIntField:
                         Field = new IntFieldDesigner();
                         break;
-                    case FieldType.RepeatLongFieldType:
-                    case FieldType.RepeatFloatFieldType:
-                    case FieldType.RepeatDoubleFieldType:
+                    case FieldType.RepeatLongField:
+                    case FieldType.RepeatFloatField:
+                    case FieldType.RepeatDoubleField:
                         break;
                 }
             }
         }
 
+        [Category("常规")]
+        [DisplayName("字段详细")]
+        [Description("字段详细")]
+        public BaseFieldDesigner Field { get; set; }
+
+        public override string ToString()
+        {
+            return Field == null ? FieldType.ToString() : Field.FieldName + "  " + FieldType.ToString();
+        }
     }
 }

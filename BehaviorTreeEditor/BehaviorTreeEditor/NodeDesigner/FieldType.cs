@@ -8,16 +8,17 @@ namespace BehaviorTreeEditor
 {
     public enum FieldType
     {
-        IntFieldType,
-        LongFieldType,
-        FloatFieldType,
-        DoubleFieldType,
-        ColorFieldType,
-        EnumFieldType,
-        BooleanFieldType,
-        RepeatIntFieldType,//int数组
-        RepeatLongFieldType,//Long数组
-        RepeatFloatFieldType,//浮点数组
-        RepeatDoubleFieldType,//双精度浮点数组
+        None,
+        IntField,
+        LongField,
+        FloatField,
+        DoubleField,
+        ColorField,
+        EnumField,
+        BooleanField,
+        RepeatIntField,//int数组
+        RepeatLongField,//Long数组
+        RepeatFloatField,//浮点数组
+        RepeatDoubleField,//双精度浮点数组
     }
 }

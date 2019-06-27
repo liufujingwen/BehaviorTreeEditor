@@ -11,5 +11,10 @@ namespace BehaviorTreeEditor
     {
         [CategoryAttribute("常规"), DescriptionAttribute("Int值")]
         public int Value { get; set; }
+
+        public override string ToString()
+        {
+            return "Int";
+        }
     }
 }

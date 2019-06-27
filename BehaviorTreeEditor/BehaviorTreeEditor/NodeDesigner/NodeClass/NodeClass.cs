@@ -46,5 +46,54 @@ namespace BehaviorTreeEditor
             get { return m_Fields; }
             set { m_Fields = value; }
         }
+
+        public int GenFieldID()
+        {
+            int id = 0;
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (id <= field.ID)
+                    id = field.ID;
+            }
+            return ++id;
+        }
+
+        public bool AddField(FieldDesigner field)
+        {
+            if (field == null )
+            {
+                return false;
+            }
+
+            if (field.FieldType == FieldType.None)
+            {
+                MainForm.Instance.ShowInfo("字段类型为None,添加失败！！！");
+                MainForm.Instance.ShowMessage("字段类型为None,添加失败！！！", "警告");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(field.Field.FieldName))
+            {
+                MainForm.Instance.ShowInfo("字段名为空,添加失败！！！");
+                MainForm.Instance.ShowMessage("字段名为空,添加失败！！！", "警告");
+                return false;
+            }
+
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner temp = m_Fields[i];
+                if (temp.Field.FieldName == field.Field.FieldName)
+                {
+                    MainForm.Instance.ShowInfo("字段名字相同,添加失败！！！");
+                    MainForm.Instance.ShowMessage("字段名字相同,添加失败！！！", "警告");
+                    return false;
+                }
+            }
+
+            field.ID = GenFieldID();
+            m_Fields.Add(field);
+            return true;
+        }
     }
 }

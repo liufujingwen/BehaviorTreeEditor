@@ -53,6 +53,7 @@
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BezierLink.cs" />
+    <Compile Include="CollectionEditor.cs" />
     <Compile Include="Data\NodeData.cs" />
     <Compile Include="EditorEx.cs" />
     <Compile Include="EditWorkSpaceForm.cs">
@@ -60,6 +61,12 @@
     </Compile>
     <Compile Include="EditWorkSpaceForm.Designer.cs">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputValueDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputValueDialogForm.Designer.cs">
+      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -123,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputValueDialogForm.resx">
+      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
