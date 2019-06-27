@@ -13,6 +13,9 @@ namespace BehaviorTreeEditor
 
         public static bool Save<T>(string fileName, T data)
         {
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
             FileStream stream = File.Open(fileName, FileMode.Create, FileAccess.Write);
             XmlSerializer serializer = new XmlSerializer(typeof(T));
             XmlTextWriter writer = new XmlTextWriter(stream, UTF8);

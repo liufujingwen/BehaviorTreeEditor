@@ -12,11 +12,25 @@ using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
 {
-    public partial class NewWorkSpaceForm : Form
+    public partial class EditWorkSpaceForm : Form
     {
-        public NewWorkSpaceForm()
+        private string m_OldWorkSpaceDirectory;
+        private string m_OldWorkSpaceName;
+
+        public EditWorkSpaceForm()
         {
             InitializeComponent();
+        }
+
+        private void EditWorkSpaceForm_Load(object sender, EventArgs e)
+        {
+            m_OldWorkSpaceDirectory = Settings.Default.WorkDirectory;
+            m_OldWorkSpaceName = MainForm.Instance.WorkSpaceData.WorkSpaceName;
+
+            workSpaceNameTB.Text = MainForm.Instance.WorkSpaceData.WorkSpaceName;
+            workSpaceDirectoryTB.Text = Settings.Default.WorkDirectory;
+            describeTB.Text = MainForm.Instance.WorkSpaceData.Describe;
+            dataSaveDirectoryTB.Text = Settings.Default.NodeDataSavePath;
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -52,32 +66,31 @@ namespace BehaviorTreeEditor
 
             if (!Directory.Exists(dataSaveDirectoryTB.Text.Trim()))
             {
-                MainForm.Instance.ShowMessage("数据保存目录", "警告");
+                MainForm.Instance.ShowMessage("数据保存目录不存在", "警告");
                 return;
             }
 
-            string workSpaceDirector = workSpaceDirectoryTB.Text.Trim();
-            string[] files = Directory.GetFiles(workSpaceDirector, "*" + Settings.Default.WorkSpaceSetupSuffix);
-            if (files.Length > 0)
+            if (MainForm.Instance.WorkSpaceData != null)
             {
-                string existWorkSpaceName = Path.GetFileName(files[0]);
-                //去掉后缀
-                existWorkSpaceName = existWorkSpaceName.Replace(Settings.Default.WorkSpaceSetupSuffix, "");
-                MainForm.Instance.ShowMessage(string.Format("该位置已被{0}使用,请选择别的目录作为新的工作区位置", existWorkSpaceName), "警告");
-                return;
+                MainForm.Instance.WorkSpaceData.WorkSpaceName = workSpaceNameTB.Text.Trim();
+                MainForm.Instance.WorkSpaceData.Describe = describeTB.Text.Trim();
+
+                Settings.Default.WorkSpaceName = workSpaceNameTB.Text.Trim();
+                Settings.Default.WorkDirectory = workSpaceDirectoryTB.Text.Trim();
+                Settings.Default.NodeDataSavePath = dataSaveDirectoryTB.Text.Trim();
+
+                //删除旧文件
+                string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+                if (File.Exists(oldWorkSpaceFile))
+                    File.Delete(oldWorkSpaceFile);
+                //todo... 删除旧节点数据
+
+                Settings.Default.Save();
+                XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
+                MainForm.Instance.Exec(OperationType.LoadWorkSpace);
+                MainForm.Instance.ShowInfo("编辑工作区,时间：" + DateTime.Now);
             }
 
-            MainForm.Instance.WorkSpaceData = new WorkSpaceData();
-            MainForm.Instance.WorkSpaceData.WorkSpaceName = workSpaceNameTB.Text.Trim();
-            MainForm.Instance.WorkSpaceData.Describe = describeTB.Text.Trim();
-
-            Settings.Default.WorkSpaceName = workSpaceNameTB.Text.Trim();
-            Settings.Default.WorkDirectory = workSpaceDirectoryTB.Text.Trim();
-            Settings.Default.NodeDataSavePath = dataSaveDirectoryTB.Text.Trim();
-
-            Settings.Default.Save();
-            XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
-            MainForm.Instance.ShowInfo("新建工作区成功,时间：" + DateTime.Now);
             this.Close();
         }
 

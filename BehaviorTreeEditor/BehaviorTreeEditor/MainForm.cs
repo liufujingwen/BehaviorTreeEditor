@@ -56,6 +56,11 @@ namespace BehaviorTreeEditor
             Exec(OperationType.OpenWorkSpace);
         }
 
+        private void 编辑工作区ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.EditWorkSpace);
+        }
+
         public bool Exec(OperationType opration)
         {
             switch (opration)
@@ -72,6 +77,10 @@ namespace BehaviorTreeEditor
                     //打开工作区
                     OpenWorkSpace();
                     break;
+                case OperationType.EditWorkSpace:
+                    //编辑工作区
+                    EditWorkSpace();
+                    break;
                 case OperationType.Save:
                     //保存
                     Save();
@@ -84,9 +93,12 @@ namespace BehaviorTreeEditor
         //加载工作区
         public void LoadWorkSpace()
         {
+            this.Text = Settings.Default.EditorTitle;
             if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) || string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
                 return;
             WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
+            if (WorkSpaceData != null)
+                this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
         }
 
         //新建工作区
@@ -115,9 +127,18 @@ namespace BehaviorTreeEditor
                         Settings.Default.WorkDirectory = workDirectory;
                         Settings.Default.WorkSpaceName = WorkSpaceData.WorkSpaceName;
                         Settings.Default.Save();
+                        this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
+                        MainForm.Instance.ShowInfo("打开工作区,时间：" + DateTime.Now);
                     }
                 }
             }
+        }
+
+        //编辑工作区
+        public void EditWorkSpace()
+        {
+            EditWorkSpaceForm editWorkSpaceForm = new EditWorkSpaceForm();
+            editWorkSpaceForm.ShowDialog();
         }
 
         //保存
@@ -132,7 +153,7 @@ namespace BehaviorTreeEditor
         /// <returns></returns>
         public string GetDataSavePath()
         {
-            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
+            return Path.Combine(Settings.Default.NodeDataSavePath, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
         }
         /// <summary>
         /// 获取工作区配置路径
@@ -162,5 +183,7 @@ namespace BehaviorTreeEditor
         {
             MessageBox.Show(msg, title);
         }
+
+
     }
 }

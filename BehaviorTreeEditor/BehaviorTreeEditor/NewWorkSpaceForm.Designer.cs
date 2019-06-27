@@ -47,49 +47,55 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 44);
+            this.label1.Location = new System.Drawing.Point(57, 55);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.Size = new System.Drawing.Size(97, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "工作区名字：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 73);
+            this.label2.Location = new System.Drawing.Point(57, 91);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.Size = new System.Drawing.Size(97, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "工作区位置：";
             // 
             // workSpaceNameTB
             // 
-            this.workSpaceNameTB.Location = new System.Drawing.Point(135, 41);
+            this.workSpaceNameTB.Location = new System.Drawing.Point(180, 51);
+            this.workSpaceNameTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.workSpaceNameTB.Name = "workSpaceNameTB";
-            this.workSpaceNameTB.Size = new System.Drawing.Size(389, 21);
+            this.workSpaceNameTB.Size = new System.Drawing.Size(517, 25);
             this.workSpaceNameTB.TabIndex = 2;
             // 
             // workSpaceDirectoryTB
             // 
-            this.workSpaceDirectoryTB.Location = new System.Drawing.Point(135, 71);
+            this.workSpaceDirectoryTB.Location = new System.Drawing.Point(180, 89);
+            this.workSpaceDirectoryTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.workSpaceDirectoryTB.Name = "workSpaceDirectoryTB";
-            this.workSpaceDirectoryTB.Size = new System.Drawing.Size(389, 21);
+            this.workSpaceDirectoryTB.Size = new System.Drawing.Size(517, 25);
             this.workSpaceDirectoryTB.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 106);
+            this.label3.Location = new System.Drawing.Point(41, 132);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 12);
+            this.label3.Size = new System.Drawing.Size(112, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "数据保存位置：";
             // 
             // selectWorkSpaceDirectoryBTN
             // 
-            this.selectWorkSpaceDirectoryBTN.Location = new System.Drawing.Point(542, 69);
+            this.selectWorkSpaceDirectoryBTN.Location = new System.Drawing.Point(723, 86);
+            this.selectWorkSpaceDirectoryBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectWorkSpaceDirectoryBTN.Name = "selectWorkSpaceDirectoryBTN";
-            this.selectWorkSpaceDirectoryBTN.Size = new System.Drawing.Size(61, 23);
+            this.selectWorkSpaceDirectoryBTN.Size = new System.Drawing.Size(81, 29);
             this.selectWorkSpaceDirectoryBTN.TabIndex = 5;
             this.selectWorkSpaceDirectoryBTN.Text = "浏览...";
             this.selectWorkSpaceDirectoryBTN.UseVisualStyleBackColor = true;
@@ -97,16 +103,18 @@
             // 
             // dataSaveDirectoryTB
             // 
-            this.dataSaveDirectoryTB.Location = new System.Drawing.Point(135, 103);
+            this.dataSaveDirectoryTB.Location = new System.Drawing.Point(180, 129);
+            this.dataSaveDirectoryTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataSaveDirectoryTB.Name = "dataSaveDirectoryTB";
-            this.dataSaveDirectoryTB.Size = new System.Drawing.Size(389, 21);
+            this.dataSaveDirectoryTB.Size = new System.Drawing.Size(517, 25);
             this.dataSaveDirectoryTB.TabIndex = 6;
             // 
             // cancelBTN
             // 
-            this.cancelBTN.Location = new System.Drawing.Point(196, 227);
+            this.cancelBTN.Location = new System.Drawing.Point(261, 284);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(107, 28);
+            this.cancelBTN.Size = new System.Drawing.Size(143, 35);
             this.cancelBTN.TabIndex = 7;
             this.cancelBTN.Text = "取消";
             this.cancelBTN.UseVisualStyleBackColor = true;
@@ -114,9 +122,10 @@
             // 
             // enterBTN
             // 
-            this.enterBTN.Location = new System.Drawing.Point(359, 227);
+            this.enterBTN.Location = new System.Drawing.Point(479, 284);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(107, 28);
+            this.enterBTN.Size = new System.Drawing.Size(143, 35);
             this.enterBTN.TabIndex = 8;
             this.enterBTN.Text = "确定";
             this.enterBTN.UseVisualStyleBackColor = true;
@@ -124,9 +133,10 @@
             // 
             // selectDataSaveDirectoryBTN
             // 
-            this.selectDataSaveDirectoryBTN.Location = new System.Drawing.Point(542, 101);
+            this.selectDataSaveDirectoryBTN.Location = new System.Drawing.Point(723, 126);
+            this.selectDataSaveDirectoryBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.selectDataSaveDirectoryBTN.Name = "selectDataSaveDirectoryBTN";
-            this.selectDataSaveDirectoryBTN.Size = new System.Drawing.Size(61, 23);
+            this.selectDataSaveDirectoryBTN.Size = new System.Drawing.Size(81, 29);
             this.selectDataSaveDirectoryBTN.TabIndex = 9;
             this.selectDataSaveDirectoryBTN.Text = "浏览...";
             this.selectDataSaveDirectoryBTN.UseVisualStyleBackColor = true;
@@ -143,25 +153,27 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(79, 137);
+            this.label4.Location = new System.Drawing.Point(105, 171);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(52, 15);
             this.label4.TabIndex = 10;
             this.label4.Text = "描述：";
             // 
             // describeTB
             // 
-            this.describeTB.Location = new System.Drawing.Point(135, 137);
+            this.describeTB.Location = new System.Drawing.Point(180, 171);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
-            this.describeTB.Size = new System.Drawing.Size(389, 54);
+            this.describeTB.Size = new System.Drawing.Size(517, 66);
             this.describeTB.TabIndex = 11;
             // 
             // NewWorkSpaceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 267);
+            this.ClientSize = new System.Drawing.Size(859, 334);
             this.Controls.Add(this.describeTB);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.selectDataSaveDirectoryBTN);
@@ -175,6 +187,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "NewWorkSpaceForm";
             this.Text = "新建工作区";
             this.ResumeLayout(false);
