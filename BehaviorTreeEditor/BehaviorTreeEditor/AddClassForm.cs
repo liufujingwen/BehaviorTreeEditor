@@ -168,6 +168,12 @@ namespace BehaviorTreeEditor
                 case "SwapField":
                     SwapField((bool)agrs[0]);
                     break;
+                case "CopyField":
+                    CopyField();
+                    break;
+                case "PasteField":
+                    PasteField();
+                    break;
             }
 
             return true;
@@ -232,7 +238,7 @@ namespace BehaviorTreeEditor
                 if (content.DataList.Count > 0)
                     Clipboard.SetText(XmlUtility.ObjectToString(content));
 
-                MainForm.Instance.ShowInfo("恭喜，您复制了" + content.DataList.Count.ToString() + "个！！！");
+                MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个字段！！！");
             }
             else
             {
@@ -246,30 +252,22 @@ namespace BehaviorTreeEditor
         {
             try
             {
-                // convert string to stream
                 FieldListContent content = (FieldListContent)XmlUtility.StringToObject<FieldListContent>(Clipboard.GetText());
 
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
-                    string fieldName = content.DataList[i].Field.FieldName;
-
-                    m_NodeClass.AddField();
+                    FieldDesigner field = content.DataList[i];
+                    string fieldName = field.Field.FieldName;
+                    do
+                    {
+                        fieldName += "_New";
+                    }
+                    while (m_NodeClass.ExistFieldName(fieldName));
+                    field.Field.FieldName = fieldName;
+                    m_NodeClass.AddField(field);
                 }
-
-
-                int selectIdx = mCurrentEditAction.Events.Count;
-                if (listViewEvents.SelectedIndices.Count > 0)
-                    selectIdx = listViewEvents.SelectedIndices[listViewEvents.SelectedIndices.Count - 1] + 1;
-
-                foreach (Event actionEvent in content.DataList)
-                {
-                    mCurrentEditAction.Events.Insert(selectIdx, actionEvent);
-                    selectIdx++;
-                }
-
                 Exec("Refresh");
-
-                MainForm.Instance.ShowInfo("恭喜，您粘贴了" + content.DataList.Count + "个劳动成果！！！");
+                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个字段！！！");
             }
             catch (Exception ex)
             {
