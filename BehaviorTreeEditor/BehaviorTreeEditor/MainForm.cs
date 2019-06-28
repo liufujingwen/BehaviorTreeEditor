@@ -26,6 +26,7 @@ namespace BehaviorTreeEditor
 
         public WorkSpaceData WorkSpaceData;
         public NodeClasses NodeClasses;
+        public bool NodeClassDirty;
         private ContentUserControl m_ContentUserControl;
 
         public MainForm()
@@ -61,6 +62,17 @@ namespace BehaviorTreeEditor
         private void 编辑工作区ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Exec(OperationType.EditWorkSpace);
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void 类视图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClassForm classForm = new ClassForm();
+            classForm.ShowDialog();
         }
 
         public bool Exec(OperationType opration)
@@ -101,6 +113,17 @@ namespace BehaviorTreeEditor
             WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
             if (WorkSpaceData != null)
                 this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
+
+            //读取行为树类信息
+            NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
+            if (NodeClasses == null)
+            {
+                NodeClasses = new NodeClasses();
+                NodeClasses.ResetNodes();
+                MainForm.Instance.NodeClassDirty = false;
+                XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
+            }
+            NodeClassDirty = false;
         }
 
         //新建工作区
@@ -131,6 +154,17 @@ namespace BehaviorTreeEditor
                         Settings.Default.Save();
                         this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
                         MainForm.Instance.ShowInfo("打开工作区,时间：" + DateTime.Now);
+
+                        //读取行为树类信息
+                        NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
+                        if (NodeClasses == null)
+                        {
+                            NodeClasses = new NodeClasses();
+                            NodeClasses.ResetNodes();
+                            MainForm.Instance.NodeClassDirty = false;
+                            XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
+                        }
+                        NodeClassDirty = false;
                     }
                 }
             }
@@ -146,7 +180,16 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
-
+            if (NodeClassDirty)
+            {
+                if (NodeClasses != null)
+                {
+                    if (XmlUtility.Save<NodeClasses>(GetNodeClassPath(), NodeClasses))
+                    {
+                        NodeClassDirty = false;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -164,6 +207,15 @@ namespace BehaviorTreeEditor
         public string GetWorkSpacePath()
         {
             return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+        }
+
+        /// <summary>
+        /// 获取行为树类信息路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetNodeClassPath()
+        {
+            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeClassFile);
         }
 
         /// <summary>
@@ -186,10 +238,21 @@ namespace BehaviorTreeEditor
             MessageBox.Show(msg, title);
         }
 
-        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ClassForm classForm = new ClassForm();
-            classForm.ShowDialog();
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                if (NodeClassDirty)
+                {
+                    DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                        Exec(OperationType.Save);
+                    else if (result == DialogResult.Cancel)
+                        e.Cancel = true;
+                }
+            }
+
+            Settings.Default.Save();
         }
     }
 }

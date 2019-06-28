@@ -78,6 +78,12 @@ namespace BehaviorTreeEditor
             Settings.Default.Save();
             XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
             MainForm.Instance.ShowInfo("新建工作区成功,时间：" + DateTime.Now);
+
+            //初始化节点类信息
+            MainForm.Instance.NodeClasses = new NodeClasses();
+            MainForm.Instance.NodeClassDirty = false;
+            XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
+
             this.Close();
         }
 

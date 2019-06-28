@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BehaviorTreeEditor
 {
@@ -13,6 +14,7 @@ namespace BehaviorTreeEditor
 
         [CategoryAttribute("常规")]
         [DescriptionAttribute("类名")]
+        [XmlAttribute]
         public string ClassType
         {
             get { return m_ClassType; }
@@ -21,6 +23,10 @@ namespace BehaviorTreeEditor
 
         //节点类型
         private NodeType m_NodeType;
+
+        [CategoryAttribute("常规")]
+        [DescriptionAttribute("节点类型")]
+        [XmlAttribute]
         public NodeType NodeType
         {
             get { return m_NodeType; }
@@ -45,18 +51,6 @@ namespace BehaviorTreeEditor
         {
             get { return m_Fields; }
             set { m_Fields = value; }
-        }
-
-        public int GenFieldID()
-        {
-            int id = 0;
-            for (int i = 0; i < m_Fields.Count; i++)
-            {
-                FieldDesigner field = m_Fields[i];
-                if (id <= field.ID)
-                    id = field.ID;
-            }
-            return ++id;
         }
 
         public bool ExistFieldName(string fieldName)
@@ -104,8 +98,8 @@ namespace BehaviorTreeEditor
                 }
             }
 
-            field.ID = GenFieldID();
             m_Fields.Add(field);
+
             return true;
         }
     }

@@ -10,18 +10,6 @@ namespace BehaviorTreeEditor
     [Serializable]
     public class FieldDesigner
     {
-        private int m_ID;
-
-        [Category("常规")]
-        [Description("ID")]
-        [ReadOnly(true)]
-        public int ID
-        {
-            get { return m_ID; }
-            set { m_ID = value; }
-        }
-
-
         private FieldType m_FieldType;
 
         [Category("常规")]

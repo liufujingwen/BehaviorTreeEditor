@@ -17,11 +17,11 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 获取指定类型所有组合节点
+        /// 获取指定类型所有组合节点类
         /// </summary>
         /// <param name="nodeType">节点类型</param>
         /// <returns></returns>
-        public List<NodeClass> GetNodes(NodeType nodeType)
+        public List<NodeClass> GetClasses(NodeType nodeType)
         {
             List<NodeClass> nodeList = new List<NodeClass>();
             for (int i = 0; i < m_Nodes.Count; i++)
@@ -62,6 +62,60 @@ namespace BehaviorTreeEditor
             });
 
             return true;
+        }
+
+        public void ResetNodes()
+        {
+            m_Nodes.Clear();
+            #region 组合节点
+            //并行节点
+            NodeClass parallelNode = new NodeClass();
+            parallelNode.ClassType = "Parallel";
+            parallelNode.NodeType = NodeType.Composite;
+            parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
+            m_Nodes.Add(parallelNode);
+
+            //顺序节点
+            NodeClass sequenceNode = new NodeClass();
+            sequenceNode.ClassType = "Sequence";
+            sequenceNode.NodeType = NodeType.Composite;
+            sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
+            m_Nodes.Add(sequenceNode);
+
+            #endregion
+
+            #region 装饰节点
+
+            //空操作节点
+            NodeClass notNode = new NodeClass();
+            notNode.ClassType = "Not";
+            notNode.NodeType = NodeType.Decorator;
+            notNode.Describe = "非节点将子节点的返回值取反";
+            m_Nodes.Add(notNode);
+
+            #endregion
+
+            #region 条件节点
+
+            //空操作节点
+            NodeClass compareNode = new NodeClass();
+            compareNode.ClassType = "Compare";
+            compareNode.NodeType = NodeType.Condition;
+            compareNode.Describe = "Compare节点对左右参数进行比较";
+            m_Nodes.Add(compareNode);
+
+            #endregion
+
+            #region 动作节点
+
+            //空操作节点
+            NodeClass noopNode = new NodeClass();
+            noopNode.ClassType = "Noop";
+            noopNode.NodeType = NodeType.Action;
+            noopNode.Describe = "空操作（Noop）节点只是作为占位，仅执行一次就返回成功";
+            m_Nodes.Add(noopNode);
+
+            #endregion
         }
     }
 }

@@ -32,8 +32,8 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("节点0");
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.编辑类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.编辑类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -41,8 +41,10 @@
             // treeView1
             // 
             this.treeView1.BackColor = System.Drawing.Color.Gainsboro;
+            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeView1.ContextMenuStrip = this.contextMenuStrip1;
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.ItemHeight = 25;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "节点0";
@@ -64,12 +66,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(128, 82);
             // 
-            // 编辑类ToolStripMenuItem
-            // 
-            this.编辑类ToolStripMenuItem.Name = "编辑类ToolStripMenuItem";
-            this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
-            this.编辑类ToolStripMenuItem.Text = "编辑类";
-            // 
             // 添加类ToolStripMenuItem
             // 
             this.添加类ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
@@ -78,6 +74,12 @@
             this.添加类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.添加类ToolStripMenuItem.Text = "添加类";
             this.添加类ToolStripMenuItem.Click += new System.EventHandler(this.添加类ToolStripMenuItem_Click);
+            // 
+            // 编辑类ToolStripMenuItem
+            // 
+            this.编辑类ToolStripMenuItem.Name = "编辑类ToolStripMenuItem";
+            this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.编辑类ToolStripMenuItem.Text = "编辑类";
             // 
             // 删除ToolStripMenuItem
             // 

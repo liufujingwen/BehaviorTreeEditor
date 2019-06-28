@@ -20,6 +20,7 @@ namespace BehaviorTreeEditor
 
         public ClassForm()
         {
+            m_Nodes = MainForm.Instance.NodeClasses;
             InitializeComponent();
         }
 
@@ -31,64 +32,7 @@ namespace BehaviorTreeEditor
 
         private void ClassForm_Load(object sender, EventArgs e)
         {
-            ResetNodes();
             BindNodeTree();
-        }
-
-        private void ResetNodes()
-        {
-            MainForm.Instance.NodeClasses = new NodeClasses();
-            m_Nodes = MainForm.Instance.NodeClasses;
-
-            #region 组合节点
-            //并行节点
-            NodeClass parallelNode = new NodeClass();
-            parallelNode.ClassType = "Parallel";
-            parallelNode.NodeType = NodeType.Composite;
-            parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
-            m_Nodes.Nodes.Add(parallelNode);
-
-            //顺序节点
-            NodeClass sequenceNode = new NodeClass();
-            sequenceNode.ClassType = "Sequence";
-            sequenceNode.NodeType = NodeType.Composite;
-            sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
-            m_Nodes.Nodes.Add(sequenceNode);
-
-            #endregion
-
-            #region 装饰节点
-
-            //空操作节点
-            NodeClass notNode = new NodeClass();
-            notNode.ClassType = "Not";
-            notNode.NodeType = NodeType.Decorator;
-            notNode.Describe = "非节点将子节点的返回值取反";
-            m_Nodes.Nodes.Add(notNode);
-
-            #endregion
-
-            #region 条件节点
-
-            //空操作节点
-            NodeClass compareNode = new NodeClass();
-            compareNode.ClassType = "Compare";
-            compareNode.NodeType = NodeType.Condition;
-            compareNode.Describe = "Compare节点对左右参数进行比较";
-            m_Nodes.Nodes.Add(compareNode);
-
-            #endregion
-
-            #region 动作节点
-
-            //空操作节点
-            NodeClass noopNode = new NodeClass();
-            noopNode.ClassType = "Noop";
-            noopNode.NodeType = NodeType.Action;
-            noopNode.Describe = "空操作（Noop）节点只是作为占位，仅执行一次就返回成功";
-            m_Nodes.Nodes.Add(noopNode);
-
-            #endregion
         }
 
         private void BindNodeTree()
@@ -100,7 +44,7 @@ namespace BehaviorTreeEditor
             m_ActionNode = treeView1.Nodes.Add("动作节点");
 
             //绑定组合节点
-            List<NodeClass> compositeList = m_Nodes.GetNodes(NodeType.Composite);
+            List<NodeClass> compositeList = m_Nodes.GetClasses(NodeType.Composite);
             m_CompositeNode.Nodes.Clear();
             for (int i = 0; i < compositeList.Count; i++)
             {
@@ -110,7 +54,7 @@ namespace BehaviorTreeEditor
             }
 
             //绑定修饰节点
-            List<NodeClass> decoratorList = m_Nodes.GetNodes(NodeType.Decorator);
+            List<NodeClass> decoratorList = m_Nodes.GetClasses(NodeType.Decorator);
             m_DecoratorNode.Nodes.Clear();
             for (int i = 0; i < decoratorList.Count; i++)
             {
@@ -120,7 +64,7 @@ namespace BehaviorTreeEditor
             }
 
             //绑定条件节点
-            List<NodeClass> conditionList = m_Nodes.GetNodes(NodeType.Condition);
+            List<NodeClass> conditionList = m_Nodes.GetClasses(NodeType.Condition);
             m_ConditionNode.Nodes.Clear();
             for (int i = 0; i < conditionList.Count; i++)
             {
@@ -130,7 +74,7 @@ namespace BehaviorTreeEditor
             }
 
             //绑定动作节点
-            List<NodeClass> actionList = m_Nodes.GetNodes(NodeType.Action);
+            List<NodeClass> actionList = m_Nodes.GetClasses(NodeType.Action);
             m_ActionNode.Nodes.Clear();
             for (int i = 0; i < actionList.Count; i++)
             {
@@ -142,7 +86,6 @@ namespace BehaviorTreeEditor
 
         private void treeView1_MouseClick(object sender, MouseEventArgs e)
         {
-
         }
 
         private void treeView1_MouseDown(object sender, MouseEventArgs e)

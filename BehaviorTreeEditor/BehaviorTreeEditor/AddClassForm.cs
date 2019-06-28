@@ -53,6 +53,7 @@ namespace BehaviorTreeEditor
                 return;
 
             m_ClassForm.AddClass(m_NodeClass);
+            MainForm.Instance.NodeClassDirty = true;
 
             this.Close();
         }
@@ -263,8 +264,10 @@ namespace BehaviorTreeEditor
                         fieldName += "_New";
                     }
                     while (m_NodeClass.ExistFieldName(fieldName));
+
                     field.Field.FieldName = fieldName;
                     m_NodeClass.AddField(field);
+                    MainForm.Instance.NodeClassDirty = true;
                 }
                 Exec("Refresh");
                 MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个字段！！！");

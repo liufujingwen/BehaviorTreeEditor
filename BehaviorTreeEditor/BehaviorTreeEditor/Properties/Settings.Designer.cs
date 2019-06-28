@@ -130,5 +130,29 @@ namespace BehaviorTreeEditor.Properties {
                 this["WorkSpaceName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("是否保存修改?")]
+        public string SaveWarnning {
+            get {
+                return ((string)(this["SaveWarnning"]));
+            }
+            set {
+                this["SaveWarnning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 设置 {
+            get {
+                return ((string)(this["设置"]));
+            }
+            set {
+                this["设置"] = value;
+            }
+        }
     }
 }
