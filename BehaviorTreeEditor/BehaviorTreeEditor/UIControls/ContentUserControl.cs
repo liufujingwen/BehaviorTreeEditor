@@ -28,13 +28,13 @@ namespace BehaviorTreeEditor.UIControls
         private BufferedGraphics m_BufferedGraphics = null;
 
         //偏移
-        private Vector2 m_Offset = Vector2.zero;
+        private Vec2 m_Offset = Vec2.zero;
         //原来视窗大小，没有经过缩放的大小
         private Rect m_ViewSize;
         //缩放后的视窗大小
         private Rect m_ScaledViewSize;
         //滑动起始位置
-        private Vector2 m_ScrollPosition;
+        private Vec2 m_ScrollPosition;
 
         NodeDesigner m_Node1;
         NodeDesigner m_Node2;
@@ -50,11 +50,11 @@ namespace BehaviorTreeEditor.UIControls
         private int m_Fps = 0;
 
         //记录上一次鼠标位置(坐标系为Local)
-        private Vector2 m_MouseLocalPoint;
+        private Vec2 m_MouseLocalPoint;
         //记录上一次鼠标位置(坐标系为World)
-        private Vector2 m_MouseWorldPoint;
+        private Vec2 m_MouseWorldPoint;
         //鼠标移动偏移量
-        private Vector2 m_Deltal;
+        private Vec2 m_Deltal;
         //鼠标是否按下
         private bool m_MouseDown = false;
         //是否按下鼠标滚轮
@@ -63,7 +63,7 @@ namespace BehaviorTreeEditor.UIControls
         private bool m_LControlKeyDown = false;
 
         private SelectionMode m_SelectionMode;
-        private Vector2 m_SelectionStartPosition;
+        private Vec2 m_SelectionStartPosition;
         private NodeDesigner m_FromNode;
 
         private AgentDesigner m_Agent = new AgentDesigner();
@@ -83,11 +83,11 @@ namespace BehaviorTreeEditor.UIControls
             InitializeComponent();
         }
 
-        public static Vector2 Center
+        public static Vec2 Center
         {
             get
             {
-                return new Vector2(5000, 5000);
+                return new Vec2(5000, 5000);
             }
         }
 
@@ -127,7 +127,7 @@ namespace BehaviorTreeEditor.UIControls
         private void UpdateRect()
         {
             //获取视窗大小
-            var a = new Vector2(this.Width, this.Height);
+            var a = new Vec2(this.Width, this.Height);
             m_ViewSize = new Rect(0, 0, this.Width, this.Height);
             float scale = 1f / m_ZoomScale;
             m_ScaledViewSize = new Rect(m_ViewSize.x * scale, m_ViewSize.y * scale, m_ViewSize.width * scale, m_ViewSize.height * scale);
@@ -135,7 +135,7 @@ namespace BehaviorTreeEditor.UIControls
 
         private void UpdateMousePoint(object sender, MouseEventArgs e)
         {
-            Vector2 currentMousePoint = (Vector2)e.Location;
+            Vec2 currentMousePoint = (Vec2)e.Location;
             m_Deltal = (currentMousePoint - m_MouseLocalPoint) / m_ZoomScale;
             m_MouseLocalPoint = currentMousePoint;
             m_MouseWorldPoint = LocalToWorldPoint(m_MouseLocalPoint);
@@ -175,7 +175,7 @@ namespace BehaviorTreeEditor.UIControls
         }
 
         //更新偏移坐标
-        protected void UpdateOffset(Vector2 position)
+        protected void UpdateOffset(Vec2 position)
         {
             m_Offset = m_Offset - (m_ScrollPosition - position);
             m_ScrollPosition = position;
@@ -340,7 +340,7 @@ namespace BehaviorTreeEditor.UIControls
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
             UpdateRect();
-            Vector2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
+            Vec2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
             UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
             this.Refresh();
@@ -657,8 +657,8 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectionMode != SelectionMode.Rect)
                 return;
 
-            Vector2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
-            Vector2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
+            Vec2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
+            Vec2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
             Rect rect = FromToRect(tmpStartLocalPoint, tmpEndLocalPoint);
             m_Graphics.DrawRectangle(EditorUtility.SelectionModePen, rect);
             m_Graphics.FillRectangle(EditorUtility.SelectionModeBrush, rect);
@@ -676,7 +676,7 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectionNodes.Count == 0)
                 return;
 
-            Vector2 delta = Vector2.zero;
+            Vec2 delta = Vec2.zero;
 
             if (m_MouseLocalPoint.x > m_ViewSize.width - 50)
             {
@@ -698,7 +698,7 @@ namespace BehaviorTreeEditor.UIControls
                 delta.y -= speed;
             }
 
-            if (delta != Vector2.zero)
+            if (delta != Vec2.zero)
             {
                 delta /= m_ZoomScale;
                 for (int i = 0; i < m_SelectionNodes.Count; i++)
@@ -718,7 +718,7 @@ namespace BehaviorTreeEditor.UIControls
         /// <param name="start">起始点</param>
         /// <param name="end">结束点</param>
         /// <returns></returns>
-        private Rect FromToRect(Vector2 start, Vector2 end)
+        private Rect FromToRect(Vec2 start, Vec2 end)
         {
             Rect rect = new Rect(start.x, start.y, end.x - start.x, end.y - start.y);
             if (rect.width < 0f)
@@ -762,13 +762,13 @@ namespace BehaviorTreeEditor.UIControls
         //视图居中
         public void CenterView()
         {
-            Vector2 center = Vector2.zero;
+            Vec2 center = Vec2.zero;
             if (m_Agent != null && m_Agent.Nodes.Count > 0)
             {
                 for (int i = 0; i < m_Agent.Nodes.Count; i++)
                 {
                     NodeDesigner node = m_Agent.Nodes[i];
-                    center += new Vector2(node.Rect.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
+                    center += new Vec2(node.Rect.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
                 }
                 center /= m_Agent.Nodes.Count;
             }
@@ -826,12 +826,12 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
-        public Vector2 LocalToWorldPoint(Vector2 point)
+        public Vec2 LocalToWorldPoint(Vec2 point)
         {
             return point / m_ZoomScale + m_Offset;
         }
 
-        public Vector2 WorldToLocalPoint(Vector2 point)
+        public Vec2 WorldToLocalPoint(Vec2 point)
         {
             return (point - m_Offset) * m_ZoomScale;
         }

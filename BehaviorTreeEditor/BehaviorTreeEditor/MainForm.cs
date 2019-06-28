@@ -46,7 +46,6 @@ namespace BehaviorTreeEditor
 
         private void MainForm_Leave(object sender, EventArgs e)
         {
-            Console.WriteLine("KeyUp：");
         }
 
         private void 新建工作区ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -120,9 +119,9 @@ namespace BehaviorTreeEditor
             {
                 NodeClasses = new NodeClasses();
                 NodeClasses.ResetNodes();
-                MainForm.Instance.NodeClassDirty = false;
                 XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             }
+
             NodeClassDirty = false;
         }
 
@@ -161,7 +160,6 @@ namespace BehaviorTreeEditor
                         {
                             NodeClasses = new NodeClasses();
                             NodeClasses.ResetNodes();
-                            MainForm.Instance.NodeClassDirty = false;
                             XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
                         }
                         NodeClassDirty = false;
@@ -190,6 +188,8 @@ namespace BehaviorTreeEditor
                     }
                 }
             }
+
+            ShowInfo("保存成功 时间:" + DateTime.Now);
         }
 
         /// <summary>
@@ -244,15 +244,14 @@ namespace BehaviorTreeEditor
             {
                 if (NodeClassDirty)
                 {
-                    DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.YesNoCancel);
-                    if (result == DialogResult.Yes)
+                    DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
                         Exec(OperationType.Save);
-                    else if (result == DialogResult.Cancel)
-                        e.Cancel = true;
                 }
             }
 
             Settings.Default.Save();
+            NodeClassDirty = false;
         }
     }
 }

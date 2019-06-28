@@ -55,6 +55,12 @@
     <Compile Include="BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
     <Compile Include="Data\NodeData.cs" />
+    <Compile Include="EditClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditClassForm.Designer.cs">
+      <DependentUpon>EditClassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorEx.cs" />
     <Compile Include="EditWorkSpaceForm.cs">
       <SubType>Form</SubType>
@@ -88,13 +94,24 @@
       <DependentUpon>ClassForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeDesigner\AgentDesigner.cs" />
-    <Compile Include="NodeDesigner\BaseFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\BaseFieldDesigner.cs" />
     <Compile Include="NodeDesigner\FieldDesigner.cs" />
     <Compile Include="NodeDesigner\FieldType.cs" />
-    <Compile Include="NodeDesigner\IntFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\BooleanFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\ColorFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\EnumFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\FloatFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\IntFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\LongFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\RepeatFloatFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\RepeatLongFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\RepeatVector2FieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\RepeatVector3FieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\Vector2FieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\Vector3FieldDesigner.cs" />
     <Compile Include="NodeDesigner\NodeClass\NodeClass.cs" />
     <Compile Include="NodeDesigner\NodeClass\NodeClasses.cs" />
-    <Compile Include="NodeDesigner\RepeatIntFieldDesigner.cs" />
+    <Compile Include="NodeDesigner\Field\RepeatIntFieldDesigner.cs" />
     <Compile Include="NodeDesigner\Transition.cs" />
     <Compile Include="OperationType.cs" />
     <Compile Include="SingletonForm.cs" />
@@ -127,6 +144,9 @@
     <Compile Include="Utility\XmlUtility.cs" />
     <EmbeddedResource Include="AddClassForm.resx">
       <DependentUpon>AddClassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditClassForm.resx">
+      <DependentUpon>EditClassForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>

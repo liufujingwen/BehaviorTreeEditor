@@ -30,7 +30,7 @@ namespace BehaviorTreeEditor
             this.m_Height = rect.Height;
         }
 
-        public Rect(Vector2 position, Vector2 size)
+        public Rect(Vec2 position, Vec2 size)
         {
             this.m_XMin = position.x;
             this.m_YMin = position.y;
@@ -91,11 +91,11 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public Vector2 position
+        public Vec2 position
         {
             get
             {
-                return new Vector2(this.m_XMin, this.m_YMin);
+                return new Vec2(this.m_XMin, this.m_YMin);
             }
             set
             {
@@ -104,11 +104,11 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public Vector2 center
+        public Vec2 center
         {
             get
             {
-                return new Vector2(this.x + this.m_Width / 2f, this.y + this.m_Height / 2f);
+                return new Vec2(this.x + this.m_Width / 2f, this.y + this.m_Height / 2f);
             }
             set
             {
@@ -117,11 +117,11 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public Vector2 min
+        public Vec2 min
         {
             get
             {
-                return new Vector2(this.xMin, this.yMin);
+                return new Vec2(this.xMin, this.yMin);
             }
             set
             {
@@ -130,11 +130,11 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public Vector2 max
+        public Vec2 max
         {
             get
             {
-                return new Vector2(this.xMax, this.yMax);
+                return new Vec2(this.xMax, this.yMax);
             }
             set
             {
@@ -167,11 +167,11 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public Vector2 size
+        public Vec2 size
         {
             get
             {
-                return new Vector2(this.m_Width, this.m_Height);
+                return new Vec2(this.m_Width, this.m_Height);
             }
             set
             {
@@ -232,7 +232,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public bool Contains(Vector2 point)
+        public bool Contains(Vec2 point)
         {
             return (double)point.x >= (double)this.xMin && (double)point.x < (double)this.xMax && (double)point.y >= (double)this.yMin && (double)point.y < (double)this.yMax;
         }
@@ -270,9 +270,9 @@ namespace BehaviorTreeEditor
             return rect.Overlaps(other);
         }
 
-        public static Vector2 NormalizedToPoint(Rect rectangle, Vector2 normalizedRectCoordinates)
+        public static Vec2 NormalizedToPoint(Rect rectangle, Vec2 normalizedRectCoordinates)
         {
-            return new Vector2(Mathf.Lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), Mathf.Lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
+            return new Vec2(Mathf.Lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), Mathf.Lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
         }
 
         public static bool operator !=(Rect lhs, Rect rhs)
@@ -308,14 +308,14 @@ namespace BehaviorTreeEditor
             return string.Format("(x:{0}, y:{1}, width:{2}, height:{3})", (object)this.x.ToString(format), (object)this.y.ToString(format), (object)this.width.ToString(format), (object)this.height.ToString(format));
         }
 
-        public static Rect operator +(Rect a, Vector2 b)
+        public static Rect operator +(Rect a, Vec2 b)
         {
             a.x += b.x;
             a.y += b.y;
             return a;
         }
 
-        public static Rect operator -(Rect a, Vector2 b)
+        public static Rect operator -(Rect a, Vec2 b)
         {
             a.x -= b.x;
             a.y -= b.y;

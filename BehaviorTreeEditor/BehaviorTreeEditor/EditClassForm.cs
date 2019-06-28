@@ -10,28 +10,35 @@ using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
 {
-    public partial class AddClassForm : Form
+    public partial class EditClassForm : Form
     {
-        private NodeClass m_NodeClass = new NodeClass();
+        private NodeClass m_NodeClass;
         private ClassForm m_ClassForm = null;
-        private NodeType m_DefaultNodeType = NodeType.Composite;
+        private string m_Content;
 
-        public AddClassForm(NodeType nodeType, ClassForm classForm)
+        public EditClassForm(ClassForm classForm, NodeClass nodeClass)
         {
-            m_DefaultNodeType = nodeType;
             m_ClassForm = classForm;
+            m_NodeClass = nodeClass;
+            m_Content = XmlUtility.ObjectToString(m_NodeClass);
             InitializeComponent();
         }
 
-        private void AddClassForm_Load(object sender, EventArgs e)
+        private void EditClassForm_Load(object sender, EventArgs e)
         {
+            classTypeTB.Text = m_NodeClass.ClassType;
+
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
             for (int i = 2; i < enumNames.Length; i++)
             {
                 nodeTypeCBB.Items.Add(enumNames[i]);
             }
-            nodeTypeCBB.SelectedIndex = (int)m_DefaultNodeType - 2;
+            nodeTypeCBB.SelectedIndex = (int)m_NodeClass.NodeType - 2;
+
+            describeTB.Text = m_NodeClass.Describe;
+
+            ShowFieldDataInPage(m_NodeClass);
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -51,12 +58,13 @@ namespace BehaviorTreeEditor
             m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
             m_NodeClass.Describe = describeTB.Text.Trim();
 
-            if (!MainForm.Instance.NodeClasses.AddClass(m_NodeClass))
-                return;
+            string content = XmlUtility.ObjectToString(m_NodeClass);
 
-            m_ClassForm.AddClass(m_NodeClass);
-            m_NodeClass.Dirty = true;
-            MainForm.Instance.NodeClassDirty = true;
+            if (m_Content != content)
+            {
+                MainForm.Instance.NodeClassDirty = true;
+                MainForm.Instance.ShowInfo("修改成功 时间:" + DateTime.Now);
+            }
 
             this.Close();
         }

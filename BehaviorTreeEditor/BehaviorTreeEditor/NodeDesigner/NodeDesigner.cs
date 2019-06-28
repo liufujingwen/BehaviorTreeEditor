@@ -44,7 +44,7 @@ namespace BehaviorTreeEditor
         /// </summary>
         /// <param name="point">指定点</param>
         /// <returns>true:在控件范围内，false:不在控件范围内</returns>
-        public bool IsContains(Vector2 point)
+        public bool IsContains(Vec2 point)
         {
             return Rect.Contains(point);
         }

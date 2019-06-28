@@ -9,12 +9,17 @@ namespace BehaviorTreeEditor
 {
     public class IntFieldDesigner : BaseFieldDesigner
     {
-        [CategoryAttribute("常规"), DescriptionAttribute("Int值")]
+        [Category("常规"), DisplayName("Int值"), Description("Int值")]
         public int Value { get; set; }
+
+        public override string FieldContent()
+        {
+            return string.Format("{0}:{1}", FieldName, Value);
+        }
 
         public override string ToString()
         {
-            return "Int";
+            return "int";
         }
     }
 }

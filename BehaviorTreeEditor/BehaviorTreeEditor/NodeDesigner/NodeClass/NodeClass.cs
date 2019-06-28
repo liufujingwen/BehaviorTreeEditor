@@ -53,6 +53,15 @@ namespace BehaviorTreeEditor
             set { m_Fields = value; }
         }
 
+        [XmlIgnore]
+        private bool m_Dirty = false;
+
+        public bool Dirty
+        {
+            get { return m_Dirty; }
+            set { m_Dirty = value; }
+        }
+
         public bool ExistFieldName(string fieldName)
         {
             for (int i = 0; i < m_Fields.Count; i++)
@@ -68,7 +77,7 @@ namespace BehaviorTreeEditor
 
         public bool AddField(FieldDesigner field)
         {
-            if (field == null )
+            if (field == null)
             {
                 return false;
             }

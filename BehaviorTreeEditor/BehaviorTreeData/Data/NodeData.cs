@@ -20,5 +20,22 @@ namespace BehaviorTreeData
         {
             writer.Write(ID).Write(ClassType).Write(Fileds).Write(Childs);
         }
+
+        public BaseFiled this[string fieldName]
+        {
+            get
+            {
+                for (int i = 0; i < Fileds.Count; i++)
+                {
+                    BaseFiled field = Fileds[i];
+                    if (field == null)
+                        continue;
+                    if (field.FieldName == fieldName)
+                        return field;
+                }
+
+                return null;
+            }
+        }
     }
 }

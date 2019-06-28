@@ -35,6 +35,7 @@
             this.添加类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             this.treeView1.TabIndex = 0;
             this.treeView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
             this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
+            this.treeView1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.treeView1_PreviewKeyDown);
             // 
             // contextMenuStrip1
             // 
@@ -62,9 +64,10 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.添加类ToolStripMenuItem,
             this.编辑类ToolStripMenuItem,
-            this.删除ToolStripMenuItem});
+            this.删除ToolStripMenuItem,
+            this.重置ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 82);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 108);
             // 
             // 添加类ToolStripMenuItem
             // 
@@ -80,6 +83,7 @@
             this.编辑类ToolStripMenuItem.Name = "编辑类ToolStripMenuItem";
             this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.编辑类ToolStripMenuItem.Text = "编辑类";
+            this.编辑类ToolStripMenuItem.Click += new System.EventHandler(this.编辑类ToolStripMenuItem_Click);
             // 
             // 删除ToolStripMenuItem
             // 
@@ -88,6 +92,14 @@
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
             this.删除ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
+            // 
+            // 重置ToolStripMenuItem
+            // 
+            this.重置ToolStripMenuItem.Name = "重置ToolStripMenuItem";
+            this.重置ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.重置ToolStripMenuItem.Text = "重置";
+            this.重置ToolStripMenuItem.Click += new System.EventHandler(this.重置ToolStripMenuItem_Click);
             // 
             // ClassForm
             // 
@@ -110,5 +122,6 @@
         private System.Windows.Forms.ToolStripMenuItem 添加类ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 编辑类ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 重置ToolStripMenuItem;
     }
 }

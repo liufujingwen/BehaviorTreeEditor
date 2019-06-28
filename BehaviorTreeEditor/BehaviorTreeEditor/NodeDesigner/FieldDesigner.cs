@@ -12,9 +12,7 @@ namespace BehaviorTreeEditor
     {
         private FieldType m_FieldType;
 
-        [Category("常规")]
-        [DisplayName("字段类型")]
-        [Description("字段类型")]
+        [Category("常规"), DisplayName("字段类型"), Description("字段类型")]
         public FieldType FieldType
         {
             get { return m_FieldType; }
@@ -28,25 +26,36 @@ namespace BehaviorTreeEditor
                         Field = new IntFieldDesigner();
                         break;
                     case FieldType.LongField:
+                        Field = new LongFieldDesigner();
+                        break;
                     case FieldType.FloatField:
+                        Field = new FloatFieldDesigner();
+                        break;
                     case FieldType.DoubleField:
+                        break;
                     case FieldType.ColorField:
+                        Field = new ColorFieldDesigner();
+                        break;
                     case FieldType.EnumField:
+                        Field = new EnumFieldDesigner();
+                        break;
                     case FieldType.BooleanField:
+                        Field = new BooleanFieldDesigner();
+                        break;
                     case FieldType.RepeatIntField:
                         Field = new IntFieldDesigner();
                         break;
                     case FieldType.RepeatLongField:
+                        Field = new RepeatLongFieldDesigner();
+                        break;
                     case FieldType.RepeatFloatField:
-                    case FieldType.RepeatDoubleField:
+                        Field = new RepeatFloatFieldDesigner();
                         break;
                 }
             }
         }
 
-        [Category("常规")]
-        [DisplayName("字段详细")]
-        [Description("字段详细")]
+        [Category("常规"), DisplayName("字段详细"), Description("字段详细")]
         public BaseFieldDesigner Field { get; set; }
 
         public override string ToString()

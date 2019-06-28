@@ -4,18 +4,19 @@
     <NodeClass ClassType="Parallel" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields />
+      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
       <Fields />
+      <Dirty>false</Dirty>
     </NodeClass>
-    <NodeClass ClassType="TestNode" NodeType="Composite">
-      <Describe />
+    <NodeClass ClassType="Test" NodeType="Composite">
+      <Describe>57567464</Describe>
       <Fields>
         <FieldDesigner>
           <FieldType>IntField</FieldType>
           <Field xsi:type="IntFieldDesigner">
-            <ID>0</ID>
             <FieldName>test1</FieldName>
             <Value>0</Value>
           </Field>
@@ -23,40 +24,34 @@
         <FieldDesigner>
           <FieldType>IntField</FieldType>
           <Field xsi:type="IntFieldDesigner">
-            <ID>0</ID>
             <FieldName>test1_New</FieldName>
             <Value>0</Value>
           </Field>
         </FieldDesigner>
         <FieldDesigner>
-          <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <ID>0</ID>
-            <FieldName>test1_New_New</FieldName>
-            <Value>0</Value>
-          </Field>
-        </FieldDesigner>
-        <FieldDesigner>
-          <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <ID>0</ID>
-            <FieldName>test1_New_New_New</FieldName>
+          <FieldType>LongField</FieldType>
+          <Field xsi:type="LongFieldDesigner">
+            <FieldName>dsfdsf</FieldName>
             <Value>0</Value>
           </Field>
         </FieldDesigner>
       </Fields>
+      <Dirty>true</Dirty>
     </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
       <Describe>非节点将子节点的返回值取反</Describe>
       <Fields />
+      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Compare" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields />
+      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Noop" NodeType="Action">
       <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
       <Fields />
+      <Dirty>false</Dirty>
     </NodeClass>
   </Nodes>
 </NodeClasses>

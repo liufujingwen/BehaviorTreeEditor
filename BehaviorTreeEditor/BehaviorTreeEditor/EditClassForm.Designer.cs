@@ -1,6 +1,6 @@
 ﻿namespace BehaviorTreeEditor
 {
-    partial class AddClassForm
+    partial class EditClassForm
     {
         /// <summary>
         /// Required designer variable.
@@ -66,7 +66,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -83,64 +83,60 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(479, 525);
+            this.splitContainer1.Size = new System.Drawing.Size(639, 656);
             this.splitContainer1.SplitterDistance = 171;
-            this.splitContainer1.SplitterWidth = 3;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.TabIndex = 1;
             // 
             // nodeTypeCBB
             // 
             this.nodeTypeCBB.FormattingEnabled = true;
-            this.nodeTypeCBB.Location = new System.Drawing.Point(52, 38);
-            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(2);
+            this.nodeTypeCBB.Location = new System.Drawing.Point(69, 48);
+            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nodeTypeCBB.Name = "nodeTypeCBB";
-            this.nodeTypeCBB.Size = new System.Drawing.Size(343, 20);
+            this.nodeTypeCBB.Size = new System.Drawing.Size(456, 23);
             this.nodeTypeCBB.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 40);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(12, 50);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "类型：";
             // 
             // describeTB
             // 
-            this.describeTB.Location = new System.Drawing.Point(52, 66);
-            this.describeTB.Margin = new System.Windows.Forms.Padding(2);
+            this.describeTB.Location = new System.Drawing.Point(69, 82);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
-            this.describeTB.Size = new System.Drawing.Size(402, 56);
+            this.describeTB.Size = new System.Drawing.Size(535, 69);
             this.describeTB.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 69);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(12, 86);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "描述：";
             // 
             // classTypeTB
             // 
-            this.classTypeTB.Location = new System.Drawing.Point(52, 7);
-            this.classTypeTB.Margin = new System.Windows.Forms.Padding(2);
+            this.classTypeTB.Location = new System.Drawing.Point(69, 9);
+            this.classTypeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.classTypeTB.Name = "classTypeTB";
-            this.classTypeTB.Size = new System.Drawing.Size(343, 21);
+            this.classTypeTB.Size = new System.Drawing.Size(456, 25);
             this.classTypeTB.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(52, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "类名：";
             // 
@@ -149,7 +145,7 @@
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -162,9 +158,8 @@
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.Silver;
             this.splitContainer2.Panel2.Controls.Add(this.enterBTN);
             this.splitContainer2.Panel2.Controls.Add(this.cancelBTN);
-            this.splitContainer2.Size = new System.Drawing.Size(479, 351);
-            this.splitContainer2.SplitterDistance = 269;
-            this.splitContainer2.SplitterWidth = 3;
+            this.splitContainer2.Size = new System.Drawing.Size(639, 481);
+            this.splitContainer2.SplitterDistance = 399;
             this.splitContainer2.TabIndex = 0;
             // 
             // listViewFields
@@ -180,8 +175,9 @@
             this.listViewFields.HideSelection = false;
             this.listViewFields.LabelEdit = true;
             this.listViewFields.Location = new System.Drawing.Point(0, 0);
+            this.listViewFields.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFields.Name = "listViewFields";
-            this.listViewFields.Size = new System.Drawing.Size(479, 269);
+            this.listViewFields.Size = new System.Drawing.Size(639, 399);
             this.listViewFields.TabIndex = 1;
             this.listViewFields.UseCompatibleStateImageBehavior = false;
             this.listViewFields.View = System.Windows.Forms.View.Details;
@@ -205,10 +201,10 @@
             // 
             // enterBTN
             // 
-            this.enterBTN.Location = new System.Drawing.Point(279, 22);
-            this.enterBTN.Margin = new System.Windows.Forms.Padding(2);
+            this.enterBTN.Location = new System.Drawing.Point(372, 28);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(84, 26);
+            this.enterBTN.Size = new System.Drawing.Size(112, 32);
             this.enterBTN.TabIndex = 5;
             this.enterBTN.Text = "确定";
             this.enterBTN.UseVisualStyleBackColor = true;
@@ -216,10 +212,10 @@
             // 
             // cancelBTN
             // 
-            this.cancelBTN.Location = new System.Drawing.Point(94, 22);
-            this.cancelBTN.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelBTN.Location = new System.Drawing.Point(125, 28);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(84, 26);
+            this.cancelBTN.Size = new System.Drawing.Size(112, 32);
             this.cancelBTN.TabIndex = 4;
             this.cancelBTN.Text = "取消";
             this.cancelBTN.UseVisualStyleBackColor = true;
@@ -227,6 +223,7 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.复制ToolStripMenuItem,
             this.粘贴ToolStripMenuItem,
@@ -235,13 +232,13 @@
             this.新建ToolStripMenuItem,
             this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 158);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
@@ -249,20 +246,20 @@
             // 
             this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // 选项ToolStripMenuItem
             // 
             this.选项ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
-            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.选项ToolStripMenuItem.Text = "选项";
             this.选项ToolStripMenuItem.Click += new System.EventHandler(this.选项ToolStripMenuItem_Click);
             // 
@@ -270,7 +267,7 @@
             // 
             this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.新建ToolStripMenuItem.Text = "新建";
             this.新建ToolStripMenuItem.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
             // 
@@ -278,22 +275,19 @@
             // 
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
-            // AddClassForm
+            // EditClassForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(479, 525);
+            this.ClientSize = new System.Drawing.Size(639, 656);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "AddClassForm";
-            this.Text = "添加节点类";
-            this.Load += new System.EventHandler(this.AddClassForm_Load);
+            this.Name = "EditClassForm";
+            this.Text = "编辑节点类";
+            this.Load += new System.EventHandler(this.EditClassForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -311,10 +305,12 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox nodeTypeCBB;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox describeTB;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox classTypeTB;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ListView listViewFields;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -322,8 +318,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button enterBTN;
         private System.Windows.Forms.Button cancelBTN;
-        private System.Windows.Forms.ComboBox nodeTypeCBB;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 复制ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 粘贴ToolStripMenuItem;

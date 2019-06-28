@@ -64,6 +64,18 @@ namespace BehaviorTreeEditor
             return true;
         }
 
+        /// <summary>
+        /// 删除节点类
+        /// </summary>
+        /// <param name="nodeClass">节点类对象</param>
+        /// <returns></returns>
+        public bool Remove(NodeClass nodeClass)
+        {
+            if (nodeClass == null)
+                return false;
+            return m_Nodes.Remove(nodeClass);
+        }
+
         public void ResetNodes()
         {
             m_Nodes.Clear();

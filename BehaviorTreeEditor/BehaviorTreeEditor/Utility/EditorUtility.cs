@@ -75,27 +75,27 @@ namespace BehaviorTreeEditor
         #endregion
 
         //节点标题Rect
-        public static Rect GetTitleRect(NodeDesigner node, Vector2 offset)
+        public static Rect GetTitleRect(NodeDesigner node, Vec2 offset)
         {
             return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, EditorUtility.TitleNodeHeight);
         }
 
         //节点内存Rect
-        public static Rect GetContentRect(NodeDesigner node, Vector2 offset)
+        public static Rect GetContentRect(NodeDesigner node, Vec2 offset)
         {
             return new Rect(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight - offset.y, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
         }
 
         //左边连接点
-        public static Vector2 GetLeftLinkPoint(NodeDesigner node, Vector2 offset)
+        public static Vec2 GetLeftLinkPoint(NodeDesigner node, Vec2 offset)
         {
-            return new Vector2(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
+            return new Vec2(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
         }
 
         //右边连接点
-        public static Vector2 GetRightLinkPoint(NodeDesigner node, Vector2 offset)
+        public static Vec2 GetRightLinkPoint(NodeDesigner node, Vec2 offset)
         {
-            return new Vector2(node.Rect.x + node.Rect.width - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
+            return new Vec2(node.Rect.x + node.Rect.width - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
         }
 
         /// <summary>
@@ -105,16 +105,16 @@ namespace BehaviorTreeEditor
         /// <param name="rect">画线总区域</param>
         /// <param name="gridSize">间距</param>
         /// <param name="offset">偏移</param>
-        public static void DrawGridLines(Graphics graphics, Rect rect, int gridSize, Vector2 offset, bool normal)
+        public static void DrawGridLines(Graphics graphics, Rect rect, int gridSize, Vec2 offset, bool normal)
         {
             Pen pen = normal ? EditorUtility.LineNormalPen : EditorUtility.LineBoldPen;
             for (float i = rect.x + (offset.x < 0 ? gridSize : 0) + offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
             {
-                DrawLine(graphics, pen, new Vector2(i, rect.y), new Vector2(i, rect.y + rect.height));
+                DrawLine(graphics, pen, new Vec2(i, rect.y), new Vec2(i, rect.y + rect.height));
             }
             for (float j = rect.y + (offset.y < 0 ? gridSize : 0) + offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
             {
-                DrawLine(graphics, pen, new Vector2(rect.x, j), new Vector2(rect.x + rect.width, j));
+                DrawLine(graphics, pen, new Vec2(rect.x, j), new Vec2(rect.x + rect.width, j));
             }
         }
 
@@ -125,7 +125,7 @@ namespace BehaviorTreeEditor
         /// <param name="pen">画笔</param>
         /// <param name="p1">起始坐标</param>
         /// <param name="p2">结束坐标</param>
-        public static void DrawLine(Graphics graphics, Pen pen, Vector2 p1, Vector2 p2)
+        public static void DrawLine(Graphics graphics, Pen pen, Vec2 p1, Vec2 p2)
         {
             graphics.DrawLine(pen, p1, p2);
         }
@@ -137,7 +137,7 @@ namespace BehaviorTreeEditor
         /// <param name="graphics">graphics</param>
         /// <param name="offset">偏移</param>
         /// <param name="on">是否选中</param>
-        public static void Draw(NodeDesigner node, Graphics graphics, Vector2 offset, bool on)
+        public static void Draw(NodeDesigner node, Graphics graphics, Vec2 offset, bool on)
         {
             Rect titleRect = GetTitleRect(node, offset);
             Rect contentRect = GetContentRect(node, offset);
