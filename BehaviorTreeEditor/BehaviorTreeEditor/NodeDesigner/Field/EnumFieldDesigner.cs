@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BehaviorTreeEditor
 {
@@ -16,10 +14,12 @@ namespace BehaviorTreeEditor
         public int Value
         {
             get { return m_Value; }
-            set { m_Value = Value; }
+            set { m_Value = value; }
         }
 
-        [Category("常规"), DisplayName("枚举值数组"), Description("枚举值数组")]
+        //[Category("常规"), DisplayName("枚举值数组"), Description("枚举值数组")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design", "System.Drawing.Design.UITypeEditor, System.Drawing")]
         public List<string> EnumStrs
         {
             get { return m_EnumStrs; }
@@ -28,7 +28,7 @@ namespace BehaviorTreeEditor
 
         public override string FieldContent()
         {
-            string content = FieldName + ":";
+            string content = string.Empty;
             if (m_Value >= 0 && m_Value < m_EnumStrs.Count - 1)
             {
                 content += m_EnumStrs[m_Value];

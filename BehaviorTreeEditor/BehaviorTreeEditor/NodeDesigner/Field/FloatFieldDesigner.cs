@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BehaviorTreeEditor
 {
@@ -14,7 +9,7 @@ namespace BehaviorTreeEditor
 
         public override string FieldContent()
         {
-            return string.Format("{0}:{1}", FieldName, Value);
+            return Value.ToString();
         }
 
         public override string ToString()

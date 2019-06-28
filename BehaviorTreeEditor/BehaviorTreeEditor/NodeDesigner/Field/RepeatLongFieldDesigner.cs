@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BehaviorTreeEditor
 {
@@ -20,8 +16,8 @@ namespace BehaviorTreeEditor
 
         public override string FieldContent()
         {
-            string content = FieldName;
-            content += ":[";
+            string content = string.Empty;
+            content += "[";
             for (int i = 0; i < m_Value.Count; i++)
             {
                 content += m_Value[i] + (i < m_Value.Count - 1 ? "," : string.Empty);

@@ -1,23 +1,14 @@
 ﻿using BehaviorTreeEditor.Properties;
 using BehaviorTreeEditor.UIControls;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
 {
     public partial class MainForm : Form
     {
-
         private static MainForm ms_Instance;
-
 
         public static MainForm Instance
         {
@@ -35,17 +26,13 @@ namespace BehaviorTreeEditor
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void NewMainForm_Load(object sender, EventArgs e)
         {
             Exec(OperationType.LoadWorkSpace);
             m_ContentUserControl = new ContentUserControl();
             m_ContentUserControl.Dock = DockStyle.Fill;
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(m_ContentUserControl);
-        }
-
-        private void MainForm_Leave(object sender, EventArgs e)
-        {
         }
 
         private void 新建工作区ToolStripMenuItem_Click(object sender, EventArgs e)

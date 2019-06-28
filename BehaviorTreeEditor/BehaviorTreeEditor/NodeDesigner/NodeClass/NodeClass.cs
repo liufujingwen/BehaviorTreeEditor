@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace BehaviorTreeEditor
@@ -67,7 +63,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Fields.Count; i++)
             {
                 FieldDesigner temp = m_Fields[i];
-                if (temp.Field.FieldName == fieldName)
+                if (temp.FieldName == fieldName)
                 {
                     return true;
                 }
@@ -89,7 +85,7 @@ namespace BehaviorTreeEditor
                 return false;
             }
 
-            if (string.IsNullOrEmpty(field.Field.FieldName))
+            if (string.IsNullOrEmpty(field.FieldName))
             {
                 MainForm.Instance.ShowInfo("字段名为空,添加失败！！！");
                 MainForm.Instance.ShowMessage("字段名为空,添加失败！！！", "警告");
@@ -99,7 +95,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Fields.Count; i++)
             {
                 FieldDesigner temp = m_Fields[i];
-                if (temp.Field.FieldName == field.Field.FieldName)
+                if (temp.FieldName == field.FieldName)
                 {
                     MainForm.Instance.ShowInfo("字段名字相同,添加失败！！！");
                     MainForm.Instance.ShowMessage("字段名字相同,添加失败！！！", "警告");

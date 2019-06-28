@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
@@ -148,7 +142,10 @@ namespace BehaviorTreeEditor
                 if (listViewFields.SelectedItems.Count == 1)
                 {
                     InputValueDialogForm dlg = new InputValueDialogForm("编辑字段", listViewFields.SelectedItems[0].Tag);
-                    dlg.ShowDialog();
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        Exec("Refresh");
+                    }
                 }
                 else
                 {
@@ -215,7 +212,7 @@ namespace BehaviorTreeEditor
             {
                 if (field.Field == null)
                     continue;
-                ListViewItem listViewItem = listViewFields.Items.Add(field.Field.FieldName);
+                ListViewItem listViewItem = listViewFields.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
                 listViewItem.SubItems.Add(field.FieldType.ToString());
                 listViewItem.SubItems.Add(field.Field.Describe);
@@ -269,14 +266,14 @@ namespace BehaviorTreeEditor
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
                     FieldDesigner field = content.DataList[i];
-                    string fieldName = field.Field.FieldName;
+                    string fieldName = field.FieldName;
                     do
                     {
                         fieldName += "_New";
                     }
                     while (m_NodeClass.ExistFieldName(fieldName));
 
-                    field.Field.FieldName = fieldName;
+                    field.FieldName = fieldName;
                     m_NodeClass.AddField(field);
                     MainForm.Instance.NodeClassDirty = true;
                 }

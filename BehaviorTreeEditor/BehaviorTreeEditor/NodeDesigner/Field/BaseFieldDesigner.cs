@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace BehaviorTreeEditor
@@ -22,13 +17,11 @@ namespace BehaviorTreeEditor
     [XmlInclude(typeof(Vector3FieldDesigner))]
     [XmlInclude(typeof(RepeatVector3FieldDesigner))]
     [XmlInclude(typeof(ColorFieldDesigner))]
+    [XmlInclude(typeof(EnumFieldDesigner))]
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public abstract class BaseFieldDesigner
     {
-        [Category("常规")]
-        [DisplayName("字段名称")]
-        [Description("字段名称")]
-        public string FieldName { get; set; }
+     
 
         [Category("常规")]
         [DisplayName("描述")]

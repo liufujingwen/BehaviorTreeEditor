@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializeTest", "SerializeT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehaviorTreeData", "BehaviorTreeData\BehaviorTreeData.csproj", "{D62B5446-97C2-4B94-8D52-D05132CA71B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{553740EF-027E-445A-ACCE-6C753D292632}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D62B5446-97C2-4B94-8D52-D05132CA71B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62B5446-97C2-4B94-8D52-D05132CA71B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62B5446-97C2-4B94-8D52-D05132CA71B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{553740EF-027E-445A-ACCE-6C753D292632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553740EF-027E-445A-ACCE-6C753D292632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553740EF-027E-445A-ACCE-6C753D292632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553740EF-027E-445A-ACCE-6C753D292632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

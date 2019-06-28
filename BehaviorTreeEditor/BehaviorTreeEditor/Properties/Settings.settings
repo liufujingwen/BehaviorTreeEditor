@@ -32,8 +32,5 @@
     <Setting Name="SaveWarnning" Type="System.String" Scope="User">
       <Value Profile="(Default)">是否保存修改?</Value>
     </Setting>
-    <Setting Name="设置" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
   </Settings>
 </SettingsFile>

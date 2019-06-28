@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BehaviorTreeEditor
 {
@@ -11,6 +7,12 @@ namespace BehaviorTreeEditor
     public class FieldDesigner
     {
         private FieldType m_FieldType;
+
+        [Category("常规")]
+        [DisplayName("字段名称")]
+        [Description("字段名称")]
+        public string FieldName { get; set; }
+
 
         [Category("常规"), DisplayName("字段类型"), Description("字段类型")]
         public FieldType FieldType
@@ -36,6 +38,12 @@ namespace BehaviorTreeEditor
                     case FieldType.ColorField:
                         Field = new ColorFieldDesigner();
                         break;
+                    case FieldType.Vector2:
+                        Field = new Vector2FieldDesigner();
+                        break;
+                    case FieldType.Vector3:
+                        Field = new Vector3FieldDesigner();
+                        break;
                     case FieldType.EnumField:
                         Field = new EnumFieldDesigner();
                         break;
@@ -43,13 +51,19 @@ namespace BehaviorTreeEditor
                         Field = new BooleanFieldDesigner();
                         break;
                     case FieldType.RepeatIntField:
-                        Field = new IntFieldDesigner();
+                        Field = new RepeatIntFieldDesigner();
                         break;
                     case FieldType.RepeatLongField:
                         Field = new RepeatLongFieldDesigner();
                         break;
                     case FieldType.RepeatFloatField:
                         Field = new RepeatFloatFieldDesigner();
+                        break;
+                    case FieldType.RepeatVector2Field:
+                        Field = new RepeatVector2FieldDesigner();
+                        break;
+                    case FieldType.RepeatVector3Field:
+                        Field = new RepeatVector3FieldDesigner();
                         break;
                 }
             }
@@ -60,7 +74,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return Field == null ? FieldType.ToString() : Field.FieldName + "  " + FieldType.ToString();
+            return Field == null ? FieldType.ToString() : FieldName + "  " + Field;
         }
     }
 }

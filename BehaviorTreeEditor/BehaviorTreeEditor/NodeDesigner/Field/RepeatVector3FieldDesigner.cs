@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BehaviorTreeEditor
 {
     public class RepeatVector3FieldDesigner : BaseFieldDesigner
     {
-        private List<List<int>> m_Value = new List<List<int>>();
+        private List<Vector3> m_Value = new List<Vector3>();
 
         [Category("常规"), DisplayName("Vector3数组"), Description("Vector3数组")]
-        public List<List<int>> Value
+        public List<Vector3> Value
         {
             get { return m_Value; }
             set { m_Value = value; }
@@ -20,8 +17,8 @@ namespace BehaviorTreeEditor
 
         public override string FieldContent()
         {
-            string content = FieldName;
-            content += ":[";
+            string content = string.Empty;
+            content += "[";
             for (int i = 0; i < m_Value.Count; i++)
             {
                 if (i == 0) content += "[";

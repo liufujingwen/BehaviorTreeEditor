@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<NodeClasses xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<NodeClasses xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Nodes>
     <NodeClass ClassType="Parallel" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
-      <Fields />
+      <Fields>
+        <FieldDesigner>
+          <FieldName>dddd</FieldName>
+          <FieldType>IntField</FieldType>
+          <Field xsi:type="IntFieldDesigner">
+            <EnumStrs>
+              <string>aaa</string>
+              <string>bbb</string>
+            </EnumStrs>
+            <Value>0</Value>
+          </Field>
+        </FieldDesigner>
+        <FieldDesigner>
+          <FieldName>aaaaaaaaaaaa</FieldName>
+          <FieldType>RepeatVector3Field</FieldType>
+          <Field xsi:type="RepeatVector3FieldDesigner">
+            <Value>
+              <Vector3 />
+              <Vector3>
+                <Y>100</Y>
+              </Vector3>
+              <Vector3>
+                <X>1</X>
+                <Y>1</Y>
+                <Z>1</Z>
+              </Vector3>
+            </Value>
+          </Field>
+        </FieldDesigner>
+      </Fields>
       <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
       <Fields />
       <Dirty>false</Dirty>
-    </NodeClass>
-    <NodeClass ClassType="Test" NodeType="Composite">
-      <Describe>57567464</Describe>
-      <Fields>
-        <FieldDesigner>
-          <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <FieldName>test1</FieldName>
-            <Value>0</Value>
-          </Field>
-        </FieldDesigner>
-        <FieldDesigner>
-          <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <FieldName>test1_New</FieldName>
-            <Value>0</Value>
-          </Field>
-        </FieldDesigner>
-        <FieldDesigner>
-          <FieldType>LongField</FieldType>
-          <Field xsi:type="LongFieldDesigner">
-            <FieldName>dsfdsf</FieldName>
-            <Value>0</Value>
-          </Field>
-        </FieldDesigner>
-      </Fields>
-      <Dirty>true</Dirty>
     </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
       <Describe>非节点将子节点的返回值取反</Describe>
