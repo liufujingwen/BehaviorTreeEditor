@@ -181,7 +181,7 @@ namespace BehaviorTreeEditor
         /// </summary>
         /// <param name="msg">消息内容</param>
         /// <param name="title">标题</param>
-        public void ShowMessage(string msg, string title)
+        public void ShowMessage(string msg, string title = "提示")
         {
             MessageBox.Show(msg, title);
         }

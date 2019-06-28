@@ -59,6 +59,19 @@ namespace BehaviorTreeEditor
             return ++id;
         }
 
+        public bool ExistFieldName(string fieldName)
+        {
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner temp = m_Fields[i];
+                if (temp.Field.FieldName == fieldName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool AddField(FieldDesigner field)
         {
             if (field == null )

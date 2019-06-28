@@ -50,5 +50,31 @@ namespace BehaviorTreeEditor
                 return default(T);
             }
         }
+
+        public static String ObjectToString(Object obj)
+        {
+            MemoryStream stream = new MemoryStream();
+            XmlSerializer serializer = new XmlSerializer(obj.GetType());
+            XmlTextWriter writer = new XmlTextWriter(stream, UTF8);
+            writer.Formatting = Formatting.Indented;
+
+            serializer.Serialize(writer, obj);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            StreamReader sr = new StreamReader(stream);
+            String xmlString = sr.ReadToEnd();
+            sr.Close();
+
+            return xmlString;
+        }
+
+        public static T StringToObject<T>(String text)
+        {
+            byte[] byteArray = UTF8.GetBytes(text);
+            MemoryStream stream = new MemoryStream(byteArray);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            return (T)serializer.Deserialize(stream);
+        }
     }
 }
