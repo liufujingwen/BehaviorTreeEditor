@@ -5,6 +5,13 @@ namespace BehaviorTreeEditor
     public class NodeClasses
     {
         private List<NodeClass> m_Nodes = new List<NodeClass>();
+        private List<CustomEnum> m_Enums = new List<CustomEnum>();
+
+        public List<CustomEnum> Enums
+        {
+            get { return m_Enums; }
+            set { m_Enums = value; }
+        }
 
         public List<NodeClass> Nodes
         {
@@ -124,6 +131,45 @@ namespace BehaviorTreeEditor
             m_Nodes.Add(noopNode);
 
             #endregion
+        }
+
+        public bool ExistEnumType(string enumType)
+        {
+            if (string.IsNullOrEmpty(enumType))
+                throw new System.Exception("NodeClasses.ExistEnumType() 枚举类型为空");
+
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                CustomEnum tempEnum = m_Enums[i];
+                if (tempEnum == null)
+                    continue;
+                if (tempEnum.EnumType == enumType)
+                    return true;
+            }
+
+            return false;
+        }
+
+
+        public bool AddEnum(CustomEnum customEnum)
+        {
+            if (customEnum == null)
+                return false;
+
+            if (string.IsNullOrEmpty(customEnum.EnumType))
+            {
+                MainForm.Instance.ShowMessage("枚举类型为空!!!!");
+                return false;
+            }
+
+            if (ExistEnumType(customEnum.EnumType))
+            {
+                MainForm.Instance.ShowMessage(string.Format("已存在枚举:{0},请换个枚举类型", customEnum.EnumType));
+                return false;
+            }
+
+            m_Enums.Add(customEnum);
+            return true;
         }
     }
 }

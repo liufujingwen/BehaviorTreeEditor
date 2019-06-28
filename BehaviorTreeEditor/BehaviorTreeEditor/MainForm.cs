@@ -240,5 +240,11 @@ namespace BehaviorTreeEditor
             Settings.Default.Save();
             NodeClassDirty = false;
         }
+
+        private void 枚举视图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EnumForm enumForm = new EnumForm();
+            enumForm.ShowDialog();
+        }
     }
 }

@@ -99,6 +99,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.枚举视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -112,10 +113,9 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 605);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 480);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1090, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(818, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -138,9 +138,9 @@
             this.toolStripSeparator5,
             this.toolStripButton10,
             this.toolStripButton9});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1090, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(818, 27);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -235,8 +235,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1090, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(818, 25);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -254,7 +253,7 @@
             this.退出ToolStripMenuItem});
             this.fileToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.fileToolStripMenuItem.Text = "文件";
             // 
             // 新建工作区ToolStripMenuItem
@@ -264,7 +263,7 @@
             this.新建工作区ToolStripMenuItem.Name = "新建工作区ToolStripMenuItem";
             this.新建工作区ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.新建工作区ToolStripMenuItem.ShowShortcutKeys = false;
-            this.新建工作区ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.新建工作区ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.新建工作区ToolStripMenuItem.Text = "新建工作区";
             this.新建工作区ToolStripMenuItem.Click += new System.EventHandler(this.新建工作区ToolStripMenuItem_Click);
             // 
@@ -274,14 +273,14 @@
             this.打开工作区ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.打开工作区ToolStripMenuItem.Name = "打开工作区ToolStripMenuItem";
             this.打开工作区ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.打开工作区ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.打开工作区ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.打开工作区ToolStripMenuItem.Text = "打开工作区";
             this.打开工作区ToolStripMenuItem.Click += new System.EventHandler(this.打开工作区ToolStripMenuItem_Click);
             // 
             // 编辑工作区ToolStripMenuItem
             // 
             this.编辑工作区ToolStripMenuItem.Name = "编辑工作区ToolStripMenuItem";
-            this.编辑工作区ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.编辑工作区ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.编辑工作区ToolStripMenuItem.Text = "编辑工作区";
             this.编辑工作区ToolStripMenuItem.Click += new System.EventHandler(this.编辑工作区ToolStripMenuItem_Click);
             // 
@@ -291,36 +290,36 @@
             this.保存ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
             this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.保存ToolStripMenuItem.Text = "保存";
             // 
             // 另存为ToolStripMenuItem
             // 
             this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
-            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.另存为ToolStripMenuItem.Text = "另存为";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(214, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(180, 6);
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.importToolStripMenuItem.Text = "导入";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(214, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(180, 6);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(217, 26);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -333,34 +332,34 @@
             this.toolStripSeparator12,
             this.hotkeyToolStripMenuItem});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
-            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.编辑ToolStripMenuItem.Text = "编辑";
             // 
             // 新建ToolStripMenuItem
             // 
             this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.新建ToolStripMenuItem.Text = "新建";
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.复制ToolStripMenuItem.Text = "复制";
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(177, 6);
             // 
             // hotkeyToolStripMenuItem
             // 
@@ -369,42 +368,43 @@
             this.unitPropertyToolStripMenuItem,
             this.unitAIToolStripMenuItem});
             this.hotkeyToolStripMenuItem.Name = "hotkeyToolStripMenuItem";
-            this.hotkeyToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.hotkeyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hotkeyToolStripMenuItem.Text = "快捷键";
             // 
             // actionListToolStripMenuItem
             // 
             this.actionListToolStripMenuItem.Name = "actionListToolStripMenuItem";
             this.actionListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.actionListToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.actionListToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.actionListToolStripMenuItem.Text = "动作列表";
             // 
             // unitPropertyToolStripMenuItem
             // 
             this.unitPropertyToolStripMenuItem.Name = "unitPropertyToolStripMenuItem";
             this.unitPropertyToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.unitPropertyToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.unitPropertyToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.unitPropertyToolStripMenuItem.Text = "单位属性";
             // 
             // unitAIToolStripMenuItem
             // 
             this.unitAIToolStripMenuItem.Name = "unitAIToolStripMenuItem";
             this.unitAIToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.unitAIToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.unitAIToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.unitAIToolStripMenuItem.Text = "单位AI集合";
             // 
             // 视图ToolStripMenuItem
             // 
             this.视图ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.类视图ToolStripMenuItem});
+            this.类视图ToolStripMenuItem,
+            this.枚举视图ToolStripMenuItem});
             this.视图ToolStripMenuItem.Name = "视图ToolStripMenuItem";
-            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.视图ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.视图ToolStripMenuItem.Text = "视图";
             // 
             // 类视图ToolStripMenuItem
             // 
             this.类视图ToolStripMenuItem.Name = "类视图ToolStripMenuItem";
-            this.类视图ToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.类视图ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.类视图ToolStripMenuItem.Text = "类视图";
             this.类视图ToolStripMenuItem.Click += new System.EventHandler(this.类视图ToolStripMenuItem_Click);
             // 
@@ -414,19 +414,19 @@
             this.helpToolStripMenuItem1,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.helpToolStripMenuItem.Text = "帮助";
             // 
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.helpToolStripMenuItem1.Text = "帮助文档";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.aboutToolStripMenuItem.Text = "关于";
             // 
             // splitContainer1
@@ -434,23 +434,20 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 55);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 52);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.treeView1);
-            this.splitContainer1.Size = new System.Drawing.Size(1090, 550);
+            this.splitContainer1.Size = new System.Drawing.Size(818, 428);
             this.splitContainer1.SplitterDistance = 212;
-            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
             // 
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "节点1";
             treeNode1.Text = "节点1";
@@ -495,18 +492,26 @@
             treeNode12,
             treeNode17,
             treeNode18});
-            this.treeView1.Size = new System.Drawing.Size(210, 548);
+            this.treeView1.Size = new System.Drawing.Size(210, 426);
             this.treeView1.TabIndex = 1;
+            // 
+            // 枚举视图ToolStripMenuItem
+            // 
+            this.枚举视图ToolStripMenuItem.Name = "枚举视图ToolStripMenuItem";
+            this.枚举视图ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.枚举视图ToolStripMenuItem.Text = "枚举视图";
+            this.枚举视图ToolStripMenuItem.Click += new System.EventHandler(this.枚举视图ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 627);
+            this.ClientSize = new System.Drawing.Size(818, 502);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.Text = "NewMainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -567,5 +572,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ToolStripMenuItem 枚举视图ToolStripMenuItem;
     }
 }

@@ -70,6 +70,12 @@
     <Compile Include="EditWorkSpaceForm.Designer.cs">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EnumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnumForm.Designer.cs">
+      <DependentUpon>EnumForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputValueDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,7 @@
       <DependentUpon>ClassForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="NodeDesigner\CustomEnum.cs" />
     <Compile Include="NodeDesigner\Field\BaseFieldDesigner.cs" />
     <Compile Include="NodeDesigner\Field\FieldDesigner.cs" />
     <Compile Include="NodeDesigner\FieldType.cs" />
@@ -161,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnumForm.resx">
+      <DependentUpon>EnumForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputValueDialogForm.resx">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
