@@ -30,7 +30,6 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\B
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.MainForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EnumForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.AddEnumForm.resources
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.EnumItemUserControl.resources
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.ModifyEnumItemUserControl.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.AddEnumItemForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditEnumForm.resources
+D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditEnumItemForm.resources

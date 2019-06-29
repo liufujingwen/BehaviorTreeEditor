@@ -12,7 +12,28 @@
           <EnumStr>Enum2</EnumStr>
           <EnumValue>1</EnumValue>
         </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum3</EnumStr>
+          <EnumValue>3</EnumValue>
+          <Describe>sdffffffff</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum3_New</EnumStr>
+          <EnumValue>4</EnumValue>
+          <Describe>sdffffffff</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum3_New_New</EnumStr>
+          <EnumValue>5</EnumValue>
+          <Describe>sdffffffff</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum3_New_New_New</EnumStr>
+          <EnumValue>6</EnumValue>
+          <Describe>sdffffffff</Describe>
+        </EnumItem>
       </Enums>
+      <Describe>这是TestEnum的描述</Describe>
     </CustomEnum>
     <CustomEnum>
       <EnumType>TestEnum_New</EnumType>
@@ -26,6 +47,7 @@
           <EnumValue>1</EnumValue>
         </EnumItem>
       </Enums>
+      <Describe>lk;lkl;</Describe>
     </CustomEnum>
     <CustomEnum>
       <EnumType>TestEnum_New_New</EnumType>
@@ -39,6 +61,7 @@
           <EnumValue>1</EnumValue>
         </EnumItem>
       </Enums>
+      <Describe>更新描述</Describe>
     </CustomEnum>
     <CustomEnum>
       <EnumType>TTTT</EnumType>
@@ -50,9 +73,40 @@
         <EnumItem>
           <EnumStr>Enum2</EnumStr>
           <EnumValue>2</EnumValue>
+          <Describe>lsjflksdjflksdjflk</Describe>
         </EnumItem>
       </Enums>
-      <Describe>这是测试枚举</Describe>
+      <Describe>这是测试枚举1111</Describe>
+    </CustomEnum>
+    <CustomEnum>
+      <EnumType>TTTT_New</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Enum1</EnumStr>
+          <EnumValue>1</EnumValue>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum2</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>lsjflksdjflksdjflk</Describe>
+        </EnumItem>
+      </Enums>
+      <Describe>这是测试枚举1111</Describe>
+    </CustomEnum>
+    <CustomEnum>
+      <EnumType>TTTT_New_New</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Enum1</EnumStr>
+          <EnumValue>1</EnumValue>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum2</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>lsjflksdjflksdjflk</Describe>
+        </EnumItem>
+      </Enums>
+      <Describe>这是测试枚举1111</Describe>
     </CustomEnum>
   </Enums>
   <Nodes>

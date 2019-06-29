@@ -14,7 +14,6 @@ namespace BehaviorTreeEditor
     {
         private EnumForm m_EnumForm;
         private CustomEnum m_CustomEnum;
-        private List<EnumItemUserControl> m_EnumItemControlList = new List<EnumItemUserControl>();
         private string m_OldContent;//用于检测对象有没有被改变了
 
         public EditEnumForm(EnumForm enumForm, CustomEnum customEnum)
@@ -30,40 +29,320 @@ namespace BehaviorTreeEditor
             BindEnum();
         }
 
-        public void BindEnum()
+        private ListViewItem GetListViewItem(object obj)
+        {
+            if (obj == null)
+                return null;
+
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                ListViewItem listViewItem = listView1.Items[i];
+                if (listViewItem.Tag == obj)
+                    return listViewItem;
+            }
+
+            return null;
+        }
+
+        private void listView1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.C:
+                        Exec("Copy");
+                        break;
+                    case Keys.V:
+                        Exec("Paste");
+                        break;
+                    case Keys.Up:
+                        Exec("Swap", true);
+                        break;
+                    case Keys.Down:
+                        Exec("Swap", false);
+                        break;
+                    case Keys.S:
+                        Exec("Save", false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F12:
+                        Exec("Edit");
+                        break;
+                    case Keys.N:
+                        Exec("New");
+                        break;
+                    case Keys.Delete:
+                        Exec("Delete");
+                        break;
+                }
+            }
+        }
+
+        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Clicks == 1)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    contextMenuStrip1.Tag = listView1;
+                    contextMenuStrip1.Show(listView1, e.Location);
+                }
+            }
+            else if (e.Clicks == 2)
+            {
+                if (listView1.SelectedItems.Count == 1)
+                {
+                    Exec("Edit");
+                }
+                else
+                {
+                    Exec("New");
+                }
+            }
+        }
+
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec("Copy");
+        }
+
+        private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec("Paste");
+        }
+
+        private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec("New");
+        }
+
+        private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec("Edit");
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec("Delete");
+        }
+
+        public bool Exec(string cmd, params object[] args)
+        {
+            if (string.IsNullOrEmpty(cmd))
+                return false;
+
+            switch (cmd)
+            {
+                case "Refresh":
+                    BindEnum();
+                    break;
+                case "Copy":
+                    Copy();
+                    break;
+                case "Paste":
+                    Paste();
+                    break;
+                case "Swap":
+                    Swap((bool)args[0]);
+                    break;
+                case "Edit":
+                    Edit();
+                    break;
+                case "Delete":
+                    Delete();
+                    break;
+                case "New":
+                    New();
+                    break;
+            }
+
+            return true;
+        }
+
+        private void BindEnum()
         {
             textBox1.Text = m_CustomEnum.EnumType;
             textBox2.Text = m_CustomEnum.Describe;
 
-            m_EnumItemControlList.Clear();
+            listView1.Items.Clear();
             for (int i = 0; i < m_CustomEnum.Enums.Count; i++)
             {
                 EnumItem enumItem = m_CustomEnum.Enums[i];
-                EnumItemUserControl enumItemUserControl = new EnumItemUserControl(this, enumItem);
-                enumItemUserControl.Width = splitContainer1.Panel1.Width - 20;
-                enumItemUserControl.Location = new Point(0, i * (enumItemUserControl.Height + 2));
-                splitContainer1.Panel1.Controls.Add(enumItemUserControl);
-                m_EnumItemControlList.Add(enumItemUserControl);
+                ListViewItem listViewItem = listView1.Items.Add(enumItem.EnumStr);
+                listViewItem.Tag = enumItem;
+                listViewItem.SubItems.Add(enumItem.EnumValue.ToString());
+                listViewItem.SubItems.Add(enumItem.Describe);
             }
-
-            CheckShowScrollBar();
         }
 
-        public EnumItemUserControl GetEnumItemUserControl(EnumItem enumItem)
+        public class EnumItemListContent
         {
-            if (enumItem == null)
-                return null;
+            private List<EnumItem> m_DataList = new List<EnumItem>();
+            public List<EnumItem> DataList { get { return m_DataList; } }
+        }
 
-            for (int i = 0; i < m_EnumItemControlList.Count; i++)
+        private void Copy()
+        {
+            if (listView1.SelectedItems.Count > 0)
             {
-                EnumItemUserControl enumItemUserControl = m_EnumItemControlList[i];
-                if (enumItemUserControl == null)
-                    continue;
-                if (enumItemUserControl.Tag == enumItem)
-                    return enumItemUserControl;
+                EnumItemListContent content = new EnumItemListContent();
+                foreach (ListViewItem lvItem in listView1.SelectedItems)
+                {
+                    if (lvItem.Tag is EnumItem)
+                        content.DataList.Add((EnumItem)lvItem.Tag);
+                }
+
+                if (content.DataList.Count > 0)
+                    Clipboard.SetText(XmlUtility.ObjectToString(content));
+
+                MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个枚举选项！！！");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("您必须选择至少一个进行复制！！！");
+                MainForm.Instance.ShowMessage("您必须选择至少一个进行复制！！！", "警告");
+            }
+        }
+
+        private void Paste()
+        {
+            try
+            {
+                EnumItemListContent content = XmlUtility.StringToObject<EnumItemListContent>(Clipboard.GetText());
+
+                for (int i = 0; i < content.DataList.Count; i++)
+                {
+                    EnumItem customEnum = content.DataList[i];
+                    string enumStr = customEnum.EnumStr;
+                    do
+                    {
+                        enumStr += "_New";
+                    }
+                    while (m_CustomEnum.ExistEnumStr(enumStr));
+
+                    int enumValue = customEnum.EnumValue;
+                    do
+                    {
+                        enumValue++;
+                    }
+                    while (m_CustomEnum.ExistEnumValue(enumValue));
+
+                    customEnum.EnumStr = enumStr;
+                    customEnum.EnumValue = enumValue;
+
+                    m_CustomEnum.AddEnumItem(customEnum);
+                }
+
+                Exec("Refresh");
+                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个枚举选项！！！");
+            }
+            catch (Exception ex)
+            {
+                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+            }
+        }
+
+        private void Swap(bool up)
+        {
+            if (listView1.SelectedIndices.Count > 1)
+            {
+                MainForm.Instance.ShowInfo("请选择一条记录进行交换");
+                MainForm.Instance.ShowMessage("请选择一条记录进行交换", "警告");
+                return;
             }
 
-            return null;
+            int selectIdx = listView1.SelectedIndices[0];
+            if (up)
+            {
+                //第一个不能往上交换
+                if (selectIdx == 0)
+                    return;
+
+                int preIdx = selectIdx - 1;
+
+                EnumItem preEnum = m_CustomEnum.Enums[preIdx];
+                EnumItem selectedEnum = m_CustomEnum.Enums[selectIdx];
+
+                m_CustomEnum.Enums[preIdx] = selectedEnum;
+                m_CustomEnum.Enums[selectIdx] = preEnum;
+
+                selectIdx = preIdx;
+            }
+            else
+            {
+                //最后一个不能往下交换
+                if (selectIdx == listView1.Items.Count - 1)
+                    return;
+
+                int nextIdx = selectIdx + 1;
+
+                EnumItem preEnum = m_CustomEnum.Enums[nextIdx];
+                EnumItem selectedEnum = m_CustomEnum.Enums[selectIdx];
+
+                m_CustomEnum.Enums[nextIdx] = selectedEnum;
+                m_CustomEnum.Enums[selectIdx] = preEnum;
+
+                selectIdx = nextIdx;
+            }
+
+            Exec("Refresh");
+            MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
+            listView1.Items[selectIdx].Selected = true;
+        }
+
+        private void Edit()
+        {
+            if (listView1.SelectedIndices.Count == 1)
+            {
+                int selectIdx = listView1.SelectedIndices[0];
+                ListViewItem selectedItem = listView1.Items[selectIdx];
+                EnumItem enumItem = selectedItem.Tag as EnumItem;
+                EditEnumItemForm editEnumForm = new EditEnumItemForm(this, m_CustomEnum, enumItem);
+                editEnumForm.ShowDialog();
+            }
+        }
+
+        private void Delete()
+        {
+            if (listView1.SelectedIndices.Count == 1)
+            {
+                int selectIdx = listView1.SelectedIndices[0];
+                ListViewItem selectedItem = listView1.Items[selectIdx];
+                EnumItem enumItem = selectedItem.Tag as EnumItem;
+
+                if (MessageBox.Show(string.Format("确定删除枚举选项{0}吗?", enumItem.EnumStr), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    listView1.Items.RemoveAt(selectIdx);
+                    m_CustomEnum.Remove(enumItem.EnumStr);
+                    MainForm.Instance.NodeClassDirty = true;
+                    MainForm.Instance.ShowInfo(string.Format("删除枚举选项{0} 时间:{1}", enumItem.EnumStr, DateTime.Now));
+                    if (listView1.Items.Count > selectIdx)
+                        listView1.Items[selectIdx].Selected = true;
+                }
+            }
+            else if (listView1.SelectedIndices.Count == 0)
+            {
+                MainForm.Instance.ShowInfo("请选择一条记录进行删除");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("无法一次删除多个记录");
+            }
+        }
+
+        private void New()
+        {
+            AddEnumItemForm addEnumItemForm = new AddEnumItemForm(this, m_CustomEnum);
+            addEnumItemForm.ShowDialog();
         }
 
         public void AddEnumItem(EnumItem enumItem)
@@ -71,77 +350,23 @@ namespace BehaviorTreeEditor
             if (enumItem == null)
                 return;
 
-            EnumItemUserControl enumItemUserControl = new EnumItemUserControl(this, enumItem);
-            enumItemUserControl.Width = splitContainer1.Panel1.Width - 20;
-            enumItemUserControl.Location = new Point(0, m_EnumItemControlList.Count * (enumItemUserControl.Height + 2));
-            splitContainer1.Panel1.Controls.Add(enumItemUserControl);
-            m_EnumItemControlList.Add(enumItemUserControl);
+            Exec("Refresh");
 
-            CheckShowScrollBar();
+            ListViewItem listViewItem = GetListViewItem(enumItem);
+            if (listViewItem != null)
+                listViewItem.Selected = true;
         }
 
-        public void RemoveEnumItem(EnumItem enumItem)
+        public void UpdateEnumItem(EnumItem enumItem)
         {
             if (enumItem == null)
                 return;
 
-            m_CustomEnum.Remove(enumItem.EnumStr);
+            Exec("Refresh");
 
-            EnumItemUserControl enumItemUserControl = GetEnumItemUserControl(enumItem);
-            if (enumItemUserControl == null)
-                return;
-
-            m_EnumItemControlList.Remove(enumItemUserControl);
-
-            for (int i = 0; i < m_EnumItemControlList.Count; i++)
-            {
-                EnumItemUserControl tempUserControl = m_EnumItemControlList[i];
-                if (tempUserControl == null)
-                    continue;
-                tempUserControl.Location = new Point(0, i * (enumItemUserControl.Height + 2));
-            }
-
-            CheckShowScrollBar();
-        }
-
-        public void CheckShowScrollBar()
-        {
-            if (m_EnumItemControlList.Count == 0)
-                return;
-
-            int height = m_EnumItemControlList.Count * m_EnumItemControlList[0].Height + 2;
-
-            if (height > splitContainer1.Panel1.Height)
-            {
-                splitContainer1.Panel1.AutoScroll = true;
-            }
-            else
-            {
-                splitContainer1.Panel1.AutoScroll = false;
-            }
-
-            for (int i = 0; i < m_EnumItemControlList.Count; i++)
-            {
-                EnumItemUserControl enumItemUserControl = m_EnumItemControlList[i];
-                enumItemUserControl.Width = splitContainer1.Panel1.AutoScroll ? splitContainer1.Panel1.Width - 20 : splitContainer1.Panel1.Width;
-            }
-        }
-
-        public void ChangeNormalMode()
-        {
-            for (int i = 0; i < m_EnumItemControlList.Count; i++)
-            {
-                EnumItemUserControl enumItemUserControl = m_EnumItemControlList[i];
-                if (enumItemUserControl == null)
-                    continue;
-                enumItemUserControl.ChangeNormalMode();
-            }
-        }
-
-        private void addEnumItemBTN_Click(object sender, EventArgs e)
-        {
-            AddEnumItemForm addEnumItemForm = new AddEnumItemForm(this, m_CustomEnum);
-            addEnumItemForm.ShowDialog();
+            ListViewItem listViewItem = GetListViewItem(enumItem);
+            if (listViewItem != null)
+                listViewItem.Selected = true;
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -167,7 +392,6 @@ namespace BehaviorTreeEditor
             m_CustomEnum.Describe = textBox2.Text.Trim();
 
             string newContent = XmlUtility.ObjectToString(m_CustomEnum);
-
             if (m_OldContent != newContent)
             {
                 MainForm.Instance.NodeClassDirty = true;

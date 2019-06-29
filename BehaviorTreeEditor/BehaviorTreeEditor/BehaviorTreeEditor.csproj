@@ -108,6 +108,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditEnumItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditEnumItemForm.Designer.cs">
+      <DependentUpon>EditEnumItemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewWorkSpaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,18 +164,6 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\EnumItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UIControls\EnumItemUserControl.Designer.cs">
-      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIControls\ModifyEnumItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UIControls\ModifyEnumItemUserControl.Designer.cs">
-      <DependentUpon>ModifyEnumItemUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -218,6 +212,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditEnumItemForm.resx">
+      <DependentUpon>EditEnumItemForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewWorkSpaceForm.resx">
       <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,12 +236,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIControls\EnumItemUserControl.resx">
-      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIControls\ModifyEnumItemUserControl.resx">
-      <DependentUpon>ModifyEnumItemUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ZoomScalerUserControl.resx">
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>

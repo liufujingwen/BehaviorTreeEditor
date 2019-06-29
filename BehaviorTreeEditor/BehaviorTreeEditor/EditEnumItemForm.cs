@@ -1,35 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
 {
-    public partial class AddEnumItemForm : Form
+    public partial class EditEnumItemForm : Form
     {
-        private CustomEnum m_CustomEnum;
-        private EnumItem m_EnumItem = new EnumItem();
         private Form m_Form;
+        private CustomEnum m_CustomEnum;
+        private EnumItem m_EnumItem;
 
         /// <summary>
-        /// 创建添加枚举项窗口
+        /// 创建修改枚举选项窗口
         /// </summary>
-        /// <param name="form">由哪个窗口触发，(AddEnumForm、EditEnumForm)</param>
-        /// <param name="customEnum"></param>
-        public AddEnumItemForm(Form form, CustomEnum customEnum)
+        /// <param name="form">AddEnumForm、EditEnumForm</param>
+        /// <param name="enumItem">枚举项</param>
+        public EditEnumItemForm(Form form, CustomEnum customEnum, EnumItem enumItem)
         {
             m_Form = form;
             m_CustomEnum = customEnum;
+            m_EnumItem = enumItem;
             InitializeComponent();
         }
 
-        private void AddEnumItemForm_Load(object sender, EventArgs e)
+        private void ModifyEnumItemForm_Load(object sender, EventArgs e)
         {
-            label3.Text = string.Format("为枚举类型:{0},添加枚举项", m_CustomEnum.EnumType);
+            label3.Text = string.Format("修改{0}的枚举项", m_CustomEnum.EnumType);
+            textBox1.Text = m_EnumItem.EnumStr;
+            textBox2.Text = m_EnumItem.EnumValue.ToString();
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -61,28 +58,26 @@ namespace BehaviorTreeEditor
             }
 
             //验证枚举选项是否已存在
-            if (m_CustomEnum.ExistEnumStr(m_EnumItem.EnumStr))
+            if (m_CustomEnum.ExistEnumStr(m_EnumItem.EnumStr, m_EnumItem))
             {
                 MainForm.Instance.ShowMessage(string.Format("已存在枚举项:{0},请换一个枚举项字符", m_EnumItem.EnumStr));
                 return;
             }
 
             //验证枚举值是已存在
-            if (m_CustomEnum.ExistEnumValue(m_EnumItem.EnumValue))
+            if (m_CustomEnum.ExistEnumValue(m_EnumItem.EnumValue, m_EnumItem))
             {
                 MainForm.Instance.ShowMessage(string.Format("已存在枚举值:{0}，请换一个枚举值", m_EnumItem.EnumValue));
                 return;
             }
 
-            m_CustomEnum.AddEnumItem(m_EnumItem);
-
             if (m_Form is AddEnumForm)
             {
-                (m_Form as AddEnumForm).AddEnumItem(m_EnumItem);
+                (m_Form as AddEnumForm).UpdateEnumItem(m_EnumItem);
             }
             else if (m_Form is EditEnumForm)
             {
-                (m_Form as EditEnumForm).AddEnumItem(m_EnumItem);
+                (m_Form as EditEnumForm).UpdateEnumItem(m_EnumItem);
             }
 
             this.Close();

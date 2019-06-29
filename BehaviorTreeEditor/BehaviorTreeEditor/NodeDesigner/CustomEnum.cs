@@ -34,7 +34,7 @@ namespace BehaviorTreeEditor
             set { m_Describe = value; }
         }
 
-        public bool ExistEnumStr(string enumStr)
+        public bool ExistEnumStr(string enumStr, EnumItem ignore = null)
         {
             if (string.IsNullOrEmpty(enumStr))
                 throw new Exception("CustomEnum.ExistEnumItem() error: enumStr = null");
@@ -44,18 +44,22 @@ namespace BehaviorTreeEditor
                 EnumItem item = m_Enums[i];
                 if (item == null)
                     continue;
+                if (ignore != null && ignore == item)
+                    continue;
                 if (item.EnumStr == enumStr)
                     return true;
             }
             return false;
         }
 
-        public bool ExistEnumValue(int enumValue)
+        public bool ExistEnumValue(int enumValue, EnumItem ignore = null)
         {
             for (int i = 0; i < m_Enums.Count; i++)
             {
                 EnumItem item = m_Enums[i];
                 if (item == null)
+                    continue;
+                if (ignore != null && ignore == item)
                     continue;
                 if (item.EnumValue == enumValue)
                     return true;
@@ -115,19 +119,6 @@ namespace BehaviorTreeEditor
             return false;
         }
 
-        public void Check()
-        {
-            for (int i = m_Enums.Count - 1; i >= 0; i--)
-            {
-                EnumItem item = m_Enums[i];
-                if (item == null)
-                    continue;
-
-                if (string.IsNullOrEmpty(item.EnumStr))
-                    m_Enums.RemoveAt(i);
-            }
-        }
-
         public void Clear()
         {
             m_Enums.Clear();
@@ -155,6 +146,9 @@ namespace BehaviorTreeEditor
 
         [Category("常规"), DisplayName("枚举值"), Description("枚举选项对应的值")]
         public int EnumValue { get; set; }
+
+        [Category("常规"), DisplayName("描述"), Description("描述该枚举项是什么")]
+        public string Describe { get; set; }
 
         public override string ToString()
         {

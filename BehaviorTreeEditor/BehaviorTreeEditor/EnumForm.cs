@@ -373,7 +373,8 @@ namespace BehaviorTreeEditor
             Exec("Refresh");
 
             ListViewItem listViewItem = GetListViewItem(customEnum);
-            listViewItem.Selected = true;
+            if (listViewItem != null)
+                listViewItem.Selected = true;
         }
     }
 }
