@@ -47,6 +47,10 @@
           <EnumStr>Enum1</EnumStr>
           <EnumValue>1</EnumValue>
         </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum2</EnumStr>
+          <EnumValue>2</EnumValue>
+        </EnumItem>
       </Enums>
       <Describe>这是测试枚举</Describe>
     </CustomEnum>

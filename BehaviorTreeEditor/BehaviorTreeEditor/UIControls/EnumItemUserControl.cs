@@ -25,10 +25,14 @@ namespace BehaviorTreeEditor.UIControls
             m_Form = form;
             m_EnumItem = enumItem;
             InitializeComponent();
+            this.Tag = m_EnumItem;
         }
+
         private void EnumItemUserControl_Load(object sender, EventArgs e)
         {
             m_ModifyEnumItemUserControl = new ModifyEnumItemUserControl(this, m_EnumItem);
+            label1.Text = m_EnumItem.EnumStr;
+            label2.Text = m_EnumItem.EnumValue.ToString();
         }
 
         //修改
@@ -40,7 +44,14 @@ namespace BehaviorTreeEditor.UIControls
         //删除
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (m_Form is AddEnumForm)
+            {
+                (m_Form as AddEnumForm).RemoveEnumItem(m_EnumItem);
+            }
+            else if (m_Form is EditEnumForm)
+            {
+                (m_Form as EditEnumForm).RemoveEnumItem(m_EnumItem);
+            }
         }
 
         //正常模式
@@ -54,8 +65,5 @@ namespace BehaviorTreeEditor.UIControls
         {
             this.Controls.Add(m_ModifyEnumItemUserControl);
         }
-
-
-
     }
 }

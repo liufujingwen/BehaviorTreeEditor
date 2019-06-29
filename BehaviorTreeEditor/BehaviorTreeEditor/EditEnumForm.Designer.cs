@@ -145,6 +145,7 @@
             this.addEnumItemBTN.TabIndex = 9;
             this.addEnumItemBTN.Text = "添加";
             this.addEnumItemBTN.UseVisualStyleBackColor = true;
+            this.addEnumItemBTN.Click += new System.EventHandler(this.addEnumItemBTN_Click);
             // 
             // EditEnumForm
             // 

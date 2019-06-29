@@ -43,6 +43,46 @@ namespace BehaviorTreeEditor
             CheckShowScrollBar();
         }
 
+        public EnumItemUserControl GetEnumItemUserControl(EnumItem enumItem)
+        {
+            if (enumItem == null)
+                return null;
+
+            for (int i = 0; i < m_EnumItemControlList.Count; i++)
+            {
+                EnumItemUserControl enumItemUserControl = m_EnumItemControlList[i];
+                if (enumItemUserControl == null)
+                    continue;
+                if (enumItemUserControl.Tag == enumItem)
+                    return enumItemUserControl;
+            }
+
+            return null;
+        }
+
+        public void RemoveEnumItem(EnumItem enumItem)
+        {
+            if (enumItem == null)
+                return;
+
+            m_CustomEnum.Remove(enumItem.EnumStr);
+
+            EnumItemUserControl enumItemUserControl = GetEnumItemUserControl(enumItem);
+            if (enumItemUserControl == null)
+                return;
+
+            m_EnumItemControlList.Remove(enumItemUserControl);
+
+            for (int i = 0; i < m_EnumItemControlList.Count; i++)
+            {
+                EnumItemUserControl tempUserControl = m_EnumItemControlList[i];
+                if (tempUserControl == null)
+                    continue;
+                tempUserControl.Location = new Point(0, i * (enumItemUserControl.Height + 2));
+            }
+
+            CheckShowScrollBar();
+        }
 
         public void AddEnumItem(EnumItem enumItem)
         {

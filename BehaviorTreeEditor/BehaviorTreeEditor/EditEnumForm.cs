@@ -32,6 +32,9 @@ namespace BehaviorTreeEditor
 
         public void BindEnum()
         {
+            textBox1.Text = m_CustomEnum.EnumType;
+            textBox2.Text = m_CustomEnum.Describe;
+
             m_EnumItemControlList.Clear();
             for (int i = 0; i < m_CustomEnum.Enums.Count; i++)
             {
@@ -46,6 +49,23 @@ namespace BehaviorTreeEditor
             CheckShowScrollBar();
         }
 
+        public EnumItemUserControl GetEnumItemUserControl(EnumItem enumItem)
+        {
+            if (enumItem == null)
+                return null;
+
+            for (int i = 0; i < m_EnumItemControlList.Count; i++)
+            {
+                EnumItemUserControl enumItemUserControl = m_EnumItemControlList[i];
+                if (enumItemUserControl == null)
+                    continue;
+                if (enumItemUserControl.Tag == enumItem)
+                    return enumItemUserControl;
+            }
+
+            return null;
+        }
+
         public void AddEnumItem(EnumItem enumItem)
         {
             if (enumItem == null)
@@ -56,6 +76,30 @@ namespace BehaviorTreeEditor
             enumItemUserControl.Location = new Point(0, m_EnumItemControlList.Count * (enumItemUserControl.Height + 2));
             splitContainer1.Panel1.Controls.Add(enumItemUserControl);
             m_EnumItemControlList.Add(enumItemUserControl);
+
+            CheckShowScrollBar();
+        }
+
+        public void RemoveEnumItem(EnumItem enumItem)
+        {
+            if (enumItem == null)
+                return;
+
+            m_CustomEnum.Remove(enumItem.EnumStr);
+
+            EnumItemUserControl enumItemUserControl = GetEnumItemUserControl(enumItem);
+            if (enumItemUserControl == null)
+                return;
+
+            m_EnumItemControlList.Remove(enumItemUserControl);
+
+            for (int i = 0; i < m_EnumItemControlList.Count; i++)
+            {
+                EnumItemUserControl tempUserControl = m_EnumItemControlList[i];
+                if (tempUserControl == null)
+                    continue;
+                tempUserControl.Location = new Point(0, i * (enumItemUserControl.Height + 2));
+            }
 
             CheckShowScrollBar();
         }
@@ -129,7 +173,7 @@ namespace BehaviorTreeEditor
                 MainForm.Instance.NodeClassDirty = true;
                 m_EnumForm.UpdateEnum(m_CustomEnum);
             }
-          
+
             this.Close();
         }
     }
