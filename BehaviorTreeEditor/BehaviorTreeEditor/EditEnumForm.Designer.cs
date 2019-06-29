@@ -1,6 +1,6 @@
 ﻿namespace BehaviorTreeEditor
 {
-    partial class AddEnumForm
+    partial class EditEnumForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.enterBTN = new System.Windows.Forms.Button();
+            this.cancelBTN = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cancelBTN = new System.Windows.Forms.Button();
-            this.enterBTN = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.addEnumItemBTN = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // enterBTN
+            // 
+            this.enterBTN.Location = new System.Drawing.Point(421, 505);
+            this.enterBTN.Name = "enterBTN";
+            this.enterBTN.Size = new System.Drawing.Size(92, 34);
+            this.enterBTN.TabIndex = 12;
+            this.enterBTN.Text = "确定";
+            this.enterBTN.UseVisualStyleBackColor = true;
+            this.enterBTN.Click += new System.EventHandler(this.enterBTN_Click);
+            // 
+            // cancelBTN
+            // 
+            this.cancelBTN.Location = new System.Drawing.Point(282, 505);
+            this.cancelBTN.Name = "cancelBTN";
+            this.cancelBTN.Size = new System.Drawing.Size(92, 34);
+            this.cancelBTN.TabIndex = 11;
+            this.cancelBTN.Text = "取消";
+            this.cancelBTN.UseVisualStyleBackColor = true;
+            this.cancelBTN.Click += new System.EventHandler(this.cancelBTN_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Location = new System.Drawing.Point(8, 18);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(522, 144);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(87, 68);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(408, 61);
+            this.textBox2.TabIndex = 3;
             // 
             // label1
             // 
@@ -70,54 +110,15 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "描   述:";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(87, 68);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(408, 61);
-            this.textBox2.TabIndex = 3;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.splitContainer1);
-            this.groupBox1.Location = new System.Drawing.Point(9, 162);
+            this.groupBox1.Location = new System.Drawing.Point(8, 168);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(522, 311);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "枚举项";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(9, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(522, 144);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            // 
-            // cancelBTN
-            // 
-            this.cancelBTN.Location = new System.Drawing.Point(283, 499);
-            this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(92, 34);
-            this.cancelBTN.TabIndex = 7;
-            this.cancelBTN.Text = "取消";
-            this.cancelBTN.UseVisualStyleBackColor = true;
-            // 
-            // enterBTN
-            // 
-            this.enterBTN.Location = new System.Drawing.Point(422, 499);
-            this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(92, 34);
-            this.enterBTN.TabIndex = 8;
-            this.enterBTN.Text = "确定";
-            this.enterBTN.UseVisualStyleBackColor = true;
-            this.enterBTN.Click += new System.EventHandler(this.enterBTN_Click);
             // 
             // splitContainer1
             // 
@@ -128,10 +129,6 @@
             this.splitContainer1.Location = new System.Drawing.Point(3, 21);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.AutoScroll = true;
             // 
             // splitContainer1.Panel2
             // 
@@ -148,9 +145,8 @@
             this.addEnumItemBTN.TabIndex = 9;
             this.addEnumItemBTN.Text = "添加";
             this.addEnumItemBTN.UseVisualStyleBackColor = true;
-            this.addEnumItemBTN.Click += new System.EventHandler(this.addEnumItemBTN_Click);
             // 
-            // AddEnumForm
+            // EditEnumForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,12 +157,12 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "AddEnumForm";
-            this.Text = "添加枚举";
-            this.Load += new System.EventHandler(this.AddEnumForm_Load);
-            this.groupBox1.ResumeLayout(false);
+            this.Name = "EditEnumForm";
+            this.Text = "修改枚举";
+            this.Load += new System.EventHandler(this.EditEnumForm_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -176,14 +172,14 @@
 
         #endregion
 
+        private System.Windows.Forms.Button enterBTN;
+        private System.Windows.Forms.Button cancelBTN;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button cancelBTN;
-        private System.Windows.Forms.Button enterBTN;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button addEnumItemBTN;
     }

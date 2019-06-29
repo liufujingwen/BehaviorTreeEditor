@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -54,6 +55,18 @@
     <Compile Include="AddClassForm.Designer.cs">
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddEnumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEnumForm.Designer.cs">
+      <DependentUpon>AddEnumForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEnumItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEnumItemForm.Designer.cs">
+      <DependentUpon>AddEnumItemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
     <Compile Include="Data\NodeData.cs" />
@@ -62,6 +75,12 @@
     </Compile>
     <Compile Include="EditClassForm.Designer.cs">
       <DependentUpon>EditClassForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditEnumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditEnumForm.Designer.cs">
+      <DependentUpon>EditEnumForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditorEx.cs" />
     <Compile Include="EditWorkSpaceForm.cs">
@@ -139,6 +158,18 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\EnumItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\EnumItemUserControl.Designer.cs">
+      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ModifyEnumItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\ModifyEnumItemUserControl.Designer.cs">
+      <DependentUpon>ModifyEnumItemUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,8 +194,17 @@
     <EmbeddedResource Include="AddClassForm.resx">
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEnumForm.resx">
+      <DependentUpon>AddEnumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEnumItemForm.resx">
+      <DependentUpon>AddEnumItemForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditClassForm.resx">
       <DependentUpon>EditClassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditEnumForm.resx">
+      <DependentUpon>EditEnumForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
@@ -199,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\EnumItemUserControl.resx">
+      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\ModifyEnumItemUserControl.resx">
+      <DependentUpon>ModifyEnumItemUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ZoomScalerUserControl.resx">
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>

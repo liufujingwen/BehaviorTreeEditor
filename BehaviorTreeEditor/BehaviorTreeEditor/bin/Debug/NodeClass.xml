@@ -40,6 +40,16 @@
         </EnumItem>
       </Enums>
     </CustomEnum>
+    <CustomEnum>
+      <EnumType>TTTT</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Enum1</EnumStr>
+          <EnumValue>1</EnumValue>
+        </EnumItem>
+      </Enums>
+      <Describe>这是测试枚举</Describe>
+    </CustomEnum>
   </Enums>
   <Nodes>
     <NodeClass ClassType="Parallel" NodeType="Composite">

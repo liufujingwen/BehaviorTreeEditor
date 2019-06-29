@@ -10,19 +10,22 @@ using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
 {
-    public partial class AddEnumForm : Form
+    public partial class EditEnumForm : Form
     {
         private EnumForm m_EnumForm;
-        private CustomEnum m_CustomEnum = new CustomEnum();
+        private CustomEnum m_CustomEnum;
         private List<EnumItemUserControl> m_EnumItemControlList = new List<EnumItemUserControl>();
+        private string m_OldContent;//用于检测对象有没有被改变了
 
-        public AddEnumForm(EnumForm enumForm)
+        public EditEnumForm(EnumForm enumForm, CustomEnum customEnum)
         {
             m_EnumForm = enumForm;
+            m_CustomEnum = customEnum;
+            m_OldContent = XmlUtility.ObjectToString(m_CustomEnum);
             InitializeComponent();
         }
 
-        private void AddEnumForm_Load(object sender, EventArgs e)
+        private void EditEnumForm_Load(object sender, EventArgs e)
         {
             BindEnum();
         }
@@ -42,7 +45,6 @@ namespace BehaviorTreeEditor
 
             CheckShowScrollBar();
         }
-
 
         public void AddEnumItem(EnumItem enumItem)
         {
@@ -98,6 +100,11 @@ namespace BehaviorTreeEditor
             addEnumItemForm.ShowDialog();
         }
 
+        private void cancelBTN_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void enterBTN_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBox1.Text.Trim()))
@@ -115,13 +122,14 @@ namespace BehaviorTreeEditor
             m_CustomEnum.EnumType = textBox1.Text.Trim();
             m_CustomEnum.Describe = textBox2.Text.Trim();
 
-            if (!MainForm.Instance.NodeClasses.AddEnum(m_CustomEnum))
-            {
-                return;
-            }
+            string newContent = XmlUtility.ObjectToString(m_CustomEnum);
 
-            MainForm.Instance.NodeClassDirty = true;
-            m_EnumForm.AddEnum(m_CustomEnum);
+            if (m_OldContent != newContent)
+            {
+                MainForm.Instance.NodeClassDirty = true;
+                m_EnumForm.UpdateEnum(m_CustomEnum);
+            }
+          
             this.Close();
         }
     }

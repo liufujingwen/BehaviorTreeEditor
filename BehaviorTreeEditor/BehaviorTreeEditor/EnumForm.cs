@@ -30,6 +30,21 @@ namespace BehaviorTreeEditor
             BindEnum();
         }
 
+        private ListViewItem GetListViewItem(object obj)
+        {
+            if (obj == null)
+                return null;
+
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                ListViewItem listViewItem = listView1.Items[i];
+                if (listViewItem.Tag == obj)
+                    return listViewItem;
+            }
+
+            return null;
+        }
+
         private void BindEnum()
         {
             if (m_NodeClasses == null)
@@ -52,150 +67,6 @@ namespace BehaviorTreeEditor
             }
         }
 
-        //private TreeNode FindTreeNode(object obj)
-        //{
-        //    if (obj == null)
-        //        return null;
-
-        //    for (int i = 0; i < treeView1.Nodes.Count; i++)
-        //    {
-        //        TreeNode treeNode_i = treeView1.Nodes[i];
-        //        if (treeNode_i.Tag == obj)
-        //        {
-        //            return treeNode_i;
-        //        }
-        //        else
-        //        {
-        //            for (int ii = 0; ii < treeNode_i.Nodes.Count; ii++)
-        //            {
-        //                TreeNode treeNode_ii = treeNode_i.Nodes[ii];
-        //                if (treeNode_ii.Tag == obj)
-        //                {
-        //                    return treeNode_ii;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    for (int i = 0; i < m_NodeClasses.Enums.Count; i++)
-        //    {
-        //        CustomEnum customEnum = m_NodeClasses.Enums[i];
-        //        TreeNode enumTreeNode = treeView1.Nodes.Add(customEnum.EnumType);
-        //        enumTreeNode.Tag = customEnum;
-        //        for (int j = 0; j < customEnum.Enums.Count; j++)
-        //        {
-        //            EnumItem enumItem = customEnum.Enums[j];
-        //            TreeNode itemTreeNode = enumTreeNode.Nodes.Add(string.Format("{0}  ({1})", enumItem.EnumStr, enumItem.EnumValue));
-        //            itemTreeNode.Tag = enumItem;
-        //        }
-        //    }
-
-        //    return null;
-        //}
-
-        private void 添加类ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //CustomEnum customEnum = new CustomEnum();
-            //InputValueDialogForm inputValueDialogForm = new InputValueDialogForm("添加枚举类型", customEnum);
-            //if (inputValueDialogForm.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (m_NodeClasses.AddEnum(customEnum))
-            //    {
-            //        BindEnum();
-            //        TreeNode treeNode = FindTreeNode(customEnum);
-            //        treeView1.SelectedNode = treeNode;
-            //        MainForm.Instance.NodeClassDirty = true;
-            //        MainForm.Instance.ShowInfo(string.Format("添加枚举{0}成功 时间:{1}", customEnum, DateTime.Now));
-            //    }
-            //}
-        }
-
-        private void 编辑类ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (treeView1.SelectedNode == null)
-            //    return;
-
-            //CustomEnum customEnum = null;
-
-            //if (treeView1.SelectedNode.Tag is CustomEnum)
-            //{
-            //    customEnum = treeView1.SelectedNode.Tag as CustomEnum;
-            //}
-            //else if (treeView1.SelectedNode.Tag is EnumItem)
-            //{
-            //    customEnum = treeView1.SelectedNode.Parent.Tag as CustomEnum;
-            //}
-
-            //if (customEnum == null)
-            //    return;
-
-            //string oldEnumContent = XmlUtility.ObjectToString(customEnum);
-            //InputValueDialogForm inputValueDialogForm = new InputValueDialogForm("编辑枚举", customEnum);
-            //if (inputValueDialogForm.ShowDialog() == DialogResult.OK)
-            //{
-            //    customEnum.Check();
-
-            //    string newEnumContent = XmlUtility.ObjectToString(customEnum);
-            //    if (newEnumContent != oldEnumContent)
-            //    {
-            //        BindEnum();
-            //        TreeNode treeNode = FindTreeNode(customEnum);
-            //        treeView1.SelectedNode = treeNode;
-            //        MainForm.Instance.NodeClassDirty = true;
-            //        MainForm.Instance.ShowInfo(string.Format("修改枚举{0}成功 时间:{1}", customEnum, DateTime.Now));
-            //    }
-            //}
-        }
-
-        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (treeView1.SelectedNode == null)
-            //    return;
-
-            //if (treeView1.SelectedNode.Tag is CustomEnum)
-            //{
-            //    CustomEnum customEnum = treeView1.SelectedNode.Tag as CustomEnum;
-            //    TreeNode treeNode = FindTreeNode(customEnum);
-            //    if (MessageBox.Show(string.Format("确定删除枚举类型{0}吗?", customEnum.EnumType), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            //    {
-            //        if (treeNode == null)
-            //            return;
-
-            //        treeView1.Nodes.Remove(treeNode);
-            //        MainForm.Instance.NodeClassDirty = true;
-            //        MainForm.Instance.ShowInfo(string.Format("删除枚举类型{0} 时间:{1}", customEnum.EnumType, DateTime.Now));
-            //    }
-            //}
-            //else if (treeView1.SelectedNode.Tag is EnumItem)
-            //{
-            //    CustomEnum customEnum = treeView1.SelectedNode.Parent.Tag as CustomEnum;
-            //    EnumItem enumItem = treeView1.SelectedNode.Tag as EnumItem;
-            //    TreeNode treeNode = FindTreeNode(enumItem);
-            //    if (MessageBox.Show(string.Format("确定删除枚举{0}的{1}选项吗?", customEnum.EnumType, enumItem.EnumStr), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            //    {
-            //        if (treeNode == null)
-            //            return;
-
-            //        treeView1.Nodes.Remove(treeNode);
-            //        MainForm.Instance.NodeClassDirty = true;
-            //        MainForm.Instance.ShowInfo(string.Format("删除枚举{0}的{1} 时间:{2}", customEnum.EnumType, enumItem.EnumStr, DateTime.Now));
-            //    }
-            //}
-        }
-
-        private void 重置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (MessageBox.Show("确定删除全部枚举吗?", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            //{
-            //    m_NodeClasses.Enums.Clear();
-            //    treeView1.Nodes.Clear();
-            //    MainForm.Instance.NodeClassDirty = true;
-            //    MainForm.Instance.ShowInfo(string.Format("删除全部枚举 时间:{0}", DateTime.Now));
-            //}
-        }
-
-
-
         private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Clicks == 1)
@@ -210,17 +81,12 @@ namespace BehaviorTreeEditor
             {
                 if (listView1.SelectedItems.Count == 1)
                 {
-                    InputValueDialogForm dlg = new InputValueDialogForm("编辑枚举", listView1.SelectedItems[0].Tag);
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        Exec("Refresh");
-                    }
+                    Exec("Edit");
                 }
                 else
                 {
                     Exec("New");
                 }
-                Exec("Refresh");
             }
         }
 
@@ -445,10 +311,11 @@ namespace BehaviorTreeEditor
             if (listView1.SelectedIndices.Count == 1)
             {
                 int selectIdx = listView1.SelectedIndices[0];
-                ListViewItem selectedItem = listView1.Items[0];
+                ListViewItem selectedItem = listView1.Items[selectIdx];
                 CustomEnum customEnum = selectedItem.Tag as CustomEnum;
+                EditEnumForm editEnumForm = new EditEnumForm(this, customEnum);
+                editEnumForm.ShowDialog();
             }
-            CollectionEditor.EditValue(this, m_NodeClasses.Enums, "Fields");
         }
 
         private void Delete()
@@ -481,6 +348,32 @@ namespace BehaviorTreeEditor
 
         private void New()
         {
+            AddEnumForm addEnumForm = new AddEnumForm(this);
+            addEnumForm.ShowDialog();
+        }
+
+        //添加枚举
+        public void AddEnum(CustomEnum customEnum)
+        {
+            if (customEnum == null)
+                return;
+
+            Exec("Refresh");
+
+            ListViewItem listViewItem = GetListViewItem(customEnum);
+            listViewItem.Selected = true;
+        }
+
+        //更新枚举内容
+        public void UpdateEnum(CustomEnum customEnum)
+        {
+            if (customEnum == null)
+                return;
+
+            Exec("Refresh");
+
+            ListViewItem listViewItem = GetListViewItem(customEnum);
+            listViewItem.Selected = true;
         }
     }
 }
