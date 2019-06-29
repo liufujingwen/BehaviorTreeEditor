@@ -29,82 +29,123 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("节点0");
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.添加类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.编辑类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // treeView1
+            // listView1
             // 
-            this.treeView1.BackColor = System.Drawing.Color.Gainsboro;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.ItemHeight = 25;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(2);
-            this.treeView1.Name = "treeView1";
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "节点0";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.treeView1.Size = new System.Drawing.Size(514, 450);
-            this.treeView1.TabIndex = 1;
-            this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(1348, 562);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
+            this.listView1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listView1_PreviewKeyDown);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "枚举类型";
+            this.columnHeader1.Width = 177;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "内容";
+            this.columnHeader2.Width = 633;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "描述";
+            this.columnHeader3.Width = 600;
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.添加类ToolStripMenuItem,
-            this.编辑类ToolStripMenuItem,
-            this.删除ToolStripMenuItem,
-            this.重置ToolStripMenuItem});
+            this.复制ToolStripMenuItem,
+            this.粘贴ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.新建ToolStripMenuItem,
+            this.编辑ToolStripMenuItem,
+            this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 130);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(215, 168);
             // 
-            // 添加类ToolStripMenuItem
+            // 复制ToolStripMenuItem
             // 
-            this.添加类ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
-            this.添加类ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.添加类ToolStripMenuItem.Name = "添加类ToolStripMenuItem";
-            this.添加类ToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
-            this.添加类ToolStripMenuItem.Text = "添加枚举";
-            this.添加类ToolStripMenuItem.Click += new System.EventHandler(this.添加类ToolStripMenuItem_Click);
+            this.复制ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.copy;
+            this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.复制ToolStripMenuItem.Text = "复制";
+            this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
-            // 编辑类ToolStripMenuItem
+            // 粘贴ToolStripMenuItem
             // 
-            this.编辑类ToolStripMenuItem.Name = "编辑类ToolStripMenuItem";
-            this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
-            this.编辑类ToolStripMenuItem.Text = "编辑枚举";
-            this.编辑类ToolStripMenuItem.Click += new System.EventHandler(this.编辑类ToolStripMenuItem_Click);
+            this.粘贴ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.paste;
+            this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.粘贴ToolStripMenuItem.Text = "粘贴";
+            this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(211, 6);
+            // 
+            // 新建ToolStripMenuItem
+            // 
+            this.新建ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
+            this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.新建ToolStripMenuItem.Text = "新建";
+            this.新建ToolStripMenuItem.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
+            // 
+            // 编辑ToolStripMenuItem
+            // 
+            this.编辑ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.pen;
+            this.编辑ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.编辑ToolStripMenuItem.Text = "编辑";
+            this.编辑ToolStripMenuItem.Click += new System.EventHandler(this.编辑ToolStripMenuItem_Click);
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
             this.删除ToolStripMenuItem.Text = "删除";
-            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
-            // 
-            // 重置ToolStripMenuItem
-            // 
-            this.重置ToolStripMenuItem.Name = "重置ToolStripMenuItem";
-            this.重置ToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
-            this.重置ToolStripMenuItem.Text = "删除全部";
-            this.重置ToolStripMenuItem.Click += new System.EventHandler(this.重置ToolStripMenuItem_Click);
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click_1);
             // 
             // EnumForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 450);
-            this.Controls.Add(this.treeView1);
+            this.ClientSize = new System.Drawing.Size(1348, 562);
+            this.Controls.Add(this.listView1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EnumForm";
             this.Text = "枚举查看窗口";
             this.Load += new System.EventHandler(this.EnumForm_Load);
@@ -114,12 +155,16 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 添加类ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 编辑类ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 复制ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 粘贴ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem 新建ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 编辑ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重置ToolStripMenuItem;
     }
 }

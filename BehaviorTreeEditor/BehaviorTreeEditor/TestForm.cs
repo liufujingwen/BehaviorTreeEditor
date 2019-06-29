@@ -12,16 +12,18 @@ namespace BehaviorTreeEditor
 
         private void TestForm_Load(object sender, EventArgs e)
         {
-            AgentDesigner agent = new AgentDesigner();
-            //FieldDesigner field = new FieldDesigner();
 
-            //field.FieldType = FieldType.IntFieldType;
-            //IntFieldDesigner intField = new IntFieldDesigner();
-            //intField.FieldName = "测试节点";
-            //intField.Value = 100;
-            //field.Field = intField;
-            //agent.Fields.Add(field);
-            //propertyGrid1.SelectedObject = agent;
+
+
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    TextBox tb = new TextBox();
+            //    tb.Location = new System.Drawing.Point(10, i * (tb.Height + 2));
+            //    splitContainer2.Panel1.Controls.Add(tb);
+            //}
+
+
         }
+
     }
 }

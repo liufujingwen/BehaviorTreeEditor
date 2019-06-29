@@ -171,5 +171,14 @@ namespace BehaviorTreeEditor
             m_Enums.Add(customEnum);
             return true;
         }
+
+
+        public bool RemoveEnum(CustomEnum customEnum)
+        {
+            if (customEnum == null)
+                return false;
+
+            return m_Enums.Remove(customEnum);
+        }
     }
 }

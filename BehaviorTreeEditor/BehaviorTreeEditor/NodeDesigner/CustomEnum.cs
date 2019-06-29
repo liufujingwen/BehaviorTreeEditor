@@ -25,6 +25,15 @@ namespace BehaviorTreeEditor
             set { m_Enums = value; }
         }
 
+        private string m_Describe;
+
+        [Category("常规"), DisplayName("描述"), Description("描述该枚举作用是什么")]
+        public string Describe
+        {
+            get { return m_Describe; }
+            set { m_Describe = value; }
+        }
+
         public bool ExistEnumStr(string enumStr)
         {
             if (string.IsNullOrEmpty(enumStr))

@@ -28,22 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
-            // 
-            // propertyGrid1
-            // 
-            this.propertyGrid1.Location = new System.Drawing.Point(41, 42);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(549, 646);
-            this.propertyGrid1.TabIndex = 0;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 784);
-            this.Controls.Add(this.propertyGrid1);
+            this.MaximizeBox = false;
             this.Name = "TestForm";
             this.Text = "TestForm";
             this.Load += new System.EventHandler(this.TestForm_Load);
@@ -52,7 +44,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }

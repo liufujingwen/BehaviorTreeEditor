@@ -52,7 +52,8 @@ namespace BehaviorTreeEditor
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            TestForm testForm = new TestForm();
+            testForm.Show();
         }
 
         private void 类视图ToolStripMenuItem_Click(object sender, EventArgs e)
