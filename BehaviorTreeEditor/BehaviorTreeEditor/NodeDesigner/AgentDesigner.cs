@@ -5,6 +5,14 @@ namespace BehaviorTreeEditor
 {
     public class AgentDesigner
     {
+        private string m_AgentID;
+
+        public string AgentID
+        {
+            get { return m_AgentID; }
+            set { m_AgentID = value; }
+        }
+
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
 
         public List<FieldDesigner> Fields
@@ -13,6 +21,13 @@ namespace BehaviorTreeEditor
             set { m_Fields = value; }
         }
 
+        private NodeDesigner m_StartNode;
+
+        public NodeDesigner NodeDesigner
+        {
+            get { return m_StartNode; }
+            set { m_StartNode = value; }
+        }
 
         public List<NodeDesigner> Nodes = new List<NodeDesigner>();
 

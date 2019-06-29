@@ -8,8 +8,7 @@ namespace BehaviorTreeEditor
     {
         private string m_ClassType;
 
-        [CategoryAttribute("常规")]
-        [DescriptionAttribute("类名")]
+        [Category("常规"), DisplayName("类"), Description("类,唯一标识")]
         [XmlAttribute]
         public string ClassType
         {
@@ -17,11 +16,20 @@ namespace BehaviorTreeEditor
             set { m_ClassType = value; }
         }
 
+        private string m_ClassName;
+
+        [Category("常规"), DisplayName("类名"), Description("类名(中文名)")]
+        [XmlAttribute]
+        public string ClassName
+        {
+            get { return m_ClassName; }
+            set { m_ClassName = value; }
+        }
+
         //节点类型
         private NodeType m_NodeType;
 
-        [CategoryAttribute("常规")]
-        [DescriptionAttribute("节点类型")]
+        [Category("常规"), DisplayName("节点类型"), Description("节点类型")]
         [XmlAttribute]
         public NodeType NodeType
         {
@@ -31,8 +39,7 @@ namespace BehaviorTreeEditor
 
         private string m_Describe;
 
-        [CategoryAttribute("常规")]
-        [DescriptionAttribute("描述")]
+        [Category("常规"), DisplayName("描述"), Description("描述")]
         public string Describe
         {
             get { return m_Describe; }
@@ -41,21 +48,11 @@ namespace BehaviorTreeEditor
 
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
 
-        [CategoryAttribute("常规")]
-        [DescriptionAttribute("类所有字段")]
+        [Category("常规"), DisplayName("类所有字段"), Description("类所有字段")]
         public List<FieldDesigner> Fields
         {
             get { return m_Fields; }
             set { m_Fields = value; }
-        }
-
-        [XmlIgnore]
-        private bool m_Dirty = false;
-
-        public bool Dirty
-        {
-            get { return m_Dirty; }
-            set { m_Dirty = value; }
         }
 
         public bool ExistFieldName(string fieldName)

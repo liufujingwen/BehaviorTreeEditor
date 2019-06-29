@@ -127,6 +127,7 @@
       <DependentUpon>ClassForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="NodeDesigner\BehaviorTreeData.cs" />
     <Compile Include="NodeDesigner\CustomEnum.cs" />
     <Compile Include="NodeDesigner\Field\BaseFieldDesigner.cs" />
     <Compile Include="NodeDesigner\Field\FieldDesigner.cs" />

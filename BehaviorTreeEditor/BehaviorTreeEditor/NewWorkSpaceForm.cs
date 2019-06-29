@@ -77,6 +77,11 @@ namespace BehaviorTreeEditor
             MainForm.Instance.NodeClassDirty = false;
             XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
 
+            //初始化行为树数据
+            MainForm.Instance.BehaviorTreeData = new BehaviorTreeData();
+            MainForm.Instance.BehaviorTreeDirty = false;
+            XmlUtility.Save(MainForm.Instance.GetBehaviorTreeDataPath(), MainForm.Instance.BehaviorTreeData);
+
             this.Close();
         }
 

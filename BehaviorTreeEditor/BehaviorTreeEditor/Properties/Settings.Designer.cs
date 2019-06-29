@@ -73,13 +73,13 @@ namespace BehaviorTreeEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NodeDesignerData.xml")]
-        public string NodeDesignerDataFile {
+        [global::System.Configuration.DefaultSettingValueAttribute("BehaviorTreeData.xml")]
+        public string BehaviorTreeDataFile {
             get {
-                return ((string)(this["NodeDesignerDataFile"]));
+                return ((string)(this["BehaviorTreeDataFile"]));
             }
             set {
-                this["NodeDesignerDataFile"] = value;
+                this["BehaviorTreeDataFile"] = value;
             }
         }
         

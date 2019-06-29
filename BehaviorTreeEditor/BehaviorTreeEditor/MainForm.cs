@@ -15,9 +15,19 @@ namespace BehaviorTreeEditor
             get { return ms_Instance; }
         }
 
+        //工作区配置数据
         public WorkSpaceData WorkSpaceData;
+        //节点类数据（节点模板）
         public NodeClasses NodeClasses;
+        //节点类数据是否为Dirty
         public bool NodeClassDirty;
+        //行为树数据
+        public BehaviorTreeData BehaviorTreeData;
+        //行为树数据是否为Dirty
+        public bool BehaviorTreeDirty;
+        //当前选中的Agent
+        public AgentDesigner SelectedAgent;
+        //行为树节点绘制用户控件
         private ContentUserControl m_ContentUserControl;
 
         public MainForm()
@@ -33,7 +43,305 @@ namespace BehaviorTreeEditor
             m_ContentUserControl.Dock = DockStyle.Fill;
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(m_ContentUserControl);
+
+            BindAgents();
         }
+
+        #region TreeView
+
+        /// <summary>
+        /// 绑定Agents
+        /// </summary>
+        private void BindAgents()
+        {
+            treeView1.Nodes.Clear();
+            for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+            {
+                AgentDesigner agent = BehaviorTreeData.Agents[i];
+                TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
+                treeNode.Tag = agent;
+            }
+        }
+
+        /// <summary>
+        /// 获取绑定指定数据的TreeNode
+        /// </summary>
+        /// <param name="obj">Agent</param>
+        /// <returns></returns>
+        public TreeNode GetTreeNode(AgentDesigner agent)
+        {
+            if (agent == null)
+                return null;
+
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+                TreeNode treeNode = treeView1.Nodes[i];
+                if (treeNode == null)
+                    continue;
+                if (treeNode.Tag == agent)
+                    return treeNode;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 获取TreeNode索引
+        /// </summary>
+        /// <param name="treeNode"></param>
+        /// <returns></returns>
+        public int GetTreeNodeIndex(TreeNode treeNode)
+        {
+            if (treeNode == null)
+                return -1;
+
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+                TreeNode temp = treeView1.Nodes[i];
+                if (temp == null)
+                    continue;
+                if (temp == treeNode)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// 通过索引获取TreeNode
+        /// </summary>
+        /// <returns></returns>
+        public TreeNode GetTreeNodeByIndex(int index)
+        {
+            if (index >= 0 && index < treeView1.Nodes.Count)
+                return treeView1.Nodes[index];
+            return null;
+        }
+
+        /// <summary>
+        /// 通过索引选中Agent
+        /// </summary>
+        /// <param name="index"></param>
+        public void SetSelectedAgent(int index)
+        {
+            if (index == -1)
+                return;
+
+            if (index >= 0 && index < treeView1.Nodes.Count)
+            {
+                TreeNode treeNode = treeView1.Nodes[index];
+                treeView1.SelectedNode = treeNode;
+            }
+        }
+
+        /// <summary>
+        /// 设置选中的agent
+        /// </summary>
+        /// <param name="agent"></param>
+        public void SetSelectedAgent(AgentDesigner agent)
+        {
+            SelectedAgent = agent;
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+
+            AgentDesigner agent = treeView1.SelectedNode.Tag as AgentDesigner;
+            SetSelectedAgent(agent);
+        }
+
+        private void treeView1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.C:
+                        Exec(OperationType.CopyAgent);
+                        break;
+                    case Keys.V:
+                        Exec(OperationType.PasteAgent);
+                        break;
+                    case Keys.Up:
+                        Exec(OperationType.SwapAgent, true);
+                        break;
+                    case Keys.Down:
+                        Exec(OperationType.SwapAgent, false);
+                        break;
+                    case Keys.S:
+                        Exec(OperationType.Save);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F12:
+                        Exec(OperationType.EditAgent);
+                        break;
+                    case Keys.N:
+                        Exec(OperationType.AddAgent);
+                        break;
+                    case Keys.Delete:
+                        Exec(OperationType.DeleteAgent);
+                        break;
+                }
+            }
+        }
+
+        private void treeView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Clicks == 1)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    contextMenuStrip1.Tag = treeView1;
+                    contextMenuStrip1.Show(treeView1, e.Location);
+                }
+            }
+            else if (e.Clicks == 2)
+            {
+                if (treeView1.SelectedNode != null)
+                {
+                    Exec(OperationType.EditAgent);
+                }
+                else
+                {
+                    Exec(OperationType.AddAgent);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 复制Agent
+        /// </summary>
+        private void CopyAgent()
+        {
+        }
+
+        /// <summary>
+        /// 编辑Agent
+        /// </summary>
+        private void EditAgent()
+        {
+        }
+
+        /// <summary>
+        /// 刷新所有数据
+        /// </summary>
+        private void RefreshAgents()
+        {
+        }
+
+        //交换Agent位置
+        private void SwapAgent(bool up)
+        {
+            if (treeView1.SelectedNode == null)
+            {
+                ShowInfo("请选择一条记录进行交换");
+                ShowMessage("请选择一条记录进行交换", "警告");
+                return;
+            }
+
+            int selectIdx = GetTreeNodeIndex(treeView1.SelectedNode);
+            if (up)
+            {
+                //第一个不能往上交换
+                if (selectIdx == 0)
+                    return;
+
+                int preIdx = selectIdx - 1;
+
+                //交换数据
+                AgentDesigner preAgent = BehaviorTreeData.Agents[preIdx];
+                AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
+                BehaviorTreeData.Agents[preIdx] = selectedAgent;
+                BehaviorTreeData.Agents[selectIdx] = preAgent;
+                MainForm.Instance.BehaviorTreeDirty = true;
+
+                TreeNode preTreeNode = treeView1.Nodes[preIdx];
+                TreeNode selectedTreeNode = treeView1.SelectedNode;
+
+                treeView1.Nodes.RemoveAt(selectIdx);
+                treeView1.Nodes.RemoveAt(preIdx);
+
+                treeView1.Nodes.Insert(preIdx, selectedTreeNode);
+                treeView1.Nodes.Insert(selectIdx, preTreeNode);
+
+                if (treeView1.SelectedNode != selectedTreeNode)
+                    treeView1.SelectedNode = selectedTreeNode;
+            }
+            else
+            {
+                //最后一个不能往下交换
+                if (selectIdx == treeView1.Nodes.Count - 1)
+                    return;
+
+                int nextIdx = selectIdx + 1;
+
+                //交换数据
+                AgentDesigner nextAgent = BehaviorTreeData.Agents[nextIdx];
+                AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
+                BehaviorTreeData.Agents[nextIdx] = selectedAgent;
+                BehaviorTreeData.Agents[selectIdx] = nextAgent;
+                MainForm.Instance.BehaviorTreeDirty = true;
+
+                TreeNode nextTreeNode = treeView1.Nodes[nextIdx];
+                TreeNode selectedTreeNode = treeView1.SelectedNode;
+
+                treeView1.Nodes.RemoveAt(nextIdx);
+                treeView1.Nodes.RemoveAt(selectIdx);
+
+                treeView1.Nodes.Insert(selectIdx, nextTreeNode);
+                treeView1.Nodes.Insert(nextIdx, selectedTreeNode);
+
+                if(treeView1.SelectedNode != selectedTreeNode)
+                    treeView1.SelectedNode = selectedTreeNode;
+            }
+
+            MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
+        }
+
+        /// <summary>
+        /// 删除Agent
+        /// </summary>
+        private void DeleteAgent()
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+
+            int index = GetTreeNodeIndex(treeView1.SelectedNode);
+            AgentDesigner agentDesigner = treeView1.SelectedNode.Tag as AgentDesigner;
+
+            if (agentDesigner == null)
+                return;
+
+            BehaviorTreeData.RemoveAgent(agentDesigner);
+            BehaviorTreeDirty = true;
+            treeView1.Nodes.RemoveAt(index);
+            TreeNode treeNode = GetTreeNodeByIndex(index);
+            if (treeNode != null)
+            {
+                SetSelectedAgent(index);
+            }
+            else
+            {
+                index--;
+                if (index >= 0)
+                {
+                    SetSelectedAgent(index);
+                }
+            }
+        }
+
+        #endregion
+
+        #region ToolStrip or Menu
 
         private void 新建工作区ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -62,7 +370,66 @@ namespace BehaviorTreeEditor
             classForm.ShowDialog();
         }
 
-        public bool Exec(OperationType opration)
+        private void 枚举视图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EnumForm enumForm = new EnumForm();
+            enumForm.ShowDialog();
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.DeleteAgent);
+        }
+
+        private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.AddAgent);
+        }
+
+        #endregion
+
+        //添加行为树
+        private void addToolStripButton_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.AddAgent);
+        }
+
+        //保存所有数据
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.Save);
+        }
+
+        //删除行为树
+        private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.DeleteAgent);
+        }
+
+        //刷新
+        private void freshToolStripButton_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.Refresh);
+        }
+
+
+
+        /// <summary>
+        /// 添加行为树Item
+        /// </summary>
+        /// <param name="agent">agent</param>
+        /// <returns>true:添加成功</returns>
+        public bool AddAgentItem(AgentDesigner agent)
+        {
+            if (agent == null)
+                return false;
+            TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
+            treeNode.Tag = agent;
+            treeView1.SelectedNode = treeNode;
+            return true;
+        }
+
+        public bool Exec(OperationType opration, params object[] args)
         {
             switch (opration)
             {
@@ -85,6 +452,26 @@ namespace BehaviorTreeEditor
                 case OperationType.Save:
                     //保存
                     Save();
+                    break;
+                case OperationType.AddAgent:
+                    //添加行为树
+                    AddAgent();
+                    break;
+                case OperationType.CopyAgent:
+                    //复制Agent
+                    CopyAgent();
+                    break;
+                case OperationType.Refresh:
+                    //刷新所有Agent
+                    RefreshAgents();
+                    break;
+                case OperationType.DeleteAgent:
+                    //删除选中的Agent
+                    DeleteAgent();
+                    break;
+                case OperationType.SwapAgent:
+                    //交换Agent位置
+                    SwapAgent((bool)args[0]);
                     break;
             }
 
@@ -109,8 +496,16 @@ namespace BehaviorTreeEditor
                 NodeClasses.ResetNodes();
                 XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             }
-
             NodeClassDirty = false;
+
+            //读取行为树数据
+            BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
+            if (BehaviorTreeData == null)
+            {
+                BehaviorTreeData = new BehaviorTreeData();
+                XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
+            }
+            BehaviorTreeDirty = false;
         }
 
         //新建工作区
@@ -139,8 +534,8 @@ namespace BehaviorTreeEditor
                         Settings.Default.WorkDirectory = workDirectory;
                         Settings.Default.WorkSpaceName = WorkSpaceData.WorkSpaceName;
                         Settings.Default.Save();
-                        this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
-                        MainForm.Instance.ShowInfo("打开工作区,时间：" + DateTime.Now);
+                        Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
+                        ShowInfo("打开工作区,时间：" + DateTime.Now);
 
                         //读取行为树类信息
                         NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
@@ -148,9 +543,18 @@ namespace BehaviorTreeEditor
                         {
                             NodeClasses = new NodeClasses();
                             NodeClasses.ResetNodes();
-                            XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
+                            XmlUtility.Save(GetNodeClassPath(), NodeClasses);
                         }
                         NodeClassDirty = false;
+
+                        //读取行为树数据
+                        BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
+                        if (BehaviorTreeData == null)
+                        {
+                            BehaviorTreeData = new BehaviorTreeData();
+                            XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
+                        }
+                        BehaviorTreeDirty = false;
                     }
                 }
             }
@@ -170,15 +574,45 @@ namespace BehaviorTreeEditor
             {
                 if (NodeClasses != null)
                 {
-                    if (XmlUtility.Save<NodeClasses>(GetNodeClassPath(), NodeClasses))
+                    if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
                     {
                         NodeClassDirty = false;
                     }
                 }
             }
 
+            if (BehaviorTreeDirty)
+            {
+                if (BehaviorTreeData != null)
+                {
+                    if (XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData))
+                    {
+                        BehaviorTreeDirty = false;
+                    }
+                }
+            }
+
             ShowInfo("保存成功 时间:" + DateTime.Now);
         }
+
+        /// <summary>
+        /// 添加Agent
+        /// </summary>
+        private void AddAgent()
+        {
+            AgentDesigner agent = new AgentDesigner();
+            string agentID = "NewAgent_" + DateTime.Now.Ticks;
+            do
+            {
+                agentID = "NewAgent_" + DateTime.Now.Ticks;
+            }
+            while (BehaviorTreeData.ExistAgent(agentID));
+            agent.AgentID = agentID;
+            BehaviorTreeData.AddAgent(agent);
+            BehaviorTreeDirty = true;
+            AddAgentItem(agent);
+        }
+
 
         /// <summary>
         /// 获取数据保存路径
@@ -195,6 +629,15 @@ namespace BehaviorTreeEditor
         public string GetWorkSpacePath()
         {
             return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+        }
+
+        /// <summary>
+        /// 获取行为树数据保存路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetBehaviorTreeDataPath()
+        {
+            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.BehaviorTreeDataFile);
         }
 
         /// <summary>
@@ -230,7 +673,7 @@ namespace BehaviorTreeEditor
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (NodeClassDirty)
+                if (NodeClassDirty || BehaviorTreeDirty)
                 {
                     DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
@@ -240,12 +683,6 @@ namespace BehaviorTreeEditor
 
             Settings.Default.Save();
             NodeClassDirty = false;
-        }
-
-        private void 枚举视图ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            EnumForm enumForm = new EnumForm();
-            enumForm.ShowDialog();
         }
     }
 }

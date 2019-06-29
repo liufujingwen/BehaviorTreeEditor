@@ -29,11 +29,11 @@ namespace BehaviorTreeEditor
         #region ==================Transition===================
 
         //节点普通连线 画笔
-        public static Pen TransitionNormalPen = new Pen(Color.White, 2);
+        public static Pen TransitionNormalPen = new Pen(Color.Blue, 2);
         //节点普通连线 画笔
         public static Pen TransitionSelectedPen = new Pen(Color.Orange, 2);
         //普通箭头 笔刷
-        public static Brush ArrowNormalBrush = new SolidBrush(Color.White);
+        public static Brush ArrowNormalBrush = new SolidBrush(Color.Blue);
         //普通箭头 笔刷
         public static Brush ArrowSelectedBrush = new SolidBrush(Color.Orange);
         //箭头宽度像素
@@ -141,7 +141,7 @@ namespace BehaviorTreeEditor
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);
             //标题
-            graphics.DrawString(node.Name, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
+            graphics.DrawString(node.ClassType, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
             //画内容底框
             graphics.FillRectangle(EditorUtility.NodeContentBrush, contentRect);
 

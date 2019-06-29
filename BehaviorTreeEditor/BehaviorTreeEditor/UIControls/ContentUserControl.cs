@@ -180,8 +180,8 @@ namespace BehaviorTreeEditor.UIControls
         /// </summary>
         private void DrawGrid()
         {
-            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMinorSize, m_Offset, true);
-            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMajorSize, m_Offset, false);
+            //EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMinorSize, m_Offset, true);
+            //EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMajorSize, m_Offset, false);
         }
 
         private void DoNodes()
@@ -213,7 +213,7 @@ namespace BehaviorTreeEditor.UIControls
         //画节点连线
         private void DoTransitions()
         {
-            
+
 
             if (m_FromNode != null)
             {
@@ -520,7 +520,7 @@ namespace BehaviorTreeEditor.UIControls
             {
                 m_LControlKeyDown = false;
             }
-           
+
 
             Console.WriteLine("KeyUp：" + e.KeyCode);
         }
@@ -800,16 +800,6 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
-        //显示视图菜单上下文
-        private void ShowViewContextMenu()
-        {
-            if (m_SelectionNodes.Count > 0)
-                return;
-
-            viewContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
-            this.Refresh();
-        }
-
         //显示连线菜单上下文
         private void ShowTransitionContextMenu()
         {
@@ -818,6 +808,95 @@ namespace BehaviorTreeEditor.UIControls
 
             transitionContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
             this.Refresh();
+        }
+
+        //显示视图菜单上下文
+        private void ShowViewContextMenu()
+        {
+            if (m_SelectionNodes.Count > 0)
+                return;
+
+            if (MainForm.Instance.NodeClasses == null)
+                return;
+
+            NodeClasses nodeClass = MainForm.Instance.NodeClasses;
+            List<NodeClass> nodes = nodeClass.Nodes;
+
+            viewContextMenuStrip.Items.Clear();
+
+            ToolStripDropDownItem compositeItem = viewContextMenuStrip.Items.Add("组合节点") as ToolStripDropDownItem;
+            ToolStripDropDownItem decoratorItem = viewContextMenuStrip.Items.Add("修饰节点") as ToolStripDropDownItem;
+            ToolStripDropDownItem conditionItem = viewContextMenuStrip.Items.Add("条件节点") as ToolStripDropDownItem;
+            ToolStripDropDownItem actionItem = viewContextMenuStrip.Items.Add("动作节点") as ToolStripDropDownItem;
+
+            //绑定组合节点
+            List<NodeClass> compositeList = nodeClass.GetClasses(NodeType.Composite);
+            for (int i = 0; i < compositeList.Count; i++)
+            {
+                NodeClass node = compositeList[i];
+                ToolStripItem nodeItem = compositeItem.DropDownItems.Add(node.ClassType);
+                nodeItem.Tag = node;
+                nodeItem.Click += new EventHandler(OnClickNodeItem);
+            }
+
+            //绑定修饰节点
+            List<NodeClass> decoratorList = nodeClass.GetClasses(NodeType.Decorator);
+            for (int i = 0; i < decoratorList.Count; i++)
+            {
+                NodeClass node = decoratorList[i];
+                ToolStripItem nodeItem = decoratorItem.DropDownItems.Add(node.ClassType);
+                nodeItem.Tag = node;
+                nodeItem.Click += new EventHandler(OnClickNodeItem);
+            }
+
+            //绑定条件节点
+            List<NodeClass> conditionList = nodeClass.GetClasses(NodeType.Condition);
+            for (int i = 0; i < conditionList.Count; i++)
+            {
+                NodeClass node = conditionList[i];
+                ToolStripItem nodeItem = conditionItem.DropDownItems.Add(node.ClassType);
+                nodeItem.Tag = node;
+                nodeItem.Click += new EventHandler(OnClickNodeItem);
+            }
+
+            //绑定动作节点
+            List<NodeClass> actionList = nodeClass.GetClasses(NodeType.Action);
+            for (int i = 0; i < actionList.Count; i++)
+            {
+                NodeClass node = actionList[i];
+                ToolStripItem nodeItem = actionItem.DropDownItems.Add(node.ClassType);
+                nodeItem.Tag = node;
+                nodeItem.Click += new EventHandler(OnClickNodeItem);
+            }
+
+            //添加分割线
+            viewContextMenuStrip.Items.Add(new ToolStripSeparator());
+
+            ToolStripItem centerItem = viewContextMenuStrip.Items.Add("居中");
+            centerItem.Click += new EventHandler(centerItem_Click);
+
+            viewContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
+            this.Refresh();
+        }
+
+        private void OnClickNodeItem(object sender, EventArgs e)
+        {
+            ToolStripDropDownItem toolStripDropDownItem = (ToolStripDropDownItem)sender;
+
+            if (toolStripDropDownItem == null)
+                return;
+
+            NodeClass nodeClass = (NodeClass)toolStripDropDownItem.Tag;
+
+            if (nodeClass == null)
+                return;
+
+            NodeDesigner node = new NodeDesigner();
+            node.ID = m_Agent.GenNodeID();
+            node.Name = nodeClass.ClassName;
+            node.ClassType = nodeClass.ClassType;
+            node.Rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+            m_Agent.AddNode(node);
         }
 
         public Vec2 LocalToWorldPoint(Vec2 point)
@@ -829,7 +908,5 @@ namespace BehaviorTreeEditor.UIControls
         {
             return (point - m_Offset) * m_ZoomScale;
         }
-
-        
     }
 }

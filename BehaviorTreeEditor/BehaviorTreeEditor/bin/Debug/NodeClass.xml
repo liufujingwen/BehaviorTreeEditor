@@ -142,27 +142,22 @@
           </Field>
         </FieldDesigner>
       </Fields>
-      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
       <Fields />
-      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
       <Describe>非节点将子节点的返回值取反</Describe>
       <Fields />
-      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Compare" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields />
-      <Dirty>false</Dirty>
     </NodeClass>
     <NodeClass ClassType="Noop" NodeType="Action">
       <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
       <Fields />
-      <Dirty>false</Dirty>
     </NodeClass>
   </Nodes>
 </NodeClasses>

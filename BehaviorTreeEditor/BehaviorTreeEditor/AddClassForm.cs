@@ -49,7 +49,6 @@ namespace BehaviorTreeEditor
                 return;
 
             m_ClassForm.AddClass(m_NodeClass);
-            m_NodeClass.Dirty = true;
             MainForm.Instance.NodeClassDirty = true;
 
             this.Close();
