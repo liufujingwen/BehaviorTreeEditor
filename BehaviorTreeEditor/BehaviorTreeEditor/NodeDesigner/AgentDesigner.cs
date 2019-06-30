@@ -6,6 +6,8 @@ namespace BehaviorTreeEditor
     public class AgentDesigner
     {
         private string m_AgentID;
+        private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
+        private List<NodeDesigner> m_Nodes = new List<NodeDesigner>();
 
         public string AgentID
         {
@@ -13,23 +15,17 @@ namespace BehaviorTreeEditor
             set { m_AgentID = value; }
         }
 
-        private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
-
         public List<FieldDesigner> Fields
         {
             get { return m_Fields; }
             set { m_Fields = value; }
         }
 
-        private NodeDesigner m_StartNode;
-
-        public NodeDesigner NodeDesigner
+        public List<NodeDesigner> Nodes
         {
-            get { return m_StartNode; }
-            set { m_StartNode = value; }
+            get { return m_Nodes; }
+            set { m_Nodes = value; }
         }
-
-        public List<NodeDesigner> Nodes = new List<NodeDesigner>();
 
         public int GenNodeID()
         {
@@ -41,6 +37,22 @@ namespace BehaviorTreeEditor
                     id = node.ID;
             }
             return ++id;
+        }
+
+        /// <summary>
+        /// 通过ID查找节点
+        /// </summary>
+        /// <param name="ID">节点ID</param>
+        /// <returns></returns>
+        public NodeDesigner FindNodeByID(int ID)
+        {
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                NodeDesigner node = Nodes[i];
+                if (node != null && node.ID == ID)
+                    return node;
+            }
+            return null;
         }
 
         public void AddNode(NodeDesigner node)

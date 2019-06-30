@@ -108,6 +108,20 @@
       </Enums>
       <Describe>这是测试枚举1111</Describe>
     </CustomEnum>
+    <CustomEnum>
+      <EnumType>TestEnum_New_New_New</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Enum1</EnumStr>
+          <EnumValue>0</EnumValue>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Enum2</EnumStr>
+          <EnumValue>1</EnumValue>
+        </EnumItem>
+      </Enums>
+      <Describe>lk;lkl;</Describe>
+    </CustomEnum>
   </Enums>
   <Nodes>
     <NodeClass ClassType="Parallel" NodeType="Composite">

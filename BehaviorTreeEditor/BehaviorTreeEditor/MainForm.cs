@@ -1,6 +1,7 @@
 ﻿using BehaviorTreeEditor.Properties;
 using BehaviorTreeEditor.UIControls;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,12 +24,13 @@ namespace BehaviorTreeEditor
         public bool NodeClassDirty;
         //行为树数据
         public BehaviorTreeData BehaviorTreeData;
-        //行为树数据是否为Dirty
-        public bool BehaviorTreeDirty;
+        //上一次保存的时候的内容，用于检测行为树dirty
+        public string BehaviorTreeDataStringContent;
         //当前选中的Agent
         public AgentDesigner SelectedAgent;
-        //行为树节点绘制用户控件
+
         private ContentUserControl m_ContentUserControl;
+
 
         public MainForm()
         {
@@ -140,7 +142,11 @@ namespace BehaviorTreeEditor
         /// <param name="agent"></param>
         public void SetSelectedAgent(AgentDesigner agent)
         {
+            if (SelectedAgent == agent)
+                return;
+
             SelectedAgent = agent;
+            m_ContentUserControl.SetSelectedAgent(SelectedAgent);
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -217,11 +223,64 @@ namespace BehaviorTreeEditor
             }
         }
 
+        public class AgentListContent
+        {
+            private List<AgentDesigner> m_DataList = new List<AgentDesigner>();
+            public List<AgentDesigner> DataList { get { return m_DataList; } }
+        }
+
         /// <summary>
         /// 复制Agent
         /// </summary>
         private void CopyAgent()
         {
+            if (treeView1.SelectedNode != null)
+            {
+                AgentListContent content = new AgentListContent();
+                content.DataList.Add((AgentDesigner)treeView1.SelectedNode.Tag);
+
+                if (content.DataList.Count > 0)
+                    Clipboard.SetText(XmlUtility.ObjectToString(content));
+
+                MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个枚举！！！");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("您必须选择一个进行复制！！！");
+                MainForm.Instance.ShowMessage("您必须选择一个进行复制！！！", "警告");
+            }
+        }
+
+        /// <summary>
+        /// 粘贴行为树
+        /// </summary>
+        private void PasteAgent()
+        {
+            try
+            {
+                AgentListContent content = XmlUtility.StringToObject<AgentListContent>(Clipboard.GetText());
+
+                for (int i = 0; i < content.DataList.Count; i++)
+                {
+                    AgentDesigner agent = content.DataList[i];
+                    string agentID = "NewAgent_" + DateTime.Now.Ticks;
+                    do
+                    {
+                        agentID = "NewAgent_" + DateTime.Now.Ticks;
+                    }
+                    while (BehaviorTreeData.ExistAgent(agentID));
+                    agent.AgentID = agentID;
+                    BehaviorTreeData.AddAgent(agent);
+                    AddAgentItem(agent);
+                }
+                MainForm.Instance.NodeClassDirty = true;
+                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "棵行为树！！！");
+            }
+            catch (Exception ex)
+            {
+                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+            }
         }
 
         /// <summary>
@@ -262,7 +321,6 @@ namespace BehaviorTreeEditor
                 AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
                 BehaviorTreeData.Agents[preIdx] = selectedAgent;
                 BehaviorTreeData.Agents[selectIdx] = preAgent;
-                MainForm.Instance.BehaviorTreeDirty = true;
 
                 TreeNode preTreeNode = treeView1.Nodes[preIdx];
                 TreeNode selectedTreeNode = treeView1.SelectedNode;
@@ -289,7 +347,6 @@ namespace BehaviorTreeEditor
                 AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
                 BehaviorTreeData.Agents[nextIdx] = selectedAgent;
                 BehaviorTreeData.Agents[selectIdx] = nextAgent;
-                MainForm.Instance.BehaviorTreeDirty = true;
 
                 TreeNode nextTreeNode = treeView1.Nodes[nextIdx];
                 TreeNode selectedTreeNode = treeView1.SelectedNode;
@@ -300,7 +357,7 @@ namespace BehaviorTreeEditor
                 treeView1.Nodes.Insert(selectIdx, nextTreeNode);
                 treeView1.Nodes.Insert(nextIdx, selectedTreeNode);
 
-                if(treeView1.SelectedNode != selectedTreeNode)
+                if (treeView1.SelectedNode != selectedTreeNode)
                     treeView1.SelectedNode = selectedTreeNode;
             }
 
@@ -321,20 +378,22 @@ namespace BehaviorTreeEditor
             if (agentDesigner == null)
                 return;
 
-            BehaviorTreeData.RemoveAgent(agentDesigner);
-            BehaviorTreeDirty = true;
-            treeView1.Nodes.RemoveAt(index);
-            TreeNode treeNode = GetTreeNodeByIndex(index);
-            if (treeNode != null)
+            if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                SetSelectedAgent(index);
-            }
-            else
-            {
-                index--;
-                if (index >= 0)
+                BehaviorTreeData.RemoveAgent(agentDesigner);
+                treeView1.Nodes.RemoveAt(index);
+                TreeNode treeNode = GetTreeNodeByIndex(index);
+                if (treeNode != null)
                 {
                     SetSelectedAgent(index);
+                }
+                else
+                {
+                    index--;
+                    if (index >= 0)
+                    {
+                        SetSelectedAgent(index);
+                    }
                 }
             }
         }
@@ -461,6 +520,9 @@ namespace BehaviorTreeEditor
                     //复制Agent
                     CopyAgent();
                     break;
+                case OperationType.PasteAgent:
+                    PasteAgent();
+                    break;
                 case OperationType.Refresh:
                     //刷新所有Agent
                     RefreshAgents();
@@ -505,7 +567,7 @@ namespace BehaviorTreeEditor
                 BehaviorTreeData = new BehaviorTreeData();
                 XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
             }
-            BehaviorTreeDirty = false;
+            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
         }
 
         //新建工作区
@@ -554,7 +616,7 @@ namespace BehaviorTreeEditor
                             BehaviorTreeData = new BehaviorTreeData();
                             XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
                         }
-                        BehaviorTreeDirty = false;
+                        BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
                     }
                 }
             }
@@ -570,25 +632,19 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
-            if (NodeClassDirty)
+            if (NodeClasses != null)
             {
-                if (NodeClasses != null)
+                if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
                 {
-                    if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
-                    {
-                        NodeClassDirty = false;
-                    }
+                    NodeClassDirty = false;
                 }
             }
 
-            if (BehaviorTreeDirty)
+            if (BehaviorTreeData != null)
             {
-                if (BehaviorTreeData != null)
+                if (XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData))
                 {
-                    if (XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData))
-                    {
-                        BehaviorTreeDirty = false;
-                    }
+                    BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
                 }
             }
 
@@ -609,10 +665,8 @@ namespace BehaviorTreeEditor
             while (BehaviorTreeData.ExistAgent(agentID));
             agent.AgentID = agentID;
             BehaviorTreeData.AddAgent(agent);
-            BehaviorTreeDirty = true;
             AddAgentItem(agent);
         }
-
 
         /// <summary>
         /// 获取数据保存路径
@@ -673,7 +727,14 @@ namespace BehaviorTreeEditor
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (NodeClassDirty || BehaviorTreeDirty)
+                bool behaviorTreeDirty = false;
+                string stringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+                if (stringContent != BehaviorTreeDataStringContent)
+                {
+                    behaviorTreeDirty = true;
+                }
+
+                if (NodeClassDirty || behaviorTreeDirty)
                 {
                     DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)

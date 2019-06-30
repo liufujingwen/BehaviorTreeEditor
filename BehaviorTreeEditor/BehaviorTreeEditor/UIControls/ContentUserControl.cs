@@ -30,9 +30,6 @@ namespace BehaviorTreeEditor.UIControls
         //滑动起始位置
         private Vec2 m_ScrollPosition;
 
-        NodeDesigner m_Node1;
-        NodeDesigner m_Node2;
-
         //当前缩放
         private float m_ZoomScale = 1f;
 
@@ -60,7 +57,7 @@ namespace BehaviorTreeEditor.UIControls
         private Vec2 m_SelectionStartPosition;
         private NodeDesigner m_FromNode;
 
-        private AgentDesigner m_Agent = new AgentDesigner();
+        private AgentDesigner m_Agent;
         private Transition m_SelectedTransition;
         private List<NodeDesigner> m_SelectionNodes = new List<NodeDesigner>();
 
@@ -75,6 +72,40 @@ namespace BehaviorTreeEditor.UIControls
         {
             ms_Instance = this;
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 设置选中Agent
+        /// </summary>
+        /// <param name="agent"></param>
+        public void SetSelectedAgent(AgentDesigner agent)
+        {
+            m_Agent = agent;
+
+            m_SelectionNodes.Clear();
+            m_SelectedTransition = null;
+
+            if (m_Agent != null)
+            {
+                if (m_Agent.Nodes.Count > 0)
+                {
+                    for (int i = 0; i < m_Agent.Nodes.Count; i++)
+                    {
+                        NodeDesigner node = m_Agent.Nodes[i];
+                        if (node.Transitions.Count > 0)
+                        {
+                            for (int j = 0; j < node.Transitions.Count; j++)
+                            {
+                                Transition transition = node.Transitions[j];
+                                NodeDesigner fromNode = m_Agent.FindNodeByID(transition.FromNodeID);
+                                NodeDesigner toNode = m_Agent.FindNodeByID(transition.ToNodeID);
+                                transition.Set(toNode, fromNode);
+                            }
+                        }
+                    }
+                    CenterView();
+                }
+            }
         }
 
         public static Vec2 Center
@@ -180,8 +211,8 @@ namespace BehaviorTreeEditor.UIControls
         /// </summary>
         private void DrawGrid()
         {
-            //EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMinorSize, m_Offset, true);
-            //EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMajorSize, m_Offset, false);
+            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMinorSize, m_Offset, true);
+            EditorUtility.DrawGridLines(m_Graphics, m_ScaledViewSize, GridMajorSize, m_Offset, false);
         }
 
         private void DoNodes()
@@ -213,8 +244,6 @@ namespace BehaviorTreeEditor.UIControls
         //画节点连线
         private void DoTransitions()
         {
-
-
             if (m_FromNode != null)
             {
                 BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseLocalPoint / m_ZoomScale, m_Offset);
@@ -520,9 +549,6 @@ namespace BehaviorTreeEditor.UIControls
             {
                 m_LControlKeyDown = false;
             }
-
-
-            Console.WriteLine("KeyUp：" + e.KeyCode);
         }
 
         //控件大小改变通知事件
@@ -532,6 +558,7 @@ namespace BehaviorTreeEditor.UIControls
                 return;
             m_ZoomScalerUserControl.Location = new Point(Width / 2 - m_ZoomScalerUserControl.Width / 2 + 2, Height - m_ZoomScalerUserControl.Height - 2);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+            UpdateRect();
         }
 
         //视图失焦
@@ -762,7 +789,7 @@ namespace BehaviorTreeEditor.UIControls
                 for (int i = 0; i < m_Agent.Nodes.Count; i++)
                 {
                     NodeDesigner node = m_Agent.Nodes[i];
-                    center += new Vec2(node.Rect.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
+                    center += new Vec2(node.Rect.center.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
                 }
                 center /= m_Agent.Nodes.Count;
             }

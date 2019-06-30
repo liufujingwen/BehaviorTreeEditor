@@ -2,39 +2,146 @@
 <BehaviorTreeData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Agents>
     <AgentDesigner>
-      <Nodes />
       <AgentID>NewAgent_636974552565423137</AgentID>
       <Fields />
+      <Nodes>
+        <NodeDesigner>
+          <ID>1</ID>
+          <Name />
+          <ClassType>Parallel</ClassType>
+          <NodeType>Start</NodeType>
+          <Rect>
+            <x>5037</x>
+            <y>4897</y>
+            <position>
+              <x>5037</x>
+              <y>4897</y>
+            </position>
+            <center>
+              <x>5112</x>
+              <y>4927</y>
+            </center>
+            <min>
+              <x>5037</x>
+              <y>4897</y>
+            </min>
+            <max>
+              <x>5187</x>
+              <y>4957</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5037</xMin>
+            <yMin>4897</yMin>
+            <xMax>5187</xMax>
+            <yMax>4957</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
+              <ToNodeID>2</ToNodeID>
+            </Transition>
+          </Transitions>
+        </NodeDesigner>
+        <NodeDesigner>
+          <ID>2</ID>
+          <Name />
+          <ClassType>Sequence</ClassType>
+          <NodeType>Start</NodeType>
+          <Rect>
+            <x>5451</x>
+            <y>5053</y>
+            <position>
+              <x>5451</x>
+              <y>5053</y>
+            </position>
+            <center>
+              <x>5526</x>
+              <y>5083</y>
+            </center>
+            <min>
+              <x>5451</x>
+              <y>5053</y>
+            </min>
+            <max>
+              <x>5601</x>
+              <y>5113</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5451</xMin>
+            <yMin>5053</yMin>
+            <xMax>5601</xMax>
+            <yMax>5113</yMax>
+          </Rect>
+          <Transitions />
+        </NodeDesigner>
+      </Nodes>
     </AgentDesigner>
     <AgentDesigner>
-      <Nodes />
-      <AgentID>NewAgent_636974552563720138</AgentID>
-      <Fields />
-    </AgentDesigner>
-    <AgentDesigner>
-      <Nodes />
       <AgentID>NewAgent_636974550623378646</AgentID>
       <Fields />
+      <Nodes>
+        <NodeDesigner>
+          <ID>1</ID>
+          <ClassType>Parallel</ClassType>
+          <NodeType>Start</NodeType>
+          <Rect>
+            <x>5023</x>
+            <y>4869</y>
+            <position>
+              <x>5023</x>
+              <y>4869</y>
+            </position>
+            <center>
+              <x>5098</x>
+              <y>4899</y>
+            </center>
+            <min>
+              <x>5023</x>
+              <y>4869</y>
+            </min>
+            <max>
+              <x>5173</x>
+              <y>4929</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5023</xMin>
+            <yMin>4869</yMin>
+            <xMax>5173</xMax>
+            <yMax>4929</yMax>
+          </Rect>
+          <Transitions />
+        </NodeDesigner>
+      </Nodes>
     </AgentDesigner>
     <AgentDesigner>
-      <Nodes />
       <AgentID>NewAgent_636974552561945504</AgentID>
       <Fields />
+      <Nodes />
     </AgentDesigner>
     <AgentDesigner>
-      <Nodes />
-      <AgentID>NewAgent_636974550624974644</AgentID>
-      <Fields />
-    </AgentDesigner>
-    <AgentDesigner>
-      <Nodes />
       <AgentID>NewAgent_636974600831546916</AgentID>
       <Fields />
+      <Nodes />
     </AgentDesigner>
     <AgentDesigner>
-      <Nodes />
       <AgentID>NewAgent_636974600855682413</AgentID>
       <Fields />
+      <Nodes />
     </AgentDesigner>
   </Agents>
 </BehaviorTreeData>
