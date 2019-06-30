@@ -73,6 +73,12 @@
     <Compile Include="Form\Enum\AddEnumItemForm.Designer.cs">
       <DependentUpon>AddEnumItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility\BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
     <Compile Include="Data\NodeData.cs" />
@@ -235,6 +241,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
     </EmbeddedResource>

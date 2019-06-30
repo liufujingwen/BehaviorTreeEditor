@@ -20,11 +20,11 @@ namespace BehaviorTreeEditor
         public WorkSpaceData WorkSpaceData;
         //节点类数据（节点模板）
         public NodeClasses NodeClasses;
-        //节点类数据是否为Dirty
-        public bool NodeClassDirty;
+        //节点类上一次保存的时候的内容，用于检测节点类dirty
+        public string NodeClassesStringContent;
         //行为树数据
         public BehaviorTreeData BehaviorTreeData;
-        //上一次保存的时候的内容，用于检测行为树dirty
+        //行为树数据上一次保存的时候的内容，用于检测行为树dirty
         public string BehaviorTreeDataStringContent;
         //当前选中的Agent
         public AgentDesigner SelectedAgent;
@@ -307,13 +307,12 @@ namespace BehaviorTreeEditor
                     BehaviorTreeData.AddAgent(agent);
                     AddAgentItem(agent);
                 }
-                MainForm.Instance.NodeClassDirty = true;
-                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "棵行为树！！！");
+                ShowInfo("您粘贴了" + content.DataList.Count + "棵行为树！！！");
             }
             catch (Exception ex)
             {
-                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
-                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+                ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
             }
         }
 
@@ -446,7 +445,8 @@ namespace BehaviorTreeEditor
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            TestForm testForm = new TestForm();
+            testForm.ShowDialog();
         }
 
         private void 类视图ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -588,7 +588,7 @@ namespace BehaviorTreeEditor
                 NodeClasses.ResetNodes();
                 XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             }
-            NodeClassDirty = false;
+            NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
             //读取行为树数据
             BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
@@ -637,7 +637,7 @@ namespace BehaviorTreeEditor
                             NodeClasses.ResetNodes();
                             XmlUtility.Save(GetNodeClassPath(), NodeClasses);
                         }
-                        NodeClassDirty = false;
+                        NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
                         //读取行为树数据
                         BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
@@ -666,7 +666,7 @@ namespace BehaviorTreeEditor
             {
                 if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
                 {
-                    NodeClassDirty = false;
+                    NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
                 }
             }
 
@@ -681,7 +681,7 @@ namespace BehaviorTreeEditor
             ShowInfo("保存成功 时间:" + DateTime.Now);
         }
 
-        
+
 
         /// <summary>
         /// 获取数据保存路径
@@ -742,14 +742,21 @@ namespace BehaviorTreeEditor
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
+                bool nodeClassDirty = false;
+                string tempNodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+                if (tempNodeClassesStringContent != NodeClassesStringContent)
+                {
+                    nodeClassDirty = true;
+                }
+
                 bool behaviorTreeDirty = false;
-                string stringContent = XmlUtility.ObjectToString(BehaviorTreeData);
-                if (stringContent != BehaviorTreeDataStringContent)
+                string tempBehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+                if (tempBehaviorTreeDataStringContent != BehaviorTreeDataStringContent)
                 {
                     behaviorTreeDirty = true;
                 }
 
-                if (NodeClassDirty || behaviorTreeDirty)
+                if (nodeClassDirty || behaviorTreeDirty)
                 {
                     DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
@@ -758,7 +765,6 @@ namespace BehaviorTreeEditor
             }
 
             Settings.Default.Save();
-            NodeClassDirty = false;
         }
     }
 }

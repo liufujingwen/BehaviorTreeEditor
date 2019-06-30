@@ -57,9 +57,14 @@ namespace BehaviorTreeEditor.UIControls
         private Vec2 m_SelectionStartPosition;
         private NodeDesigner m_FromNode;
 
-        private AgentDesigner m_Agent;
+
         private Transition m_SelectedTransition;
         private List<NodeDesigner> m_SelectionNodes = new List<NodeDesigner>();
+
+        private AgentDesigner Agent
+        {
+            get { return MainForm.Instance.SelectedAgent; }
+        }
 
         public enum SelectionMode
         {
@@ -80,25 +85,23 @@ namespace BehaviorTreeEditor.UIControls
         /// <param name="agent"></param>
         public void SetSelectedAgent(AgentDesigner agent)
         {
-            m_Agent = agent;
-
             m_SelectionNodes.Clear();
             m_SelectedTransition = null;
 
-            if (m_Agent != null)
+            if (Agent != null)
             {
-                if (m_Agent.Nodes.Count > 0)
+                if (Agent.Nodes.Count > 0)
                 {
-                    for (int i = 0; i < m_Agent.Nodes.Count; i++)
+                    for (int i = 0; i < Agent.Nodes.Count; i++)
                     {
-                        NodeDesigner node = m_Agent.Nodes[i];
+                        NodeDesigner node = Agent.Nodes[i];
                         if (node.Transitions.Count > 0)
                         {
                             for (int j = 0; j < node.Transitions.Count; j++)
                             {
                                 Transition transition = node.Transitions[j];
-                                NodeDesigner fromNode = m_Agent.FindNodeByID(transition.FromNodeID);
-                                NodeDesigner toNode = m_Agent.FindNodeByID(transition.ToNodeID);
+                                NodeDesigner fromNode = Agent.FindNodeByID(transition.FromNodeID);
+                                NodeDesigner toNode = Agent.FindNodeByID(transition.ToNodeID);
                                 transition.Set(toNode, fromNode);
                             }
                         }
@@ -217,14 +220,14 @@ namespace BehaviorTreeEditor.UIControls
 
         private void DoNodes()
         {
-            if (m_Agent == null)
+            if (Agent == null)
                 return;
 
             DoTransitions();
 
-            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            for (int i = 0; i < Agent.Nodes.Count; i++)
             {
-                NodeDesigner node = m_Agent.Nodes[i];
+                NodeDesigner node = Agent.Nodes[i];
                 if (node == null)
                     continue;
                 EditorUtility.Draw(node, m_Graphics, m_Offset, false);
@@ -250,9 +253,9 @@ namespace BehaviorTreeEditor.UIControls
                 BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseLocalPoint / m_ZoomScale, m_Offset);
             }
 
-            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            for (int i = 0; i < Agent.Nodes.Count; i++)
             {
-                NodeDesigner node_i = m_Agent.Nodes[i];
+                NodeDesigner node_i = Agent.Nodes[i];
                 if (node_i == null)
                     continue;
 
@@ -595,7 +598,7 @@ namespace BehaviorTreeEditor.UIControls
                 NodeDesigner node = m_SelectionNodes[i];
                 if (node == null)
                     continue;
-                m_Agent.Remove(node);
+                Agent.RemoveNode(node);
             }
             m_SelectionNodes.Clear();
         }
@@ -605,7 +608,7 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectedTransition == null)
                 return;
 
-            m_Agent.RemoveTranstion(m_SelectedTransition);
+            Agent.RemoveTranstion(m_SelectedTransition);
             SelectTransition(null);
         }
 
@@ -620,12 +623,12 @@ namespace BehaviorTreeEditor.UIControls
         //当前鼠标悬停节点
         private NodeDesigner MouseOverNode()
         {
-            if (m_Agent == null)
+            if (Agent == null)
                 return null;
 
-            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            for (int i = 0; i < Agent.Nodes.Count; i++)
             {
-                NodeDesigner node = m_Agent.Nodes[i];
+                NodeDesigner node = Agent.Nodes[i];
                 if (node.Rect.Contains(m_MouseWorldPoint))
                 {
                     return node;
@@ -636,12 +639,12 @@ namespace BehaviorTreeEditor.UIControls
 
         private Transition MouseOverTransition()
         {
-            if (m_Agent == null)
+            if (Agent == null)
                 return null;
 
-            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            for (int i = 0; i < Agent.Nodes.Count; i++)
             {
-                NodeDesigner node = (NodeDesigner)m_Agent.Nodes[i];
+                NodeDesigner node = (NodeDesigner)Agent.Nodes[i];
                 if (node.Transitions.Count > 0)
                 {
                     for (int ii = 0; ii < node.Transitions.Count; ii++)
@@ -751,12 +754,12 @@ namespace BehaviorTreeEditor.UIControls
         /// <param name="r"></param>
         private void SelectNodesInRect(Rect r)
         {
-            if (m_Agent == null)
+            if (Agent == null)
                 return;
 
-            for (int i = 0; i < m_Agent.Nodes.Count; i++)
+            for (int i = 0; i < Agent.Nodes.Count; i++)
             {
-                NodeDesigner node = m_Agent.Nodes[i];
+                NodeDesigner node = Agent.Nodes[i];
                 Rect rect = node.Rect;
                 if (rect.xMax < r.x || rect.x > r.xMax || rect.yMax < r.y || rect.y > r.yMax)
                 {
@@ -774,14 +777,14 @@ namespace BehaviorTreeEditor.UIControls
         public void CenterView()
         {
             Vec2 center = Vec2.zero;
-            if (m_Agent != null && m_Agent.Nodes.Count > 0)
+            if (Agent != null && Agent.Nodes.Count > 0)
             {
-                for (int i = 0; i < m_Agent.Nodes.Count; i++)
+                for (int i = 0; i < Agent.Nodes.Count; i++)
                 {
-                    NodeDesigner node = m_Agent.Nodes[i];
+                    NodeDesigner node = Agent.Nodes[i];
                     center += new Vec2(node.Rect.center.x - m_ScaledViewSize.width * 0.5f, node.Rect.center.y - m_ScaledViewSize.height * 0.5f);
                 }
-                center /= m_Agent.Nodes.Count;
+                center /= Agent.Nodes.Count;
             }
             else
             {
@@ -910,11 +913,11 @@ namespace BehaviorTreeEditor.UIControls
 
             Rect rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
             NodeDesigner node = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
-            node.ID = m_Agent.GenNodeID();
+            node.ID = Agent.GenNodeID();
             node.Name = nodeClass.ClassName;
             node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
-            m_Agent.AddNode(node);
+            Agent.AddNode(node);
         }
 
         public Vec2 LocalToWorldPoint(Vec2 point)

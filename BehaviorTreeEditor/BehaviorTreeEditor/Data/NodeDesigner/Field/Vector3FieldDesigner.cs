@@ -15,12 +15,12 @@ namespace BehaviorTreeEditor
 
         public override string FieldContent()
         {
-            return string.Format("{0},{1},{2}", X, Y, Z);
+            return string.Format("[{0},{1},{2}]", X, Y, Z);
         }
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", X, Y, Z);
+            return string.Format("[{0},{1},{2}]", X, Y, Z);
         }
     }
 }

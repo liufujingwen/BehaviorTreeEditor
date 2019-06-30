@@ -30,8 +30,8 @@
         {
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.enterBTN = new System.Windows.Forms.Button();
             this.cancerBTN = new System.Windows.Forms.Button();
+            this.enterBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,18 +67,9 @@
             this.splitContainer1.SplitterDistance = 489;
             this.splitContainer1.TabIndex = 1;
             // 
-            // enterBTN
-            // 
-            this.enterBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.enterBTN.Location = new System.Drawing.Point(268, 13);
-            this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(75, 23);
-            this.enterBTN.TabIndex = 0;
-            this.enterBTN.Text = "确定";
-            this.enterBTN.UseVisualStyleBackColor = true;
-            // 
             // cancerBTN
             // 
+            this.cancerBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancerBTN.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancerBTN.Location = new System.Drawing.Point(177, 13);
             this.cancerBTN.Name = "cancerBTN";
@@ -86,6 +77,17 @@
             this.cancerBTN.TabIndex = 1;
             this.cancerBTN.Text = "取消";
             this.cancerBTN.UseVisualStyleBackColor = true;
+            // 
+            // enterBTN
+            // 
+            this.enterBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.enterBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.enterBTN.Location = new System.Drawing.Point(268, 13);
+            this.enterBTN.Name = "enterBTN";
+            this.enterBTN.Size = new System.Drawing.Size(75, 23);
+            this.enterBTN.TabIndex = 0;
+            this.enterBTN.Text = "确定";
+            this.enterBTN.UseVisualStyleBackColor = true;
             // 
             // InputValueDialogForm
             // 

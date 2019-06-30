@@ -159,7 +159,6 @@ namespace BehaviorTreeEditor
                 m_Nodes = new NodeClasses();
                 m_Nodes.ResetNodes();
                 MainForm.Instance.NodeClasses = m_Nodes;
-                MainForm.Instance.NodeClassDirty = true;
                 BindNodeTree();
             }
         }
@@ -177,7 +176,6 @@ namespace BehaviorTreeEditor
             {
                 m_Nodes.Remove(nodeClass);
                 treeView1.Nodes.Remove(selectedNode);
-                MainForm.Instance.NodeClassDirty = true;
             }
         }
 

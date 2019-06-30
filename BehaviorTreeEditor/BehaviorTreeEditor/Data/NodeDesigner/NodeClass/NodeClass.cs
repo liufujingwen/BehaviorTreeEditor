@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -103,6 +104,72 @@ namespace BehaviorTreeEditor
             m_Fields.Add(field);
 
             return true;
+        }
+
+        /// <summary>
+        /// 是否存在空的字段名字
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistEmptyFieldName()
+        {
+            //检测是否有空字段
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (string.IsNullOrEmpty(field.FieldName))
+                {
+                    MainForm.Instance.ShowMessage("存在空字段");
+                    MainForm.Instance.ShowInfo("存在空字段");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 是否存在相同字段名字
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistSameFieldName()
+        {
+            //检测字段是否重复
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field_i = m_Fields[i];
+                for (int ii = i + 1; ii < m_Fields.Count; ii++)
+                {
+                    FieldDesigner field_ii = m_Fields[ii];
+                    if (field_i.FieldName == field_ii.FieldName)
+                    {
+                        MainForm.Instance.ShowMessage(string.Format("存在重复字段:{0}", field_ii.FieldName));
+                        MainForm.Instance.ShowInfo(string.Format("存在重复字段:{0} 时间:{1}", field_ii.FieldName, DateTime.Now));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 更新NodeClass的内容
+        /// </summary>
+        /// <param name="nodeClass"></param>
+        public void UpdateNodeClass(NodeClass nodeClass)
+        {
+            if (nodeClass == null)
+                return;
+
+            if (nodeClass == this)
+                return;
+
+            m_ClassType = nodeClass.ClassType;
+            m_ClassName = nodeClass.ClassName;
+            m_NodeType = nodeClass.NodeType;
+            m_Describe = nodeClass.Describe;
+
+            m_Fields.Clear();
+            m_Fields.AddRange(nodeClass.Fields);
         }
     }
 }

@@ -17,21 +17,6 @@
           <EnumValue>3</EnumValue>
           <Describe>sdffffffff</Describe>
         </EnumItem>
-        <EnumItem>
-          <EnumStr>Enum3_New</EnumStr>
-          <EnumValue>4</EnumValue>
-          <Describe>sdffffffff</Describe>
-        </EnumItem>
-        <EnumItem>
-          <EnumStr>Enum3_New_New</EnumStr>
-          <EnumValue>5</EnumValue>
-          <Describe>sdffffffff</Describe>
-        </EnumItem>
-        <EnumItem>
-          <EnumStr>Enum3_New_New_New</EnumStr>
-          <EnumValue>6</EnumValue>
-          <Describe>sdffffffff</Describe>
-        </EnumItem>
       </Enums>
       <Describe>这是TestEnum的描述</Describe>
     </CustomEnum>
@@ -41,6 +26,7 @@
         <EnumItem>
           <EnumStr>Enum1</EnumStr>
           <EnumValue>0</EnumValue>
+          <Describe />
         </EnumItem>
         <EnumItem>
           <EnumStr>Enum2</EnumStr>
@@ -109,7 +95,7 @@
       <Describe>这是测试枚举1111</Describe>
     </CustomEnum>
     <CustomEnum>
-      <EnumType>TestEnum_New_New_New</EnumType>
+      <EnumType>TestEnum_New_New_New_New</EnumType>
       <Enums>
         <EnumItem>
           <EnumStr>Enum1</EnumStr>
@@ -122,37 +108,27 @@
       </Enums>
       <Describe>lk;lkl;</Describe>
     </CustomEnum>
+    <CustomEnum>
+      <EnumType>sdsdf</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Enum1111111</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe />
+        </EnumItem>
+      </Enums>
+      <Describe>sdfsdf</Describe>
+    </CustomEnum>
   </Enums>
   <Nodes>
     <NodeClass ClassType="Parallel" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields>
         <FieldDesigner>
-          <FieldName>dddd</FieldName>
+          <FieldName>fgfg1111</FieldName>
           <FieldType>IntField</FieldType>
           <Field xsi:type="IntFieldDesigner">
-            <EnumStrs>
-              <string>aaa</string>
-              <string>bbb</string>
-            </EnumStrs>
             <Value>0</Value>
-          </Field>
-        </FieldDesigner>
-        <FieldDesigner>
-          <FieldName>aaaaaaaaaaaa</FieldName>
-          <FieldType>RepeatVector3Field</FieldType>
-          <Field xsi:type="RepeatVector3FieldDesigner">
-            <Value>
-              <Vector3 />
-              <Vector3>
-                <Y>100</Y>
-              </Vector3>
-              <Vector3>
-                <X>1</X>
-                <Y>1</Y>
-                <Z>1</Z>
-              </Vector3>
-            </Value>
           </Field>
         </FieldDesigner>
       </Fields>

@@ -246,7 +246,6 @@ namespace BehaviorTreeEditor
                     customEnum.EnumType = enumType;
                     m_NodeClasses.AddEnum(customEnum);
                 }
-                MainForm.Instance.NodeClassDirty = true;
                 Exec("Refresh");
                 MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个枚举！！！");
             }
@@ -300,7 +299,6 @@ namespace BehaviorTreeEditor
                 selectIdx = nextIdx;
             }
 
-            MainForm.Instance.NodeClassDirty = true;
             Exec("Refresh");
             MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
             listView1.Items[selectIdx].Selected = true;
@@ -330,7 +328,6 @@ namespace BehaviorTreeEditor
                 {
                     listView1.Items.RemoveAt(selectIdx);
                     m_NodeClasses.RemoveEnum(customEnum);
-                    MainForm.Instance.NodeClassDirty = true;
                     MainForm.Instance.ShowInfo(string.Format("删除枚举类型{0} 时间:{1}", customEnum.EnumType, DateTime.Now));
                     if (listView1.Items.Count > selectIdx)
                         listView1.Items[selectIdx].Selected = true;

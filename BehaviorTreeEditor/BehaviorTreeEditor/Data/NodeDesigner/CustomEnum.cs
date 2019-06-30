@@ -137,6 +137,92 @@ namespace BehaviorTreeEditor
             content += "]";
             return content;
         }
+
+        /// <summary>
+        /// 是否存在空的枚举选项名
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistEmptyEnumStr()
+        {
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                EnumItem enumItem = m_Enums[i];
+                if (string.IsNullOrEmpty(enumItem.EnumStr))
+                {
+                    MainForm.Instance.ShowMessage("存在空枚举选项名");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 是否存相同枚举值
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistSameEnumValue()
+        {
+            //检测EnumValue是否存在相同
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                EnumItem enum_i = m_Enums[i];
+                for (int ii = i + 1; ii < m_Enums.Count; ii++)
+                {
+                    EnumItem enum_ii = m_Enums[ii];
+                    if (enum_i.EnumValue == enum_ii.EnumValue)
+                    {
+                        MainForm.Instance.ShowMessage(string.Format("存在重复枚举值:{0}", enum_ii.EnumValue));
+                        MainForm.Instance.ShowInfo(string.Format("存在重复枚举值:{0} 时间:{1}", enum_ii.EnumValue, DateTime.Now));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否存在相同枚举选项名
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistSameEnumStr()
+        {
+            //检测EnumStr是否重复
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                EnumItem enum_i = m_Enums[i];
+                for (int ii = i + 1; ii < m_Enums.Count; ii++)
+                {
+                    EnumItem enum_ii = m_Enums[ii];
+                    if (enum_i.EnumStr == enum_ii.EnumStr)
+                    {
+                        MainForm.Instance.ShowMessage(string.Format("存在重复枚举选项:{0}", enum_ii.EnumStr));
+                        MainForm.Instance.ShowInfo(string.Format("存在重复枚举选项:{0} 时间:{1}", enum_ii.EnumStr, DateTime.Now));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 更新美剧内容
+        /// </summary>
+        /// <param name="customEnum"></param>
+        public void UpdateEnum(CustomEnum customEnum)
+        {
+            if (customEnum == null)
+                return;
+
+            if (customEnum == this)
+                return;
+
+            m_EnumType = customEnum.EnumType;
+            m_Describe = customEnum.Describe;
+
+            m_Enums.Clear();
+            m_Enums.AddRange(customEnum.Enums);
+        }
     }
 
     public class EnumItem

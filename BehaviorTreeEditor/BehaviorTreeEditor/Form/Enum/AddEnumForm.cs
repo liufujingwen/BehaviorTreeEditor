@@ -318,7 +318,6 @@ namespace BehaviorTreeEditor
                 {
                     listView1.Items.RemoveAt(selectIdx);
                     m_CustomEnum.Remove(enumItem.EnumStr);
-                    MainForm.Instance.NodeClassDirty = true;
                     MainForm.Instance.ShowInfo(string.Format("删除枚举选项{0} 时间:{1}", enumItem.EnumStr, DateTime.Now));
                     if (listView1.Items.Count > selectIdx)
                         listView1.Items[selectIdx].Selected = true;
@@ -391,7 +390,6 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            MainForm.Instance.NodeClassDirty = true;
             m_EnumForm.AddEnum(m_CustomEnum);
             this.Close();
         }

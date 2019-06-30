@@ -14,6 +14,7 @@ namespace BehaviorTreeEditor
     {
         private EnumForm m_EnumForm;
         private CustomEnum m_CustomEnum;
+        private CustomEnum m_EditCustomEnum;
         private string m_OldContent;//用于检测对象有没有被改变了
 
         public EditEnumForm(EnumForm enumForm, CustomEnum customEnum)
@@ -21,6 +22,7 @@ namespace BehaviorTreeEditor
             m_EnumForm = enumForm;
             m_CustomEnum = customEnum;
             m_OldContent = XmlUtility.ObjectToString(m_CustomEnum);
+            m_EditCustomEnum = XmlUtility.StringToObject<CustomEnum>(m_OldContent);
             InitializeComponent();
         }
 
@@ -169,13 +171,13 @@ namespace BehaviorTreeEditor
 
         private void BindEnum()
         {
-            textBox1.Text = m_CustomEnum.EnumType;
-            textBox2.Text = m_CustomEnum.Describe;
+            textBox1.Text = m_EditCustomEnum.EnumType;
+            textBox2.Text = m_EditCustomEnum.Describe;
 
             listView1.Items.Clear();
-            for (int i = 0; i < m_CustomEnum.Enums.Count; i++)
+            for (int i = 0; i < m_EditCustomEnum.Enums.Count; i++)
             {
-                EnumItem enumItem = m_CustomEnum.Enums[i];
+                EnumItem enumItem = m_EditCustomEnum.Enums[i];
                 ListViewItem listViewItem = listView1.Items.Add(enumItem.EnumStr);
                 listViewItem.Tag = enumItem;
                 listViewItem.SubItems.Add(enumItem.EnumValue.ToString());
@@ -226,19 +228,19 @@ namespace BehaviorTreeEditor
                     {
                         enumStr += "_New";
                     }
-                    while (m_CustomEnum.ExistEnumStr(enumStr));
+                    while (m_EditCustomEnum.ExistEnumStr(enumStr));
 
                     int enumValue = customEnum.EnumValue;
                     do
                     {
                         enumValue++;
                     }
-                    while (m_CustomEnum.ExistEnumValue(enumValue));
+                    while (m_EditCustomEnum.ExistEnumValue(enumValue));
 
                     customEnum.EnumStr = enumStr;
                     customEnum.EnumValue = enumValue;
 
-                    m_CustomEnum.AddEnumItem(customEnum);
+                    m_EditCustomEnum.AddEnumItem(customEnum);
                 }
 
                 Exec("Refresh");
@@ -269,11 +271,11 @@ namespace BehaviorTreeEditor
 
                 int preIdx = selectIdx - 1;
 
-                EnumItem preEnum = m_CustomEnum.Enums[preIdx];
-                EnumItem selectedEnum = m_CustomEnum.Enums[selectIdx];
+                EnumItem preEnum = m_EditCustomEnum.Enums[preIdx];
+                EnumItem selectedEnum = m_EditCustomEnum.Enums[selectIdx];
 
-                m_CustomEnum.Enums[preIdx] = selectedEnum;
-                m_CustomEnum.Enums[selectIdx] = preEnum;
+                m_EditCustomEnum.Enums[preIdx] = selectedEnum;
+                m_EditCustomEnum.Enums[selectIdx] = preEnum;
 
                 selectIdx = preIdx;
             }
@@ -285,11 +287,11 @@ namespace BehaviorTreeEditor
 
                 int nextIdx = selectIdx + 1;
 
-                EnumItem preEnum = m_CustomEnum.Enums[nextIdx];
-                EnumItem selectedEnum = m_CustomEnum.Enums[selectIdx];
+                EnumItem preEnum = m_EditCustomEnum.Enums[nextIdx];
+                EnumItem selectedEnum = m_EditCustomEnum.Enums[selectIdx];
 
-                m_CustomEnum.Enums[nextIdx] = selectedEnum;
-                m_CustomEnum.Enums[selectIdx] = preEnum;
+                m_EditCustomEnum.Enums[nextIdx] = selectedEnum;
+                m_EditCustomEnum.Enums[selectIdx] = preEnum;
 
                 selectIdx = nextIdx;
             }
@@ -306,7 +308,7 @@ namespace BehaviorTreeEditor
                 int selectIdx = listView1.SelectedIndices[0];
                 ListViewItem selectedItem = listView1.Items[selectIdx];
                 EnumItem enumItem = selectedItem.Tag as EnumItem;
-                EditEnumItemForm editEnumForm = new EditEnumItemForm(this, m_CustomEnum, enumItem);
+                EditEnumItemForm editEnumForm = new EditEnumItemForm(this, m_EditCustomEnum, enumItem);
                 editEnumForm.ShowDialog();
             }
         }
@@ -322,8 +324,7 @@ namespace BehaviorTreeEditor
                 if (MessageBox.Show(string.Format("确定删除枚举选项{0}吗?", enumItem.EnumStr), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     listView1.Items.RemoveAt(selectIdx);
-                    m_CustomEnum.Remove(enumItem.EnumStr);
-                    MainForm.Instance.NodeClassDirty = true;
+                    m_EditCustomEnum.Remove(enumItem.EnumStr);
                     MainForm.Instance.ShowInfo(string.Format("删除枚举选项{0} 时间:{1}", enumItem.EnumStr, DateTime.Now));
                     if (listView1.Items.Count > selectIdx)
                         listView1.Items[selectIdx].Selected = true;
@@ -341,7 +342,7 @@ namespace BehaviorTreeEditor
 
         private void New()
         {
-            AddEnumItemForm addEnumItemForm = new AddEnumItemForm(this, m_CustomEnum);
+            AddEnumItemForm addEnumItemForm = new AddEnumItemForm(this, m_EditCustomEnum);
             addEnumItemForm.ShowDialog();
         }
 
@@ -382,19 +383,31 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (m_CustomEnum.Enums.Count == 0)
+            if (m_EditCustomEnum.Enums.Count == 0)
             {
                 MainForm.Instance.ShowMessage("枚举项为0,请添加至少一个枚举项");
                 return;
             }
 
-            m_CustomEnum.EnumType = textBox1.Text.Trim();
-            m_CustomEnum.Describe = textBox2.Text.Trim();
+            m_EditCustomEnum.EnumType = textBox1.Text.Trim();
+            m_EditCustomEnum.Describe = textBox2.Text.Trim();
 
-            string newContent = XmlUtility.ObjectToString(m_CustomEnum);
+            //加测枚举是否有空枚举选项
+            if (m_EditCustomEnum.ExistEmptyEnumStr())
+                return;
+
+            //加测枚举是否有相同枚举选项字符
+            if (m_EditCustomEnum.ExistSameEnumStr())
+                return;
+
+            //加测枚举是否有相同枚举值
+            if (m_EditCustomEnum.ExistSameEnumValue())
+                return;
+
+            string newContent = XmlUtility.ObjectToString(m_EditCustomEnum);
             if (m_OldContent != newContent)
             {
-                MainForm.Instance.NodeClassDirty = true;
+                m_CustomEnum.UpdateEnum(m_EditCustomEnum);
                 m_EnumForm.UpdateEnum(m_CustomEnum);
             }
 

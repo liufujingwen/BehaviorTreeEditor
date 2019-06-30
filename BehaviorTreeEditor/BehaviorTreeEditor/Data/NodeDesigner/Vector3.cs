@@ -36,7 +36,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return m_X + " " + m_Y + " " + m_Z;
+            return string.Format("[{0},{1},{2}]", m_X, m_Y, m_Z);
         }
 
         public static Vector2 Zero

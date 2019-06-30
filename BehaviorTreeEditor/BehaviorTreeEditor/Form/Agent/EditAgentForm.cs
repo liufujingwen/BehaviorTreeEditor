@@ -12,10 +12,14 @@ namespace BehaviorTreeEditor
     public partial class EditAgentForm : Form
     {
         private AgentDesigner m_Agent;
+        private AgentDesigner m_EditAgent;
+        private string m_AgentContent;
 
         public EditAgentForm(AgentDesigner agent)
         {
             m_Agent = agent;
+            m_AgentContent = XmlUtility.ObjectToString(m_Agent);
+            m_EditAgent = XmlUtility.StringToObject<AgentDesigner>(m_AgentContent);
             InitializeComponent();
         }
 
@@ -26,16 +30,16 @@ namespace BehaviorTreeEditor
 
         private void BindAgent()
         {
-            textBox1.Text = m_Agent.AgentID;
-            textBox2.Text = m_Agent.Describe;
+            textBox1.Text = m_EditAgent.AgentID;
+            textBox2.Text = m_EditAgent.Describe;
 
             listView1.Items.Clear();
-            for (int i = 0; i < m_Agent.Fields.Count; i++)
+            for (int i = 0; i < m_EditAgent.Fields.Count; i++)
             {
-                FieldDesigner field = m_Agent.Fields[i];
+                FieldDesigner field = m_EditAgent.Fields[i];
                 ListViewItem listViewItem = listView1.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
-                listViewItem.SubItems.Add(field.FieldType.ToString());
+                listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));
                 string content = string.Empty;
                 if (field.Field != null)
                 {
@@ -197,7 +201,7 @@ namespace BehaviorTreeEditor
             InputValueDialogForm form = new InputValueDialogForm("添加字段", field);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (m_Agent.AddField(field))
+                if (m_EditAgent.AddField(field))
                 {
                     Exec("Refresh");
                     ListViewItem listViewItem = GetListViewItem(field);
@@ -209,27 +213,175 @@ namespace BehaviorTreeEditor
 
         private void Delete()
         {
+            if (listView1.SelectedIndices.Count == 1)
+            {
+                int selectIdx = listView1.SelectedIndices[0];
+                m_EditAgent.Fields.RemoveAt(selectIdx);
+                MainForm.Instance.ShowInfo("删除成功");
+                Exec("Refresh");
+                if (listView1.Items.Count > selectIdx)
+                    listView1.Items[selectIdx].Selected = true;
+            }
+            else if (listView1.SelectedIndices.Count == 0)
+            {
+                MainForm.Instance.ShowInfo("请选择一条记录进行删除");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("无法一次删除多个记录");
+            }
         }
 
         private void Edit()
         {
+            if (listView1.SelectedItems.Count == 1)
+            {
+                FieldDesigner field = listView1.SelectedItems[0].Tag as FieldDesigner;
+                InputValueDialogForm dlg = new InputValueDialogForm("编辑字段", listView1.SelectedItems[0].Tag);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Exec("Refresh");
+                    ListViewItem listViewItem = GetListViewItem(field);
+                    if (listViewItem != null)
+                        listViewItem.Selected = true;
+                }
+            }
+        }
+
+        public class FieldListContent
+        {
+            private List<FieldDesigner> m_DataList = new List<FieldDesigner>();
+            public List<FieldDesigner> DataList { get { return m_DataList; } }
         }
 
         private void Copy()
         {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                FieldListContent content = new FieldListContent();
+                foreach (ListViewItem lvItem in listView1.SelectedItems)
+                {
+                    if (lvItem.Tag is FieldDesigner)
+                        content.DataList.Add((FieldDesigner)lvItem.Tag);
+                }
+
+                if (content.DataList.Count > 0)
+                    Clipboard.SetText(XmlUtility.ObjectToString(content));
+
+                MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个字段！！！");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("您必须选择至少一个进行复制！！！");
+                MainForm.Instance.ShowMessage("您必须选择至少一个进行复制！！！", "警告");
+            }
         }
 
         private void Paste()
         {
+            try
+            {
+                FieldListContent content = XmlUtility.StringToObject<FieldListContent>(Clipboard.GetText());
+
+                for (int i = 0; i < content.DataList.Count; i++)
+                {
+                    FieldDesigner field = content.DataList[i];
+                    string fieldName = field.FieldName;
+                    do
+                    {
+                        fieldName += "_New";
+                    }
+                    while (m_EditAgent.ExistFieldName(fieldName));
+
+                    field.FieldName = fieldName;
+                    m_EditAgent.AddField(field);
+                }
+                Exec("Refresh");
+                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个字段！！！");
+            }
+            catch (Exception ex)
+            {
+                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+            }
         }
 
         private void Swap(bool up)
         {
+            if (listView1.SelectedIndices.Count > 1)
+            {
+                MainForm.Instance.ShowInfo("请选择一条记录进行交换");
+                MainForm.Instance.ShowMessage("请选择一条记录进行交换", "警告");
+                return;
+            }
+
+            int selectIdx = listView1.SelectedIndices[0];
+            if (up)
+            {
+                //第一个不能往上交换
+                if (selectIdx == 0)
+                    return;
+
+                int preIdx = selectIdx - 1;
+
+                FieldDesigner preField = m_EditAgent.Fields[preIdx];
+                FieldDesigner selectedField = m_EditAgent.Fields[selectIdx];
+
+                m_EditAgent.Fields[preIdx] = selectedField;
+                m_EditAgent.Fields[selectIdx] = preField;
+
+                selectIdx = preIdx;
+            }
+            else
+            {
+                //最后一个不能往下交换
+                if (selectIdx == listView1.Items.Count - 1)
+                    return;
+
+                int nextIdx = selectIdx + 1;
+
+                FieldDesigner preField = m_EditAgent.Fields[nextIdx];
+                FieldDesigner selectedField = m_EditAgent.Fields[selectIdx];
+
+                m_EditAgent.Fields[nextIdx] = selectedField;
+                m_EditAgent.Fields[selectIdx] = preField;
+
+                selectIdx = nextIdx;
+            }
+
+            Exec("Refresh");
+            MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
+            listView1.Items[selectIdx].Selected = true;
         }
 
         private void enterBTN_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox1.Text.Trim()))
+            {
+                MainForm.Instance.ShowMessage("AgentID不能为空");
+                MainForm.Instance.ShowInfo("AgentID不能为空");
+                return;
+            }
 
+            m_EditAgent.AgentID = textBox1.Text.Trim();
+            m_EditAgent.Describe = textBox2.Text.Trim();
+
+            //检测空字段名
+            if (m_EditAgent.ExistEmptyFieldName())
+                return;
+
+            //检测重复字段名
+            if (m_EditAgent.ExistSameFieldName())
+                return;
+
+            string editContent = XmlUtility.ObjectToString(m_EditAgent);
+            if (editContent != m_AgentContent)
+            {
+                m_Agent.UpdateAgent(m_EditAgent);
+                MainForm.Instance.ShowInfo(string.Format("更新Agent:{0}成功 时间：{1}", m_EditAgent.AgentID, DateTime.Now));
+            }
+
+            this.Close();
         }
     }
 }

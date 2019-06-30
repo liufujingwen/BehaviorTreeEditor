@@ -7,6 +7,7 @@ namespace BehaviorTreeEditor
     public partial class EditClassForm : Form
     {
         private NodeClass m_NodeClass;
+        private NodeClass m_EditNodeClass;
         private ClassForm m_ClassForm = null;
         private string m_Content;
 
@@ -15,12 +16,13 @@ namespace BehaviorTreeEditor
             m_ClassForm = classForm;
             m_NodeClass = nodeClass;
             m_Content = XmlUtility.ObjectToString(m_NodeClass);
+            m_EditNodeClass = XmlUtility.StringToObject<NodeClass>(m_Content);
             InitializeComponent();
         }
 
         private void EditClassForm_Load(object sender, EventArgs e)
         {
-            classTypeTB.Text = m_NodeClass.ClassType;
+            classTypeTB.Text = m_EditNodeClass.ClassType;
 
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
@@ -28,11 +30,11 @@ namespace BehaviorTreeEditor
             {
                 nodeTypeCBB.Items.Add(enumNames[i]);
             }
-            nodeTypeCBB.SelectedIndex = (int)m_NodeClass.NodeType - 2;
+            nodeTypeCBB.SelectedIndex = (int)m_EditNodeClass.NodeType - 2;
 
-            describeTB.Text = m_NodeClass.Describe;
+            describeTB.Text = m_EditNodeClass.Describe;
 
-            ShowFieldDataInPage(m_NodeClass);
+            ShowFieldDataInPage(m_EditNodeClass);
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -48,15 +50,23 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            m_NodeClass.ClassType = classTypeTB.Text.Trim();
-            m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
-            m_NodeClass.Describe = describeTB.Text.Trim();
+            m_EditNodeClass.ClassType = classTypeTB.Text.Trim();
+            m_EditNodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
+            m_EditNodeClass.Describe = describeTB.Text.Trim();
 
-            string content = XmlUtility.ObjectToString(m_NodeClass);
+            //检测空字段名
+            if (m_EditNodeClass.ExistEmptyFieldName())
+                return;
+
+            //检测重复字段名
+            if (m_EditNodeClass.ExistSameFieldName())
+                return;
+
+            string content = XmlUtility.ObjectToString(m_EditNodeClass);
 
             if (m_Content != content)
             {
-                MainForm.Instance.NodeClassDirty = true;
+                m_NodeClass.UpdateNodeClass(m_EditNodeClass);
                 MainForm.Instance.ShowInfo("修改成功 时间:" + DateTime.Now);
             }
 
@@ -163,7 +173,7 @@ namespace BehaviorTreeEditor
             switch (cmd)
             {
                 case "Refresh":
-                    ShowFieldDataInPage(m_NodeClass);
+                    ShowFieldDataInPage(m_EditNodeClass);
                     break;
                 case "NewField":
                     NewField();
@@ -194,7 +204,7 @@ namespace BehaviorTreeEditor
             InputValueDialogForm form = new InputValueDialogForm("添加字段", field);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (m_NodeClass.AddField(field))
+                if (m_EditNodeClass.AddField(field))
                 {
                     Exec("Refresh");
                 }
@@ -223,7 +233,7 @@ namespace BehaviorTreeEditor
         //编辑字段
         private void EditField()
         {
-            CollectionEditor.EditValue(this, m_NodeClass, "Fields");
+            CollectionEditor.EditValue(this, m_EditNodeClass, "Fields");
         }
 
         public class FieldListContent
@@ -271,11 +281,10 @@ namespace BehaviorTreeEditor
                     {
                         fieldName += "_New";
                     }
-                    while (m_NodeClass.ExistFieldName(fieldName));
+                    while (m_EditNodeClass.ExistFieldName(fieldName));
 
                     field.FieldName = fieldName;
-                    m_NodeClass.AddField(field);
-                    MainForm.Instance.NodeClassDirty = true;
+                    m_EditNodeClass.AddField(field);
                 }
                 Exec("Refresh");
                 MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个字段！！！");
@@ -293,7 +302,7 @@ namespace BehaviorTreeEditor
             if (listViewFields.SelectedIndices.Count == 1)
             {
                 int selectIdx = listViewFields.SelectedIndices[0];
-                m_NodeClass.Fields.RemoveAt(selectIdx);
+                m_EditNodeClass.Fields.RemoveAt(selectIdx);
                 MainForm.Instance.ShowInfo("删除成功");
                 Exec("Refresh");
                 if (listViewFields.Items.Count > selectIdx)
@@ -328,11 +337,11 @@ namespace BehaviorTreeEditor
 
                 int preIdx = selectIdx - 1;
 
-                FieldDesigner preField = m_NodeClass.Fields[preIdx];
-                FieldDesigner selectedField = m_NodeClass.Fields[selectIdx];
+                FieldDesigner preField = m_EditNodeClass.Fields[preIdx];
+                FieldDesigner selectedField = m_EditNodeClass.Fields[selectIdx];
 
-                m_NodeClass.Fields[preIdx] = selectedField;
-                m_NodeClass.Fields[selectIdx] = preField;
+                m_EditNodeClass.Fields[preIdx] = selectedField;
+                m_EditNodeClass.Fields[selectIdx] = preField;
 
                 selectIdx = preIdx;
             }
@@ -344,11 +353,11 @@ namespace BehaviorTreeEditor
 
                 int nextIdx = selectIdx + 1;
 
-                FieldDesigner preField = m_NodeClass.Fields[nextIdx];
-                FieldDesigner selectedField = m_NodeClass.Fields[selectIdx];
+                FieldDesigner preField = m_EditNodeClass.Fields[nextIdx];
+                FieldDesigner selectedField = m_EditNodeClass.Fields[selectIdx];
 
-                m_NodeClass.Fields[nextIdx] = selectedField;
-                m_NodeClass.Fields[selectIdx] = preField;
+                m_EditNodeClass.Fields[nextIdx] = selectedField;
+                m_EditNodeClass.Fields[selectIdx] = preField;
 
                 selectIdx = nextIdx;
             }

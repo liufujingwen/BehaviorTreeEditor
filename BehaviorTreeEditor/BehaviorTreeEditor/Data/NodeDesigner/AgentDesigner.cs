@@ -67,7 +67,7 @@ namespace BehaviorTreeEditor
             if (node == null)
                 return;
 
-            if (Exist(node))
+            if (ExistNode(node))
             {
                 throw new Exception(string.Format("已存在节点id:{0},name:{1}", node.ID, node.Name));
             }
@@ -75,7 +75,7 @@ namespace BehaviorTreeEditor
             Nodes.Add(node);
         }
 
-        public void Remove(NodeDesigner node)
+        public void RemoveNode(NodeDesigner node)
         {
             if (node != null)
             {
@@ -125,7 +125,7 @@ namespace BehaviorTreeEditor
             transition.ToNode.ParentNode = null;
         }
 
-        public bool Exist(NodeDesigner node)
+        public bool ExistNode(NodeDesigner node)
         {
             if (node != null)
             {
@@ -185,6 +185,85 @@ namespace BehaviorTreeEditor
             m_Fields.Add(field);
 
             return true;
+        }
+
+        /// <summary>
+        /// 判断字段名是否已存在
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public bool ExistFieldName(string fieldName)
+        {
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner temp = m_Fields[i];
+                if (temp.FieldName == fieldName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 是否存在空的字段名字
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistEmptyFieldName()
+        {
+            //检测是否有空字段
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (string.IsNullOrEmpty(field.FieldName))
+                {
+                    MainForm.Instance.ShowMessage("存在空字段");
+                    MainForm.Instance.ShowInfo("存在空字段");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 是否存在相同字段名字
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistSameFieldName()
+        {
+            //检测字段是否重复
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field_i = m_Fields[i];
+                for (int ii = i + 1; ii < m_Fields.Count; ii++)
+                {
+                    FieldDesigner field_ii = m_Fields[ii];
+                    if (field_i.FieldName == field_ii.FieldName)
+                    {
+                        MainForm.Instance.ShowMessage(string.Format("存在重复字段:{0}", field_ii.FieldName));
+                        MainForm.Instance.ShowInfo(string.Format("存在重复字段:{0} 时间:{1}", field_ii.FieldName, DateTime.Now));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 更新Agent内容，但Nodes不能改
+        /// </summary>
+        /// <param name="agent"></param>
+        public void UpdateAgent(AgentDesigner agent)
+        {
+            if (agent == this)
+                return;
+
+            m_AgentID = agent.AgentID;
+            m_Describe = agent.Describe;
+
+            m_Fields.Clear();
+            m_Fields.AddRange(agent.Fields.ToArray());
         }
     }
 }
