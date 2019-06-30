@@ -136,7 +136,7 @@
             this.groupBox1.Size = new System.Drawing.Size(392, 249);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "枚举项(右键有详细菜单)";
+            this.groupBox1.Text = "枚举项(右键展示操作菜单)";
             // 
             // listView1
             // 

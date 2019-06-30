@@ -20,7 +20,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "vector2";
+            return string.Format("{0},{1}", X, Y);
         }
     }
 }

@@ -205,8 +205,9 @@ namespace BehaviorTreeEditor
                     continue;
                 ListViewItem listViewItem = listViewFields.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
-                listViewItem.SubItems.Add(field.FieldType.ToString());
-                listViewItem.SubItems.Add(field.Field.Describe);
+                listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));
+                listViewItem.SubItems.Add(field.Field == null ? string.Empty : field.Field.ToString());
+                listViewItem.SubItems.Add(field.Describe);
             }
 
         }

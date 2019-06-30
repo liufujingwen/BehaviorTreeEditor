@@ -223,6 +223,40 @@ namespace BehaviorTreeEditor
             }
         }
 
+        /// <summary>
+        /// 添加Agent
+        /// </summary>
+        private void AddAgent()
+        {
+            AgentDesigner agent = new AgentDesigner();
+            string agentID = "NewAgent_" + DateTime.Now.Ticks;
+            do
+            {
+                agentID = "NewAgent_" + DateTime.Now.Ticks;
+            }
+            while (BehaviorTreeData.ExistAgent(agentID));
+
+            Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+            NodeDesigner startNode = new NodeDesigner("", "StartNode", rect);
+            startNode.ID = agent.GenNodeID();
+            startNode.ClassType = "StartNode";
+            startNode.NodeType = NodeType.Start;
+            agent.AddNode(startNode);
+            agent.AgentID = agentID;
+            BehaviorTreeData.AddAgent(agent);
+            AddAgentItem(agent);
+        }
+
+
+        /// <summary>
+        /// 编辑Agent
+        /// </summary>
+        private void EditAgent()
+        {
+            EditAgentForm editAgentForm = new EditAgentForm(SelectedAgent);
+            editAgentForm.ShowDialog();
+        }
+
         public class AgentListContent
         {
             private List<AgentDesigner> m_DataList = new List<AgentDesigner>();
@@ -281,13 +315,6 @@ namespace BehaviorTreeEditor
                 MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
                 MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
             }
-        }
-
-        /// <summary>
-        /// 编辑Agent
-        /// </summary>
-        private void EditAgent()
-        {
         }
 
         /// <summary>
@@ -511,6 +538,10 @@ namespace BehaviorTreeEditor
                     //保存
                     Save();
                     break;
+                case OperationType.EditAgent:
+                    //编辑Agent
+                    EditAgent();
+                    break;
                 case OperationType.AddAgent:
                     //添加行为树
                     AddAgent();
@@ -650,29 +681,7 @@ namespace BehaviorTreeEditor
             ShowInfo("保存成功 时间:" + DateTime.Now);
         }
 
-        /// <summary>
-        /// 添加Agent
-        /// </summary>
-        private void AddAgent()
-        {
-            AgentDesigner agent = new AgentDesigner();
-            string agentID = "NewAgent_" + DateTime.Now.Ticks;
-            do
-            {
-                agentID = "NewAgent_" + DateTime.Now.Ticks;
-            }
-            while (BehaviorTreeData.ExistAgent(agentID));
-
-            Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
-            NodeDesigner startNode = new NodeDesigner("", "StartNode", rect);
-            startNode.ID = agent.GenNodeID();
-            startNode.ClassType = "StartNode";
-            startNode.NodeType = NodeType.Start;
-            agent.AddNode(startNode);
-            agent.AgentID = agentID;
-            BehaviorTreeData.AddAgent(agent);
-            AddAgentItem(agent);
-        }
+        
 
         /// <summary>
         /// 获取数据保存路径

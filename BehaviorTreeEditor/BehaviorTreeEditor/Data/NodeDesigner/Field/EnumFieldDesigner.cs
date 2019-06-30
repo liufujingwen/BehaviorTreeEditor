@@ -43,7 +43,17 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "enum";
+            string content = string.Empty;
+            if (m_Value >= 0 && m_Value < m_EnumStrs.Count - 1)
+            {
+                content += m_EnumStrs[m_Value];
+            }
+            else
+            {
+                content += "无效值";
+            }
+
+            return content;
         }
     }
 }

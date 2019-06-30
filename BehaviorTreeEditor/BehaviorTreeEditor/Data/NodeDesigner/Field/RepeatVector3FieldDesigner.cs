@@ -32,7 +32,17 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "vector3[]";
+            string content = string.Empty;
+            content += "[";
+            for (int i = 0; i < m_Value.Count; i++)
+            {
+                if (i == 0) content += "[";
+                content += m_Value[i] + (i < m_Value.Count - 1 ? "," : string.Empty);
+                if (i == m_Value.Count - 1) content += "]";
+
+            }
+            content += "]";
+            return content;
         }
     }
 }

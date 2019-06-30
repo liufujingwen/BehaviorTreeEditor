@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\Agent\EditAgentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Agent\EditAgentForm.Designer.cs">
+      <DependentUpon>EditAgentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\NodeClass\AddClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,10 +181,14 @@
       <DependentUpon>ContentUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility\EditorUtility.cs" />
+    <Compile Include="Utility\PropertySorter.cs" />
     <Compile Include="Utility\Rect.cs" />
     <Compile Include="Utility\Vector2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
+    <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">
+      <DependentUpon>EditAgentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\NodeClass\AddClassForm.resx">
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </EmbeddedResource>

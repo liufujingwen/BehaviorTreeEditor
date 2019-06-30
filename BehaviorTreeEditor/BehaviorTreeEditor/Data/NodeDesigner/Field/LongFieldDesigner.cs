@@ -14,7 +14,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "long";
+            return Value.ToString();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "bool";
+            return Value.ToString();
         }
     }
 }

@@ -158,5 +158,60 @@ namespace BehaviorTreeEditor
             //graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.NameStringFormat);
 
         }
+
+        /// <summary>
+        /// 获取字段对应的名字
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFieldTypeName(FieldType fieldType)
+        {
+            string content = string.Empty;
+            switch (fieldType)
+            {
+                case FieldType.IntField:
+                    content = "int";
+                    break;
+                case FieldType.LongField:
+                    content = "long";
+                    break;
+                case FieldType.FloatField:
+                    content = "float";
+                    break;
+                case FieldType.DoubleField:
+                    content = "double";
+                    break;
+                case FieldType.ColorField:
+                    content = "color";
+                    break;
+                case FieldType.Vector2:
+                    content = "vector2";
+                    break;
+                case FieldType.Vector3:
+                    content = "vector3";
+                    break;
+                case FieldType.EnumField:
+                    content = "enum";
+                    break;
+                case FieldType.BooleanField:
+                    content = "bool";
+                    break;
+                case FieldType.RepeatIntField:
+                    content = "int[]";
+                    break;
+                case FieldType.RepeatLongField:
+                    content = "long[]";
+                    break;
+                case FieldType.RepeatFloatField:
+                    content = "float[]";
+                    break;
+                case FieldType.RepeatVector2Field:
+                    content = "vector2[]";
+                    break;
+                case FieldType.RepeatVector3Field:
+                    content = "vector3[]";
+                    break;
+            }
+            return content;
+        }
     }
 }

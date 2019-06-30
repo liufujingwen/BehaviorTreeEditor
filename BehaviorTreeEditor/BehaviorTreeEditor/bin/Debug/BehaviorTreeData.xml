@@ -3,7 +3,15 @@
   <Agents>
     <AgentDesigner>
       <AgentID>NewAgent_636975230936706998</AgentID>
-      <Fields />
+      <Fields>
+        <FieldDesigner>
+          <FieldName>test</FieldName>
+          <FieldType>LongField</FieldType>
+          <Field xsi:type="LongFieldDesigner">
+            <Value>100</Value>
+          </Field>
+        </FieldDesigner>
+      </Fields>
       <Nodes>
         <NodeDesigner>
           <ID>1</ID>

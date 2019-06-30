@@ -14,7 +14,7 @@ namespace BehaviorTreeEditor
 
         public override string ToString()
         {
-            return "float";
+            return Value.ToString();
         }
     }
 }

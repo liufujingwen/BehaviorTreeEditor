@@ -3,18 +3,15 @@ using System.ComponentModel;
 
 namespace BehaviorTreeEditor
 {
-    [Serializable]
+    [TypeConverter(typeof(PropertySorter))]
     public class FieldDesigner
     {
-        private FieldType m_FieldType;
-
-        [Category("常规")]
-        [DisplayName("字段名称")]
-        [Description("字段名称")]
+        [Category("常规"), DisplayName("字段名称"), Description("字段名称"), PropertyOrder(1)]
         public string FieldName { get; set; }
 
+        private FieldType m_FieldType;
 
-        [Category("常规"), DisplayName("字段类型"), Description("字段类型")]
+        [Category("常规"), DisplayName("字段类型"), Description("字段类型"), PropertyOrder(2)]
         public FieldType FieldType
         {
             get { return m_FieldType; }
@@ -69,7 +66,10 @@ namespace BehaviorTreeEditor
             }
         }
 
-        [Category("常规"), DisplayName("字段详细"), Description("字段详细")]
+        [Category("常规"), DisplayName("描述"), Description("描述"), PropertyOrder(3)]
+        public string Describe { get; set; }
+
+        [Category("常规"), DisplayName("字段详细"), Description("字段详细"), PropertyOrder(4)]
         public BaseFieldDesigner Field { get; set; }
 
         public override string ToString()

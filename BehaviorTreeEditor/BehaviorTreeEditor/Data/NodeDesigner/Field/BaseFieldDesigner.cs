@@ -21,13 +21,6 @@ namespace BehaviorTreeEditor
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public abstract class BaseFieldDesigner
     {
-     
-
-        [Category("常规")]
-        [DisplayName("描述")]
-        [Description("描述")]
-        public string Describe { get; set; }
-
         public abstract string FieldContent();
     }
 }
