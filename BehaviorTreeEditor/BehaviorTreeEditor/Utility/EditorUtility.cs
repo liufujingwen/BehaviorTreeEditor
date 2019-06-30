@@ -14,7 +14,8 @@ namespace BehaviorTreeEditor
         }
 
         #region ==================Background===================
-
+        //画布中心点
+        public static Vec2 Center = new Vec2(5000f, 5000f);
         //视图缩放最小值
         public static float ZoomScaleMin = 0.5f;
         //视图缩放最大值

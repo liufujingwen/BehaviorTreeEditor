@@ -663,6 +663,13 @@ namespace BehaviorTreeEditor
                 agentID = "NewAgent_" + DateTime.Now.Ticks;
             }
             while (BehaviorTreeData.ExistAgent(agentID));
+
+            Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+            NodeDesigner startNode = new NodeDesigner("", "StartNode", rect);
+            startNode.ID = agent.GenNodeID();
+            startNode.ClassType = "StartNode";
+            startNode.NodeType = NodeType.Start;
+            agent.AddNode(startNode);
             agent.AgentID = agentID;
             BehaviorTreeData.AddAgent(agent);
             AddAgentItem(agent);

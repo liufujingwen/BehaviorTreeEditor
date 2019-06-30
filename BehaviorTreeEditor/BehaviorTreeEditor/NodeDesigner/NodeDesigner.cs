@@ -24,6 +24,8 @@ namespace BehaviorTreeEditor
 
         public NodeDesigner()
         {
+            Rect.width = EditorUtility.NodeWidth;
+            Rect.height = EditorUtility.NodeHeight;
         }
 
         public NodeDesigner(string name, string classType, Rect rect)
@@ -31,7 +33,8 @@ namespace BehaviorTreeEditor
             Name = name;
             ClassType = classType;
             Rect = rect;
-            rect.height = Math.Max(rect.height, EditorUtility.TitleNodeHeight * 2);
+            Rect.width = Math.Max(rect.width, EditorUtility.NodeWidth);
+            Rect.height = Math.Max(rect.height, EditorUtility.NodeHeight);
         }
 
         /// <summary>

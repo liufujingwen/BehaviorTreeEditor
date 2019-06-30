@@ -217,7 +217,8 @@ namespace BehaviorTreeEditor.UIControls
 
         private void DoNodes()
         {
-            //BezierLink.Draw(m_Graphics, m_Node1, m_Node2, Color.Blue, 2, m_Offset);
+            if (m_Agent == null)
+                return;
 
             DoTransitions();
 
@@ -599,17 +600,6 @@ namespace BehaviorTreeEditor.UIControls
             m_SelectionNodes.Clear();
         }
 
-        //添加节点
-        private void addNodeItem_Click(object sender, EventArgs e)
-        {
-            NodeDesigner node = new NodeDesigner();
-            node.ID = m_Agent.GenNodeID();
-            node.Name = "测试节点";
-            node.ClassType = "Sequence";
-            node.Rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
-            m_Agent.AddNode(node);
-        }
-
         private void 删除连线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (m_SelectedTransition == null)
@@ -918,11 +908,12 @@ namespace BehaviorTreeEditor.UIControls
             if (nodeClass == null)
                 return;
 
-            NodeDesigner node = new NodeDesigner();
+            Rect rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+            NodeDesigner node = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
             node.ID = m_Agent.GenNodeID();
             node.Name = nodeClass.ClassName;
+            node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
-            node.Rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
             m_Agent.AddNode(node);
         }
 

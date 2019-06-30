@@ -126,7 +126,6 @@
             this.addNodeItem.Name = "addNodeItem";
             this.addNodeItem.Size = new System.Drawing.Size(128, 26);
             this.addNodeItem.Text = "添加节点";
-            this.addNodeItem.Click += new System.EventHandler(this.addNodeItem_Click);
             // 
             // toolStripSeparator2
             // 
