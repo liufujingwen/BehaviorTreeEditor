@@ -49,121 +49,114 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddClassForm.cs">
+    <Compile Include="Form\NodeClass\AddClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddClassForm.Designer.cs">
+    <Compile Include="Form\NodeClass\AddClassForm.Designer.cs">
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEnumForm.cs">
+    <Compile Include="Form\Enum\AddEnumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEnumForm.Designer.cs">
+    <Compile Include="Form\Enum\AddEnumForm.Designer.cs">
       <DependentUpon>AddEnumForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEnumItemForm.cs">
+    <Compile Include="Form\Enum\AddEnumItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEnumItemForm.Designer.cs">
+    <Compile Include="Form\Enum\AddEnumItemForm.Designer.cs">
       <DependentUpon>AddEnumItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BezierLink.cs" />
+    <Compile Include="Utility\BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
     <Compile Include="Data\NodeData.cs" />
-    <Compile Include="EditClassForm.cs">
+    <Compile Include="Form\NodeClass\EditClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditClassForm.Designer.cs">
+    <Compile Include="Form\NodeClass\EditClassForm.Designer.cs">
       <DependentUpon>EditClassForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditEnumForm.cs">
+    <Compile Include="Form\Enum\EditEnumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditEnumForm.Designer.cs">
+    <Compile Include="Form\Enum\EditEnumForm.Designer.cs">
       <DependentUpon>EditEnumForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditorEx.cs" />
-    <Compile Include="EditWorkSpaceForm.cs">
+    <Compile Include="Utility\EditorEx.cs" />
+    <Compile Include="Form\WorkSpace\EditWorkSpaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditWorkSpaceForm.Designer.cs">
+    <Compile Include="Form\WorkSpace\EditWorkSpaceForm.Designer.cs">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnumForm.cs">
+    <Compile Include="Form\Enum\EnumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EnumForm.Designer.cs">
+    <Compile Include="Form\Enum\EnumForm.Designer.cs">
       <DependentUpon>EnumForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputValueDialogForm.cs">
+    <Compile Include="Form\InputValueDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputValueDialogForm.Designer.cs">
+    <Compile Include="Form\InputValueDialogForm.Designer.cs">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\NodeType.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Form\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Form\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditEnumItemForm.cs">
+    <Compile Include="Form\Enum\EditEnumItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditEnumItemForm.Designer.cs">
+    <Compile Include="Form\Enum\EditEnumItemForm.Designer.cs">
       <DependentUpon>EditEnumItemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewWorkSpaceForm.cs">
+    <Compile Include="Form\WorkSpace\NewWorkSpaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewWorkSpaceForm.Designer.cs">
+    <Compile Include="Form\WorkSpace\NewWorkSpaceForm.Designer.cs">
       <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClassForm.cs">
+    <Compile Include="Form\NodeClass\ClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClassForm.Designer.cs">
+    <Compile Include="Form\NodeClass\ClassForm.Designer.cs">
       <DependentUpon>ClassForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodeDesigner\AgentDesigner.cs" />
-    <Compile Include="NodeDesigner\BehaviorTreeData.cs" />
-    <Compile Include="NodeDesigner\CustomEnum.cs" />
-    <Compile Include="NodeDesigner\Field\BaseFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\FieldDesigner.cs" />
-    <Compile Include="NodeDesigner\FieldType.cs" />
-    <Compile Include="NodeDesigner\Field\BooleanFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\ColorFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\EnumFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\FloatFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\IntFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\LongFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\RepeatFloatFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\RepeatLongFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\RepeatVector2FieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\RepeatVector3FieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\Vector2FieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Field\Vector3FieldDesigner.cs" />
-    <Compile Include="NodeDesigner\NodeClass\NodeClass.cs" />
-    <Compile Include="NodeDesigner\NodeClass\NodeClasses.cs" />
-    <Compile Include="NodeDesigner\Field\RepeatIntFieldDesigner.cs" />
-    <Compile Include="NodeDesigner\Transition.cs" />
-    <Compile Include="NodeDesigner\Vector2.cs" />
-    <Compile Include="NodeDesigner\Vector2Converter.cs" />
-    <Compile Include="NodeDesigner\Vector3.cs" />
-    <Compile Include="NodeDesigner\Vector3Converter.cs" />
-    <Compile Include="OperationType.cs" />
+    <Compile Include="Data\NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\BehaviorTreeData.cs" />
+    <Compile Include="Data\NodeDesigner\CustomEnum.cs" />
+    <Compile Include="Data\NodeDesigner\Field\BaseFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\FieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\FieldType.cs" />
+    <Compile Include="Data\NodeDesigner\Field\BooleanFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\ColorFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\EnumFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\FloatFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\IntFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\LongFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatFloatFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatLongFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatVector2FieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatVector3FieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\Vector2FieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\Vector3FieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\NodeClass\NodeClass.cs" />
+    <Compile Include="Data\NodeDesigner\NodeClass\NodeClasses.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatIntFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Transition.cs" />
+    <Compile Include="Data\NodeDesigner\Vector2.cs" />
+    <Compile Include="Data\NodeDesigner\Vector2Converter.cs" />
+    <Compile Include="Data\NodeDesigner\Vector3.cs" />
+    <Compile Include="Data\NodeDesigner\Vector3Converter.cs" />
+    <Compile Include="Utility\OperationType.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="SingletonForm.cs" />
-    <Compile Include="Test\TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Test\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UIControls\ZoomScalerUserControl.cs">
       <SubType>UserControl</SubType>
@@ -172,7 +165,7 @@
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility\Mathf.cs" />
-    <Compile Include="NodeDesigner\NodeDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDesigner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIControls\ContentUserControl.cs">
@@ -184,42 +177,42 @@
     <Compile Include="Utility\EditorUtility.cs" />
     <Compile Include="Utility\Rect.cs" />
     <Compile Include="Utility\Vector2.cs" />
-    <Compile Include="WorkSpaceData.cs" />
+    <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
-    <EmbeddedResource Include="AddClassForm.resx">
+    <EmbeddedResource Include="Form\NodeClass\AddClassForm.resx">
       <DependentUpon>AddClassForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEnumForm.resx">
+    <EmbeddedResource Include="Form\Enum\AddEnumForm.resx">
       <DependentUpon>AddEnumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEnumItemForm.resx">
+    <EmbeddedResource Include="Form\Enum\AddEnumItemForm.resx">
       <DependentUpon>AddEnumItemForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditClassForm.resx">
+    <EmbeddedResource Include="Form\NodeClass\EditClassForm.resx">
       <DependentUpon>EditClassForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditEnumForm.resx">
+    <EmbeddedResource Include="Form\Enum\EditEnumForm.resx">
       <DependentUpon>EditEnumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditWorkSpaceForm.resx">
+    <EmbeddedResource Include="Form\WorkSpace\EditWorkSpaceForm.resx">
       <DependentUpon>EditWorkSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnumForm.resx">
+    <EmbeddedResource Include="Form\Enum\EnumForm.resx">
       <DependentUpon>EnumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputValueDialogForm.resx">
+    <EmbeddedResource Include="Form\InputValueDialogForm.resx">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Form\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditEnumItemForm.resx">
+    <EmbeddedResource Include="Form\Enum\EditEnumItemForm.resx">
       <DependentUpon>EditEnumItemForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewWorkSpaceForm.resx">
+    <EmbeddedResource Include="Form\WorkSpace\NewWorkSpaceForm.resx">
       <DependentUpon>NewWorkSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClassForm.resx">
+    <EmbeddedResource Include="Form\NodeClass\ClassForm.resx">
       <DependentUpon>ClassForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -232,9 +225,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Test\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
     </EmbeddedResource>
