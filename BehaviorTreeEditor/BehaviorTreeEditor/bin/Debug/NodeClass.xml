@@ -140,6 +140,14 @@
             <DefaultValue>100</DefaultValue>
           </DefaultValue>
         </NodeField>
+        <NodeField>
+          <FieldName>enum</FieldName>
+          <FieldType>EnumField</FieldType>
+          <DefaultValue xsi:type="EnumDeaultValue">
+            <EnumType>sdsdf</EnumType>
+            <DefaultValue>Enum1111111</DefaultValue>
+          </DefaultValue>
+        </NodeField>
       </Fields>
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">

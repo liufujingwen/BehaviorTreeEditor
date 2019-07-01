@@ -45,6 +45,14 @@ namespace BehaviorTreeEditor
             m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
             m_NodeClass.Describe = describeTB.Text.Trim();
 
+            //校验节点类是否合法
+            VerifyInfo verifyNodeClass = m_NodeClass.VerifyNodeClass();
+            if (verifyNodeClass.HasError)
+            {
+                MainForm.Instance.ShowMessage(verifyNodeClass.Msg);
+                return;
+            }
+
             if (!MainForm.Instance.NodeClasses.AddClass(m_NodeClass))
                 return;
 

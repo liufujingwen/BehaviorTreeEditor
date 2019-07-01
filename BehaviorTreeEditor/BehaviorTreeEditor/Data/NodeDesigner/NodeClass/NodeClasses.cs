@@ -172,6 +172,26 @@ namespace BehaviorTreeEditor
             return true;
         }
 
+        /// <summary>
+        /// 通过EnumType查找枚举配置
+        /// </summary>
+        /// <param name="enumType"></param>
+        /// <returns></returns>
+        public CustomEnum FindEnum(string enumType)
+        {
+            if (string.IsNullOrEmpty(enumType))
+                return null;
+
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                 CustomEnum customEnum = m_Enums[i];
+                if (customEnum != null && customEnum.EnumType == enumType)
+                    return customEnum;
+            }
+
+            return null;
+        }
+
 
         public bool RemoveEnum(CustomEnum customEnum)
         {

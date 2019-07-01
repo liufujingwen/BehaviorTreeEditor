@@ -385,6 +385,13 @@ namespace BehaviorTreeEditor
             m_CustomEnum.EnumType = textBox1.Text.Trim();
             m_CustomEnum.Describe = textBox2.Text.Trim();
 
+            VerifyInfo verifyEnum = m_CustomEnum.VerifyEnum();
+            if (verifyEnum.HasError)
+            {
+                MainForm.Instance.ShowMessage(verifyEnum.Msg);
+                return;
+            }
+
             if (!MainForm.Instance.NodeClasses.AddEnum(m_CustomEnum))
             {
                 return;

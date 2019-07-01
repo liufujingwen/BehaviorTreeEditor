@@ -139,29 +139,78 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 是否存在空的枚举选项名
+        /// 检验枚举类型
         /// </summary>
         /// <returns></returns>
-        public bool ExistEmptyEnumStr()
+        public VerifyInfo VerifyEnumType()
+        {
+            if (string.IsNullOrEmpty(m_EnumType))
+            {
+                return new VerifyInfo("枚举类型为空");
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 检验枚举选项个数
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnumItemCount()
+        {
+            if (m_Enums.Count == 0)
+            {
+                return new VerifyInfo("枚举选项个数为0");
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验是否存在空的枚举名
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEmptyEnumStr()
         {
             for (int i = 0; i < m_Enums.Count; i++)
             {
                 EnumItem enumItem = m_Enums[i];
                 if (string.IsNullOrEmpty(enumItem.EnumStr))
                 {
-                    MainForm.Instance.ShowMessage("存在空枚举选项名");
-                    return true;
+                    return new VerifyInfo("存在空枚举选项名");
                 }
             }
 
-            return false;
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 是否存相同枚举名字
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifySameEnumStr()
+        {
+            //检测EnumValue是否存在相同
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                EnumItem enum_i = m_Enums[i];
+                for (int ii = i + 1; ii < m_Enums.Count; ii++)
+                {
+                    EnumItem enum_ii = m_Enums[ii];
+                    if (enum_i.EnumStr == enum_ii.EnumStr)
+                    {
+                        return new VerifyInfo(string.Format("存在重复枚举值:{0}", enum_ii.EnumStr));
+                    }
+                }
+            }
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>
         /// 是否存相同枚举值
         /// </summary>
         /// <returns></returns>
-        public bool ExistSameEnumValue()
+        public VerifyInfo VerifySameEnumValue()
         {
             //检测EnumValue是否存在相同
             for (int i = 0; i < m_Enums.Count; i++)
@@ -172,13 +221,61 @@ namespace BehaviorTreeEditor
                     EnumItem enum_ii = m_Enums[ii];
                     if (enum_i.EnumValue == enum_ii.EnumValue)
                     {
-                        MainForm.Instance.ShowMessage(string.Format("存在重复枚举值:{0}", enum_ii.EnumValue));
-                        MainForm.Instance.ShowInfo(string.Format("存在重复枚举值:{0} 时间:{1}", enum_ii.EnumValue, DateTime.Now));
-                        return true;
+                        return new VerifyInfo(string.Format("存在重复枚举值:{0}", enum_ii.EnumValue));
                     }
                 }
             }
-            return false;
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验不存在的枚举选项
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyNotExistEnumStr()
+        {
+            MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 检验枚举是否合法
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnum()
+        {
+            //检验枚举类型
+            VerifyInfo verifyEnumType = VerifyEnumType();
+            if (verifyEnumType.HasError)
+                return verifyEnumType;
+
+            //检验枚举个数
+            VerifyInfo verifyEnumItemCount = VerifyEnumItemCount();
+            if (verifyEnumItemCount.HasError)
+                return verifyEnumItemCount;
+
+            //检验空枚举项名字
+            VerifyInfo verifyEmptyEnumStr = VerifyEmptyEnumStr();
+            if (verifyEmptyEnumStr.HasError)
+                return verifyEmptyEnumStr;
+
+            //检验是否有相同的枚举选项名
+            VerifyInfo verifySameEnumStr = VerifySameEnumStr();
+            if (verifySameEnumStr.HasError)
+                return verifySameEnumStr;
+
+            //校验枚举值是否存在相同
+            VerifyInfo verifySameEnumValue = VerifySameEnumValue();
+            if (verifySameEnumValue.HasError)
+                return verifySameEnumValue;
+
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>

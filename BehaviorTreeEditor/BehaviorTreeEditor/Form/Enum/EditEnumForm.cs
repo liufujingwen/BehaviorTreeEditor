@@ -392,17 +392,12 @@ namespace BehaviorTreeEditor
             m_EditCustomEnum.EnumType = textBox1.Text.Trim();
             m_EditCustomEnum.Describe = textBox2.Text.Trim();
 
-            //加测枚举是否有空枚举选项
-            if (m_EditCustomEnum.ExistEmptyEnumStr())
+            VerifyInfo verifyEnum = m_EditCustomEnum.VerifyEnum();
+            if (verifyEnum.HasError)
+            {
+                MainForm.Instance.ShowMessage(verifyEnum.Msg);
                 return;
-
-            //加测枚举是否有相同枚举选项字符
-            if (m_EditCustomEnum.ExistSameEnumStr())
-                return;
-
-            //加测枚举是否有相同枚举值
-            if (m_EditCustomEnum.ExistSameEnumValue())
-                return;
+            }
 
             string newContent = XmlUtility.ObjectToString(m_EditCustomEnum);
             if (m_OldContent != newContent)

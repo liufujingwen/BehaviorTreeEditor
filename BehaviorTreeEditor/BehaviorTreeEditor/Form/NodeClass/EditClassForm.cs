@@ -54,13 +54,13 @@ namespace BehaviorTreeEditor
             m_EditNodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
             m_EditNodeClass.Describe = describeTB.Text.Trim();
 
-            //检测空字段名
-            if (m_EditNodeClass.ExistEmptyFieldName())
+            //校验节点类是否合法
+            VerifyInfo verifyNodeClass = m_NodeClass.VerifyNodeClass();
+            if (verifyNodeClass.HasError)
+            {
+                MainForm.Instance.ShowMessage(verifyNodeClass.Msg);
                 return;
-
-            //检测重复字段名
-            if (m_EditNodeClass.ExistSameFieldName())
-                return;
+            }
 
             string content = XmlUtility.ObjectToString(m_EditNodeClass);
 

@@ -34,3 +34,5 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\B
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.csprojAssemblyReference.cache
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditAgentForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.TestForm.resources
+D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.EnumTypeUserControl.resources
+D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.EnumItemUserControl.resources

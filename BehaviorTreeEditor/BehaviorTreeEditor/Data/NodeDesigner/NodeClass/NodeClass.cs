@@ -107,10 +107,21 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 检验ClassType
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyClassType()
+        {
+            if (string.IsNullOrEmpty(m_ClassType))
+                return new VerifyInfo("ClassType为空");
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
         /// 是否存在空的字段名字
         /// </summary>
         /// <returns></returns>
-        public bool ExistEmptyFieldName()
+        public VerifyInfo VerifyEmptyFieldName()
         {
             //检测是否有空字段
             for (int i = 0; i < m_Fields.Count; i++)
@@ -118,20 +129,18 @@ namespace BehaviorTreeEditor
                 NodeField field = m_Fields[i];
                 if (string.IsNullOrEmpty(field.FieldName))
                 {
-                    MainForm.Instance.ShowMessage("存在空字段");
-                    MainForm.Instance.ShowInfo("存在空字段");
-                    return true;
+                    return new VerifyInfo(string.Format("节点类[{0}],存在空字段", m_ClassType));
                 }
             }
 
-            return false;
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>
-        /// 是否存在相同字段名字
+        /// 检验是否存在相同字段名字
         /// </summary>
         /// <returns></returns>
-        public bool ExistSameFieldName()
+        public VerifyInfo VerifySameFieldName()
         {
             //检测字段是否重复
             for (int i = 0; i < m_Fields.Count; i++)
@@ -141,14 +150,97 @@ namespace BehaviorTreeEditor
                 {
                     NodeField field_ii = m_Fields[ii];
                     if (field_i.FieldName == field_ii.FieldName)
+                        return new VerifyInfo(string.Format("节点类[{0}]存在重复字段[{1}]", m_ClassType, field_ii.FieldName));
+                }
+            }
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 是否存在无效枚举类型
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnum()
+        {
+            //校验枚举类型
+            //检测字段是否重复
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                NodeField field_i = m_Fields[i];
+                if (field_i.FieldType == FieldType.EnumField)
+                {
+                    EnumDeaultValue enumDeaultValue = field_i.DefaultValue as EnumDeaultValue;
+                    if (enumDeaultValue != null)
                     {
-                        MainForm.Instance.ShowMessage(string.Format("存在重复字段:{0}", field_ii.FieldName));
-                        MainForm.Instance.ShowInfo(string.Format("存在重复字段:{0} 时间:{1}", field_ii.FieldName, DateTime.Now));
-                        return true;
+                        if (string.IsNullOrEmpty(enumDeaultValue.EnumType))
+                        {
+                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型为空", this.ClassType, field_i.FieldName));
+                        }
+
+                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        if (customEnum == null)
+                        {
+                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在", this.ClassType, field_i.FieldName, enumDeaultValue.EnumType));
+                        }
+                        else
+                        {
+                            EnumItem enumItem = customEnum.FindEnum(enumDeaultValue.DefaultValue);
+                            if (enumItem == null)
+                                return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在选项[{3}]不存在", this.ClassType, field_i.FieldName, customEnum.EnumType, enumDeaultValue.DefaultValue));
+                        }
                     }
                 }
             }
-            return false;
+
+            //校验枚举
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                NodeField field_i = m_Fields[i];
+                if (field_i.FieldType == FieldType.EnumField)
+                {
+                    EnumDeaultValue enumDeaultValue = field_i.DefaultValue as EnumDeaultValue;
+                    if (enumDeaultValue != null)
+                    {
+                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        VerifyInfo verifyEnum = customEnum.VerifyEnum();
+                        if (verifyEnum.HasError)
+                        {
+                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]存在错误:{2}", this.ClassType, field_i.FieldName, verifyEnum.Msg));
+                        }
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 检验节点是否合法
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyNodeClass()
+        {
+            //检验ClassType
+            VerifyInfo verifyClassType = VerifyClassType();
+            if (verifyClassType.HasError)
+                return verifyClassType;
+
+            //检验字段是否存在空名
+            VerifyInfo verifyEmptyFieldName = VerifyEmptyFieldName();
+            if (verifyEmptyFieldName.HasError)
+                return verifyEmptyFieldName;
+
+            //校验是否重名
+            VerifyInfo verifySameFieldName = VerifySameFieldName();
+            if (verifySameFieldName.HasError)
+                return verifySameFieldName;
+
+            //校验枚举
+            VerifyInfo verifyEnum = VerifyEnum();
+            if (verifyEnum.HasError)
+                return verifyEnum;
+
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>
