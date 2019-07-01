@@ -47,10 +47,10 @@ namespace BehaviorTreeEditor
             set { m_Describe = value; }
         }
 
-        private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
+        private List<NodeField> m_Fields = new List<NodeField>();
 
         [Category("常规"), DisplayName("类所有字段"), Description("类所有字段")]
-        public List<FieldDesigner> Fields
+        public List<NodeField> Fields
         {
             get { return m_Fields; }
             set { m_Fields = value; }
@@ -60,7 +60,7 @@ namespace BehaviorTreeEditor
         {
             for (int i = 0; i < m_Fields.Count; i++)
             {
-                FieldDesigner temp = m_Fields[i];
+                NodeField temp = m_Fields[i];
                 if (temp.FieldName == fieldName)
                 {
                     return true;
@@ -69,7 +69,7 @@ namespace BehaviorTreeEditor
             return false;
         }
 
-        public bool AddField(FieldDesigner field)
+        public bool AddField(NodeField field)
         {
             if (field == null)
             {
@@ -92,7 +92,7 @@ namespace BehaviorTreeEditor
 
             for (int i = 0; i < m_Fields.Count; i++)
             {
-                FieldDesigner temp = m_Fields[i];
+                NodeField temp = m_Fields[i];
                 if (temp.FieldName == field.FieldName)
                 {
                     MainForm.Instance.ShowInfo("字段名字相同,添加失败！！！");
@@ -115,7 +115,7 @@ namespace BehaviorTreeEditor
             //检测是否有空字段
             for (int i = 0; i < m_Fields.Count; i++)
             {
-                FieldDesigner field = m_Fields[i];
+                NodeField field = m_Fields[i];
                 if (string.IsNullOrEmpty(field.FieldName))
                 {
                     MainForm.Instance.ShowMessage("存在空字段");
@@ -136,10 +136,10 @@ namespace BehaviorTreeEditor
             //检测字段是否重复
             for (int i = 0; i < m_Fields.Count; i++)
             {
-                FieldDesigner field_i = m_Fields[i];
+                NodeField field_i = m_Fields[i];
                 for (int ii = i + 1; ii < m_Fields.Count; ii++)
                 {
-                    FieldDesigner field_ii = m_Fields[ii];
+                    NodeField field_ii = m_Fields[ii];
                     if (field_i.FieldName == field_ii.FieldName)
                     {
                         MainForm.Instance.ShowMessage(string.Format("存在重复字段:{0}", field_ii.FieldName));

@@ -200,7 +200,7 @@ namespace BehaviorTreeEditor
 
         private void NewField()
         {
-            FieldDesigner field = new FieldDesigner();
+            NodeField field = new NodeField();
             InputValueDialogForm form = new InputValueDialogForm("添加字段", field);
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -218,16 +218,16 @@ namespace BehaviorTreeEditor
                 return;
 
             listViewFields.Items.Clear();
-            foreach (FieldDesigner field in m_NodeClass.Fields)
+            foreach (NodeField field in m_NodeClass.Fields)
             {
-                if (field.Field == null)
+                if (field.DefaultValue == null)
                     continue;
                 ListViewItem listViewItem = listViewFields.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
-                listViewItem.SubItems.Add(field.FieldType.ToString());
+                listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));
+                listViewItem.SubItems.Add(field.DefaultValue != null ? field.DefaultValue.ToString() : string.Empty);
                 listViewItem.SubItems.Add(field.Describe);
             }
-
         }
 
         //编辑字段
@@ -238,8 +238,8 @@ namespace BehaviorTreeEditor
 
         public class FieldListContent
         {
-            List<FieldDesigner> m_DataList = new List<FieldDesigner>();
-            public List<FieldDesigner> DataList { get { return m_DataList; } }
+            private List<NodeField> m_DataList = new List<NodeField>();
+            public List<NodeField> DataList { get { return m_DataList; } }
         }
 
         //复制字段
@@ -250,8 +250,8 @@ namespace BehaviorTreeEditor
                 FieldListContent content = new FieldListContent();
                 foreach (ListViewItem lvItem in listViewFields.SelectedItems)
                 {
-                    if (lvItem.Tag is FieldDesigner)
-                        content.DataList.Add((FieldDesigner)lvItem.Tag);
+                    if (lvItem.Tag is NodeField)
+                        content.DataList.Add((NodeField)lvItem.Tag);
                 }
 
                 if (content.DataList.Count > 0)
@@ -275,7 +275,7 @@ namespace BehaviorTreeEditor
 
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
-                    FieldDesigner field = content.DataList[i];
+                    NodeField field = content.DataList[i];
                     string fieldName = field.FieldName;
                     do
                     {
@@ -337,8 +337,8 @@ namespace BehaviorTreeEditor
 
                 int preIdx = selectIdx - 1;
 
-                FieldDesigner preField = m_EditNodeClass.Fields[preIdx];
-                FieldDesigner selectedField = m_EditNodeClass.Fields[selectIdx];
+                NodeField preField = m_EditNodeClass.Fields[preIdx];
+                NodeField selectedField = m_EditNodeClass.Fields[selectIdx];
 
                 m_EditNodeClass.Fields[preIdx] = selectedField;
                 m_EditNodeClass.Fields[selectIdx] = preField;
@@ -353,8 +353,8 @@ namespace BehaviorTreeEditor
 
                 int nextIdx = selectIdx + 1;
 
-                FieldDesigner preField = m_EditNodeClass.Fields[nextIdx];
-                FieldDesigner selectedField = m_EditNodeClass.Fields[selectIdx];
+                NodeField preField = m_EditNodeClass.Fields[nextIdx];
+                NodeField selectedField = m_EditNodeClass.Fields[selectIdx];
 
                 m_EditNodeClass.Fields[nextIdx] = selectedField;
                 m_EditNodeClass.Fields[selectIdx] = preField;

@@ -124,13 +124,22 @@
     <NodeClass ClassType="Parallel" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields>
-        <FieldDesigner>
-          <FieldName>fgfg1111</FieldName>
+        <NodeField>
+          <FieldName>int_field</FieldName>
           <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <Value>0</Value>
-          </Field>
-        </FieldDesigner>
+          <Describe>11111111</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>100</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>int_field_New</FieldName>
+          <FieldType>IntField</FieldType>
+          <Describe>111111112</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>100</DefaultValue>
+          </DefaultValue>
+        </NodeField>
       </Fields>
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
