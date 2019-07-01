@@ -28,23 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.SuspendLayout();
-            // 
-            // domainUpDown1
-            // 
-            this.domainUpDown1.Location = new System.Drawing.Point(122, 101);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(206, 21);
-            this.domainUpDown1.TabIndex = 0;
-            this.domainUpDown1.Text = "domainUpDown1";
             // 
             // TestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.domainUpDown1);
+            this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "TestForm";
             this.Text = "TestForm";
             this.ResumeLayout(false);
@@ -52,7 +43,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
     }
 }

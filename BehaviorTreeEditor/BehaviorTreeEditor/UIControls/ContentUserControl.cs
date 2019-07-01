@@ -833,6 +833,9 @@ namespace BehaviorTreeEditor.UIControls
         //显示视图菜单上下文
         private void ShowViewContextMenu()
         {
+            if (Agent == null)
+                return;
+
             if (m_SelectionNodes.Count > 0)
                 return;
 
