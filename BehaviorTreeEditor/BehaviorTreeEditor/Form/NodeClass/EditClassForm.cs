@@ -55,7 +55,7 @@ namespace BehaviorTreeEditor
             m_EditNodeClass.Describe = describeTB.Text.Trim();
 
             //校验节点类是否合法
-            VerifyInfo verifyNodeClass = m_NodeClass.VerifyNodeClass();
+            VerifyInfo verifyNodeClass = m_EditNodeClass.VerifyNodeClass();
             if (verifyNodeClass.HasError)
             {
                 MainForm.Instance.ShowMessage(verifyNodeClass.Msg);

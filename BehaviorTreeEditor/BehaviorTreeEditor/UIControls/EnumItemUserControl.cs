@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,6 +7,7 @@ namespace BehaviorTreeEditor.UIControls
 {
     public partial class EnumItemUserControl : UserControl
     {
+        ITypeDescriptorContext m_Context;
         private CustomEnum m_CustomEnum;
         private string m_EnumStr;
 
@@ -14,8 +16,9 @@ namespace BehaviorTreeEditor.UIControls
             get { return m_EnumStr; }
         }
 
-        public EnumItemUserControl(CustomEnum customEnum, string defaultValue)
+        public EnumItemUserControl(ITypeDescriptorContext context, CustomEnum customEnum, string defaultValue)
         {
+            m_Context = context;
             m_CustomEnum = customEnum;
             m_EnumStr = defaultValue;
             InitializeComponent();
@@ -67,6 +70,18 @@ namespace BehaviorTreeEditor.UIControls
                 EnumItem enumItem = m_CustomEnum.Enums[listBox1.SelectedIndex];
                 m_EnumStr = enumItem.EnumStr;
             }
+        }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            //if (listBox1.SelectedIndex >= 0 && m_CustomEnum.Enums.Count > 0)
+            //{
+            //    EnumItem enumItem = m_CustomEnum.Enums[listBox1.SelectedIndex];
+            //    if(m_EnumStr == enumItem.EnumStr)
+            //    {
+            //        Console.WriteLine("111");
+            //    }
+            //}
         }
     }
 }

@@ -21,6 +21,5 @@ namespace BehaviorTreeEditor
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public abstract class BaseFieldDesigner
     {
-        public abstract string FieldContent();
     }
 }

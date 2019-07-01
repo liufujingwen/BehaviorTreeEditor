@@ -13,11 +13,6 @@ namespace BehaviorTreeEditor
         [Category("常规"), DisplayName("Y(int)"), Description("Y(int)")]
         public int Y { get; set; }
 
-        public override string FieldContent()
-        {
-            return string.Format("[{0},{1}]", X, Y);
-        }
-
         public override string ToString()
         {
             return string.Format("[{0},{1}]", X, Y);

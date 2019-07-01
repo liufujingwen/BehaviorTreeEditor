@@ -206,10 +206,21 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 是否存在空的字段名字
+        /// 检验AgentID是否合法
         /// </summary>
         /// <returns></returns>
-        public bool ExistEmptyFieldName()
+        public VerifyInfo VerifyAgentID()
+        {
+            if (string.IsNullOrEmpty(m_AgentID))
+                return new VerifyInfo("AgentID为空");
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验字段是否存在空名字
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEmptyFieldName()
         {
             //检测是否有空字段
             for (int i = 0; i < m_Fields.Count; i++)
@@ -217,20 +228,18 @@ namespace BehaviorTreeEditor
                 FieldDesigner field = m_Fields[i];
                 if (string.IsNullOrEmpty(field.FieldName))
                 {
-                    MainForm.Instance.ShowMessage("存在空字段");
-                    MainForm.Instance.ShowInfo("存在空字段");
-                    return true;
+                    return new VerifyInfo(string.Format("行为树[{0}]存在空字段名", m_AgentID));
                 }
             }
 
-            return false;
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>
-        /// 是否存在相同字段名字
+        /// 校验是否存在相同字段名字
         /// </summary>
         /// <returns></returns>
-        public bool ExistSameFieldName()
+        public VerifyInfo VerifySameFieldName()
         {
             //检测字段是否重复
             for (int i = 0; i < m_Fields.Count; i++)
@@ -241,13 +250,79 @@ namespace BehaviorTreeEditor
                     FieldDesigner field_ii = m_Fields[ii];
                     if (field_i.FieldName == field_ii.FieldName)
                     {
-                        MainForm.Instance.ShowMessage(string.Format("存在重复字段:{0}", field_ii.FieldName));
-                        MainForm.Instance.ShowInfo(string.Format("存在重复字段:{0} 时间:{1}", field_ii.FieldName, DateTime.Now));
-                        return true;
+                        return new VerifyInfo(string.Format("行为树[{0}]存在重复字段:{1}", m_AgentID, field_ii.FieldName));
                     }
                 }
             }
-            return false;
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 是否存在无效枚举类型
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnum()
+        {
+            //校验枚举类型
+            //检测字段是否重复
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (field.FieldType == FieldType.EnumField)
+                {
+                    EnumFieldDesigner enumFieldDesigner = field.Field as EnumFieldDesigner;
+                    if (enumFieldDesigner != null)
+                    {
+                        if (string.IsNullOrEmpty(enumFieldDesigner.EnumType))
+                        {
+                            return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型为空", m_AgentID, field.FieldName));
+                        }
+
+                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumFieldDesigner.EnumType);
+                        if (customEnum == null)
+                        {
+                            return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型[{2}]不存在", m_AgentID, field.FieldName, enumFieldDesigner.EnumType));
+                        }
+                        else
+                        {
+                            EnumItem enumItem = customEnum.FindEnum(enumFieldDesigner.Value);
+                            if (enumItem == null)
+                                return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型[{2}]不存在选项[{3}]", m_AgentID, field.FieldName, customEnum.EnumType, enumFieldDesigner.Value));
+                        }
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验Agent是否合法
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyAgent()
+        {
+            //检验ID是否合法
+            VerifyInfo verifyAgentID = VerifyAgentID();
+            if (verifyAgentID.HasError)
+                return verifyAgentID;
+
+            //检验是否存在空字段名
+            VerifyInfo verifyEmptyFieldName = VerifyEmptyFieldName();
+            if (verifyEmptyFieldName.HasError)
+                return verifyEmptyFieldName;
+
+            //检验是否存在相同名字字段
+            VerifyInfo verifySameFieldName = VerifySameFieldName();
+            if (verifySameFieldName.HasError)
+                return verifySameFieldName;
+
+            //检验枚举字段
+            VerifyInfo verifyEnum = VerifyEnum();
+            if (verifyEnum.HasError)
+                return verifyEnum;
+
+            return VerifyInfo.DefaultVerifyInfo;
         }
 
         /// <summary>

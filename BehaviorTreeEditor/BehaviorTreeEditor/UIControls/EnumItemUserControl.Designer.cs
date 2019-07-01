@@ -35,20 +35,23 @@
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
+            this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(331, 199);
+            this.listBox1.Size = new System.Drawing.Size(248, 159);
             this.listBox1.TabIndex = 0;
+            this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // EnumItemUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.listBox1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EnumItemUserControl";
-            this.Size = new System.Drawing.Size(331, 199);
+            this.Size = new System.Drawing.Size(248, 159);
             this.Load += new System.EventHandler(this.EnumItemUserControl_Load);
             this.ResumeLayout(false);
 

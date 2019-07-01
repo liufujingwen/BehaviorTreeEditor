@@ -14,18 +14,6 @@ namespace BehaviorTreeEditor
             set { m_Value = value; }
         }
 
-        public override string FieldContent()
-        {
-            string content = string.Empty;
-            content += "[";
-            for (int i = 0; i < m_Value.Count; i++)
-            {
-                content += m_Value[i] + (i < m_Value.Count - 1 ? "," : string.Empty);
-            }
-            content += "]";
-            return content;
-        }
-
         public override string ToString()
         {
             string content = string.Empty;

@@ -166,46 +166,27 @@ namespace BehaviorTreeEditor
             //检测字段是否重复
             for (int i = 0; i < m_Fields.Count; i++)
             {
-                NodeField field_i = m_Fields[i];
-                if (field_i.FieldType == FieldType.EnumField)
+                NodeField field = m_Fields[i];
+                if (field.FieldType == FieldType.EnumField)
                 {
-                    EnumDeaultValue enumDeaultValue = field_i.DefaultValue as EnumDeaultValue;
+                    EnumDeaultValue enumDeaultValue = field.DefaultValue as EnumDeaultValue;
                     if (enumDeaultValue != null)
                     {
                         if (string.IsNullOrEmpty(enumDeaultValue.EnumType))
                         {
-                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型为空", this.ClassType, field_i.FieldName));
+                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型为空", this.ClassType, field.FieldName));
                         }
 
                         CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
                         if (customEnum == null)
                         {
-                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在", this.ClassType, field_i.FieldName, enumDeaultValue.EnumType));
+                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在", this.ClassType, field.FieldName, enumDeaultValue.EnumType));
                         }
                         else
                         {
                             EnumItem enumItem = customEnum.FindEnum(enumDeaultValue.DefaultValue);
                             if (enumItem == null)
-                                return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在选项[{3}]不存在", this.ClassType, field_i.FieldName, customEnum.EnumType, enumDeaultValue.DefaultValue));
-                        }
-                    }
-                }
-            }
-
-            //校验枚举
-            for (int i = 0; i < m_Fields.Count; i++)
-            {
-                NodeField field_i = m_Fields[i];
-                if (field_i.FieldType == FieldType.EnumField)
-                {
-                    EnumDeaultValue enumDeaultValue = field_i.DefaultValue as EnumDeaultValue;
-                    if (enumDeaultValue != null)
-                    {
-                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
-                        VerifyInfo verifyEnum = customEnum.VerifyEnum();
-                        if (verifyEnum.HasError)
-                        {
-                            return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]存在错误:{2}", this.ClassType, field_i.FieldName, verifyEnum.Msg));
+                                return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在选项[{3}]", this.ClassType, field.FieldName, customEnum.EnumType, enumDeaultValue.DefaultValue));
                         }
                     }
                 }

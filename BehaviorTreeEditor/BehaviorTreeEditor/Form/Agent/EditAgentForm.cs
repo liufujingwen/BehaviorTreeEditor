@@ -366,13 +366,13 @@ namespace BehaviorTreeEditor
             m_EditAgent.AgentID = textBox1.Text.Trim();
             m_EditAgent.Describe = textBox2.Text.Trim();
 
-            //检测空字段名
-            if (m_EditAgent.ExistEmptyFieldName())
+            //检验Agent的是否合法
+            VerifyInfo verifyAgent = m_EditAgent.VerifyAgent();
+            if (verifyAgent.HasError)
+            {
+                MainForm.Instance.ShowMessage(verifyAgent.Msg);
                 return;
-
-            //检测重复字段名
-            if (m_EditAgent.ExistSameFieldName())
-                return;
+            }
 
             string editContent = XmlUtility.ObjectToString(m_EditAgent);
             if (editContent != m_AgentContent)

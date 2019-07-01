@@ -121,6 +121,23 @@
     </CustomEnum>
   </Enums>
   <Nodes>
+    <NodeClass ClassType="Test" NodeType="Composite">
+      <Describe />
+      <Fields>
+        <NodeField>
+          <FieldName>111111</FieldName>
+          <FieldType>EnumField</FieldType>
+          <DefaultValue xsi:type="EnumDeaultValue">
+            <EnumType>TestEnum</EnumType>
+            <DefaultValue>Enum1</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
+    </NodeClass>
+    <NodeClass ClassType="Sequence" NodeType="Composite">
+      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+      <Fields />
+    </NodeClass>
     <NodeClass ClassType="Parallel" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields>
@@ -149,10 +166,6 @@
           </DefaultValue>
         </NodeField>
       </Fields>
-    </NodeClass>
-    <NodeClass ClassType="Sequence" NodeType="Composite">
-      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
-      <Fields />
     </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
       <Describe>非节点将子节点的返回值取反</Describe>

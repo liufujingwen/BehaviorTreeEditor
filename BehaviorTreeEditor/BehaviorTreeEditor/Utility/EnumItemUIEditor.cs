@@ -43,10 +43,29 @@ namespace BehaviorTreeEditor
                         }
                     }
                 }
+                else if (context.Instance is EnumFieldDesigner)
+                {
+                    EnumFieldDesigner enumFieldDesigner = context.Instance as EnumFieldDesigner;
+                    if (enumFieldDesigner != null)
+                    {
+                        if (string.IsNullOrEmpty(enumFieldDesigner.EnumType))
+                        {
+                            MainForm.Instance.ShowMessage("请先选择枚举类型");
+                        }
+                        else
+                        {
+                            customEnum = MainForm.Instance.NodeClasses.FindEnum(enumFieldDesigner.EnumType);
+                            if (customEnum == null)
+                            {
+                                MainForm.Instance.ShowMessage(string.Format("不存在枚举类型:{0},请先注册", enumFieldDesigner.EnumType));
+                            }
+                        }
+                    }
+                }
 
                 if (customEnum != null)
                 {
-                    EnumItemUserControl enumTypeUserControl = new EnumItemUserControl(customEnum, (string)value);
+                    EnumItemUserControl enumTypeUserControl = new EnumItemUserControl(context, customEnum, (string)value);
                     edSvc.DropDownControl(enumTypeUserControl);
                     value = enumTypeUserControl.EnumStr;
                 }
