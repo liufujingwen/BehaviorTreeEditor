@@ -31,6 +31,10 @@ namespace BehaviorTreeEditor
                         Field = new FloatFieldDesigner();
                         break;
                     case FieldType.DoubleField:
+                        Field = new DoubleFieldDesigner();
+                        break;
+                    case FieldType.StringField:
+                        Field = new StringFieldDesigner();
                         break;
                     case FieldType.ColorField:
                         Field = new ColorFieldDesigner();
@@ -61,6 +65,9 @@ namespace BehaviorTreeEditor
                         break;
                     case FieldType.RepeatVector3Field:
                         Field = new RepeatVector3FieldDesigner();
+                        break;
+                    case FieldType.RepeatStringField:
+                        Field = new RepeatStringFieldDesigner();
                         break;
                 }
             }

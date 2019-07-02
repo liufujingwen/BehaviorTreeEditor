@@ -459,20 +459,40 @@ namespace BehaviorTreeEditor.UIControls
                     {
                         m_SelectionNodes.Clear();
                         m_SelectionNodes.Add(node);
+                        SelectTransition(null);
                     }
-                }
-
-                if (m_SelectionNodes.Count > 0)
-                {
-                    ShowNodeContextMenu();
-                }
-                else if (m_SelectedTransition != null)
-                {
-                    ShowTransitionContextMenu();
+                    else
+                    {
+                        ShowNodeContextMenu();
+                    }
                 }
                 else
                 {
-                    ShowViewContextMenu();
+                    if (m_SelectionNodes.Count > 1)
+                    {
+                        ShowNodeContextMenu();
+                    }
+                    else if (transition != null)
+                    {
+                        m_SelectionNodes.Clear();
+                        if (m_SelectedTransition == transition)
+                        {
+                            ShowTransitionContextMenu();
+                        }
+                        else
+                        {
+                            SelectTransition(transition);
+                        }
+                    }
+                    else if (m_SelectedTransition != null)
+                    {
+                        ShowTransitionContextMenu();
+                    }
+                    else
+                    {
+                        m_SelectionNodes.Clear();
+                        ShowViewContextMenu();
+                    }
                 }
             }
         }
@@ -811,6 +831,11 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectionNodes.Count == 0)
                 return;
 
+            for (int i = 0; i < nodeContextMenuStrip.Items.Count; i++)
+            {
+                nodeContextMenuStrip.Items[i].Visible = true;
+            }
+
             //隐藏上移、下移、连线
             if (m_SelectionNodes.Count > 1)
             {
@@ -923,6 +948,18 @@ namespace BehaviorTreeEditor.UIControls
             node.ClassName = nodeClass.ClassName;
             node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
+            node.Describe = nodeClass.Describe;
+
+            //创建字段
+            for (int i = 0; i < nodeClass.Fields.Count; i++)
+            {
+                NodeField nodeField = nodeClass.Fields[i];
+                FieldDesigner field = EditorUtility.CreateFieldByNodeField(nodeField);
+                if (field == null)
+                    continue;
+                node.Fields.Add(field);
+            }
+
             Agent.AddNode(node);
         }
 
@@ -934,6 +971,19 @@ namespace BehaviorTreeEditor.UIControls
         public Vec2 WorldToLocalPoint(Vec2 point)
         {
             return (point - m_Offset) * m_ZoomScale;
+        }
+
+        private void ContentUserControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.S:
+                        MainForm.Instance.Exec(OperationType.Save);
+                        break;
+                }
+            }
         }
     }
 }

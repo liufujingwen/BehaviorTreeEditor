@@ -49,15 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\NodeDesigner\Field\DoubleFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\RepeatStringFieldDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Field\StringFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\BaseDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\BooleanDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\DoubleDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\EnumDeaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeClass\EnumDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\FloatDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\IntDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\LongDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\NodeField.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\ColorDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeClass\StringDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector3DefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector2DefaultValue.cs" />
     <Compile Include="Form\Agent\EditAgentForm.cs">

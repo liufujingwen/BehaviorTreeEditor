@@ -180,6 +180,26 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 通过ClassType查找节点
+        /// </summary>
+        /// <param name="classType"></param>
+        /// <returns></returns>
+        public NodeClass FindNode(string classType)
+        {
+            if (string.IsNullOrEmpty(classType))
+                return null;
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass nodeClass = m_Nodes[i];
+                if (nodeClass != null && nodeClass.ClassType == classType)
+                    return nodeClass;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 通过EnumType查找枚举配置
         /// </summary>
         /// <param name="enumType"></param>

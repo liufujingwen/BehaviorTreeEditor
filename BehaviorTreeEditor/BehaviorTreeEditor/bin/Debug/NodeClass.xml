@@ -29,7 +29,98 @@
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
-      <Fields />
+      <Fields>
+        <NodeField>
+          <FieldName>intField</FieldName>
+          <FieldType>IntField</FieldType>
+          <Describe>这是int</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>1</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>longField</FieldName>
+          <FieldType>LongField</FieldType>
+          <Describe>这是Long</Describe>
+          <DefaultValue xsi:type="LongDefaultValue">
+            <DefaultValue>2</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>floatField</FieldName>
+          <FieldType>FloatField</FieldType>
+          <Describe>这是float</Describe>
+          <DefaultValue xsi:type="FloatDefaultValue">
+            <DefaultValue>3.1</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>doubleField</FieldName>
+          <FieldType>DoubleField</FieldType>
+          <Describe>这是双精度浮点</Describe>
+          <DefaultValue xsi:type="DoubleDefaultValue">
+            <DefaultValue>4.1</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>colorField</FieldName>
+          <FieldType>ColorField</FieldType>
+          <Describe>这是颜色</Describe>
+          <DefaultValue xsi:type="ColorDefaultValue">
+            <R>128</R>
+            <G>255</G>
+            <B>255</B>
+            <A>128</A>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>vector2Field</FieldName>
+          <FieldType>Vector2</FieldType>
+          <Describe>这是Vector2节点</Describe>
+          <DefaultValue xsi:type="Vector2DefaultValue">
+            <X>1</X>
+            <Y>1</Y>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>vector3Field</FieldName>
+          <FieldType>Vector3</FieldType>
+          <Describe>这是Vector3节点</Describe>
+          <DefaultValue xsi:type="Vector3DefaultValue">
+            <X>0</X>
+            <Y>0</Y>
+            <Z>0</Z>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>enumField</FieldName>
+          <FieldType>EnumField</FieldType>
+          <Describe>这是枚举</Describe>
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>TestEnum</m_EnumType>
+            <EnumType>TestEnum</EnumType>
+            <DefaultValue>enum1</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>booleanField</FieldName>
+          <FieldType>BooleanField</FieldType>
+          <Describe>这是布尔类型</Describe>
+          <DefaultValue xsi:type="BooleanDefaultValue">
+            <DefaultValue>true</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>repeatVector3Field</FieldName>
+          <FieldType>RepeatVector3Field</FieldType>
+          <Describe>这是Vector3[]</Describe>
+        </NodeField>
+        <NodeField>
+          <FieldName>repeatStringField</FieldName>
+          <FieldType>RepeatStringField</FieldType>
+          <Describe>这是字符串数组</Describe>
+        </NodeField>
+      </Fields>
     </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
       <Describe>非节点将子节点的返回值取反</Describe>

@@ -247,17 +247,32 @@ namespace BehaviorTreeEditor
             }
             while (BehaviorTreeData.ExistAgent(agentID));
 
-            Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
-            NodeDesigner startNode = new NodeDesigner("", "StartNode", rect);
-            startNode.ID = agent.GenNodeID();
-            startNode.ClassType = "StartNode";
-            startNode.NodeType = NodeType.Start;
-            agent.AddNode(startNode);
-            agent.AgentID = agentID;
-            BehaviorTreeData.AddAgent(agent);
-            AddAgentItem(agent);
-        }
+            NodeClass nodeClass = NodeClasses.FindNode("Sequence");
+            if (nodeClass != null)
+            {
+                Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+                NodeDesigner startNode = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
+                startNode.ID = agent.GenNodeID();
+                startNode.StartNode = true;
+                startNode.NodeType = nodeClass.NodeType;
+                startNode.Describe = nodeClass.Describe;
 
+                //创建字段
+                for (int i = 0; i < nodeClass.Fields.Count; i++)
+                {
+                    NodeField nodeField = nodeClass.Fields[i];
+                    FieldDesigner field = EditorUtility.CreateFieldByNodeField(nodeField);
+                    if (field == null)
+                        continue;
+                    startNode.Fields.Add(field);
+                }
+
+                agent.AddNode(startNode);
+                agent.AgentID = agentID;
+                BehaviorTreeData.AddAgent(agent);
+                AddAgentItem(agent);
+            }
+        }
 
         /// <summary>
         /// 编辑Agent
@@ -745,6 +760,19 @@ namespace BehaviorTreeEditor
         public void ShowMessage(string msg, string title = "提示")
         {
             MessageBox.Show(msg, title);
+        }
+
+        private void MainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.S:
+                        Exec(OperationType.Save);
+                        break;
+                }
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

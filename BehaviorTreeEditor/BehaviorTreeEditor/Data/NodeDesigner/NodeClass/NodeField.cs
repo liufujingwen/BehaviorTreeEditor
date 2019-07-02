@@ -34,6 +34,10 @@ namespace BehaviorTreeEditor
                         DefaultValue = new FloatDefaultValue();
                         break;
                     case FieldType.DoubleField:
+                        DefaultValue = new DoubleDefaultValue();
+                        break;
+                    case FieldType.StringField:
+                        DefaultValue = new StringDefaultValue();
                         break;
                     case FieldType.ColorField:
                         DefaultValue = new ColorDefaultValue();
@@ -45,7 +49,7 @@ namespace BehaviorTreeEditor
                         DefaultValue = new Vector3DefaultValue();
                         break;
                     case FieldType.EnumField:
-                        DefaultValue = new EnumDeaultValue();
+                        DefaultValue = new EnumDefaultValue();
                         break;
                     case FieldType.BooleanField:
                         DefaultValue = new BooleanDefaultValue();
@@ -59,6 +63,8 @@ namespace BehaviorTreeEditor
                     case FieldType.RepeatVector2Field:
                         break;
                     case FieldType.RepeatVector3Field:
+                        break;
+                    case FieldType.RepeatStringField:
                         break;
                 }
             }

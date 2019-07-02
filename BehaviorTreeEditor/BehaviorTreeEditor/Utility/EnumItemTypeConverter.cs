@@ -15,9 +15,9 @@ namespace BehaviorTreeEditor
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             m_EnumStr = null;
-            if (context.Instance is EnumDeaultValue)
+            if (context.Instance is EnumDefaultValue)
             {
-                EnumDeaultValue enumDeaultValue = context.Instance as EnumDeaultValue;
+                EnumDefaultValue enumDeaultValue = context.Instance as EnumDefaultValue;
                 if (enumDeaultValue != null)
                 {
                     m_EnumStr = enumDeaultValue.DefaultValue;

@@ -220,8 +220,6 @@ namespace BehaviorTreeEditor
             listViewFields.Items.Clear();
             foreach (NodeField field in m_NodeClass.Fields)
             {
-                if (field.DefaultValue == null)
-                    continue;
                 ListViewItem listViewItem = listViewFields.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
                 listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));

@@ -24,12 +24,14 @@ namespace BehaviorTreeEditor
 
         //节点唯一标识
         private int m_ID;
+        //是否开始节点
+        private bool m_StartNode;
         //名字
         private string m_ClassName = string.Empty;
         //节点类名
         private string m_ClassType;
         //节点类型
-        private NodeType m_NodeType = NodeType.Start;
+        private NodeType m_NodeType = NodeType.Composite;
         //描述
         private string m_Describe;
         //字段
@@ -43,14 +45,18 @@ namespace BehaviorTreeEditor
         [XmlIgnore]
         public NodeDesigner ParentNode;
 
-        [DisplayName("节点ID"), Description("节点ID"), ReadOnly(true)]
         public int ID
         {
             get { return m_ID; }
             set { m_ID = value; }
         }
 
-        [DisplayName("节点类名"), Description("节点类名"), ReadOnly(true)]
+        public bool StartNode
+        {
+            get { return m_StartNode; }
+            set { m_StartNode = value; }
+        }
+
         public string ClassType
         {
             get { return m_ClassType; }
@@ -63,21 +69,18 @@ namespace BehaviorTreeEditor
             set { m_ClassName = value; }
         }
 
-        [DisplayName("节点类型"), Description("节点类型"), ReadOnly(true)]
         public NodeType NodeType
         {
             get { return m_NodeType; }
             set { m_NodeType = value; }
         }
 
-        [DisplayName("描述"), Description("描述"), ReadOnly(true)]
         public string Describe
         {
             get { return m_Describe; }
             set { m_Describe = value; }
         }
 
-        [DisplayName("字段"), Description("字段"), ReadOnly(true)]
         public List<FieldDesigner> Fields
         {
             get { return m_Fields; }

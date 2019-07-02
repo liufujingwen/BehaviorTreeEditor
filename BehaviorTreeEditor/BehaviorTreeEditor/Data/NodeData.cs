@@ -12,7 +12,7 @@ namespace BehaviorTreeEditor
         //节点类名
         public string ClassType = string.Empty;
         //节点类型
-        public NodeType NodeType = NodeType.Start;
+        public NodeType NodeType = NodeType.Composite;
         //节点位置
         public Rect Rect;
         //子节点

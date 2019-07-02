@@ -180,6 +180,9 @@ namespace BehaviorTreeEditor
                 case FieldType.DoubleField:
                     content = "double";
                     break;
+                case FieldType.StringField:
+                    content = "string";
+                    break;
                 case FieldType.ColorField:
                     content = "color";
                     break;
@@ -210,8 +213,97 @@ namespace BehaviorTreeEditor
                 case FieldType.RepeatVector3Field:
                     content = "vector3[]";
                     break;
+                case FieldType.RepeatStringField:
+                    content = "string[]";
+                    break;
             }
             return content;
+        }
+
+        /// <summary>
+        /// 通过节点模板创建FieldDesigner
+        /// </summary>
+        /// <param name="nodeField">节点模板</param>
+        /// <returns></returns>
+        public static FieldDesigner CreateFieldByNodeField(NodeField nodeField)
+        {
+            FieldDesigner field = new FieldDesigner();
+            field.FieldName = nodeField.FieldName;
+            field.FieldType = nodeField.FieldType;
+            field.Describe = nodeField.Describe;
+            switch (nodeField.FieldType)
+            {
+                case FieldType.IntField:
+                    IntFieldDesigner intFieldDesigner = field.Field as IntFieldDesigner;
+                    IntDefaultValue intDefaultValue = nodeField.DefaultValue as IntDefaultValue;
+                    intFieldDesigner.Value = intDefaultValue.DefaultValue;
+                    break;
+                case FieldType.LongField:
+                    LongFieldDesigner longFieldDesigner = field.Field as LongFieldDesigner;
+                    LongDefaultValue longDefaultValue = nodeField.DefaultValue as LongDefaultValue;
+                    longFieldDesigner.Value = longDefaultValue.DefaultValue;
+                    break;
+                case FieldType.FloatField:
+                    FloatFieldDesigner floatFieldDesigner = field.Field as FloatFieldDesigner;
+                    FloatDefaultValue floatDefaultValue = nodeField.DefaultValue as FloatDefaultValue;
+                    floatFieldDesigner.Value = floatDefaultValue.DefaultValue;
+                    break;
+                case FieldType.DoubleField:
+                    DoubleFieldDesigner doubleFieldDesigner = field.Field as DoubleFieldDesigner;
+                    DoubleDefaultValue doubleDefaultValue = nodeField.DefaultValue as DoubleDefaultValue;
+                    doubleFieldDesigner.Value = doubleDefaultValue.DefaultValue;
+                    break;
+                case FieldType.StringField:
+                    StringFieldDesigner stringFieldDesigner = field.Field as StringFieldDesigner;
+                    StringDefaultValue stringDefaultValue = nodeField.DefaultValue as StringDefaultValue;
+                    stringFieldDesigner.Value = stringDefaultValue.DefaultValue;
+                    break;
+                case FieldType.ColorField:
+                    ColorFieldDesigner colorFieldDesigner = field.Field as ColorFieldDesigner;
+                    ColorDefaultValue colorDefaultValue = nodeField.DefaultValue as ColorDefaultValue;
+                    colorFieldDesigner.R = colorDefaultValue.R;
+                    colorFieldDesigner.G = colorDefaultValue.G;
+                    colorFieldDesigner.B = colorDefaultValue.B;
+                    colorFieldDesigner.A = colorDefaultValue.A;
+                    break;
+                case FieldType.Vector2:
+                    Vector2FieldDesigner vector2FieldDesigner = field.Field as Vector2FieldDesigner;
+                    Vector2DefaultValue vector2DefaultValue = nodeField.DefaultValue as Vector2DefaultValue;
+                    vector2FieldDesigner.X = vector2DefaultValue.X;
+                    vector2FieldDesigner.Y = vector2DefaultValue.Y;
+                    break;
+                case FieldType.Vector3:
+                    Vector3FieldDesigner vector3FieldDesigner = field.Field as Vector3FieldDesigner;
+                    Vector3DefaultValue vector3DefaultValue = nodeField.DefaultValue as Vector3DefaultValue;
+                    vector3FieldDesigner.X = vector3DefaultValue.X;
+                    vector3FieldDesigner.Y = vector3DefaultValue.Y;
+                    vector3FieldDesigner.Z = vector3DefaultValue.Z;
+                    break;
+                case FieldType.EnumField:
+                    EnumFieldDesigner enumFieldDesigner = field.Field as EnumFieldDesigner;
+                    EnumDefaultValue enumDefaultValue = nodeField.DefaultValue as EnumDefaultValue;
+                    enumFieldDesigner.EnumType = enumDefaultValue.EnumType;
+                    enumFieldDesigner.Value = enumDefaultValue.DefaultValue;
+                    break;
+                case FieldType.BooleanField:
+                    BooleanFieldDesigner booleanFieldDesigner = field.Field as BooleanFieldDesigner;
+                    BooleanDefaultValue booleanDefaultValue = nodeField.DefaultValue as BooleanDefaultValue;
+                    booleanFieldDesigner.Value = booleanDefaultValue.DefaultValue;
+                    break;
+                case FieldType.RepeatIntField:
+                    break;
+                case FieldType.RepeatLongField:
+                    break;
+                case FieldType.RepeatFloatField:
+                    break;
+                case FieldType.RepeatVector2Field:
+                    break;
+                case FieldType.RepeatVector3Field:
+                    break;
+                case FieldType.RepeatStringField:
+                    break;
+            }
+            return field;
         }
     }
 }

@@ -12,10 +12,11 @@ namespace BehaviorTreeEditor
     [XmlInclude(typeof(FloatDefaultValue))]
     [XmlInclude(typeof(DoubleDefaultValue))]
     [XmlInclude(typeof(BooleanDefaultValue))]
+    [XmlInclude(typeof(StringDefaultValue))]
     [XmlInclude(typeof(Vector2DefaultValue))]
     [XmlInclude(typeof(Vector3DefaultValue))]
     [XmlInclude(typeof(ColorDefaultValue))]
-    [XmlInclude(typeof(EnumDeaultValue))]
+    [XmlInclude(typeof(EnumDefaultValue))]
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public abstract class BaseDefaultValue
     {

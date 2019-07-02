@@ -10,6 +10,8 @@ namespace BehaviorTreeEditor
     [XmlInclude(typeof(LongFieldDesigner))]
     [XmlInclude(typeof(RepeatLongFieldDesigner))]
     [XmlInclude(typeof(FloatFieldDesigner))]
+    [XmlInclude(typeof(DoubleFieldDesigner))]
+    [XmlInclude(typeof(StringFieldDesigner))]
     [XmlInclude(typeof(RepeatFloatFieldDesigner))]
     [XmlInclude(typeof(BooleanFieldDesigner))]
     [XmlInclude(typeof(Vector2FieldDesigner))]
@@ -18,6 +20,7 @@ namespace BehaviorTreeEditor
     [XmlInclude(typeof(RepeatVector3FieldDesigner))]
     [XmlInclude(typeof(ColorFieldDesigner))]
     [XmlInclude(typeof(EnumFieldDesigner))]
+    [XmlInclude(typeof(RepeatStringFieldDesigner))]
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
     public abstract class BaseFieldDesigner
     {

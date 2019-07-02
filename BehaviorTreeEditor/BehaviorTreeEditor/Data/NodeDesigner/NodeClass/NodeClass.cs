@@ -169,7 +169,7 @@ namespace BehaviorTreeEditor
                 NodeField field = m_Fields[i];
                 if (field.FieldType == FieldType.EnumField)
                 {
-                    EnumDeaultValue enumDeaultValue = field.DefaultValue as EnumDeaultValue;
+                    EnumDefaultValue enumDeaultValue = field.DefaultValue as EnumDefaultValue;
                     if (enumDeaultValue != null)
                     {
                         if (string.IsNullOrEmpty(enumDeaultValue.EnumType))

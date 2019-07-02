@@ -34,26 +34,6 @@ namespace BehaviorTreeEditor.UIControls
         public void SetSelectedNode(NodeDesigner node)
         {
             m_Node = node;
-
-            //测试
-            if (m_Node != null)
-            {
-                m_Node.Fields.Clear();
-                FieldDesigner intField = new FieldDesigner();
-                intField.FieldName = "IntField";
-                intField.FieldType = FieldType.IntField;
-                IntFieldDesigner intFieldDesigner = (intField.Field as IntFieldDesigner);
-                intFieldDesigner.Value = 1000;
-                m_Node.Fields.Add(intField);
-
-                FieldDesigner enumField = new FieldDesigner();
-                enumField.FieldName = "EnumField";
-                enumField.FieldType = FieldType.EnumField;
-                EnumFieldDesigner enumFieldDesigner = (enumField.Field as EnumFieldDesigner);
-                enumFieldDesigner.EnumType = MainForm.Instance.NodeClasses.Enums[0].EnumType;
-                m_Node.Fields.Add(enumField);
-            }
-
             BindNode();
         }
 
@@ -151,6 +131,32 @@ namespace BehaviorTreeEditor.UIControls
                 ListViewItem selectedItem = GetListViewItem(field);
                 if (selectedItem != null)
                     selectedItem.Selected = true;
+            }
+        }
+
+        private void panel2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.S:
+                        MainForm.Instance.Exec(OperationType.Save);
+                        break;
+                }
+            }
+        }
+
+        private void listView1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.S:
+                        MainForm.Instance.Exec(OperationType.Save);
+                        break;
+                }
             }
         }
     }
