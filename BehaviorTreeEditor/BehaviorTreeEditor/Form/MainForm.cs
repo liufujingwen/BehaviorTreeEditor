@@ -30,7 +30,7 @@ namespace BehaviorTreeEditor
         public AgentDesigner SelectedAgent;
 
         private ContentUserControl m_ContentUserControl;
-
+        private NodePropertyUserControl m_NodePropertyUserControl;
 
         public MainForm()
         {
@@ -40,11 +40,22 @@ namespace BehaviorTreeEditor
 
         private void NewMainForm_Load(object sender, EventArgs e)
         {
+            int width = Screen.PrimaryScreen.Bounds.Width;
+            int height = Screen.PrimaryScreen.Bounds.Height;
+
+            this.Width = (int)(width * 0.9f);
+            this.Height = (int)(height * 0.8f);
+            this.Location = new System.Drawing.Point((int)(width / 2f - this.Width / 2f), (int)(height / 2f - this.Height / 2f));
+
             Exec(OperationType.LoadWorkSpace);
             m_ContentUserControl = new ContentUserControl();
             m_ContentUserControl.Dock = DockStyle.Fill;
-            splitContainer1.Panel2.Controls.Clear();
-            splitContainer1.Panel2.Controls.Add(m_ContentUserControl);
+            splitContainer3.Panel1.Controls.Clear();
+            splitContainer3.Panel1.Controls.Add(m_ContentUserControl);
+
+            m_NodePropertyUserControl = new NodePropertyUserControl();
+            m_NodePropertyUserControl.Dock = DockStyle.Fill;
+            splitContainer3.Panel2.Controls.Add(m_NodePropertyUserControl);
 
             BindAgents();
         }
@@ -496,8 +507,6 @@ namespace BehaviorTreeEditor
         {
             Exec(OperationType.Refresh);
         }
-
-
 
         /// <summary>
         /// 添加行为树Item

@@ -69,7 +69,7 @@ namespace BehaviorTreeEditor
 
             if (ExistNode(node))
             {
-                throw new Exception(string.Format("已存在节点id:{0},name:{1}", node.ID, node.Name));
+                throw new Exception(string.Format("已存在节点id:{0},name:{1}", node.ID, node.ClassType));
             }
 
             Nodes.Add(node);

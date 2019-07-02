@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NodeClasses xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Enums />
+  <Enums>
+    <CustomEnum>
+      <EnumType>TestEnum</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>enum1</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe />
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>enum2</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe />
+        </EnumItem>
+      </Enums>
+      <Describe>11111111</Describe>
+    </CustomEnum>
+  </Enums>
   <Nodes>
     <NodeClass ClassType="StartNode" NodeType="Composite">
       <Describe>行为树根节点</Describe>

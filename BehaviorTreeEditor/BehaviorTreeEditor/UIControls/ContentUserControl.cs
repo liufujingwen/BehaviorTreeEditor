@@ -391,6 +391,7 @@ namespace BehaviorTreeEditor.UIControls
                 if (transition != null && node == null)
                 {
                     this.m_SelectionNodes.Clear();
+                    NodePropertyUserControl.Instance.SetSelectedNode(null);
                     //this.m_SelectionNodes.Add(transition.FromNode);
                     SelectTransition(transition);
                     return;
@@ -423,6 +424,7 @@ namespace BehaviorTreeEditor.UIControls
                     {
                         m_SelectionNodes.Clear();
                         m_SelectionNodes.Add(node);
+                        NodePropertyUserControl.Instance.SetSelectedNode(node);
                     }
 
                     return;
@@ -435,6 +437,7 @@ namespace BehaviorTreeEditor.UIControls
                 m_FromNode = null;
                 m_SelectionMode = SelectionMode.Pick;
                 SelectTransition(null);
+                NodePropertyUserControl.Instance.SetSelectedNode(null);
             }
             //点击鼠标滚轮
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
@@ -917,7 +920,7 @@ namespace BehaviorTreeEditor.UIControls
             Rect rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
             NodeDesigner node = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
             node.ID = Agent.GenNodeID();
-            node.Name = nodeClass.ClassName;
+            node.ClassName = nodeClass.ClassName;
             node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
             Agent.AddNode(node);
