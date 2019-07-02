@@ -34,6 +34,13 @@ namespace BehaviorTreeEditor
             set { m_Describe = value; }
         }
 
+        public EnumItem GetDefaultEnumItem()
+        {
+            if (m_Enums.Count > 0)
+                return m_Enums[0];
+            return null;
+        }
+
         public bool ExistEnumStr(string enumStr, EnumItem ignore = null)
         {
             if (string.IsNullOrEmpty(enumStr))

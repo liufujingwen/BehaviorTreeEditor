@@ -253,7 +253,7 @@
           <FieldType>EnumField</FieldType>
           <Field xsi:type="EnumFieldDesigner">
             <EnumType>TestEnum_New</EnumType>
-            <Value>Enum1</Value>
+            <Value>Enum2</Value>
           </Field>
         </FieldDesigner>
       </Fields>

@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComboboxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboboxEx.Designer.cs">
+      <DependentUpon>ComboboxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Component1.Designer.cs">
+      <DependentUpon>Component1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\NodeDesigner\NodeClass\BaseDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\BooleanDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\DoubleDefaultValue.cs" />
@@ -89,18 +101,6 @@
     </Compile>
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIControls\EnumItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UIControls\EnumItemUserControl.Designer.cs">
-      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIControls\EnumTypeUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UIControls\EnumTypeUserControl.Designer.cs">
-      <DependentUpon>EnumTypeUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility\BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
@@ -187,8 +187,8 @@
     <Compile Include="Data\NodeDesigner\Vector2Converter.cs" />
     <Compile Include="Data\NodeDesigner\Vector3.cs" />
     <Compile Include="Data\NodeDesigner\Vector3Converter.cs" />
-    <Compile Include="Utility\EnumItemUIEditor.cs" />
-    <Compile Include="Utility\EnumTypeUIEditor.cs" />
+    <Compile Include="Utility\EnumItemTypeConverter.cs" />
+    <Compile Include="Utility\EnumTypeConverter.cs" />
     <Compile Include="Utility\OperationType.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -218,6 +218,9 @@
     <Compile Include="Utility\Vector2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
+    <EmbeddedResource Include="ComboboxEx.resx">
+      <DependentUpon>ComboboxEx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">
       <DependentUpon>EditAgentForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,12 +275,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIControls\EnumItemUserControl.resx">
-      <DependentUpon>EnumItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIControls\EnumTypeUserControl.resx">
-      <DependentUpon>EnumTypeUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ZoomScalerUserControl.resx">
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>

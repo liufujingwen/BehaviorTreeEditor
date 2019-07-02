@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -35,6 +36,10 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboboxEx3 = new BehaviorTreeEditor.ComboboxEx(this.components);
+            this.comboboxEx1 = new BehaviorTreeEditor.ComboboxEx(this.components);
+            this.comboboxEx2 = new BehaviorTreeEditor.ComboboxEx(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -200,20 +205,68 @@
             this.comboBox1.Size = new System.Drawing.Size(186, 23);
             this.comboBox1.TabIndex = 5;
             // 
+            // comboBox2
+            // 
+            this.comboBox2.Enabled = false;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "111111111",
+            "2222222222",
+            "33333333333",
+            "4444444444",
+            "555555555"});
+            this.comboBox2.Location = new System.Drawing.Point(102, 109);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 23);
+            this.comboBox2.TabIndex = 6;
+            // 
+            // comboboxEx3
+            // 
+            this.comboboxEx3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboboxEx3.FormattingEnabled = true;
+            this.comboboxEx3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "2",
+            "3"});
+            this.comboboxEx3.Location = new System.Drawing.Point(316, 136);
+            this.comboboxEx3.Name = "comboboxEx3";
+            this.comboboxEx3.Size = new System.Drawing.Size(167, 26);
+            this.comboboxEx3.TabIndex = 7;
+            // 
+            // comboboxEx1
+            // 
+            this.comboboxEx1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboboxEx1.Location = new System.Drawing.Point(0, 0);
+            this.comboboxEx1.Name = "comboboxEx1";
+            this.comboboxEx1.Size = new System.Drawing.Size(121, 23);
+            this.comboboxEx1.TabIndex = 0;
+            // 
+            // comboboxEx2
+            // 
+            this.comboboxEx2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboboxEx2.Location = new System.Drawing.Point(0, 0);
+            this.comboboxEx2.Name = "comboboxEx2";
+            this.comboboxEx2.Size = new System.Drawing.Size(121, 23);
+            this.comboboxEx2.TabIndex = 0;
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.Controls.Add(this.comboboxEx3);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.domainUpDown1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TestForm";
             this.Text = "TestForm";
+            this.Load += new System.EventHandler(this.TestForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
@@ -228,5 +281,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private ComboboxEx comboboxEx1;
+        private ComboboxEx comboboxEx2;
+        private ComboboxEx comboboxEx3;
     }
 }

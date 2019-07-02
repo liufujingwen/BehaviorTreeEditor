@@ -15,5 +15,10 @@ namespace BehaviorTreeEditor
         {
             InitializeComponent();
         }
+
+        private void TestForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

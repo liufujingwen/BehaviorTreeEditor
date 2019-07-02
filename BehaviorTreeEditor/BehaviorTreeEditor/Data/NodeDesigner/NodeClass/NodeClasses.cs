@@ -83,6 +83,13 @@ namespace BehaviorTreeEditor
         {
             m_Nodes.Clear();
             #region 组合节点
+            //开始节点
+            NodeClass startNode = new NodeClass();
+            startNode.ClassType = "StartNode";
+            startNode.NodeType = NodeType.Composite;
+            startNode.Describe = "行为树根节点";
+            m_Nodes.Add(startNode);
+
             //并行节点
             NodeClass parallelNode = new NodeClass();
             parallelNode.ClassType = "Parallel";
@@ -184,7 +191,7 @@ namespace BehaviorTreeEditor
 
             for (int i = 0; i < m_Enums.Count; i++)
             {
-                 CustomEnum customEnum = m_Enums[i];
+                CustomEnum customEnum = m_Enums[i];
                 if (customEnum != null && customEnum.EnumType == enumType)
                     return customEnum;
             }

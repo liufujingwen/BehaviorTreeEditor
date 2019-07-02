@@ -7,18 +7,45 @@ namespace BehaviorTreeEditor
 {
     public class EnumFieldDesigner : BaseFieldDesigner
     {
+        public EnumFieldDesigner()
+        {
+            if (MainForm.Instance.NodeClasses == null)
+                return;
+
+            if (MainForm.Instance.NodeClasses.Enums.Count > 0)
+            {
+                CustomEnum customEnum = MainForm.Instance.NodeClasses.Enums[0];
+                EnumType = customEnum.EnumType;
+            }
+        }
+
         private string m_EnumType;
         private string m_Value;
 
-        [Editor(typeof(EnumTypeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [Category("常规"), DisplayName("枚举类型"), Description("枚举类型")]
         public string EnumType
         {
             get { return m_EnumType; }
-            set { m_EnumType = value; }
+            set
+            {
+                m_EnumType = value;
+                m_Value = null;
+
+                if (MainForm.Instance.NodeClasses == null)
+                    return;
+
+                CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+                if (customEnum != null)
+                {
+                    EnumItem defaultEnumItem = customEnum.GetDefaultEnumItem();
+                    if (defaultEnumItem != null)
+                        m_Value = defaultEnumItem.EnumStr;
+                }
+            }
         }
 
-        [Editor(typeof(EnumItemUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [TypeConverter(typeof(EnumItemTypeConverter))]
         [Category("常规"), DisplayName("枚举值"), Description("当前选中的枚举值")]
         public string Value
         {

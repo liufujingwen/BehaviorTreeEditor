@@ -17,19 +17,36 @@ namespace BehaviorTreeEditor
             {
                 CustomEnum customEnum = MainForm.Instance.NodeClasses.Enums[0];
                 EnumType = customEnum.EnumType;
-                if (customEnum.Enums.Count > 0)
+            }
+        }
+
+        //枚举类型
+        public string m_EnumType;
+
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [Category("常规"), DisplayName("枚举类型"), Description("枚举类型")]
+        public string EnumType
+        {
+            get { return m_EnumType; }
+            set
+            {
+                m_EnumType = value;
+                DefaultValue = null;
+
+                if (MainForm.Instance.NodeClasses == null)
+                    return;
+
+                CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+                if (customEnum != null)
                 {
-                    EnumItem enumItem = customEnum.Enums[0];
-                    DefaultValue = enumItem.EnumStr;
+                    EnumItem defaultEnumItem = customEnum.GetDefaultEnumItem();
+                    if (defaultEnumItem != null)
+                        DefaultValue = defaultEnumItem.EnumStr;
                 }
             }
         }
 
-        [Editor(typeof(EnumTypeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        [Category("常规"), DisplayName("枚举类型"), Description("枚举类型")]
-        public string EnumType { get; set; }
-
-        [Editor(typeof(EnumItemUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [TypeConverter(typeof(EnumItemTypeConverter))]
         [Category("常规"), DisplayName("默认值"), Description("默认值")]
         public string DefaultValue { get; set; }
 
