@@ -49,18 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComboboxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ComboboxEx.Designer.cs">
-      <DependentUpon>ComboboxEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Component1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Component1.Designer.cs">
-      <DependentUpon>Component1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Data\NodeDesigner\NodeClass\BaseDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\BooleanDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\DoubleDefaultValue.cs" />
@@ -218,9 +206,6 @@
     <Compile Include="Utility\Vector2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
-    <EmbeddedResource Include="ComboboxEx.resx">
-      <DependentUpon>ComboboxEx.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">
       <DependentUpon>EditAgentForm.cs</DependentUpon>
     </EmbeddedResource>
