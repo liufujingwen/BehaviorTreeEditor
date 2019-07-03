@@ -100,5 +100,62 @@ namespace BehaviorTreeEditor
 
             return false;
         }
+
+        /// <summary>
+        /// 检验AgentID
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyAgentID()
+        {
+            //校验ID是否为空
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent = m_Agents[i];
+                if (string.IsNullOrEmpty(agent.AgentID))
+                {
+                    return new VerifyInfo("行为树空的AgentID");
+                }
+            }
+
+            //检验AgentID是否相同
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent_i = m_Agents[i];
+                if (agent_i != null)
+                {
+                    for (int ii = i + 1; ii < m_Agents.Count; ii++)
+                    {
+                        AgentDesigner agent_ii = m_Agents[ii];
+                        if (agent_i.AgentID == agent_ii.AgentID)
+                            return new VerifyInfo(string.Format("行为树存在相同AgentID:{0}", agent_i.AgentID));
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验行为树数据
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyBehaviorTree()
+        {
+            VerifyInfo verifyAgentID = VerifyAgentID();
+            if (verifyAgentID.HasError)
+                return verifyAgentID;
+
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent = m_Agents[i];
+                if (agent != null)
+                {
+                    VerifyInfo verifyAgent = agent.VerifyAgent();
+                    if (verifyAgent.HasError)
+                        return verifyAgent;
+                }
+            }
+            return VerifyInfo.DefaultVerifyInfo;
+        }
     }
 }

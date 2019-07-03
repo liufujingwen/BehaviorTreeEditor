@@ -227,5 +227,116 @@ namespace BehaviorTreeEditor
 
             return m_Enums.Remove(customEnum);
         }
+
+        /// <summary>
+        /// 检验节点类ClassType
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyClassType()
+        {
+            //校验ClassType是否为空
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass nodeClass = m_Nodes[i];
+                if (string.IsNullOrEmpty(nodeClass.ClassType))
+                {
+                    return new VerifyInfo("存在空的ClassType");
+                }
+            }
+
+            //检验ClassType是否相同
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass classType_i = m_Nodes[i];
+                if (classType_i != null)
+                {
+                    for (int ii = i + 1; ii < m_Nodes.Count; ii++)
+                    {
+                        NodeClass classtType_ii = m_Nodes[ii];
+                        if (classType_i.ClassType == classtType_ii.ClassType)
+                            return new VerifyInfo(string.Format("行为树存在相同ClassType:{0}", classType_i.ClassType));
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校节点类数据
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyNodeClass()
+        {
+            VerifyInfo verifyClassType = VerifyClassType();
+            if (verifyClassType.HasError)
+                return verifyClassType;
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass nodeClass = m_Nodes[i];
+                VerifyInfo verifyNodeClass = nodeClass.VerifyNodeClass();
+                if (verifyNodeClass.HasError)
+                    return verifyNodeClass;
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 检验枚举类型
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnumType()
+        {
+            //校验EnumType是否为空
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                CustomEnum customEnum = m_Enums[i];
+                if (string.IsNullOrEmpty(customEnum.EnumType))
+                {
+                    return new VerifyInfo("存在空的EnumType");
+                }
+            }
+
+            //检验EnumType是否相同
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                CustomEnum classType_i = m_Enums[i];
+                if (classType_i != null)
+                {
+                    for (int ii = i + 1; ii < m_Enums.Count; ii++)
+                    {
+                        CustomEnum classtType_ii = m_Enums[ii];
+                        if (classType_i.EnumType == classtType_ii.EnumType)
+                            return new VerifyInfo(string.Format("存在相同EnumType:{0}", classType_i.EnumType));
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 校验枚举数据
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyEnum()
+        {
+            //校验枚举类型
+            VerifyInfo verifyEnumType = VerifyEnumType();
+            if (verifyEnumType.HasError)
+                return verifyEnumType;
+
+            for (int i = 0; i < m_Enums.Count; i++)
+            {
+                CustomEnum customEnum = m_Enums[i];
+                VerifyInfo verifyEnum = customEnum.VerifyEnum();
+                if (verifyEnum.HasError)
+                    return verifyEnum;
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
     }
 }

@@ -745,12 +745,36 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
-            if (NodeClasses != null)
+            //检验枚举
+            VerifyInfo verifyEnum =  NodeClasses.VerifyEnum();
+            if (verifyEnum.HasError)
             {
-                if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
-                {
-                    NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
-                }
+                ShowMessage(verifyEnum.Msg);
+                ShowInfo(verifyEnum.Msg);
+                return;
+            }
+
+            //检验节点类
+            VerifyInfo verifyNodeClass = NodeClasses.VerifyNodeClass();
+            if (verifyNodeClass.HasError)
+            {
+                ShowMessage(verifyNodeClass.Msg);
+                ShowInfo(verifyNodeClass.Msg);
+                return;
+            }
+
+            //校验行为树
+            VerifyInfo verifyBehaviorTree = BehaviorTreeData.VerifyBehaviorTree();
+            if (verifyBehaviorTree.HasError)
+            {
+                ShowMessage(verifyBehaviorTree.Msg);
+                ShowInfo(verifyBehaviorTree.Msg);
+                return;
+            }
+
+            if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
+            {
+                NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
             }
 
             if (BehaviorTreeData != null)

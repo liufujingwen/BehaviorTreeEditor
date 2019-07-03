@@ -330,6 +330,110 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 检验开始节点，必须拥有开始节点，并且只有一个
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyStartNode()
+        {
+            int startNodeCount = 0;
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner node = m_Nodes[i];
+                if (node != null && node.StartNode)
+                {
+                    startNodeCount++;
+                }
+            }
+
+            if (startNodeCount == 0)
+            {
+                return new VerifyInfo(string.Format("行为树[{0}]不存在开始节点", m_AgentID));
+            }
+            else if (startNodeCount > 1)
+            {
+                return new VerifyInfo(string.Format("行为树[{0}]拥有多个开始节点，请保证只有一个", m_AgentID));
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+        /// <summary>
+        /// 检验节点的父节点是否合法
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyParentNode()
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner node = m_Nodes[i];
+                if (node.StartNode)
+                {
+                    if (node.ParentNode != null)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的开始节不能有父节点，请删除开始节点的父节点", m_AgentID));
+                    }
+                }
+                else
+                {
+                    if (node.ParentNode == null)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的节点[{1}]没有父节点，请添加父节点", m_AgentID, node.ClassType));
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+
+        /// <summary>
+        /// 检验节点的子节点是否合法
+        /// </summary>
+        /// <returns></returns>
+        public VerifyInfo VerifyChildNode()
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner node = m_Nodes[i];
+                if (node.StartNode)
+                {
+                    if (node.Transitions.Count == 0)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的开始节不存在子节点", m_AgentID));
+                    }
+                }
+                else if (node.NodeType == NodeType.Composite)
+                {
+                    if (node.Transitions.Count == 0)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的组合节点[{1}]没有子节点，请添加子节点", m_AgentID, node.ClassType));
+                    }
+                }
+                else if (node.NodeType == NodeType.Decorator)
+                {
+                    if (node.Transitions.Count == 0)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的装饰节点[{1}]没有子节点，请添加一个子节点", m_AgentID, node.ClassType));
+                    }
+                    else if (node.Transitions.Count > 1)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的装饰节点[{1}]添加了多个子节点，请保证有且只有一个子节点", m_AgentID, node.ClassType));
+                    }
+                }
+                else if (node.NodeType == NodeType.Action)
+                {
+                    if (node.Transitions.Count > 0)
+                    {
+                        return new VerifyInfo(string.Format("行为树[{0}]的动作节点[{1}]存在子节点，请删除所有子节点", m_AgentID, node.ClassType));
+                    }
+                }
+            }
+
+            return VerifyInfo.DefaultVerifyInfo;
+        }
+
+
+        /// <summary>
         /// 校验Agent是否合法
         /// </summary>
         /// <returns></returns>
@@ -354,6 +458,21 @@ namespace BehaviorTreeEditor
             VerifyInfo verifyEnum = VerifyEnum();
             if (verifyEnum.HasError)
                 return verifyEnum;
+
+            //校验开始节点
+            VerifyInfo verifyStartNode = VerifyStartNode();
+            if (verifyStartNode.HasError)
+                return verifyStartNode;
+
+            //校验父节点
+            VerifyInfo verifyParentNode = VerifyParentNode();
+            if (verifyParentNode.HasError)
+                return verifyParentNode;
+
+            //检验子节点
+            VerifyInfo verifyChildNode = VerifyChildNode();
+            if (verifyChildNode.HasError)
+                return verifyChildNode;
 
             return VerifyInfo.DefaultVerifyInfo;
         }
