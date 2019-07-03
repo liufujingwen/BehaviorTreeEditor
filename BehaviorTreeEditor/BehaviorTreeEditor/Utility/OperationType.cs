@@ -14,5 +14,6 @@
         EditAgent,//编辑Agent
         SwapAgent,//交换Agent
         PasteAgent,//粘贴Agent
+        UpdateAgent,//刷新Agent
     }
 }

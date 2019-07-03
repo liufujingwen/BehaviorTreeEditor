@@ -869,15 +869,15 @@ namespace BehaviorTreeEditor.UIControls
             }
 
             // 0 连线
-            // 1 删除
-            // 2 标记为开始
+            // 1 标记为开始
+            // 2 删除
             // 3 复制
 
             //隐藏上移、下移、连线
             if (m_SelectionNodes.Count > 1)
             {
                 nodeContextMenuStrip.Items[0].Visible = false;
-                nodeContextMenuStrip.Items[2].Visible = false;
+                nodeContextMenuStrip.Items[1].Visible = false;
             }
 
             nodeContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));

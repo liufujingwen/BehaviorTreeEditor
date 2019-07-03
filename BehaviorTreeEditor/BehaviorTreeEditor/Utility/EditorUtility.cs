@@ -45,8 +45,15 @@ namespace BehaviorTreeEditor
         #endregion
 
         #region  =================节点=====================
-        //节点外框 画笔
-        public static Pen NodeNormalPen = new Pen(Color.White, 2);
+
+        //开始节点标记高度
+        public static int StartNodeHeight = 8;
+        //开始节点标记 笔刷
+        public static Brush StartNodeLogoBrush = new SolidBrush(Color.Green);
+        //连接点直径
+        public static int NodeLinkPointSize = 12;
+        //节点连接点 笔刷
+        public static Brush NodeLinkPointBrush = new SolidBrush(Color.FromArgb(255, 54, 74, 85));
         //节点选中 画笔
         public static Pen NodeSelectedPen = new Pen(Color.Orange, 4);
         //框选笔刷
@@ -76,7 +83,7 @@ namespace BehaviorTreeEditor
             return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, EditorUtility.TitleNodeHeight);
         }
 
-        //节点内存Rect
+        //节点内容Rect
         public static Rect GetContentRect(NodeDesigner node, Vec2 offset)
         {
             return new Rect(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight - offset.y, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
@@ -127,6 +134,51 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 绘制节点连接点
+        /// </summary>
+        public static void DrawNodeLinkPoint(Graphics graphics, NodeDesigner node, Vec2 offset)
+        {
+            Vec2 leftPoint = EditorUtility.GetLeftLinkPoint(node, offset);
+            Vec2 rightPoint = EditorUtility.GetRightLinkPoint(node, offset);
+
+            float halfSize = EditorUtility.NodeLinkPointSize / 2.0f;
+            leftPoint.x -= halfSize;
+            leftPoint.y -= halfSize;
+
+            rightPoint.x -= halfSize;
+            rightPoint.y -= halfSize;
+
+            if (node.StartNode)
+            {
+                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+            }
+            else if (node.NodeType == NodeType.Composite || node.NodeType == NodeType.Decorator)
+            {
+                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+            }
+            else
+            {
+                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+            }
+        }
+
+        /// <summary>
+        /// 绘制开始节点
+        /// </summary>
+        public static void DrawStartNode(Graphics graphics, NodeDesigner node, Vec2 offset)
+        {
+            Rect rect = EditorUtility.GetTitleRect(node, offset);
+
+            if (!node.StartNode)
+            {
+                return;
+            }
+
+            graphics.FillRectangle(EditorUtility.StartNodeLogoBrush, new Rectangle((int)rect.x, (int)(rect.y - EditorUtility.StartNodeHeight), (int)rect.width, EditorUtility.StartNodeHeight));
+        }
+
+        /// <summary>
         /// 绘制节点
         /// </summary>
         /// <param name="node">节点</param>
@@ -138,6 +190,11 @@ namespace BehaviorTreeEditor
             Rect titleRect = GetTitleRect(node, offset);
             Rect contentRect = GetContentRect(node, offset);
 
+            //绘制开始节点
+            if (node.StartNode)
+                DrawStartNode(graphics, node, offset);
+            //画连接点
+            DrawNodeLinkPoint(graphics, node, offset);
             //画标题底框
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);

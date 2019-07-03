@@ -381,6 +381,7 @@ namespace BehaviorTreeEditor
                 MainForm.Instance.ShowInfo(string.Format("更新Agent:{0}成功 时间：{1}", m_EditAgent.AgentID, DateTime.Now));
             }
 
+            MainForm.Instance.Exec(OperationType.UpdateAgent, m_Agent);
             this.Close();
         }
     }

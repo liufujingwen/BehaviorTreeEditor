@@ -71,6 +71,10 @@ namespace BehaviorTreeEditor
             Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
             Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
 
+            float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
+            fromPoint.x += linkPointHalfSize;
+            toPoint.x -= linkPointHalfSize;
+
             int fromTangentDir = 1;
             int toTangentDir = -1;
 
@@ -103,6 +107,10 @@ namespace BehaviorTreeEditor
 
             Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
             Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
+
+            float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
+            fromPoint.x += linkPointHalfSize;
+            toPoint.x -= linkPointHalfSize;
 
             int fromTangentDir = 1;
             int toTangentDir = -1;

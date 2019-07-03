@@ -131,6 +131,19 @@ namespace BehaviorTreeEditor
                 tempNode.StartNode = false;
                 if (tempNode == node || tempNode.ID == node.ID)
                 {
+                    if (tempNode.ParentNode != null)
+                    {
+                        for (int j = 0; j < tempNode.ParentNode.Transitions.Count; j++)
+                        {
+                            Transition transition = tempNode.ParentNode.Transitions[j];
+                            if (transition.ToNode == tempNode)
+                            {
+                                RemoveTranstion(transition);
+                                break;
+                            }
+                        }
+                    }
+
                     tempNode.StartNode = true;
                 }
             }

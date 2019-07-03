@@ -2,28 +2,29 @@
 <BehaviorTreeData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Agents>
     <AgentDesigner>
-      <AgentID>NewAgent_636977016269762840</AgentID>
+      <AgentID>New11_636977016269762840</AgentID>
+      <Describe />
       <Fields />
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4741.716</x>
-            <y>4640.22852</y>
+            <x>4657.716</x>
+            <y>4378.22852</y>
             <position>
-              <x>4741.716</x>
-              <y>4640.22852</y>
+              <x>4657.716</x>
+              <y>4378.22852</y>
             </position>
             <center>
-              <x>4816.716</x>
-              <y>4670.22852</y>
+              <x>4732.716</x>
+              <y>4408.22852</y>
             </center>
             <min>
-              <x>4741.716</x>
-              <y>4640.22852</y>
+              <x>4657.716</x>
+              <y>4378.22852</y>
             </min>
             <max>
-              <x>4891.716</x>
-              <y>4700.22852</y>
+              <x>4807.716</x>
+              <y>4438.22852</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,19 +32,19 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4741.716</xMin>
-            <yMin>4640.22852</yMin>
-            <xMax>4891.716</xMax>
-            <yMax>4700.22852</yMax>
+            <xMin>4657.716</xMin>
+            <yMin>4378.22852</yMin>
+            <xMax>4807.716</xMax>
+            <yMax>4438.22852</yMax>
           </Rect>
           <Transitions>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>4</ToNodeID>
+              <ToNodeID>3</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>3</ToNodeID>
+              <ToNodeID>4</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
@@ -332,23 +333,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5232.02637</x>
-            <y>4532.038</y>
+            <x>5231.02637</x>
+            <y>4531.038</y>
             <position>
-              <x>5232.02637</x>
-              <y>4532.038</y>
+              <x>5231.02637</x>
+              <y>4531.038</y>
             </position>
             <center>
-              <x>5307.02637</x>
-              <y>4562.038</y>
+              <x>5306.02637</x>
+              <y>4561.038</y>
             </center>
             <min>
-              <x>5232.02637</x>
-              <y>4532.038</y>
+              <x>5231.02637</x>
+              <y>4531.038</y>
             </min>
             <max>
-              <x>5382.02637</x>
-              <y>4592.038</y>
+              <x>5381.02637</x>
+              <y>4591.038</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -356,10 +357,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5232.02637</xMin>
-            <yMin>4532.038</yMin>
-            <xMax>5382.02637</xMax>
-            <yMax>4592.038</yMax>
+            <xMin>5231.02637</xMin>
+            <yMin>4531.038</yMin>
+            <xMax>5381.02637</xMax>
+            <yMax>4591.038</yMax>
           </Rect>
           <Transitions />
           <ID>5</ID>
@@ -405,6 +406,7 @@
           <ID>6</ID>
           <StartNode>false</StartNode>
           <ClassType>Parallel</ClassType>
+          <ClassName />
           <NodeType>Composite</NodeType>
           <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
           <Fields />
@@ -538,6 +540,147 @@
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
               <Field xsi:type="RepeatVector3FieldDesigner">
+                <Value />
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+      </Nodes>
+    </AgentDesigner>
+    <AgentDesigner>
+      <AgentID>NewAgent_636977669155974898</AgentID>
+      <Fields />
+      <Nodes>
+        <NodeDesigner>
+          <Rect>
+            <x>5000</x>
+            <y>5000</y>
+            <position>
+              <x>5000</x>
+              <y>5000</y>
+            </position>
+            <center>
+              <x>5075</x>
+              <y>5030</y>
+            </center>
+            <min>
+              <x>5000</x>
+              <y>5000</y>
+            </min>
+            <max>
+              <x>5150</x>
+              <y>5060</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5000</xMin>
+            <yMin>5000</yMin>
+            <xMax>5150</xMax>
+            <yMax>5060</yMax>
+          </Rect>
+          <Transitions />
+          <ID>1</ID>
+          <StartNode>true</StartNode>
+          <ClassType>Sequence</ClassType>
+          <NodeType>Composite</NodeType>
+          <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>intField</FieldName>
+              <FieldType>IntField</FieldType>
+              <Describe>这是int</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>longField</FieldName>
+              <FieldType>LongField</FieldType>
+              <Describe>这是Long</Describe>
+              <Field xsi:type="LongFieldDesigner">
+                <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>doubleField</FieldName>
+              <FieldType>DoubleField</FieldType>
+              <Describe>这是双精度浮点</Describe>
+              <Field xsi:type="DoubleFieldDesigner">
+                <Value>4.1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>colorField</FieldName>
+              <FieldType>ColorField</FieldType>
+              <Describe>这是颜色</Describe>
+              <Field xsi:type="ColorFieldDesigner">
+                <R>128</R>
+                <G>255</G>
+                <B>255</B>
+                <A>128</A>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>vector2Field</FieldName>
+              <FieldType>Vector2</FieldType>
+              <Describe>这是Vector2节点</Describe>
+              <Field xsi:type="Vector2FieldDesigner">
+                <X>1</X>
+                <Y>1</Y>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>vector3Field</FieldName>
+              <FieldType>Vector3</FieldType>
+              <Describe>这是Vector3节点</Describe>
+              <Field xsi:type="Vector3FieldDesigner">
+                <X>0</X>
+                <Y>0</Y>
+                <Z>0</Z>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>这是枚举</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>repeatVector3Field</FieldName>
+              <FieldType>RepeatVector3Field</FieldType>
+              <Describe>这是Vector3[]</Describe>
+              <Field xsi:type="RepeatVector3FieldDesigner">
+                <Value />
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>repeatStringField</FieldName>
+              <FieldType>RepeatStringField</FieldType>
+              <Describe>这是字符串数组</Describe>
+              <Field xsi:type="RepeatStringFieldDesigner">
                 <Value />
               </Field>
             </FieldDesigner>

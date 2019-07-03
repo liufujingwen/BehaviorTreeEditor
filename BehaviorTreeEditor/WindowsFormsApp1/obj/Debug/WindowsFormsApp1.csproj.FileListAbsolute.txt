@@ -1,9 +1,0 @@
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb

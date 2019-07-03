@@ -58,18 +58,18 @@
             this.nodeContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.nodeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.连线ToolStripMenuItem,
-            this.删除ToolStripMenuItem,
             this.上移ToolStripMenuItem,
+            this.删除ToolStripMenuItem,
             this.toolStripSeparator1,
             this.复制ToolStripMenuItem});
             this.nodeContextMenuStrip.Name = "nodeContextMenuStrip";
-            this.nodeContextMenuStrip.Size = new System.Drawing.Size(215, 142);
+            this.nodeContextMenuStrip.Size = new System.Drawing.Size(158, 114);
             // 
             // 连线ToolStripMenuItem
             // 
             this.连线ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.TransitionIcon;
             this.连线ToolStripMenuItem.Name = "连线ToolStripMenuItem";
-            this.连线ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.连线ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.连线ToolStripMenuItem.Text = "连线";
             this.连线ToolStripMenuItem.Click += new System.EventHandler(this.连线ToolStripMenuItem_Click);
             // 
@@ -78,28 +78,28 @@
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // 上移ToolStripMenuItem
             // 
             this.上移ToolStripMenuItem.Name = "上移ToolStripMenuItem";
-            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.上移ToolStripMenuItem.Text = "标记为开始";
             this.上移ToolStripMenuItem.Click += new System.EventHandler(this.标记为开始ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(211, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.copy;
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.复制ToolStripMenuItem.Text = "复制";
             // 
             // viewContextMenuStrip

@@ -32,6 +32,12 @@ namespace BehaviorTreeEditor
         private ContentUserControl m_ContentUserControl;
         private NodePropertyUserControl m_NodePropertyUserControl;
 
+        //搜索字符串
+        public string SearchStr;
+
+        //当前显示的Agent
+        private List<AgentDesigner> FilterAgentList = new List<AgentDesigner>();
+
         public MainForm()
         {
             ms_Instance = this;
@@ -47,7 +53,6 @@ namespace BehaviorTreeEditor
             this.Height = (int)(height * 0.8f);
             this.Location = new System.Drawing.Point((int)(width / 2f - this.Width / 2f), (int)(height / 2f - this.Height / 2f));
 
-            Exec(OperationType.LoadWorkSpace);
             m_ContentUserControl = new ContentUserControl();
             m_ContentUserControl.Dock = DockStyle.Fill;
             splitContainer3.Panel1.Controls.Clear();
@@ -56,6 +61,8 @@ namespace BehaviorTreeEditor
             m_NodePropertyUserControl = new NodePropertyUserControl();
             m_NodePropertyUserControl.Dock = DockStyle.Fill;
             splitContainer3.Panel2.Controls.Add(m_NodePropertyUserControl);
+
+            Exec(OperationType.LoadWorkSpace);
 
             BindAgents();
         }
@@ -68,11 +75,29 @@ namespace BehaviorTreeEditor
         private void BindAgents()
         {
             treeView1.Nodes.Clear();
-            for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+
+            if (FilterAgentList.Count > 0)
             {
-                AgentDesigner agent = BehaviorTreeData.Agents[i];
-                TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
-                treeNode.Tag = agent;
+                for (int i = 0; i < FilterAgentList.Count; i++)
+                {
+                    AgentDesigner agent = FilterAgentList[i];
+                    TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
+                    treeNode.Tag = agent;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                {
+                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
+                    treeNode.Tag = agent;
+                }
+            }
+
+            if (treeView1.Nodes.Count > 0)
+            {
+                treeView1.SelectedNode = treeView1.Nodes[0];
             }
         }
 
@@ -157,7 +182,8 @@ namespace BehaviorTreeEditor
                 return;
 
             SelectedAgent = agent;
-            m_ContentUserControl.SetSelectedAgent(SelectedAgent);
+            if (m_ContentUserControl != null)
+                m_ContentUserControl.SetSelectedAgent(SelectedAgent);
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -239,6 +265,8 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void AddAgent()
         {
+            ExitSearchMode();
+
             AgentDesigner agent = new AgentDesigner();
             string agentID = "NewAgent_" + DateTime.Now.Ticks;
             do
@@ -270,6 +298,9 @@ namespace BehaviorTreeEditor
                 agent.AddNode(startNode);
                 agent.AgentID = agentID;
                 BehaviorTreeData.AddAgent(agent);
+
+
+
                 AddAgentItem(agent);
             }
         }
@@ -320,6 +351,8 @@ namespace BehaviorTreeEditor
             {
                 AgentListContent content = XmlUtility.StringToObject<AgentListContent>(Clipboard.GetText());
 
+                ExitSearchMode();
+
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
                     AgentDesigner agent = content.DataList[i];
@@ -347,11 +380,20 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void RefreshAgents()
         {
+            ExitSearchMode();
+            BindAgents();
         }
 
         //交换Agent位置
         private void SwapAgent(bool up)
         {
+            if (!string.IsNullOrEmpty(SearchStr))
+            {
+                ShowInfo("搜索模式不可以交换行为树,请把搜索框内容删除后再进行交换");
+                ShowMessage("搜索模式不可以交换行为树,请把搜索框内容删除后再进行交换", "警告");
+                return;
+            }
+
             if (treeView1.SelectedNode == null)
             {
                 ShowInfo("请选择一条记录进行交换");
@@ -416,6 +458,16 @@ namespace BehaviorTreeEditor
             MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
         }
 
+        //刷新Agent
+        private void UpdateAgent(AgentDesigner agent)
+        {
+            if (agent == null)
+                return;
+
+            TreeNode treeNode = GetTreeNode(agent);
+            treeNode.Text = agent.AgentID;
+        }
+
         /// <summary>
         /// 删除Agent
         /// </summary>
@@ -433,6 +485,7 @@ namespace BehaviorTreeEditor
             if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 BehaviorTreeData.RemoveAgent(agentDesigner);
+                FilterAgentList.Remove(agentDesigner);
                 treeView1.Nodes.RemoveAt(index);
                 TreeNode treeNode = GetTreeNodeByIndex(index);
                 if (treeNode != null)
@@ -589,6 +642,9 @@ namespace BehaviorTreeEditor
                     //交换Agent位置
                     SwapAgent((bool)args[0]);
                     break;
+                case OperationType.UpdateAgent:
+                    UpdateAgent((AgentDesigner)args[0]);
+                    break;
             }
 
             return true;
@@ -622,6 +678,9 @@ namespace BehaviorTreeEditor
                 XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
             }
             BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+
+            ExitSearchMode();
+            BindAgents();
         }
 
         //新建工作区
@@ -802,6 +861,31 @@ namespace BehaviorTreeEditor
             }
 
             Settings.Default.Save();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = textBox1.Text.Trim();
+            SearchStr = textBox1.Text.Trim();
+
+            FilterAgentList.Clear();
+            if (!string.IsNullOrEmpty(SearchStr))
+            {
+                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                {
+                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    if (agent.AgentID.Contains(SearchStr))
+                        FilterAgentList.Add(agent);
+                }
+            }
+
+            BindAgents();
+        }
+
+        //退出搜索模式
+        public void ExitSearchMode()
+        {
+            textBox1.Text = string.Empty;
         }
     }
 }
