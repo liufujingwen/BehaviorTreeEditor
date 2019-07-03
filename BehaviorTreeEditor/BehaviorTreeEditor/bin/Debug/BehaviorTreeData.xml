@@ -7,23 +7,23 @@
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4713</x>
-            <y>4607</y>
+            <x>4741.716</x>
+            <y>4640.22852</y>
             <position>
-              <x>4713</x>
-              <y>4607</y>
+              <x>4741.716</x>
+              <y>4640.22852</y>
             </position>
             <center>
-              <x>4788</x>
-              <y>4637</y>
+              <x>4816.716</x>
+              <y>4670.22852</y>
             </center>
             <min>
-              <x>4713</x>
-              <y>4607</y>
+              <x>4741.716</x>
+              <y>4640.22852</y>
             </min>
             <max>
-              <x>4863</x>
-              <y>4667</y>
+              <x>4891.716</x>
+              <y>4700.22852</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,19 +31,23 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4713</xMin>
-            <yMin>4607</yMin>
-            <xMax>4863</xMax>
-            <yMax>4667</yMax>
+            <xMin>4741.716</xMin>
+            <yMin>4640.22852</yMin>
+            <xMax>4891.716</xMax>
+            <yMax>4700.22852</yMax>
           </Rect>
           <Transitions>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>2</ToNodeID>
+              <ToNodeID>4</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
               <ToNodeID>3</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
+              <ToNodeID>6</ToNodeID>
             </Transition>
           </Transitions>
           <ID>1</ID>
@@ -144,23 +148,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5000.5</x>
-            <y>4603</y>
+            <x>4989.85059</x>
+            <y>4560.202</y>
             <position>
-              <x>5000.5</x>
-              <y>4603</y>
+              <x>4989.85059</x>
+              <y>4560.202</y>
             </position>
             <center>
-              <x>5075.5</x>
-              <y>4633</y>
+              <x>5064.85059</x>
+              <y>4590.202</y>
             </center>
             <min>
-              <x>5000.5</x>
-              <y>4603</y>
+              <x>4989.85059</x>
+              <y>4560.202</y>
             </min>
             <max>
-              <x>5150.5</x>
-              <y>4663</y>
+              <x>5139.85059</x>
+              <y>4620.202</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -168,52 +172,17 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5000.5</xMin>
-            <yMin>4603</yMin>
-            <xMax>5150.5</xMax>
-            <yMax>4663</yMax>
+            <xMin>4989.85059</xMin>
+            <yMin>4560.202</yMin>
+            <xMax>5139.85059</xMax>
+            <yMax>4620.202</yMax>
           </Rect>
-          <Transitions />
-          <ID>2</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Parallel</ClassType>
-          <ClassName />
-          <NodeType>Composite</NodeType>
-          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
-          <Fields />
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5028.5</x>
-            <y>4801</y>
-            <position>
-              <x>5028.5</x>
-              <y>4801</y>
-            </position>
-            <center>
-              <x>5103.5</x>
-              <y>4831</y>
-            </center>
-            <min>
-              <x>5028.5</x>
-              <y>4801</y>
-            </min>
-            <max>
-              <x>5178.5</x>
-              <y>4861</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5028.5</xMin>
-            <yMin>4801</yMin>
-            <xMax>5178.5</xMax>
-            <yMax>4861</yMax>
-          </Rect>
-          <Transitions />
+          <Transitions>
+            <Transition>
+              <FromNodeID>3</FromNodeID>
+              <ToNodeID>5</ToNodeID>
+            </Transition>
+          </Transitions>
           <ID>3</ID>
           <StartNode>false</StartNode>
           <ClassType>Parallel</ClassType>
@@ -224,23 +193,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>4620.5</x>
-            <y>4785.3335</y>
+            <x>4995.0127</x>
+            <y>4710.68359</y>
             <position>
-              <x>4620.5</x>
-              <y>4785.3335</y>
+              <x>4995.0127</x>
+              <y>4710.68359</y>
             </position>
             <center>
-              <x>4695.5</x>
-              <y>4815.3335</y>
+              <x>5070.0127</x>
+              <y>4740.68359</y>
             </center>
             <min>
-              <x>4620.5</x>
-              <y>4785.3335</y>
+              <x>4995.0127</x>
+              <y>4710.68359</y>
             </min>
             <max>
-              <x>4770.5</x>
-              <y>4845.3335</y>
+              <x>5145.0127</x>
+              <y>4770.68359</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -248,15 +217,16 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4620.5</xMin>
-            <yMin>4785.3335</yMin>
-            <xMax>4770.5</xMax>
-            <yMax>4845.3335</yMax>
+            <xMin>4995.0127</xMin>
+            <yMin>4710.68359</yMin>
+            <xMax>5145.0127</xMax>
+            <yMax>4770.68359</yMax>
           </Rect>
           <Transitions />
           <ID>4</ID>
           <StartNode>false</StartNode>
           <ClassType>Sequence</ClassType>
+          <ClassName />
           <NodeType>Composite</NodeType>
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
@@ -359,6 +329,85 @@
               </Field>
             </FieldDesigner>
           </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5232.02637</x>
+            <y>4532.038</y>
+            <position>
+              <x>5232.02637</x>
+              <y>4532.038</y>
+            </position>
+            <center>
+              <x>5307.02637</x>
+              <y>4562.038</y>
+            </center>
+            <min>
+              <x>5232.02637</x>
+              <y>4532.038</y>
+            </min>
+            <max>
+              <x>5382.02637</x>
+              <y>4592.038</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5232.02637</xMin>
+            <yMin>4532.038</yMin>
+            <xMax>5382.02637</xMax>
+            <yMax>4592.038</yMax>
+          </Rect>
+          <Transitions />
+          <ID>5</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Noop</ClassType>
+          <ClassName />
+          <NodeType>Action</NodeType>
+          <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>4994.90137</x>
+            <y>4434.538</y>
+            <position>
+              <x>4994.90137</x>
+              <y>4434.538</y>
+            </position>
+            <center>
+              <x>5069.90137</x>
+              <y>4464.538</y>
+            </center>
+            <min>
+              <x>4994.90137</x>
+              <y>4434.538</y>
+            </min>
+            <max>
+              <x>5144.90137</x>
+              <y>4494.538</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>4994.90137</xMin>
+            <yMin>4434.538</yMin>
+            <xMax>5144.90137</xMax>
+            <yMax>4494.538</yMax>
+          </Rect>
+          <Transitions />
+          <ID>6</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Parallel</ClassType>
+          <NodeType>Composite</NodeType>
+          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
+          <Fields />
         </NodeDesigner>
       </Nodes>
     </AgentDesigner>

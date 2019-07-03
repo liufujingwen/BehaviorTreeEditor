@@ -116,6 +116,26 @@ namespace BehaviorTreeEditor
             }
         }
 
+        //更换开始节点
+        public void ChangeStartNode(NodeDesigner node)
+        {
+            if (node == null)
+                return;
+
+            if (node.NodeType != NodeType.Composite)
+                return;
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner tempNode = m_Nodes[i];
+                tempNode.StartNode = false;
+                if (tempNode == node || tempNode.ID == node.ID)
+                {
+                    tempNode.StartNode = true;
+                }
+            }
+        }
+
         public void RemoveTranstion(Transition transition)
         {
             if (transition == null)

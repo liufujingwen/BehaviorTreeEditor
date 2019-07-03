@@ -129,6 +129,17 @@ namespace BehaviorTreeEditor
             Transition transition = new Transition();
             transition.Set(node, this);
             Transitions.Add(transition);
+
+            Sort();
+        }
+
+        //根据y值排序,y大的节点在后面
+        public void Sort()
+        {
+            Transitions.Sort(delegate (Transition t1, Transition t2)
+            {
+                return t2.FromNode.Rect.y.CompareTo(t1.FromNode.Rect.y);
+            });
         }
     }
 }

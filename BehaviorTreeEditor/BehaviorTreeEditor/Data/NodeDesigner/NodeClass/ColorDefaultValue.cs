@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BehaviorTreeEditor
 {
+    [TypeConverter(typeof(PropertySorter))]
     public class ColorDefaultValue : BaseDefaultValue
     {
         public ColorDefaultValue()
@@ -21,7 +22,7 @@ namespace BehaviorTreeEditor
         private int m_b;
         private int m_a;
 
-        [Category("常规"), DisplayName("R默认值"), Description("R默认值")]
+        [Category("常规"), DisplayName("R默认值"), Description("R默认值"), PropertyOrder(1)]
         public int R
         {
             get { return m_r; }
@@ -32,7 +33,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        [Category("常规"), DisplayName("G默认值"), Description("G默认值")]
+        [Category("常规"), DisplayName("G默认值"), Description("G默认值"), PropertyOrder(2)]
         public int G
         {
             get { return m_g; }
@@ -43,7 +44,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        [Category("常规"), DisplayName("B默认值"), Description("B默认值")]
+        [Category("常规"), DisplayName("B默认值"), Description("B默认值"), PropertyOrder(3)]
         public int B
         {
             get { return m_b; }
@@ -54,7 +55,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        [Category("常规"), DisplayName("A默认值"), Description("A默认值")]
+        [Category("常规"), DisplayName("A默认值"), Description("A默认值"), PropertyOrder(4)]
         public int A
         {
             get { return m_a; }

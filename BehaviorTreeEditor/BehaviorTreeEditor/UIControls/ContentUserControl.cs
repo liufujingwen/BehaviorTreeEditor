@@ -293,6 +293,9 @@ namespace BehaviorTreeEditor.UIControls
             if (fromNode == null || toNode == null)
                 return;
 
+            if (toNode.StartNode)
+                return;
+
             //子节点不能指向父节点
             if (fromNode.ParentNode == toNode)
                 return;
@@ -301,58 +304,55 @@ namespace BehaviorTreeEditor.UIControls
             if (toNode.ParentNode != null)
                 return;
 
-            //if (fromNode is BaseActionNodeDesigner)
-            //{
-            //    ShowNotification(FsmContent.actionNodeAddTips);
-            //    return;
-            //}
+            if (fromNode.NodeType == NodeType.Action)
+            {
+                MainForm.Instance.ShowMessage("行动节点不能包含子节点");
+                return;
+            }
 
-            //if (fromNode is BaseDecoratorNodeDesigner)
-            //{
-            //    BaseDecoratorNodeDesigner decoratorNodeDesigner = fromNode as BaseDecoratorNodeDesigner;
-            //    if (decoratorNodeDesigner.transitionList.Count == 1)
-            //    {
-            //        ShowNotification(FsmContent.decoratorNodeAddTips);
-            //        return;
-            //    }
-            //}
+            if (fromNode.NodeType == NodeType.Decorator)
+            {
+                if (fromNode.Transitions.Count == 1)
+                {
+                    MainForm.Instance.ShowMessage("修饰节点最多只能包含一个子节点");
+                    return;
+                }
+            }
 
-            //if (fromNode is BaseCompositeNodeDesigner)
-            //{
-            //    BaseCompositeNodeDesigner compositeNodeDesigner = fromNode as BaseCompositeNodeDesigner;
-            //    //检测toNode节点是否已经添加了
-            //    for (int i = 0; i < compositeNodeDesigner.transitionList.Count; i++)
-            //    {
-            //        Transition transition = compositeNodeDesigner.transitionList[i];
-            //        if (transition != null)
-            //        {
-            //            if (transition.toNode == toNode)
-            //                return;
-            //        }
-            //    }
+            if (fromNode.NodeType == NodeType.Composite)
+            {
+                //检测toNode节点是否已经添加了
+                for (int i = 0; i < fromNode.Transitions.Count; i++)
+                {
+                    Transition transition = fromNode.Transitions[i];
+                    if (transition != null)
+                    {
+                        if (transition.ToNode == toNode)
+                        {
+                            return;
+                        }
+                    }
+                }
 
-            //    //子节点不能指向父节点
-            //    if (toNode is BaseCompositeNodeDesigner)
-            //    {
-            //        BaseCompositeNodeDesigner tempNode = toNode as BaseCompositeNodeDesigner;
-            //        if (tempNode.transitionList.Count > 0)
-            //        {
-            //            for (int i = 0; i < tempNode.transitionList.Count; i++)
-            //            {
-            //                Transition tansition = tempNode.transitionList[i];
-            //                if (tansition != null)
-            //                {
-            //                    if (tansition.toNode == fromNode)
-            //                        return;
-            //                }
-            //            }
-            //        }
-            //    }
+                //子节点不能指向父节点
+                if (toNode.NodeType == NodeType.Composite)
+                {
+                    if (toNode.Transitions.Count > 0)
+                    {
+                        for (int i = 0; i < toNode.Transitions.Count; i++)
+                        {
+                            Transition tansition = toNode.Transitions[i];
+                            if (tansition != null)
+                            {
+                                if (tansition.ToNode == fromNode)
+                                    return;
+                            }
+                        }
+                    }
+                }
 
-            //    compositeNodeDesigner.AddNode(toNode);
-            //}
-
-            fromNode.AddNode(toNode);
+                fromNode.AddNode(toNode);
+            }
         }
 
         #region Winform Event
@@ -506,6 +506,18 @@ namespace BehaviorTreeEditor.UIControls
             m_MouseDown = false;
             m_MouseMiddle = false;
             m_SelectionMode = SelectionMode.None;
+
+            //排序
+            if (m_SelectionNodes.Count > 0)
+            {
+                for (int i = 0; i < m_SelectionNodes.Count; i++)
+                {
+                    NodeDesigner parentNode = m_SelectionNodes[i].ParentNode;
+                    if (parentNode != null)
+                        parentNode.Sort();
+                }
+            }
+
             this.Refresh();
         }
 
@@ -625,6 +637,26 @@ namespace BehaviorTreeEditor.UIControls
             }
             m_SelectionNodes.Clear();
         }
+
+        //标记为开始
+        private void 标记为开始ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectionNodes.Count != 1)
+                return;
+
+            NodeDesigner node = m_SelectionNodes[0];
+            if (node == null)
+                return;
+
+            if (node.NodeType != NodeType.Composite)
+            {
+                MainForm.Instance.ShowMessage(string.Format("{0}不能标记为开始节点,请选择组合节点作为开始节点", node.ClassType));
+                return;
+            }
+
+            Agent.ChangeStartNode(node);
+        }
+
 
         private void 删除连线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -836,12 +868,16 @@ namespace BehaviorTreeEditor.UIControls
                 nodeContextMenuStrip.Items[i].Visible = true;
             }
 
+            // 0 连线
+            // 1 删除
+            // 2 标记为开始
+            // 3 复制
+
             //隐藏上移、下移、连线
             if (m_SelectionNodes.Count > 1)
             {
                 nodeContextMenuStrip.Items[0].Visible = false;
                 nodeContextMenuStrip.Items[2].Visible = false;
-                nodeContextMenuStrip.Items[3].Visible = false;
             }
 
             nodeContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
@@ -984,6 +1020,28 @@ namespace BehaviorTreeEditor.UIControls
                         break;
                 }
             }
+            else
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    if (m_SelectionNodes.Count > 0)
+                    {
+                        for (int i = m_SelectionNodes.Count - 1; i >= 0; i--)
+                        {
+                            Agent.RemoveNode(m_SelectionNodes[i]);
+                            m_SelectionNodes.RemoveAt(i);
+                        }
+                    }
+
+                    if (m_SelectedTransition != null)
+                    {
+                        Agent.RemoveTranstion(m_SelectedTransition);
+                        SelectTransition(null);
+                    }
+                }
+            }
         }
+
+
     }
 }
