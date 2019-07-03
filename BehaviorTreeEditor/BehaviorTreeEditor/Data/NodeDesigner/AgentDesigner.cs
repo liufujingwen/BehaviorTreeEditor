@@ -261,7 +261,7 @@ namespace BehaviorTreeEditor
                 FieldDesigner field = m_Fields[i];
                 if (string.IsNullOrEmpty(field.FieldName))
                 {
-                    return new VerifyInfo(string.Format("行为树[{0}]存在空字段名", m_AgentID));
+                    return new VerifyInfo(string.Format("行为树[{0}]\n存在空字段名", m_AgentID));
                 }
             }
 
@@ -283,7 +283,7 @@ namespace BehaviorTreeEditor
                     FieldDesigner field_ii = m_Fields[ii];
                     if (field_i.FieldName == field_ii.FieldName)
                     {
-                        return new VerifyInfo(string.Format("行为树[{0}]存在重复字段:{1}", m_AgentID, field_ii.FieldName));
+                        return new VerifyInfo(string.Format("行为树[{0}]\n存在重复字段:{1}", m_AgentID, field_ii.FieldName));
                     }
                 }
             }
@@ -320,7 +320,7 @@ namespace BehaviorTreeEditor
                         {
                             EnumItem enumItem = customEnum.FindEnum(enumFieldDesigner.Value);
                             if (enumItem == null)
-                                return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型[{2}]不存在选项[{3}]", m_AgentID, field.FieldName, customEnum.EnumType, enumFieldDesigner.Value));
+                                return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型[{2}]\n不存在选项[{3}]", m_AgentID, field.FieldName, customEnum.EnumType, enumFieldDesigner.Value));
                         }
                     }
                 }
@@ -370,14 +370,14 @@ namespace BehaviorTreeEditor
                 {
                     if (node.ParentNode != null)
                     {
-                        return new VerifyInfo(string.Format("行为树[{0}]的开始节不能有父节点，请删除开始节点的父节点", m_AgentID));
+                        return new VerifyInfo(string.Format("行为树[{0}]的开始节\n不能有父节点，请删除开始节点的父节点", m_AgentID));
                     }
                 }
                 else
                 {
                     if (node.ParentNode == null)
                     {
-                        return new VerifyInfo(string.Format("行为树[{0}]的节点[{1}]没有父节点，请添加父节点", m_AgentID, node.ClassType));
+                        return new VerifyInfo(string.Format("行为树[{0}]的节点[{1}]\n没有父节点，请添加父节点", m_AgentID, node.ClassType));
                     }
                 }
             }
@@ -491,6 +491,95 @@ namespace BehaviorTreeEditor
 
             m_Fields.Clear();
             m_Fields.AddRange(agent.Fields.ToArray());
+        }
+
+        /// <summary>
+        /// 移除未定义的节点
+        /// </summary>
+        public bool RemoveUnDefineNode()
+        {
+            bool remove = false;
+
+            for (int i = m_Nodes.Count - 1; i >= 0; i--)
+            {
+                NodeDesigner node = m_Nodes[i];
+                NodeClass nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                if (nodeClass == null)
+                {
+                    RemoveNode(node);
+                    remove = true;
+                }
+            }
+
+            return remove;
+        }
+
+        /// <summary>
+        /// 修正字段
+        /// </summary>
+        public bool AjustField()
+        {
+            bool ajust = false;
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner node = m_Nodes[i];
+                NodeClass nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                //移除模板中没有的字段
+                for (int ii = node.Fields.Count - 1; ii >= 0; ii--)
+                {
+                    FieldDesigner field = node.Fields[ii];
+                    if (!nodeClass.ExistFieldName(field.FieldName))
+                    {
+                        ajust = true;
+                        node.Fields.RemoveAt(ii);
+                    }
+                }
+
+                //修正类型不匹配的(节点字段和模板字段类型不匹配)
+                for (int ii = 0; ii < node.Fields.Count; ii++)
+                {
+                    FieldDesigner field = node.Fields[ii];
+                    NodeField nodeField = nodeClass.FindField(field.FieldName);
+                    if (field.FieldType != nodeField.FieldType)
+                    {
+                        //重新给默认值
+                        node.Fields[ii] = EditorUtility.CreateFieldByNodeField(nodeField);
+                        ajust = true;
+                    }
+                }
+
+                //添加不存的字段
+                for (int ii = nodeClass.Fields.Count - 1; ii >= 0; ii--)
+                {
+                    NodeField nodeField = nodeClass.Fields[ii];
+                    FieldDesigner field = node.FindFieldByName(nodeField.FieldName);
+                    //不存在的字段要添加
+                    if (field == null)
+                    {
+                        FieldDesigner newField = EditorUtility.CreateFieldByNodeField(nodeField);
+                        node.AddField(newField);
+                        ajust = true;
+                    }
+                }
+
+                //排序字段（要和模板中一致）
+                for (int ii = 0; ii < nodeClass.Fields.Count; ii++)
+                {
+                    NodeField nodeField = nodeClass.Fields[ii];
+                    int index = node.GetFieldIndex(nodeField.FieldName);
+                    if (index != ii)
+                    {
+                        //交换
+                        FieldDesigner tempField_ii = node.Fields[ii];
+                        node.Fields[ii] = node.Fields[index];
+                        node.Fields[index] = tempField_ii;
+                        ajust = true;
+                    }
+                }
+            }
+
+            return ajust;
         }
     }
 }

@@ -178,9 +178,6 @@ namespace BehaviorTreeEditor
         /// <param name="agent"></param>
         public void SetSelectedAgent(AgentDesigner agent)
         {
-            if (SelectedAgent == agent)
-                return;
-
             SelectedAgent = agent;
             if (m_ContentUserControl != null)
                 m_ContentUserControl.SetSelectedAgent(SelectedAgent);
@@ -671,13 +668,7 @@ namespace BehaviorTreeEditor
             NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
             //读取行为树数据
-            BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
-            if (BehaviorTreeData == null)
-            {
-                BehaviorTreeData = new BehaviorTreeData();
-                XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
-            }
-            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+            LoadBehaviorTreeData();
 
             ExitSearchMode();
             BindAgents();
@@ -723,13 +714,7 @@ namespace BehaviorTreeEditor
                         NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
                         //读取行为树数据
-                        BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
-                        if (BehaviorTreeData == null)
-                        {
-                            BehaviorTreeData = new BehaviorTreeData();
-                            XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
-                        }
-                        BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+                        LoadBehaviorTreeData();
                     }
                 }
             }
@@ -745,8 +730,17 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
+            //节点类移除未定义的枚举字段
+            NodeClasses.RemoveUnDefineEnumField();
+
+            //移除未定义的节点
+            BehaviorTreeData.RemoveUnDefineNode();
+
+            //修正节点字段，和模板的保持一致
+            BehaviorTreeData.AjustField();
+
             //检验枚举
-            VerifyInfo verifyEnum =  NodeClasses.VerifyEnum();
+            VerifyInfo verifyEnum = NodeClasses.VerifyEnum();
             if (verifyEnum.HasError)
             {
                 ShowMessage(verifyEnum.Msg);
@@ -904,6 +898,46 @@ namespace BehaviorTreeEditor
             }
 
             BindAgents();
+        }
+
+        public void LoadBehaviorTreeData()
+        {
+            //读取行为树数据
+            BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
+            if (BehaviorTreeData == null)
+            {
+                BehaviorTreeData = new BehaviorTreeData();
+                XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
+            }
+            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+
+            if (BehaviorTreeData.Agents.Count > 0)
+            {
+                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                {
+                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    if (agent != null)
+                    {
+                        if (agent.Nodes.Count > 0)
+                        {
+                            for (int ii = 0; ii < agent.Nodes.Count; ii++)
+                            {
+                                NodeDesigner node = agent.Nodes[ii];
+                                if (node.Transitions.Count > 0)
+                                {
+                                    for (int iii = 0; iii < node.Transitions.Count; iii++)
+                                    {
+                                        Transition transition = node.Transitions[iii];
+                                        NodeDesigner fromNode = agent.FindNodeByID(transition.FromNodeID);
+                                        NodeDesigner toNode = agent.FindNodeByID(transition.ToNodeID);
+                                        transition.Set(toNode, fromNode);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         //退出搜索模式

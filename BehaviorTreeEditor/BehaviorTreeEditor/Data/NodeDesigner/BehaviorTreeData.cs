@@ -157,5 +157,32 @@ namespace BehaviorTreeEditor
             }
             return VerifyInfo.DefaultVerifyInfo;
         }
+
+        /// <summary>
+        /// 移除未定义的节点
+        /// </summary>
+        public void RemoveUnDefineNode()
+        {
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent = m_Agents[i];
+                if (agent != null)
+                    agent.RemoveUnDefineNode();
+            }
+        }
+
+        
+        /// <summary>
+        /// 修正字段(和模板保持一致)
+        /// </summary>
+        public void AjustField()
+        {
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent = m_Agents[i];
+                if (agent != null)
+                    agent.AjustField();
+            }
+        }
     }
 }

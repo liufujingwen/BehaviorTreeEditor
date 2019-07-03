@@ -351,7 +351,7 @@ namespace BehaviorTreeEditor.UIControls
                     }
                 }
 
-                fromNode.AddNode(toNode);
+                fromNode.AddChildNode(toNode);
             }
         }
 
@@ -521,6 +521,18 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
+        private void ContentUserControl_MouseEnter(object sender, EventArgs e)
+        {
+            if (Agent != null)
+            {
+                bool removeEnum = Agent.RemoveUnDefineNode();
+                bool ajust = Agent.AjustField();
+
+                if ((removeEnum || ajust) && m_SelectionNodes.Count == 1)
+                    NodePropertyUserControl.Instance.SetSelectedNode(m_SelectionNodes[0]);
+            }
+        }
+
         //鼠标移动事件
         private void ContentUserControl_MouseMove(object sender, MouseEventArgs e)
         {
@@ -569,7 +581,6 @@ namespace BehaviorTreeEditor.UIControls
         //按键按下事件
         private void ContentUserControl_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("KeyDown：" + e.KeyCode);
             if (!e.Alt && !e.Shift && e.KeyCode == Keys.ControlKey)
             {
                 m_LControlKeyDown = true;

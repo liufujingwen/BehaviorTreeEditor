@@ -33,8 +33,8 @@
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.nodeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.连线ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.上移ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -73,6 +73,13 @@
             this.连线ToolStripMenuItem.Text = "连线";
             this.连线ToolStripMenuItem.Click += new System.EventHandler(this.连线ToolStripMenuItem_Click);
             // 
+            // 上移ToolStripMenuItem
+            // 
+            this.上移ToolStripMenuItem.Name = "上移ToolStripMenuItem";
+            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.上移ToolStripMenuItem.Text = "标记为开始";
+            this.上移ToolStripMenuItem.Click += new System.EventHandler(this.标记为开始ToolStripMenuItem_Click);
+            // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
@@ -81,13 +88,6 @@
             this.删除ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
-            // 
-            // 上移ToolStripMenuItem
-            // 
-            this.上移ToolStripMenuItem.Name = "上移ToolStripMenuItem";
-            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.上移ToolStripMenuItem.Text = "标记为开始";
-            this.上移ToolStripMenuItem.Click += new System.EventHandler(this.标记为开始ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -166,6 +166,7 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ContentUserControl_KeyUp);
             this.Leave += new System.EventHandler(this.ContentUserControl_Leave);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.ContentUserControl_MouseEnter);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ContentUserControl_MouseUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ContentUserControl_PreviewKeyDown);

@@ -97,7 +97,7 @@ namespace BehaviorTreeEditor
             return Rect.Contains(point);
         }
 
-        public bool Exist(NodeDesigner node)
+        public bool ExistChildNode(NodeDesigner node)
         {
             if (node == null)
                 return false;
@@ -115,12 +115,12 @@ namespace BehaviorTreeEditor
             return false;
         }
 
-        public void AddNode(NodeDesigner node)
+        public void AddChildNode(NodeDesigner node)
         {
             if (node == null)
                 return;
 
-            if (Exist(node))
+            if (ExistChildNode(node))
             {
                 throw new Exception(string.Format("已存在节点id:{0},name:{1}", node.ID, node.ClassType));
             }
@@ -132,6 +132,63 @@ namespace BehaviorTreeEditor
 
             Sort();
         }
+
+        /// <summary>
+        /// 通过字段名查找字段
+        /// </summary>
+        /// <param name="fieldName">字段名字</param>
+        /// <returns></returns>
+        public FieldDesigner FindFieldByName(string fieldName)
+        {
+            if (string.IsNullOrEmpty(fieldName))
+                return null;
+
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (field.FieldName == fieldName)
+                    return field;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 获取字段索引
+        /// </summary>
+        /// <param name="fieldName">字段名字</param>
+        /// <returns></returns>
+        public int GetFieldIndex(string fieldName)
+        {
+            if (string.IsNullOrEmpty(fieldName))
+                return -1;
+
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (field.FieldName == fieldName)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// 添加字段
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public bool AddField(FieldDesigner field)
+        {
+            FieldDesigner tempField = FindFieldByName(field.FieldName);
+            if (tempField == null)
+            {
+                m_Fields.Add(field);
+                return true;
+            }
+            return false;
+        }
+
 
         //根据y值排序,y大的节点在后面
         public void Sort()

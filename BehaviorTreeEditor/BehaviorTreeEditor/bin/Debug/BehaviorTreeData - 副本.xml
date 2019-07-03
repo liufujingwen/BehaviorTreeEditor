@@ -40,7 +40,7 @@
           <Transitions>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>5</ToNodeID>
+              <ToNodeID>3</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
@@ -48,7 +48,7 @@
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>8</ToNodeID>
+              <ToNodeID>6</ToNodeID>
             </Transition>
           </Transitions>
           <ID>1</ID>
@@ -59,27 +59,11 @@
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
               <FieldName>intField</FieldName>
               <FieldType>IntField</FieldType>
               <Describe>这是int</Describe>
               <Field xsi:type="IntFieldDesigner">
-                <Value>1000</Value>
+                <Value>100</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -88,6 +72,14 @@
               <Describe>这是Long</Describe>
               <Field xsi:type="LongFieldDesigner">
                 <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -129,6 +121,23 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>这是枚举</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
               <FieldName>repeatVector3Field</FieldName>
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
@@ -136,34 +145,27 @@
                 <Value />
               </Field>
             </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>100.1</Value>
-              </Field>
-            </FieldDesigner>
           </Fields>
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>4993.0127</x>
-            <y>4711.68359</y>
+            <x>4989.85059</x>
+            <y>4560.202</y>
             <position>
-              <x>4993.0127</x>
-              <y>4711.68359</y>
+              <x>4989.85059</x>
+              <y>4560.202</y>
             </position>
             <center>
-              <x>5068.0127</x>
-              <y>4741.68359</y>
+              <x>5064.85059</x>
+              <y>4590.202</y>
             </center>
             <min>
-              <x>4993.0127</x>
-              <y>4711.68359</y>
+              <x>4989.85059</x>
+              <y>4560.202</y>
             </min>
             <max>
-              <x>5143.0127</x>
-              <y>4771.68359</y>
+              <x>5139.85059</x>
+              <y>4620.202</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -171,10 +173,55 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4993.0127</xMin>
-            <yMin>4711.68359</yMin>
-            <xMax>5143.0127</xMax>
-            <yMax>4771.68359</yMax>
+            <xMin>4989.85059</xMin>
+            <yMin>4560.202</yMin>
+            <xMax>5139.85059</xMax>
+            <yMax>4620.202</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>3</FromNodeID>
+              <ToNodeID>5</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>3</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Parallel</ClassType>
+          <ClassName />
+          <NodeType>Composite</NodeType>
+          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>4995.0127</x>
+            <y>4710.68359</y>
+            <position>
+              <x>4995.0127</x>
+              <y>4710.68359</y>
+            </position>
+            <center>
+              <x>5070.0127</x>
+              <y>4740.68359</y>
+            </center>
+            <min>
+              <x>4995.0127</x>
+              <y>4710.68359</y>
+            </min>
+            <max>
+              <x>5145.0127</x>
+              <y>4770.68359</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>4995.0127</xMin>
+            <yMin>4710.68359</yMin>
+            <xMax>5145.0127</xMax>
+            <yMax>4770.68359</yMax>
           </Rect>
           <Transitions>
             <Transition>
@@ -190,25 +237,6 @@
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value>
-                  <string>111</string>
-                  <string>2222</string>
-                </Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
               <FieldName>intField</FieldName>
               <FieldType>IntField</FieldType>
               <Describe>这是int</Describe>
@@ -222,6 +250,14 @@
               <Describe>这是Long</Describe>
               <Field xsi:type="LongFieldDesigner">
                 <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -263,6 +299,23 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>这是枚举</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
               <FieldName>repeatVector3Field</FieldName>
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
@@ -271,33 +324,37 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>100.1</Value>
+              <FieldName>repeatStringField</FieldName>
+              <FieldType>RepeatStringField</FieldType>
+              <Describe>这是字符串数组</Describe>
+              <Field xsi:type="RepeatStringFieldDesigner">
+                <Value>
+                  <string>111</string>
+                  <string>2222</string>
+                </Value>
               </Field>
             </FieldDesigner>
           </Fields>
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5200.02637</x>
-            <y>4564.038</y>
+            <x>5231.02637</x>
+            <y>4531.038</y>
             <position>
-              <x>5200.02637</x>
-              <y>4564.038</y>
+              <x>5231.02637</x>
+              <y>4531.038</y>
             </position>
             <center>
-              <x>5275.02637</x>
-              <y>4594.038</y>
+              <x>5306.02637</x>
+              <y>4561.038</y>
             </center>
             <min>
-              <x>5200.02637</x>
-              <y>4564.038</y>
+              <x>5231.02637</x>
+              <y>4531.038</y>
             </min>
             <max>
-              <x>5350.02637</x>
-              <y>4624.038</y>
+              <x>5381.02637</x>
+              <y>4591.038</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -305,10 +362,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5200.02637</xMin>
-            <yMin>4564.038</yMin>
-            <xMax>5350.02637</xMax>
-            <yMax>4624.038</yMax>
+            <xMin>5231.02637</xMin>
+            <yMin>4531.038</yMin>
+            <xMax>5381.02637</xMax>
+            <yMax>4591.038</yMax>
           </Rect>
           <Transitions />
           <ID>5</ID>
@@ -317,6 +374,51 @@
           <ClassName />
           <NodeType>Action</NodeType>
           <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>4994.90137</x>
+            <y>4434.538</y>
+            <position>
+              <x>4994.90137</x>
+              <y>4434.538</y>
+            </position>
+            <center>
+              <x>5069.90137</x>
+              <y>4464.538</y>
+            </center>
+            <min>
+              <x>4994.90137</x>
+              <y>4434.538</y>
+            </min>
+            <max>
+              <x>5144.90137</x>
+              <y>4494.538</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>4994.90137</xMin>
+            <yMin>4434.538</yMin>
+            <xMax>5144.90137</xMax>
+            <yMax>4494.538</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>8</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>6</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Parallel</ClassType>
+          <ClassName />
+          <NodeType>Composite</NodeType>
+          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
           <Fields />
         </NodeDesigner>
         <NodeDesigner>
@@ -407,23 +509,23 @@
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4956</x>
-            <y>4985</y>
+            <x>5007</x>
+            <y>4988</y>
             <position>
-              <x>4956</x>
-              <y>4985</y>
+              <x>5007</x>
+              <y>4988</y>
             </position>
             <center>
-              <x>5031</x>
-              <y>5015</y>
+              <x>5082</x>
+              <y>5018</y>
             </center>
             <min>
-              <x>4956</x>
-              <y>4985</y>
+              <x>5007</x>
+              <y>4988</y>
             </min>
             <max>
-              <x>5106</x>
-              <y>5045</y>
+              <x>5157</x>
+              <y>5048</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -431,10 +533,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4956</xMin>
-            <yMin>4985</yMin>
-            <xMax>5106</xMax>
-            <yMax>5045</yMax>
+            <xMin>5007</xMin>
+            <yMin>4988</yMin>
+            <xMax>5157</xMax>
+            <yMax>5048</yMax>
           </Rect>
           <Transitions>
             <Transition>
@@ -450,22 +552,6 @@
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
               <FieldName>intField</FieldName>
               <FieldType>IntField</FieldType>
               <Describe>这是int</Describe>
@@ -479,6 +565,14 @@
               <Describe>这是Long</Describe>
               <Field xsi:type="LongFieldDesigner">
                 <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -520,19 +614,28 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>这是枚举</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
               <FieldName>repeatVector3Field</FieldName>
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
               <Field xsi:type="RepeatVector3FieldDesigner">
                 <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Describe>这是float</Describe>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
           </Fields>
@@ -632,22 +735,6 @@
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
               <FieldName>intField</FieldName>
               <FieldType>IntField</FieldType>
               <Describe>这是int</Describe>
@@ -661,6 +748,14 @@
               <Describe>这是Long</Describe>
               <Field xsi:type="LongFieldDesigner">
                 <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -702,6 +797,23 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>这是枚举</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
               <FieldName>repeatVector3Field</FieldName>
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
@@ -710,11 +822,11 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Describe>这是float</Describe>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>3.1</Value>
+              <FieldName>repeatStringField</FieldName>
+              <FieldType>RepeatStringField</FieldType>
+              <Describe>这是字符串数组</Describe>
+              <Field xsi:type="RepeatStringFieldDesigner">
+                <Value />
               </Field>
             </FieldDesigner>
           </Fields>
@@ -799,26 +911,9 @@
           <ID>3</ID>
           <StartNode>false</StartNode>
           <ClassType>Sequence</ClassType>
-          <ClassName />
           <NodeType>Composite</NodeType>
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields>
-            <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
             <FieldDesigner>
               <FieldName>intField</FieldName>
               <FieldType>IntField</FieldType>
@@ -833,6 +928,14 @@
               <Describe>这是Long</Describe>
               <Field xsi:type="LongFieldDesigner">
                 <Value>2</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>floatField</FieldName>
+              <FieldType>FloatField</FieldType>
+              <Describe>这是float</Describe>
+              <Field xsi:type="FloatFieldDesigner">
+                <Value>3.1</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -874,6 +977,14 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
+              <FieldName>booleanField</FieldName>
+              <FieldType>BooleanField</FieldType>
+              <Describe>这是布尔类型</Describe>
+              <Field xsi:type="BooleanFieldDesigner">
+                <Value>true</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
               <FieldName>repeatVector3Field</FieldName>
               <FieldType>RepeatVector3Field</FieldType>
               <Describe>这是Vector3[]</Describe>
@@ -882,11 +993,19 @@
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Describe>这是float</Describe>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>3.1</Value>
+              <FieldName>repeatStringField</FieldName>
+              <FieldType>RepeatStringField</FieldType>
+              <Describe>这是字符串数组</Describe>
+              <Field xsi:type="RepeatStringFieldDesigner">
+                <Value />
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>enumField</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>TestEnum</EnumType>
+                <Value>enum1</Value>
               </Field>
             </FieldDesigner>
           </Fields>
@@ -926,7 +1045,6 @@
           <ID>4</ID>
           <StartNode>false</StartNode>
           <ClassType>Noop</ClassType>
-          <ClassName />
           <NodeType>Action</NodeType>
           <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
           <Fields />

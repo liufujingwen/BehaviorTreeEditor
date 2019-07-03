@@ -338,5 +338,17 @@ namespace BehaviorTreeEditor
 
             return VerifyInfo.DefaultVerifyInfo;
         }
+
+        /// <summary>
+        /// 移除未定义的枚举字段
+        /// </summary>
+        public void RemoveUnDefineEnumField()
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass nodeClass = m_Nodes[i];
+                nodeClass.RemoveUnDefineEnumField();
+            }
+        }
     }
 }

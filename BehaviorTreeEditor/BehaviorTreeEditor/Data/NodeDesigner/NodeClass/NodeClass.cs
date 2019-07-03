@@ -69,6 +69,22 @@ namespace BehaviorTreeEditor
             return false;
         }
 
+        public NodeField FindField(string fieldName)
+        {
+            if (string.IsNullOrEmpty(fieldName))
+                return null;
+
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                NodeField temp = m_Fields[i];
+                if (temp.FieldName == fieldName)
+                {
+                    return temp;
+                }
+            }
+            return null;
+        }
+
         public bool AddField(NodeField field)
         {
             if (field == null)
@@ -243,6 +259,29 @@ namespace BehaviorTreeEditor
 
             m_Fields.Clear();
             m_Fields.AddRange(nodeClass.Fields);
+        }
+
+        /// <summary>
+        /// 移除未定义的枚举字段
+        /// </summary>
+        public void RemoveUnDefineEnumField()
+        {
+            for (int i = m_Fields.Count - 1; i >= 0; i--)
+            {
+                NodeField field = m_Fields[i];
+                if (field.FieldType == FieldType.EnumField)
+                {
+                    EnumDefaultValue enumDeaultValue = field.DefaultValue as EnumDefaultValue;
+                    if (enumDeaultValue != null)
+                    {
+                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        if (customEnum == null)
+                        {
+                            m_Fields.RemoveAt(i);
+                        }
+                    }
+                }
+            }
         }
     }
 }
