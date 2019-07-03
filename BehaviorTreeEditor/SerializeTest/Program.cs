@@ -10,6 +10,18 @@ namespace SerializeTest
     {
         static void Main(string[] args)
         {
+            IntField intField = new IntField();
+            intField.FieldName = "11111";
+            intField.Value = 10;
+
+            ColorField colorFiled = new ColorField();
+            BaseField baseFiled = colorFiled;
+            baseFiled.GetHashCode();
+
+            baseFiled = intField;
+            baseFiled.GetHashCode();
+            Console.WriteLine(intField == 10);
+
             TestIntField();
             TestFloatField();
             TestLongField();

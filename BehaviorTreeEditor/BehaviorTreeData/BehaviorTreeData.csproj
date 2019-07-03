@@ -37,8 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AgentData.cs" />
-    <Compile Include="Data\BaseFiled.cs" />
-    <Compile Include="Data\BoolField.cs" />
+    <Compile Include="Data\BaseField.cs" />
+    <Compile Include="Data\BooleanField.cs" />
     <Compile Include="Data\ColorField.cs" />
     <Compile Include="Data\DoubleField.cs" />
     <Compile Include="Data\EnumField.cs" />

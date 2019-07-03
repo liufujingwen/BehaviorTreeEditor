@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public partial class RepeatStringField : BaseFiled
+    public partial class RepeatStringField : BaseField
     {
         public List<string> Value;
 

@@ -8,7 +8,7 @@ namespace BehaviorTreeData
     {
         public int ID;
         public string ClassType;
-        public List<BaseFiled> Fileds = new List<BaseFiled>();
+        public List<BaseField> Fileds = new List<BaseField>();
         public List<NodeData> Childs = null;
 
         public override void Read(ref Reader reader)
@@ -21,13 +21,13 @@ namespace BehaviorTreeData
             writer.Write(ID).Write(ClassType).Write(Fileds).Write(Childs);
         }
 
-        public BaseFiled this[string fieldName]
+        public BaseField this[string fieldName]
         {
             get
             {
                 for (int i = 0; i < Fileds.Count; i++)
                 {
-                    BaseFiled field = Fileds[i];
+                    BaseField field = Fileds[i];
                     if (field == null)
                         continue;
                     if (field.FieldName == fieldName)

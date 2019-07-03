@@ -213,7 +213,7 @@
     <Compile Include="Utility\PropertySorter.cs" />
     <Compile Include="Utility\Rect.cs" />
     <Compile Include="Utility\VerifyInfo.cs" />
-    <Compile Include="Utility\Vector2.cs" />
+    <Compile Include="Utility\Vec2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
     <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">

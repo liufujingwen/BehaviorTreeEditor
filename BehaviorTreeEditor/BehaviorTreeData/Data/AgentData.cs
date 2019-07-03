@@ -7,7 +7,7 @@ namespace BehaviorTreeData
     public partial class AgentData : Binary
     {
         public string ID;
-        public List<BaseFiled> Fields = new List<BaseFiled>();
+        public List<BaseField> Fields = new List<BaseField>();
         public NodeData StartNode;
 
         public override void Read(ref Reader reader)

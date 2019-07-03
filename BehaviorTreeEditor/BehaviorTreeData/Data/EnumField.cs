@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BehaviorTreeData
 {
-    public partial class EnumField : BaseFiled
+    public partial class EnumField : BaseField
     {
         public string EnumType;
         public float Value;
