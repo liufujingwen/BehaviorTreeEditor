@@ -306,7 +306,7 @@ namespace BehaviorTreeEditor.UIControls
 
             if (fromNode.NodeType == NodeType.Action)
             {
-                MainForm.Instance.ShowMessage("行动节点不能包含子节点");
+                MainForm.Instance.ShowInfo("行动节点不能包含子节点");
                 return;
             }
 
@@ -314,12 +314,12 @@ namespace BehaviorTreeEditor.UIControls
             {
                 if (fromNode.Transitions.Count == 1)
                 {
-                    MainForm.Instance.ShowMessage("修饰节点最多只能包含一个子节点");
+                    MainForm.Instance.ShowInfo("修饰节点最多只能包含一个子节点");
                     return;
                 }
             }
 
-            if (fromNode.NodeType == NodeType.Composite)
+            if (fromNode.NodeType == NodeType.Composite || fromNode.NodeType == NodeType.Decorator)
             {
                 //检测toNode节点是否已经添加了
                 for (int i = 0; i < fromNode.Transitions.Count; i++)
@@ -350,9 +350,9 @@ namespace BehaviorTreeEditor.UIControls
                         }
                     }
                 }
-
-                fromNode.AddChildNode(toNode);
             }
+
+            fromNode.AddChildNode(toNode);
         }
 
         #region Winform Event

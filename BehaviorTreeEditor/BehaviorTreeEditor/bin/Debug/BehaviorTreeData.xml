@@ -44,11 +44,15 @@
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>4</ToNodeID>
+              <ToNodeID>9</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
               <ToNodeID>8</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
+              <ToNodeID>4</ToNodeID>
             </Transition>
           </Transitions>
           <ID>1</ID>
@@ -147,23 +151,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>4993.0127</x>
-            <y>4711.68359</y>
+            <x>4919.0127</x>
+            <y>4703.68359</y>
             <position>
-              <x>4993.0127</x>
-              <y>4711.68359</y>
+              <x>4919.0127</x>
+              <y>4703.68359</y>
             </position>
             <center>
-              <x>5068.0127</x>
-              <y>4741.68359</y>
+              <x>4994.0127</x>
+              <y>4733.68359</y>
             </center>
             <min>
-              <x>4993.0127</x>
-              <y>4711.68359</y>
+              <x>4919.0127</x>
+              <y>4703.68359</y>
             </min>
             <max>
-              <x>5143.0127</x>
-              <y>4771.68359</y>
+              <x>5069.0127</x>
+              <y>4763.68359</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -171,10 +175,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4993.0127</xMin>
-            <yMin>4711.68359</yMin>
-            <xMax>5143.0127</xMax>
-            <yMax>4771.68359</yMax>
+            <xMin>4919.0127</xMin>
+            <yMin>4703.68359</yMin>
+            <xMax>5069.0127</xMax>
+            <yMax>4763.68359</yMax>
           </Rect>
           <Transitions>
             <Transition>
@@ -321,23 +325,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5286.20166</x>
-            <y>4728.93848</y>
+            <x>5289.20166</x>
+            <y>4751.93848</y>
             <position>
-              <x>5286.20166</x>
-              <y>4728.93848</y>
+              <x>5289.20166</x>
+              <y>4751.93848</y>
             </position>
             <center>
-              <x>5361.20166</x>
-              <y>4758.93848</y>
+              <x>5364.20166</x>
+              <y>4781.93848</y>
             </center>
             <min>
-              <x>5286.20166</x>
-              <y>4728.93848</y>
+              <x>5289.20166</x>
+              <y>4751.93848</y>
             </min>
             <max>
-              <x>5436.20166</x>
-              <y>4788.93848</y>
+              <x>5439.20166</x>
+              <y>4811.93848</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -345,10 +349,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5286.20166</xMin>
-            <yMin>4728.93848</yMin>
-            <xMax>5436.20166</xMax>
-            <yMax>4788.93848</yMax>
+            <xMin>5289.20166</xMin>
+            <yMin>4751.93848</yMin>
+            <xMax>5439.20166</xMax>
+            <yMax>4811.93848</yMax>
           </Rect>
           <Transitions />
           <ID>7</ID>
@@ -392,6 +396,91 @@
           </Rect>
           <Transitions />
           <ID>8</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Noop</ClassType>
+          <ClassName />
+          <NodeType>Action</NodeType>
+          <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5041.93164</x>
+            <y>4249.56543</y>
+            <position>
+              <x>5041.93164</x>
+              <y>4249.56543</y>
+            </position>
+            <center>
+              <x>5116.93164</x>
+              <y>4279.56543</y>
+            </center>
+            <min>
+              <x>5041.93164</x>
+              <y>4249.56543</y>
+            </min>
+            <max>
+              <x>5191.93164</x>
+              <y>4309.56543</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5041.93164</xMin>
+            <yMin>4249.56543</yMin>
+            <xMax>5191.93164</xMax>
+            <yMax>4309.56543</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>9</FromNodeID>
+              <ToNodeID>10</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>9</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Not</ClassType>
+          <ClassName />
+          <NodeType>Decorator</NodeType>
+          <Describe>非节点将子节点的返回值取反</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5382.93164</x>
+            <y>4229.56543</y>
+            <position>
+              <x>5382.93164</x>
+              <y>4229.56543</y>
+            </position>
+            <center>
+              <x>5457.93164</x>
+              <y>4259.56543</y>
+            </center>
+            <min>
+              <x>5382.93164</x>
+              <y>4229.56543</y>
+            </min>
+            <max>
+              <x>5532.93164</x>
+              <y>4289.56543</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5382.93164</xMin>
+            <yMin>4229.56543</yMin>
+            <xMax>5532.93164</xMax>
+            <yMax>4289.56543</yMax>
+          </Rect>
+          <Transitions />
+          <ID>10</ID>
           <StartNode>false</StartNode>
           <ClassType>Noop</ClassType>
           <ClassName />

@@ -64,6 +64,9 @@ namespace BehaviorTreeEditor
         //节点字体
         public static Font NodeFont = new Font("宋体", 15, FontStyle.Regular);
         public static Brush NodeBrush = new SolidBrush(Color.White);
+        //节点错误 笔刷
+        public static Brush NodeErrorBrush = new SolidBrush(Color.Red);
+
         //标题节点高
         public static int TitleNodeHeight = 30;
         //节点最小宽度
@@ -211,9 +214,42 @@ namespace BehaviorTreeEditor
                 graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
             }
 
-            //graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height / 3 + 1, EditorUtility.NameStringFormat);
-            //graphics.DrawString(node.Rect.x + " " + node.Rect.y, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + contentRect.height + 1, EditorUtility.NameStringFormat);
+            //处理错误
+            bool hasError = false;
+            int errorCount = 0;
 
+            if (node.StartNode && node.ParentNode != null)
+            {
+                hasError = true;
+                errorCount++;
+                graphics.DrawString("开始节点不能没有父节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+            }
+
+            if (!node.StartNode && node.ParentNode == null)
+            {
+                hasError = true;
+                errorCount++;
+                graphics.DrawString("没有父节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+            }
+
+            if ((node.NodeType == NodeType.Composite || node.NodeType == NodeType.Decorator) && node.Transitions.Count == 0)
+            {
+                hasError = true;
+                errorCount++;
+                graphics.DrawString("没有子节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+            }
+
+            if (node.NodeType == NodeType.Decorator && node.Transitions.Count > 1)
+            {
+                hasError = true;
+                errorCount++;
+                graphics.DrawString("装饰节点只能有一个子节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+            }
+
+            if (hasError)
+            {
+                graphics.DrawImage(Resources.conflict, new PointF(contentRect.center.x - Resources.conflict.Width / 2.0f, contentRect.center.y - Resources.conflict.Height / 2.0f));
+            }
         }
 
         /// <summary>
