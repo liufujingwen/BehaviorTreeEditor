@@ -2,28 +2,28 @@
 <TreeData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Agents>
     <AgentDesigner>
-      <AgentID>NewAgent_636978531764765913</AgentID>
+      <AgentID>NewAgent_636978680837590994</AgentID>
       <Fields />
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4713</x>
-            <y>4874</y>
+            <x>4574</x>
+            <y>5013</y>
             <position>
-              <x>4713</x>
-              <y>4874</y>
+              <x>4574</x>
+              <y>5013</y>
             </position>
             <center>
-              <x>4788</x>
-              <y>4904</y>
+              <x>4649</x>
+              <y>5043</y>
             </center>
             <min>
-              <x>4713</x>
-              <y>4874</y>
+              <x>4574</x>
+              <y>5013</y>
             </min>
             <max>
-              <x>4863</x>
-              <y>4934</y>
+              <x>4724</x>
+              <y>5073</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,16 +31,12 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4713</xMin>
-            <yMin>4874</yMin>
-            <xMax>4863</xMax>
-            <yMax>4934</yMax>
+            <xMin>4574</xMin>
+            <yMin>5013</yMin>
+            <xMax>4724</xMax>
+            <yMax>5073</yMax>
           </Rect>
           <Transitions>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>3</ToNodeID>
-            </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
               <ToNodeID>2</ToNodeID>
@@ -49,116 +45,29 @@
           <ID>1</ID>
           <StartNode>true</StartNode>
           <ClassType>Sequence</ClassType>
-          <ClassName />
           <NodeType>Composite</NodeType>
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>intField</FieldName>
-              <FieldType>IntField</FieldType>
-              <Describe>这是int</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>longField</FieldName>
-              <FieldType>LongField</FieldType>
-              <Describe>这是Long</Describe>
-              <Field xsi:type="LongFieldDesigner">
-                <Value>2</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>doubleField</FieldName>
-              <FieldType>DoubleField</FieldType>
-              <Describe>这是双精度浮点</Describe>
-              <Field xsi:type="DoubleFieldDesigner">
-                <Value>4.1</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>colorField</FieldName>
-              <FieldType>ColorField</FieldType>
-              <Describe>这是颜色</Describe>
-              <Field xsi:type="ColorFieldDesigner">
-                <R>128</R>
-                <G>255</G>
-                <B>255</B>
-                <A>128</A>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>vector2Field</FieldName>
-              <FieldType>Vector2</FieldType>
-              <Describe>这是Vector2节点</Describe>
-              <Field xsi:type="Vector2FieldDesigner">
-                <X>1</X>
-                <Y>1</Y>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>vector3Field</FieldName>
-              <FieldType>Vector3</FieldType>
-              <Describe>这是Vector3节点</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>0</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatVector3Field</FieldName>
-              <FieldType>RepeatVector3Field</FieldType>
-              <Describe>这是Vector3[]</Describe>
-              <Field xsi:type="RepeatVector3FieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>100.1</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
+          <Fields />
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5026.5</x>
-            <y>4753</y>
+            <x>4967.5</x>
+            <y>4937</y>
             <position>
-              <x>5026.5</x>
-              <y>4753</y>
+              <x>4967.5</x>
+              <y>4937</y>
             </position>
             <center>
-              <x>5101.5</x>
-              <y>4783</y>
+              <x>5042.5</x>
+              <y>4967</y>
             </center>
             <min>
-              <x>5026.5</x>
-              <y>4753</y>
+              <x>4967.5</x>
+              <y>4937</y>
             </min>
             <max>
-              <x>5176.5</x>
-              <y>4813</y>
+              <x>5117.5</x>
+              <y>4997</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -166,190 +75,58 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5026.5</xMin>
-            <yMin>4753</yMin>
-            <xMax>5176.5</xMax>
-            <yMax>4813</yMax>
+            <xMin>4967.5</xMin>
+            <yMin>4937</yMin>
+            <xMax>5117.5</xMax>
+            <yMax>4997</yMax>
           </Rect>
-          <Transitions>
-            <Transition>
-              <FromNodeID>2</FromNodeID>
-              <ToNodeID>4</ToNodeID>
-            </Transition>
-          </Transitions>
+          <Transitions />
           <ID>2</ID>
           <StartNode>false</StartNode>
-          <ClassType>Sequence</ClassType>
-          <ClassName />
-          <NodeType>Composite</NodeType>
-          <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+          <ClassType>Compare</ClassType>
+          <NodeType>Condition</NodeType>
+          <Describe>Compare节点对左右参数进行比较</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>booleanField</FieldName>
-              <FieldType>BooleanField</FieldType>
-              <Describe>这是布尔类型</Describe>
-              <Field xsi:type="BooleanFieldDesigner">
-                <Value>true</Value>
+              <FieldName>LeftType</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe />
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>ParameterType</EnumType>
+                <Value>Agent</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>repeatStringField</FieldName>
-              <FieldType>RepeatStringField</FieldType>
-              <Describe>这是字符串数组</Describe>
-              <Field xsi:type="RepeatStringFieldDesigner">
-                <Value />
+              <FieldName>LeftParameter</FieldName>
+              <FieldType>StringField</FieldType>
+              <Describe>左边参数变量名</Describe>
+              <Field xsi:type="StringFieldDesigner" />
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>CompareType</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>CompareType</EnumType>
+                <Value>Less</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>intField</FieldName>
-              <FieldType>IntField</FieldType>
-              <Describe>这是int</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1</Value>
+              <FieldName>RightType</FieldName>
+              <FieldType>EnumField</FieldType>
+              <Describe />
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>ParameterType</EnumType>
+                <Value>Agent</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>longField</FieldName>
-              <FieldType>LongField</FieldType>
-              <Describe>这是Long</Describe>
-              <Field xsi:type="LongFieldDesigner">
-                <Value>2</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>doubleField</FieldName>
-              <FieldType>DoubleField</FieldType>
-              <Describe>这是双精度浮点</Describe>
-              <Field xsi:type="DoubleFieldDesigner">
-                <Value>4.1</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>colorField</FieldName>
-              <FieldType>ColorField</FieldType>
-              <Describe>这是颜色</Describe>
-              <Field xsi:type="ColorFieldDesigner">
-                <R>128</R>
-                <G>255</G>
-                <B>255</B>
-                <A>128</A>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>vector2Field</FieldName>
-              <FieldType>Vector2</FieldType>
-              <Describe>这是Vector2节点</Describe>
-              <Field xsi:type="Vector2FieldDesigner">
-                <X>1</X>
-                <Y>1</Y>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>vector3Field</FieldName>
-              <FieldType>Vector3</FieldType>
-              <Describe>这是Vector3节点</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>0</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>repeatVector3Field</FieldName>
-              <FieldType>RepeatVector3Field</FieldType>
-              <Describe>这是Vector3[]</Describe>
-              <Field xsi:type="RepeatVector3FieldDesigner">
-                <Value />
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>floatField</FieldName>
-              <FieldType>FloatField</FieldType>
-              <Field xsi:type="FloatFieldDesigner">
-                <Value>100.1</Value>
-              </Field>
+              <FieldName>RightParameter</FieldName>
+              <FieldType>StringField</FieldType>
+              <Describe>右边参数变量名</Describe>
+              <Field xsi:type="StringFieldDesigner" />
             </FieldDesigner>
           </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5060.5</x>
-            <y>4920</y>
-            <position>
-              <x>5060.5</x>
-              <y>4920</y>
-            </position>
-            <center>
-              <x>5135.5</x>
-              <y>4950</y>
-            </center>
-            <min>
-              <x>5060.5</x>
-              <y>4920</y>
-            </min>
-            <max>
-              <x>5210.5</x>
-              <y>4980</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5060.5</xMin>
-            <yMin>4920</yMin>
-            <xMax>5210.5</xMax>
-            <yMax>4980</yMax>
-          </Rect>
-          <Transitions />
-          <ID>3</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Noop</ClassType>
-          <ClassName />
-          <NodeType>Action</NodeType>
-          <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
-          <Fields />
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5315.5</x>
-            <y>4763</y>
-            <position>
-              <x>5315.5</x>
-              <y>4763</y>
-            </position>
-            <center>
-              <x>5390.5</x>
-              <y>4793</y>
-            </center>
-            <min>
-              <x>5315.5</x>
-              <y>4763</y>
-            </min>
-            <max>
-              <x>5465.5</x>
-              <y>4823</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5315.5</xMin>
-            <yMin>4763</yMin>
-            <xMax>5465.5</xMax>
-            <yMax>4823</yMax>
-          </Rect>
-          <Transitions />
-          <ID>4</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Noop</ClassType>
-          <ClassName />
-          <NodeType>Action</NodeType>
-          <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
-          <Fields />
         </NodeDesigner>
       </Nodes>
     </AgentDesigner>

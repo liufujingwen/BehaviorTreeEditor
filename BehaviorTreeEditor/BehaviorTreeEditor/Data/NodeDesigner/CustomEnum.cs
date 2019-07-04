@@ -100,6 +100,12 @@ namespace BehaviorTreeEditor
 
             if (ExistEnumValue(item.EnumValue))
             {
+                MainForm.Instance.ShowMessage(string.Format("枚举类型:{0},已存在枚举值:{1}", m_EnumType, item.EnumValue));
+                return false;
+            }
+
+            if (ExistEnumValue(item.EnumValue))
+            {
                 EnumItem findItem = FindEnum(item.EnumStr);
                 MainForm.Instance.ShowMessage(string.Format("枚举类型:{0},已存在枚举值[{1}:{2}],请修改枚举值", m_EnumType, findItem.EnumStr, findItem.EnumValue));
                 return false;

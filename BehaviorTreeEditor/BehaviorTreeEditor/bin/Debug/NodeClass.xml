@@ -1,114 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NodeClasses xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Enums />
+  <Enums>
+    <CustomEnum>
+      <EnumType>SUCCESS_POLICY</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>SUCCEED_ON_ONE</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe>当某一个节点返回成功时退出；</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>SUCCEED_ON_ALL</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>当全部节点都返回成功时退出</Describe>
+        </EnumItem>
+      </Enums>
+    </CustomEnum>
+    <CustomEnum>
+      <EnumType>FAILURE_POLICY</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>FAIL_ON_ONE</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe>当某一个节点返回失败时退出；</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>FAIL_ON_ALL</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>当全部节点都返回失败时退出</Describe>
+        </EnumItem>
+      </Enums>
+    </CustomEnum>
+    <CustomEnum>
+      <EnumType>ParameterType</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Agent</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe>在Agent定义的参数</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Global</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>全局定义的参数</Describe>
+        </EnumItem>
+      </Enums>
+    </CustomEnum>
+    <CustomEnum>
+      <EnumType>CompareType</EnumType>
+      <Enums>
+        <EnumItem>
+          <EnumStr>Less</EnumStr>
+          <EnumValue>1</EnumValue>
+          <Describe>&lt;</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Greater</EnumStr>
+          <EnumValue>2</EnumValue>
+          <Describe>&gt;</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>LEqual</EnumStr>
+          <EnumValue>3</EnumValue>
+          <Describe>&lt;=</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>GEqual</EnumStr>
+          <EnumValue>4</EnumValue>
+          <Describe>&gt;=</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Equal</EnumStr>
+          <EnumValue>5</EnumValue>
+          <Describe>==</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>NotEqual</EnumStr>
+          <EnumValue>6</EnumValue>
+          <Describe>!=</Describe>
+        </EnumItem>
+      </Enums>
+    </CustomEnum>
+  </Enums>
   <Nodes>
-    <NodeClass ClassType="StartNode" NodeType="Composite">
-      <Describe>行为树根节点</Describe>
+    <NodeClass ClassType="Random" Category="随机" NodeType="Composite">
+      <Describe>随机节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Selector" Category="" NodeType="Composite">
+      <Describe>选择节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="RandomSequence" Category="随机" NodeType="Composite">
+      <Describe>随机序列节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Parallel" NodeType="Composite">
+      <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Sequence" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="IfElse" NodeType="Composite">
+      <Describe />
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="RandomSelector" Category="随机" NodeType="Composite">
+      <Describe>随机选择节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="RateSelector" Category="随机" NodeType="Composite">
+      <Describe>概率选择节点</Describe>
       <Fields>
         <NodeField>
-          <FieldName>booleanField</FieldName>
-          <FieldType>BooleanField</FieldType>
-          <Describe>这是布尔类型</Describe>
-          <DefaultValue xsi:type="BooleanDefaultValue">
-            <DefaultValue>true</DefaultValue>
-          </DefaultValue>
+          <FieldName>Priority</FieldName>
+          <FieldType>RepeatIntField</FieldType>
+          <Describe />
         </NodeField>
+      </Fields>
+    </NodeClass>
+    <NodeClass ClassType="Success" NodeType="Decorator">
+      <Describe>成功节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Loop" NodeType="Decorator">
+      <Describe>循环节点 -1无限循环</Describe>
+      <Fields>
         <NodeField>
-          <FieldName>repeatStringField</FieldName>
-          <FieldType>RepeatStringField</FieldType>
-          <Describe>这是字符串数组</Describe>
-        </NodeField>
-        <NodeField>
-          <FieldName>intField</FieldName>
+          <FieldName>LoopTimes</FieldName>
           <FieldType>IntField</FieldType>
-          <Describe>这是int</Describe>
+          <Describe>循环次数</Describe>
           <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>1</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>longField</FieldName>
-          <FieldType>LongField</FieldType>
-          <Describe>这是Long</Describe>
-          <DefaultValue xsi:type="LongDefaultValue">
-            <DefaultValue>2</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>doubleField</FieldName>
-          <FieldType>DoubleField</FieldType>
-          <Describe>这是双精度浮点</Describe>
-          <DefaultValue xsi:type="DoubleDefaultValue">
-            <DefaultValue>4.1</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>colorField</FieldName>
-          <FieldType>ColorField</FieldType>
-          <Describe>这是颜色</Describe>
-          <DefaultValue xsi:type="ColorDefaultValue">
-            <R>128</R>
-            <G>255</G>
-            <B>255</B>
-            <A>128</A>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>vector2Field</FieldName>
-          <FieldType>Vector2</FieldType>
-          <Describe>这是Vector2节点</Describe>
-          <DefaultValue xsi:type="Vector2DefaultValue">
-            <X>1</X>
-            <Y>1</Y>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>vector3Field</FieldName>
-          <FieldType>Vector3</FieldType>
-          <Describe>这是Vector3节点</Describe>
-          <DefaultValue xsi:type="Vector3DefaultValue">
-            <X>0</X>
-            <Y>0</Y>
-            <Z>0</Z>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>repeatVector3Field</FieldName>
-          <FieldType>RepeatVector3Field</FieldType>
-          <Describe>这是Vector3[]</Describe>
-        </NodeField>
-        <NodeField>
-          <FieldName>floatField</FieldName>
-          <FieldType>FloatField</FieldType>
-          <DefaultValue xsi:type="FloatDefaultValue">
-            <DefaultValue>100.1</DefaultValue>
+            <DefaultValue>0</DefaultValue>
           </DefaultValue>
         </NodeField>
       </Fields>
     </NodeClass>
+    <NodeClass ClassType="WaitUntil" NodeType="Decorator">
+      <Describe>阻塞，直到子节点返回true</Describe>
+      <Fields />
+    </NodeClass>
     <NodeClass ClassType="Not" NodeType="Decorator">
-      <Describe>非节点将子节点的返回值取反</Describe>
+      <Describe>取反节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Frames" NodeType="Decorator">
+      <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Failure" NodeType="Decorator">
+      <Describe>失败节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Log" NodeType="Decorator">
+      <Describe>输出log节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>Content</FieldName>
+          <FieldType>StringField</FieldType>
+          <Describe>输出的内容</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+      </Fields>
+    </NodeClass>
+    <NodeClass ClassType="LoopUntil" NodeType="Decorator">
+      <Describe>直到某个值达成前一直循环</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Time" NodeType="Decorator">
+      <Describe>指定时间内运行</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Compare" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
-      <Fields />
+      <Fields>
+        <NodeField>
+          <FieldName>LeftType</FieldName>
+          <FieldType>EnumField</FieldType>
+          <Describe />
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>ParameterType</m_EnumType>
+            <EnumType>ParameterType</EnumType>
+            <DefaultValue>Agent</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>LeftParameter</FieldName>
+          <FieldType>StringField</FieldType>
+          <Describe>左边参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>CompareType</FieldName>
+          <FieldType>EnumField</FieldType>
+          <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>CompareType</m_EnumType>
+            <EnumType>CompareType</EnumType>
+            <DefaultValue>Less</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>RightType</FieldName>
+          <FieldType>EnumField</FieldType>
+          <Describe />
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>ParameterType</m_EnumType>
+            <EnumType>ParameterType</EnumType>
+            <DefaultValue>Agent</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+        <NodeField>
+          <FieldName>RightParameter</FieldName>
+          <FieldType>StringField</FieldType>
+          <Describe>右边参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+      </Fields>
     </NodeClass>
-    <NodeClass ClassType="TestNode1" Category="测试1/测试1" NodeType="Action">
-      <Describe />
-      <Fields />
+    <NodeClass ClassType="Wait" NodeType="Action">
+      <Describe>等待节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>Millisecond</FieldName>
+          <FieldType>IntField</FieldType>
+          <Describe>等待时间（毫秒）</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
     </NodeClass>
-    <NodeClass ClassType="Noop" NodeType="Action">
-      <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
-      <Fields />
+    <NodeClass ClassType="Assignment" NodeType="Action">
+      <Describe>赋值节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>ParameterName</FieldName>
+          <FieldType>StringField</FieldType>
+          <Describe>参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>Parameter</FieldName>
+          <FieldType>IntField</FieldType>
+          <Describe>参数值</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
     </NodeClass>
-    <NodeClass ClassType="TestNode" Category="测试1/测试1" NodeType="Action">
-      <Describe />
-      <Fields />
+    <NodeClass ClassType="AssignmentString" NodeType="Action">
+      <Describe>赋值节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>ParameterName</FieldName>
+          <FieldType>StringField</FieldType>
+          <Describe>参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>Parameter</FieldName>
+          <FieldType>IntField</FieldType>
+          <Describe>参数值</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
     </NodeClass>
   </Nodes>
 </NodeClasses>

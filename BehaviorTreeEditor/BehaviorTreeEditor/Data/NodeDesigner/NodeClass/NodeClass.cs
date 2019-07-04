@@ -120,8 +120,8 @@ namespace BehaviorTreeEditor
                 NodeField temp = m_Fields[i];
                 if (temp.FieldName == field.FieldName)
                 {
-                    MainForm.Instance.ShowInfo("字段名字相同,添加失败！！！");
-                    MainForm.Instance.ShowMessage("字段名字相同,添加失败！！！", "警告");
+                    MainForm.Instance.ShowInfo(string.Format("字段名字{0}相同,添加失败！！！", temp.FieldName));
+                    MainForm.Instance.ShowMessage(string.Format("字段名字{0}相同,添加失败！！！", temp.FieldName), "警告");
                     return false;
                 }
             }

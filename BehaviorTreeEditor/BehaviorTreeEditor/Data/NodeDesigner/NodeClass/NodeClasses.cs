@@ -79,64 +79,233 @@ namespace BehaviorTreeEditor
             return m_Nodes.Remove(nodeClass);
         }
 
+        public void ResetEnums()
+        {
+            m_Enums.Clear();
+
+            CustomEnum SUCCESS_POLICY = new CustomEnum();
+            SUCCESS_POLICY.EnumType = "SUCCESS_POLICY";
+            SUCCESS_POLICY.AddEnumItem(new EnumItem() { EnumStr = "SUCCEED_ON_ONE", EnumValue = 1, Describe = "当某一个节点返回成功时退出；" });
+            SUCCESS_POLICY.AddEnumItem(new EnumItem() { EnumStr = "SUCCEED_ON_ALL", EnumValue = 2, Describe = "当全部节点都返回成功时退出" });
+            AddEnum(SUCCESS_POLICY);
+
+            CustomEnum FAILURE_POLICY = new CustomEnum();
+            FAILURE_POLICY.EnumType = "FAILURE_POLICY";
+            FAILURE_POLICY.AddEnumItem(new EnumItem() { EnumStr = "FAIL_ON_ONE", EnumValue = 1, Describe = "当某一个节点返回失败时退出；" });
+            FAILURE_POLICY.AddEnumItem(new EnumItem() { EnumStr = "FAIL_ON_ALL", EnumValue = 2, Describe = "当全部节点都返回失败时退出" });
+            AddEnum(FAILURE_POLICY);
+
+            CustomEnum ParameterType = new CustomEnum();
+            ParameterType.EnumType = "ParameterType";
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "Agent", EnumValue = 1, Describe = "在Agent定义的参数" });
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "Global", EnumValue = 2, Describe = "全局定义的参数" });
+            AddEnum(ParameterType);
+
+            CustomEnum CompareType = new CustomEnum();
+            CompareType.EnumType = "CompareType";
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "Less", EnumValue = 1, Describe = "<" });
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "Greater", EnumValue = 2, Describe = ">" });
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "LEqual", EnumValue = 3, Describe = "<=" });
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "GEqual", EnumValue = 4, Describe = ">=" });
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "Equal", EnumValue = 5, Describe = "==" });
+            CompareType.AddEnumItem(new EnumItem() { EnumStr = "NotEqual", EnumValue = 6, Describe = "!=" });
+            AddEnum(CompareType);
+        }
+
         public void ResetNodes()
         {
             m_Nodes.Clear();
             #region 组合节点
-            //开始节点
-            NodeClass startNode = new NodeClass();
-            startNode.ClassType = "StartNode";
-            startNode.NodeType = NodeType.Composite;
-            startNode.Describe = "行为树根节点";
-            m_Nodes.Add(startNode);
-
             //并行节点
             NodeClass parallelNode = new NodeClass();
             parallelNode.ClassType = "Parallel";
             parallelNode.NodeType = NodeType.Composite;
             parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
-            m_Nodes.Add(parallelNode);
+            AddClass(parallelNode);
 
             //顺序节点
             NodeClass sequenceNode = new NodeClass();
             sequenceNode.ClassType = "Sequence";
             sequenceNode.NodeType = NodeType.Composite;
             sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
-            m_Nodes.Add(sequenceNode);
+            AddClass(sequenceNode);
+
+            //选择节点
+            NodeClass Selector = new NodeClass();
+            Selector.ClassType = "Selector";
+            Selector.Category = "";
+            Selector.NodeType = NodeType.Composite;
+            Selector.Describe = "选择节点";
+            AddClass(Selector);
+
+            //ifelse
+            NodeClass IfElse = new NodeClass();
+            IfElse.ClassType = "IfElse";
+            IfElse.NodeType = NodeType.Composite;
+            IfElse.Describe = "";
+            AddClass(IfElse);
+
+            //随机节点
+            NodeClass Random = new NodeClass();
+            Random.ClassType = "Random";
+            Random.Category = "随机";
+            Random.NodeType = NodeType.Composite;
+            Random.Describe = "随机节点";
+            AddClass(Random);
+
+            //随机选择节点
+            NodeClass RandomSelector = new NodeClass();
+            RandomSelector.ClassType = "RandomSelector";
+            RandomSelector.Category = "随机";
+            RandomSelector.NodeType = NodeType.Composite;
+            RandomSelector.Describe = "随机选择节点";
+            AddClass(RandomSelector);
+
+            //随机序列节点
+            NodeClass RandomSequence = new NodeClass();
+            RandomSequence.ClassType = "RandomSequence";
+            RandomSequence.Category = "随机";
+            RandomSequence.NodeType = NodeType.Composite;
+            RandomSequence.Describe = "随机序列节点";
+            AddClass(RandomSequence);
+
+            //概率选择节点
+            NodeClass RateSelector = new NodeClass();
+            RateSelector.ClassType = "RateSelector";
+            RateSelector.Category = "随机";
+            RateSelector.NodeType = NodeType.Composite;
+            RateSelector.Describe = "概率选择节点";
+            RateSelector.AddField(new NodeField() { FieldName = "Priority", FieldType = FieldType.RepeatIntField, Describe = "" });
+            AddClass(RateSelector);
 
             #endregion
 
             #region 装饰节点
 
-            //空操作节点
-            NodeClass notNode = new NodeClass();
-            notNode.ClassType = "Not";
-            notNode.NodeType = NodeType.Decorator;
-            notNode.Describe = "非节点将子节点的返回值取反";
-            m_Nodes.Add(notNode);
+            //成功节点
+            NodeClass Success = new NodeClass();
+            Success.ClassType = "Success";
+            Success.NodeType = NodeType.Decorator;
+            Success.Describe = "成功节点";
+            AddClass(Success);
+
+            //失败节点
+            NodeClass Failure = new NodeClass();
+            Failure.ClassType = "Failure";
+            Failure.NodeType = NodeType.Decorator;
+            Failure.Describe = "失败节点";
+            AddClass(Failure);
+
+            //帧数节点用于在指定的帧数内，持续调用其子节点
+            NodeClass Frames = new NodeClass();
+            Frames.ClassType = "Frames";
+            Frames.NodeType = NodeType.Decorator;
+            Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
+            AddClass(Frames);
+
+            //输出Log节点
+            NodeClass Log = new NodeClass();
+            Log.ClassType = "Log";
+            Log.NodeType = NodeType.Decorator;
+            Log.Describe = "输出log节点";
+            Log.AddField(new NodeField() { FieldName = "Content", FieldType = FieldType.StringField, Describe = "输出的内容" });
+            AddClass(Log);
+
+            //循环节点 -1无限循环
+            NodeClass Loop = new NodeClass();
+            Loop.ClassType = "Loop";
+            Loop.NodeType = NodeType.Decorator;
+            Loop.Describe = "循环节点 -1无限循环";
+            Loop.AddField(new NodeField() { FieldName = "LoopTimes", FieldType = FieldType.IntField, Describe = "循环次数" });
+            AddClass(Loop);
+
+            //直到某个值达成前一直循环
+            NodeClass LoopUntil = new NodeClass();
+            LoopUntil.ClassType = "LoopUntil";
+            LoopUntil.NodeType = NodeType.Decorator;
+            LoopUntil.Describe = "直到某个值达成前一直循环";
+            AddClass(LoopUntil);
+
+            //取反节点
+            NodeClass Not = new NodeClass();
+            Not.ClassType = "Not";
+            Not.NodeType = NodeType.Decorator;
+            Not.Describe = "取反节点";
+            AddClass(Not);
+
+            //指定时间内运行
+            NodeClass Time = new NodeClass();
+            Time.ClassType = "Time";
+            Time.NodeType = NodeType.Decorator;
+            Time.Describe = "指定时间内运行";
+            AddClass(Time);
+
+            //阻塞，直到子节点返回true
+            NodeClass WaitUntil = new NodeClass();
+            WaitUntil.ClassType = "WaitUntil";
+            WaitUntil.NodeType = NodeType.Decorator;
+            WaitUntil.Describe = "阻塞，直到子节点返回true";
+            AddClass(WaitUntil);
 
             #endregion
 
             #region 条件节点
 
-            //空操作节点
-            NodeClass compareNode = new NodeClass();
-            compareNode.ClassType = "Compare";
-            compareNode.NodeType = NodeType.Condition;
-            compareNode.Describe = "Compare节点对左右参数进行比较";
-            m_Nodes.Add(compareNode);
+            //比较节点
+            NodeClass Compare = new NodeClass();
+            Compare.ClassType = "Compare";
+            Compare.NodeType = NodeType.Condition;
+            Compare.Describe = "Compare节点对左右参数进行比较";
+            //左边参数类型
+            NodeField CompareLeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+            EnumDefaultValue CompareLeftEnumDefaultValue = CompareLeftType.DefaultValue as EnumDefaultValue;
+            CompareLeftEnumDefaultValue.EnumType = "ParameterType";
+            Compare.AddField(CompareLeftType);
+            //左边参数变量名
+            Compare.AddField(new NodeField() { FieldName = "LeftParameter", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            //比较符号
+            NodeField CompareType = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            EnumDefaultValue CompareTypeDefaultValue = CompareType.DefaultValue as EnumDefaultValue;
+            CompareTypeDefaultValue.EnumType = "CompareType";
+            Compare.AddField(CompareType);
+            //右边边参数类型
+            NodeField CompareRightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+            EnumDefaultValue CompareRightEnumDefaultValue = CompareRightType.DefaultValue as EnumDefaultValue;
+            CompareRightEnumDefaultValue.EnumType = "ParameterType";
+            Compare.AddField(CompareRightType);
+            //右边参数变量名
+            Compare.AddField(new NodeField() { FieldName = "RightParameter", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            AddClass(Compare);
 
             #endregion
 
             #region 动作节点
 
-            //空操作节点
-            NodeClass noopNode = new NodeClass();
-            noopNode.ClassType = "Noop";
-            noopNode.NodeType = NodeType.Action;
-            noopNode.Describe = "空操作（Noop）节点只是作为占位，仅执行一次就返回成功";
-            m_Nodes.Add(noopNode);
+            //赋值节点Int
+            NodeClass AssignmentInt = new NodeClass();
+            AssignmentInt.ClassType = "Assignment";
+            AssignmentInt.NodeType = NodeType.Action;
+            AssignmentInt.Describe = "赋值节点";
+            AssignmentInt.AddField(new NodeField() { FieldName = "ParameterName", FieldType = FieldType.StringField, Describe = "参数变量名" });
+            AssignmentInt.AddField(new NodeField() { FieldName = "Parameter", FieldType = FieldType.IntField, Describe = "参数值" });
+            AddClass(AssignmentInt);
 
+            //赋值节点String
+            NodeClass AssignmentString = new NodeClass();
+            AssignmentString.ClassType = "AssignmentString";
+            AssignmentString.NodeType = NodeType.Action;
+            AssignmentString.Describe = "赋值节点";
+            AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", FieldType = FieldType.StringField, Describe = "参数变量名" });
+            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", FieldType = FieldType.IntField, Describe = "参数值" });
+            AddClass(AssignmentString);
+
+            //等待节点
+            NodeClass Wait = new NodeClass();
+            Wait.ClassType = "Wait";
+            Wait.NodeType = NodeType.Action;
+            Wait.Describe = "等待节点";
+            Wait.AddField(new NodeField() { FieldName = "Millisecond", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）" });
+            AddClass(Wait);
             #endregion
         }
 
@@ -218,7 +387,6 @@ namespace BehaviorTreeEditor
 
             return null;
         }
-
 
         public bool RemoveEnum(CustomEnum customEnum)
         {

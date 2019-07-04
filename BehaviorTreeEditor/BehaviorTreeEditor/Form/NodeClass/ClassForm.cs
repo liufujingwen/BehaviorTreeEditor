@@ -157,8 +157,9 @@ namespace BehaviorTreeEditor
             if (MessageBox.Show("是否重置所有类信息吗？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 m_Nodes = new NodeClasses();
-                m_Nodes.ResetNodes();
                 MainForm.Instance.NodeClasses = m_Nodes;
+                m_Nodes.ResetEnums();
+                m_Nodes.ResetNodes();
                 BindNodeTree();
             }
         }
