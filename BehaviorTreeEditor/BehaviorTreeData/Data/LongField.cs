@@ -72,5 +72,13 @@ namespace BehaviorTreeData
         }
 
         #endregion
+
+        public override BaseField Clone()
+        {
+            LongField field = new LongField();
+            field.FieldName = FieldName;
+            field.Value = Value;
+            return field;
+        }
     }
 }

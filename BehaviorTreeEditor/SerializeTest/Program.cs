@@ -119,7 +119,6 @@ namespace SerializeTest
 
             EnumField enumField = new EnumField();
             enumField.FieldName = "EnumField";
-            enumField.EnumType = "TestEnum";
             enumField.Value = 100;
             agent.StartNode.Fileds.Add(enumField);
 
@@ -160,7 +159,6 @@ namespace SerializeTest
             //子节点1的枚举字段
             EnumField enumField = new EnumField();
             enumField.FieldName = "EnumField";
-            enumField.EnumType = "TestEnum";
             enumField.Value = 100;
             node1.Fileds.Add(enumField);
 

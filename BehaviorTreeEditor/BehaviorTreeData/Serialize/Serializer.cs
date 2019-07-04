@@ -16,6 +16,7 @@ namespace BehaviorTreeData
             List<Type> list = new List<Type>();
             list.Add(typeof(AgentData));
             list.Add(typeof(NodeData));
+            list.Add(typeof(TreeData));
 
             list.Add(typeof(IntField));
             list.Add(typeof(RepeatIntField));
@@ -29,10 +30,18 @@ namespace BehaviorTreeData
             list.Add(typeof(DoubleField));
             list.Add(typeof(RepeatDoubleField));
 
+            list.Add(typeof(StringField));
+            list.Add(typeof(RepeatStringField));
+
             list.Add(typeof(EnumField));
             list.Add(typeof(ColorField));
             list.Add(typeof(BooleanField));
 
+            list.Add(typeof(Vector2Field));
+            list.Add(typeof(RepeatVector2Field));
+
+            list.Add(typeof(Vector3Field));
+            list.Add(typeof(RepeatVector3Field));
 
             TypeToValueDic.Clear();
             ValueToTypeDic.Clear();

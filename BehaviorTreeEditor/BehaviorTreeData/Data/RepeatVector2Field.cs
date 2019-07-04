@@ -17,5 +17,21 @@ namespace BehaviorTreeData
         {
             writer.Write(FieldName).Write(Value);
         }
+
+        public override BaseField Clone()
+        {
+            RepeatVector2Field field = new RepeatVector2Field();
+            field.FieldName = FieldName;
+            if (Value != null)
+            {
+                field.Value = new List<Vector2>(Value.Count);
+                for (int i = 0; i < Value.Count; i++)
+                {
+                    Vector2 vector = Value[i];
+                    field.Value.Add(vector != null ? vector.Clone() : null);
+                }
+            }
+            return field;
+        }
     }
 }

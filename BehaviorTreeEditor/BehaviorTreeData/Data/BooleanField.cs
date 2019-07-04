@@ -72,5 +72,13 @@ namespace BehaviorTreeData
         }
 
         #endregion
+
+        public override BaseField Clone()
+        {
+            BooleanField field = new BooleanField();
+            field.FieldName = FieldName;
+            field.Value = Value;
+            return field;
+        }
     }
 }

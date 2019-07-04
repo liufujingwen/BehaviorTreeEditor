@@ -29,7 +29,7 @@ namespace BehaviorTreeEditor
         public string NodeClassesStringContent;
 
         //行为树数据
-        public TreeData BehaviorTreeData;
+        public TreeData TreeData;
 
         //行为树数据上一次保存的时候的内容，用于检测行为树dirty
         public string BehaviorTreeDataStringContent;
@@ -96,9 +96,9 @@ namespace BehaviorTreeEditor
             }
             else
             {
-                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                for (int i = 0; i < TreeData.Agents.Count; i++)
                 {
-                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    AgentDesigner agent = TreeData.Agents[i];
                     TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
                     treeNode.Tag = agent;
                 }
@@ -278,7 +278,7 @@ namespace BehaviorTreeEditor
             do
             {
                 agentID = "NewAgent_" + DateTime.Now.Ticks;
-            } while (BehaviorTreeData.ExistAgent(agentID));
+            } while (TreeData.ExistAgent(agentID));
 
             NodeClass nodeClass = NodeClasses.FindNode("Sequence");
             if (nodeClass != null)
@@ -303,7 +303,7 @@ namespace BehaviorTreeEditor
 
                 agent.AddNode(startNode);
                 agent.AgentID = agentID;
-                BehaviorTreeData.AddAgent(agent);
+                TreeData.AddAgent(agent);
 
 
 
@@ -370,10 +370,10 @@ namespace BehaviorTreeEditor
                     do
                     {
                         agentID = "NewAgent_" + DateTime.Now.Ticks;
-                    } while (BehaviorTreeData.ExistAgent(agentID));
+                    } while (TreeData.ExistAgent(agentID));
 
                     agent.AgentID = agentID;
-                    BehaviorTreeData.AddAgent(agent);
+                    TreeData.AddAgent(agent);
                     AddAgentItem(agent);
                 }
 
@@ -422,10 +422,10 @@ namespace BehaviorTreeEditor
                 int preIdx = selectIdx - 1;
 
                 //交换数据
-                AgentDesigner preAgent = BehaviorTreeData.Agents[preIdx];
-                AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
-                BehaviorTreeData.Agents[preIdx] = selectedAgent;
-                BehaviorTreeData.Agents[selectIdx] = preAgent;
+                AgentDesigner preAgent = TreeData.Agents[preIdx];
+                AgentDesigner selectedAgent = TreeData.Agents[selectIdx];
+                TreeData.Agents[preIdx] = selectedAgent;
+                TreeData.Agents[selectIdx] = preAgent;
 
                 TreeNode preTreeNode = treeView1.Nodes[preIdx];
                 TreeNode selectedTreeNode = treeView1.SelectedNode;
@@ -448,10 +448,10 @@ namespace BehaviorTreeEditor
                 int nextIdx = selectIdx + 1;
 
                 //交换数据
-                AgentDesigner nextAgent = BehaviorTreeData.Agents[nextIdx];
-                AgentDesigner selectedAgent = BehaviorTreeData.Agents[selectIdx];
-                BehaviorTreeData.Agents[nextIdx] = selectedAgent;
-                BehaviorTreeData.Agents[selectIdx] = nextAgent;
+                AgentDesigner nextAgent = TreeData.Agents[nextIdx];
+                AgentDesigner selectedAgent = TreeData.Agents[selectIdx];
+                TreeData.Agents[nextIdx] = selectedAgent;
+                TreeData.Agents[selectIdx] = nextAgent;
 
                 TreeNode nextTreeNode = treeView1.Nodes[nextIdx];
                 TreeNode selectedTreeNode = treeView1.SelectedNode;
@@ -496,7 +496,7 @@ namespace BehaviorTreeEditor
             if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                BehaviorTreeData.RemoveAgent(agentDesigner);
+                TreeData.RemoveAgent(agentDesigner);
                 FilterAgentList.Remove(agentDesigner);
                 treeView1.Nodes.RemoveAt(index);
                 TreeNode treeNode = GetTreeNodeByIndex(index);
@@ -752,10 +752,10 @@ namespace BehaviorTreeEditor
             NodeClasses.RemoveUnDefineEnumField();
 
             //移除未定义的节点
-            BehaviorTreeData.RemoveUnDefineNode();
+            TreeData.RemoveUnDefineNode();
 
             //修正节点字段，和模板的保持一致
-            BehaviorTreeData.AjustField();
+            TreeData.AjustField();
 
             //检验枚举
             VerifyInfo verifyEnum = NodeClasses.VerifyEnum();
@@ -776,7 +776,7 @@ namespace BehaviorTreeEditor
             }
 
             //校验行为树
-            VerifyInfo verifyBehaviorTree = BehaviorTreeData.VerifyBehaviorTree();
+            VerifyInfo verifyBehaviorTree = TreeData.VerifyBehaviorTree();
             if (verifyBehaviorTree.HasError)
             {
                 ShowMessage(verifyBehaviorTree.Msg);
@@ -789,18 +789,24 @@ namespace BehaviorTreeEditor
                 NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
             }
 
-            if (BehaviorTreeData != null)
+
+            if (XmlUtility.Save(GetBehaviorTreeDataPath(), TreeData))
             {
-                if (XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData))
-                {
-                    BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
-                }
+                BehaviorTreeDataStringContent = XmlUtility.ObjectToString(TreeData);
+            }
+
+            //序列化成二进制
+            BehaviorTreeData.TreeData treeData = EditorUtility.CreateTreeData(TreeData);
+            if (treeData != null)
+            {
+                string savePath = GetNodeDataSavePath();
+                if (File.Exists(savePath))
+                    File.Delete(savePath);
+                BehaviorTreeData.Serializer.SerializeToFile(treeData, savePath);
             }
 
             ShowInfo("保存成功 时间:" + DateTime.Now);
         }
-
-
 
         /// <summary>
         /// 获取数据保存路径
@@ -829,6 +835,15 @@ namespace BehaviorTreeEditor
         public string GetBehaviorTreeDataPath()
         {
             return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.BehaviorTreeDataFile);
+        }
+
+        /// <summary>
+        /// 获取行为树二进制数据导出路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetNodeDataSavePath()
+        {
+            return Path.Combine(Settings.Default.NodeDataSavePath, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
         }
 
         /// <summary>
@@ -885,7 +900,7 @@ namespace BehaviorTreeEditor
                 }
 
                 bool behaviorTreeDirty = false;
-                string tempBehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+                string tempBehaviorTreeDataStringContent = XmlUtility.ObjectToString(TreeData);
                 if (tempBehaviorTreeDataStringContent != BehaviorTreeDataStringContent)
                 {
                     behaviorTreeDirty = true;
@@ -911,9 +926,9 @@ namespace BehaviorTreeEditor
             FilterAgentList.Clear();
             if (!string.IsNullOrEmpty(SearchStr))
             {
-                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                for (int i = 0; i < TreeData.Agents.Count; i++)
                 {
-                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    AgentDesigner agent = TreeData.Agents[i];
                     if (agent.AgentID.Contains(SearchStr))
                         FilterAgentList.Add(agent);
                 }
@@ -925,20 +940,20 @@ namespace BehaviorTreeEditor
         public void LoadBehaviorTreeData()
         {
             //读取行为树数据
-            BehaviorTreeData = XmlUtility.Read<TreeData>(GetBehaviorTreeDataPath());
-            if (BehaviorTreeData == null)
+            TreeData = XmlUtility.Read<TreeData>(GetBehaviorTreeDataPath());
+            if (TreeData == null)
             {
-                BehaviorTreeData = new TreeData();
-                XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
+                TreeData = new TreeData();
+                XmlUtility.Save(GetBehaviorTreeDataPath(), TreeData);
             }
 
-            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(TreeData);
 
-            if (BehaviorTreeData.Agents.Count > 0)
+            if (TreeData.Agents.Count > 0)
             {
-                for (int i = 0; i < BehaviorTreeData.Agents.Count; i++)
+                for (int i = 0; i < TreeData.Agents.Count; i++)
                 {
-                    AgentDesigner agent = BehaviorTreeData.Agents[i];
+                    AgentDesigner agent = TreeData.Agents[i];
                     if (agent != null)
                     {
                         if (agent.Nodes.Count > 0)

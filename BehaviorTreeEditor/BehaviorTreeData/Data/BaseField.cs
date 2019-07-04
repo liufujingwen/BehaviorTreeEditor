@@ -210,5 +210,7 @@ namespace BehaviorTreeData
         }
 
         #endregion
+
+        public abstract BaseField Clone();
     }
 }
