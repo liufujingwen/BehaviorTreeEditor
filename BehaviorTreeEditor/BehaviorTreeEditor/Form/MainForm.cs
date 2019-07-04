@@ -2,6 +2,7 @@
 using BehaviorTreeEditor.UIControls;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -16,16 +17,23 @@ namespace BehaviorTreeEditor
             get { return ms_Instance; }
         }
 
+        private Brush HighLight = new SolidBrush(Color.FromArgb(255, 0, 120, 215));
+
         //工作区配置数据
         public WorkSpaceData WorkSpaceData;
+
         //节点类数据（节点模板）
         public NodeClasses NodeClasses;
+
         //节点类上一次保存的时候的内容，用于检测节点类dirty
         public string NodeClassesStringContent;
+
         //行为树数据
         public BehaviorTreeData BehaviorTreeData;
+
         //行为树数据上一次保存的时候的内容，用于检测行为树dirty
         public string BehaviorTreeDataStringContent;
+
         //当前选中的Agent
         public AgentDesigner SelectedAgent;
 
@@ -51,7 +59,8 @@ namespace BehaviorTreeEditor
 
             this.Width = (int)(width * 0.9f);
             this.Height = (int)(height * 0.8f);
-            this.Location = new System.Drawing.Point((int)(width / 2f - this.Width / 2f), (int)(height / 2f - this.Height / 2f));
+            this.Location = new System.Drawing.Point((int)(width / 2f - this.Width / 2f),
+                (int)(height / 2f - this.Height / 2f));
 
             m_ContentUserControl = new ContentUserControl();
             m_ContentUserControl.Dock = DockStyle.Fill;
@@ -269,13 +278,13 @@ namespace BehaviorTreeEditor
             do
             {
                 agentID = "NewAgent_" + DateTime.Now.Ticks;
-            }
-            while (BehaviorTreeData.ExistAgent(agentID));
+            } while (BehaviorTreeData.ExistAgent(agentID));
 
             NodeClass nodeClass = NodeClasses.FindNode("Sequence");
             if (nodeClass != null)
             {
-                Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
+                Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth,
+                    EditorUtility.NodeHeight);
                 NodeDesigner startNode = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
                 startNode.ID = agent.GenNodeID();
                 startNode.StartNode = true;
@@ -314,7 +323,11 @@ namespace BehaviorTreeEditor
         public class AgentListContent
         {
             private List<AgentDesigner> m_DataList = new List<AgentDesigner>();
-            public List<AgentDesigner> DataList { get { return m_DataList; } }
+
+            public List<AgentDesigner> DataList
+            {
+                get { return m_DataList; }
+            }
         }
 
         /// <summary>
@@ -357,12 +370,13 @@ namespace BehaviorTreeEditor
                     do
                     {
                         agentID = "NewAgent_" + DateTime.Now.Ticks;
-                    }
-                    while (BehaviorTreeData.ExistAgent(agentID));
+                    } while (BehaviorTreeData.ExistAgent(agentID));
+
                     agent.AgentID = agentID;
                     BehaviorTreeData.AddAgent(agent);
                     AddAgentItem(agent);
                 }
+
                 ShowInfo("您粘贴了" + content.DataList.Count + "棵行为树！！！");
             }
             catch (Exception ex)
@@ -479,7 +493,8 @@ namespace BehaviorTreeEditor
             if (agentDesigner == null)
                 return;
 
-            if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示",
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 BehaviorTreeData.RemoveAgent(agentDesigner);
                 FilterAgentList.Remove(agentDesigner);
@@ -651,7 +666,8 @@ namespace BehaviorTreeEditor
         public void LoadWorkSpace()
         {
             this.Text = Settings.Default.EditorTitle;
-            if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) || string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
+            if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) ||
+                string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
                 return;
             WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
             if (WorkSpaceData != null)
@@ -665,6 +681,7 @@ namespace BehaviorTreeEditor
                 NodeClasses.ResetNodes();
                 XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             }
+
             NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
             //读取行为树数据
@@ -711,6 +728,7 @@ namespace BehaviorTreeEditor
                             NodeClasses.ResetNodes();
                             XmlUtility.Save(GetNodeClassPath(), NodeClasses);
                         }
+
                         NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
 
                         //读取行为树数据
@@ -790,15 +808,18 @@ namespace BehaviorTreeEditor
         /// <returns></returns>
         public string GetDataSavePath()
         {
-            return Path.Combine(Settings.Default.NodeDataSavePath, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
+            return Path.Combine(Settings.Default.NodeDataSavePath,
+                Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
         }
+
         /// <summary>
         /// 获取工作区配置路径
         /// </summary>
         /// <returns></returns>
         public string GetWorkSpacePath()
         {
-            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+            return Path.Combine(Settings.Default.WorkDirectory,
+                Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
         }
 
         /// <summary>
@@ -872,7 +893,8 @@ namespace BehaviorTreeEditor
 
                 if (nodeClassDirty || behaviorTreeDirty)
                 {
-                    DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle, MessageBoxButtons.OKCancel);
+                    DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle,
+                        MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
                         Exec(OperationType.Save);
                 }
@@ -909,6 +931,7 @@ namespace BehaviorTreeEditor
                 BehaviorTreeData = new BehaviorTreeData();
                 XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
             }
+
             BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
 
             if (BehaviorTreeData.Agents.Count > 0)
@@ -944,6 +967,33 @@ namespace BehaviorTreeEditor
         public void ExitSearchMode()
         {
             textBox1.Text = string.Empty;
+        }
+
+        private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            if ((e.State & TreeNodeStates.Selected) != 0)
+            {
+                e.Graphics.FillRectangle(HighLight, Rectangle.Inflate(e.Node.Bounds, 2, 0));
+                Font nodeFont = e.Node.NodeFont;
+                if (nodeFont == null) nodeFont = ((TreeView)sender).Font;
+                e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.White, Rectangle.Inflate(e.Bounds, 2, 0));
+            }
+            else
+            {
+                e.DrawDefault = true;
+            }
+
+            if ((e.State & TreeNodeStates.Focused) != 0)
+            {
+                //using (Pen focusPen = new Pen(Color.Black))
+                //{
+                //    focusPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                //    Rectangle focusBounds = e.Node.Bounds;
+                //    focusBounds.Size = new Size(focusBounds.Width - 1,
+                //        focusBounds.Height - 1);
+                //    e.Graphics.DrawRectangle(focusPen, focusBounds);
+                //}
+            }
         }
     }
 }

@@ -684,6 +684,50 @@ namespace BehaviorTreeEditor.UIControls
             CenterView();
         }
 
+
+
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectionNodes.Count > 1)
+            {
+                MainForm.Instance.ShowMessage("请不要选择多个节点进行复制");
+                return;
+            }
+
+            if (m_SelectionNodes.Count != 1)
+            {
+                return;
+            }
+
+            EditorUtility.CopyNode copyNode = EditorUtility.CopyNodeAndChilds(m_SelectionNodes[0]);
+            Clipboard.SetText(XmlUtility.ObjectToString(copyNode));
+            MainForm.Instance.ShowInfo("您复制了1个节点！！！");
+        }
+
+        /// <summary>
+        /// 粘贴
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pasteItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EditorUtility.CopyNode pasteNode = XmlUtility.StringToObject<EditorUtility.CopyNode>(Clipboard.GetText());
+                EditorUtility.CopyNode.FreshTransition(pasteNode);
+                EditorUtility.AddNode(Agent, pasteNode.Node);
+                Vec2 offset = m_MouseWorldPoint - new Vec2(pasteNode.Node.Rect.x, pasteNode.Node.Rect.y);
+                EditorUtility.SetNodePositoin(pasteNode.Node, offset);
+
+                MainForm.Instance.ShowInfo("粘贴成功！！！");
+            }
+            catch (Exception ex)
+            {
+                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+            }
+        }
+
         #endregion
 
         //当前鼠标悬停节点
@@ -932,9 +976,7 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < compositeList.Count; i++)
             {
                 NodeClass node = compositeList[i];
-                ToolStripItem nodeItem = compositeItem.DropDownItems.Add(node.ClassType);
-                nodeItem.Tag = node;
-                nodeItem.Click += new EventHandler(OnClickNodeItem);
+                CreateNode(node, compositeItem);
             }
 
             //绑定修饰节点
@@ -942,9 +984,7 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < decoratorList.Count; i++)
             {
                 NodeClass node = decoratorList[i];
-                ToolStripItem nodeItem = decoratorItem.DropDownItems.Add(node.ClassType);
-                nodeItem.Tag = node;
-                nodeItem.Click += new EventHandler(OnClickNodeItem);
+                CreateNode(node, decoratorItem);
             }
 
             //绑定条件节点
@@ -952,9 +992,7 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < conditionList.Count; i++)
             {
                 NodeClass node = conditionList[i];
-                ToolStripItem nodeItem = conditionItem.DropDownItems.Add(node.ClassType);
-                nodeItem.Tag = node;
-                nodeItem.Click += new EventHandler(OnClickNodeItem);
+                CreateNode(node, conditionItem);
             }
 
             //绑定动作节点
@@ -962,19 +1000,72 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < actionList.Count; i++)
             {
                 NodeClass node = actionList[i];
-                ToolStripItem nodeItem = actionItem.DropDownItems.Add(node.ClassType);
-                nodeItem.Tag = node;
-                nodeItem.Click += new EventHandler(OnClickNodeItem);
+                CreateNode(node, actionItem);
             }
 
             //添加分割线
             viewContextMenuStrip.Items.Add(new ToolStripSeparator());
+
+            //尝试创建粘贴按钮
+            TryCreatePasteNode();
 
             ToolStripItem centerItem = viewContextMenuStrip.Items.Add("居中");
             centerItem.Click += new EventHandler(centerItem_Click);
 
             viewContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
             this.Refresh();
+        }
+
+        public void CreateNode(NodeClass node, ToolStripDropDownItem parent)
+        {
+            ToolStripDropDownItem toolStripDropDownItem = parent;
+            if (!string.IsNullOrEmpty(node.Category))
+            {
+                string[] menus = node.Category.Trim().Split('/');
+                for (int i = 0; i < menus.Length; i++)
+                {
+                    string menuStr = menus[i];
+                    if (string.IsNullOrEmpty(menuStr))
+                        continue;
+
+                    bool exist = false;
+                    for (int ii = 0; ii < toolStripDropDownItem.DropDownItems.Count; ii++)
+                    {
+                        ToolStripDropDownItem temp = (ToolStripDropDownItem)toolStripDropDownItem.DropDownItems[ii];
+                        if (temp.Tag is string && (string)temp.Tag == menuStr)
+                        {
+                            exist = true;
+                            toolStripDropDownItem = temp;
+                            break;
+                        }
+                    }
+
+                    if (!exist)
+                    {
+                        toolStripDropDownItem = (ToolStripDropDownItem)toolStripDropDownItem.DropDownItems.Add(menuStr);
+                        toolStripDropDownItem.Tag = menuStr;
+                    }
+
+                    if (i == menus.Length - 1)
+                    {
+                        ToolStripItem nodeItem = toolStripDropDownItem.DropDownItems.Add(node.ClassType);
+                        nodeItem.Tag = node;
+                        nodeItem.Click += new EventHandler(OnClickNodeItem);
+                    }
+                }
+            }
+            else
+            {
+                ToolStripItem nodeItem = toolStripDropDownItem.DropDownItems.Add(node.ClassType);
+                nodeItem.Tag = node;
+                nodeItem.Click += new EventHandler(OnClickNodeItem);
+            }
+        }
+
+        public void TryCreatePasteNode()
+        {
+            ToolStripItem centerItem = viewContextMenuStrip.Items.Add("粘贴");
+            centerItem.Click += new EventHandler(pasteItem_Click);
         }
 
         private void OnClickNodeItem(object sender, EventArgs e)

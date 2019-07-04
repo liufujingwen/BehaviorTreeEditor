@@ -7,7 +7,7 @@ namespace BehaviorTreeData
     public partial class EnumField : BaseField
     {
         public string EnumType;
-        public float Value;
+        public int Value;
 
         public override void Read(ref Reader reader)
         {

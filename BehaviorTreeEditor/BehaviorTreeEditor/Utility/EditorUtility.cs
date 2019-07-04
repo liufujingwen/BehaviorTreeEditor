@@ -1,4 +1,5 @@
 ﻿using BehaviorTreeEditor.Properties;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace BehaviorTreeEditor
@@ -397,6 +398,94 @@ namespace BehaviorTreeEditor
                     break;
             }
             return field;
+        }
+
+        //复制节点辅助类
+        public class CopyNode
+        {
+            public NodeDesigner Node;
+            public List<CopyNode> ChildNode = new List<CopyNode>();
+
+            public static void FreshTransition(CopyNode node)
+            {
+                if (node.ChildNode.Count > 0)
+                {
+                    node.Node.Transitions.Clear();
+                    for (int i = 0; i < node.ChildNode.Count; i++)
+                    {
+                        CopyNode child = node.ChildNode[i];
+                        Transition transition = new Transition();
+                        transition.FromNodeID = node.Node.ID;
+                        transition.FromNode = node.Node;
+                        transition.ToNodeID = child.Node.ID;
+                        transition.ToNode = child.Node;
+                        child.Node.ParentNode = node.Node;
+                        node.Node.Transitions.Add(transition);
+                        FreshTransition(child);
+                    }
+                }
+            }
+        }
+
+        //复制节点
+        public static CopyNode CopyNodeAndChilds(NodeDesigner node)
+        {
+            CopyNode copyNode = new CopyNode();
+            copyNode.Node = node;
+
+            if (node.Transitions.Count > 0)
+            {
+                for (int i = 0; i < node.Transitions.Count; i++)
+                {
+                    Transition transition = node.Transitions[i];
+                    CopyNode tempNode = CopyNodeAndChilds(transition.ToNode);
+                    copyNode.ChildNode.Add(tempNode);
+                }
+            }
+
+            return copyNode;
+        }
+
+        //辅助Agent添加节点（粘贴添加）
+        public static void AddNode(AgentDesigner agent, NodeDesigner node)
+        {
+            node.ID = agent.GenNodeID();
+
+            if (node.StartNode)
+                node.StartNode = agent.ExistStartNode() ? false : true;
+
+            agent.AddNode(node);
+
+            if (node.Transitions.Count > 0)
+            {
+                for (int i = 0; i < node.Transitions.Count; i++)
+                {
+                    Transition transition = node.Transitions[i];
+                    transition.FromNode = node;
+                    transition.FromNodeID = node.ID;
+                    NodeDesigner childNode = transition.ToNode;
+                    AddNode(agent, childNode);
+                    transition.ToNodeID = childNode.ID;
+                }
+                node.Sort();
+            }
+        }
+
+        //设置节点偏移
+        public static void SetNodePositoin(NodeDesigner node, Vec2 offset)
+        {
+            node.Rect.x = node.Rect.x + offset.x;
+            node.Rect.y = node.Rect.y + offset.y;
+
+            if (node.Transitions.Count > 0)
+            {
+                for (int i = 0; i < node.Transitions.Count; i++)
+                {
+                    Transition transition = node.Transitions[i];
+                    NodeDesigner childNode = transition.ToNode;
+                    SetNodePositoin(childNode, offset);
+                }
+            }
         }
     }
 }

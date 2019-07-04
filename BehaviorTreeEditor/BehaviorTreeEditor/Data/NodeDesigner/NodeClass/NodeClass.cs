@@ -27,6 +27,15 @@ namespace BehaviorTreeEditor
             set { m_ClassName = value; }
         }
 
+        private string m_Category;
+        [Category("常规"), DisplayName("类别"), Description("类别")]
+        [XmlAttribute]
+        public string Category
+        {
+            get { return m_Category; }
+            set { m_Category = value; }
+        }
+
         //节点类型
         private NodeType m_NodeType;
 
@@ -254,6 +263,7 @@ namespace BehaviorTreeEditor
 
             m_ClassType = nodeClass.ClassType;
             m_ClassName = nodeClass.ClassName;
+            m_Category = nodeClass.Category;
             m_NodeType = nodeClass.NodeType;
             m_Describe = nodeClass.Describe;
 

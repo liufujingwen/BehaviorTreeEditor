@@ -21,11 +21,11 @@ namespace BehaviorTreeEditor
         {
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
-            for (int i = 2; i < enumNames.Length; i++)
+            for (int i = 1; i < enumNames.Length; i++)
             {
                 nodeTypeCBB.Items.Add(enumNames[i]);
             }
-            nodeTypeCBB.SelectedIndex = (int)m_DefaultNodeType - 2;
+            nodeTypeCBB.SelectedIndex = (int)m_DefaultNodeType - 1;
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -42,8 +42,9 @@ namespace BehaviorTreeEditor
             }
 
             m_NodeClass.ClassType = classTypeTB.Text.Trim();
-            m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
+            m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 1);
             m_NodeClass.Describe = describeTB.Text.Trim();
+            m_NodeClass.Category = categoryTB.Text.Trim();
 
             //校验节点类是否合法
             VerifyInfo verifyNodeClass = m_NodeClass.VerifyNodeClass();

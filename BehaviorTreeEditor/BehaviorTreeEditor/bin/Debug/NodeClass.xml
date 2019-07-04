@@ -98,8 +98,16 @@
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields />
     </NodeClass>
+    <NodeClass ClassType="TestNode1" Category="测试1/测试1" NodeType="Action">
+      <Describe />
+      <Fields />
+    </NodeClass>
     <NodeClass ClassType="Noop" NodeType="Action">
       <Describe>空操作（Noop）节点只是作为占位，仅执行一次就返回成功</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="TestNode" Category="测试1/测试1" NodeType="Action">
+      <Describe />
       <Fields />
     </NodeClass>
   </Nodes>

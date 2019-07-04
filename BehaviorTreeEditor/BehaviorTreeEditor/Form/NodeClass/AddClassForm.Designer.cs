@@ -51,6 +51,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label4 = new System.Windows.Forms.Label();
+            this.categoryTB = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -59,7 +61,7 @@
             // nodeTypeCBB
             // 
             this.nodeTypeCBB.FormattingEnabled = true;
-            this.nodeTypeCBB.Location = new System.Drawing.Point(65, 62);
+            this.nodeTypeCBB.Location = new System.Drawing.Point(65, 58);
             this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nodeTypeCBB.Name = "nodeTypeCBB";
             this.nodeTypeCBB.Size = new System.Drawing.Size(456, 23);
@@ -68,7 +70,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 64);
+            this.label3.Location = new System.Drawing.Point(8, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 4;
@@ -76,7 +78,7 @@
             // 
             // describeTB
             // 
-            this.describeTB.Location = new System.Drawing.Point(65, 96);
+            this.describeTB.Location = new System.Drawing.Point(65, 127);
             this.describeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
@@ -86,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 100);
+            this.label2.Location = new System.Drawing.Point(8, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 2;
@@ -111,7 +113,7 @@
             // 
             // enterBTN
             // 
-            this.enterBTN.Location = new System.Drawing.Point(732, 540);
+            this.enterBTN.Location = new System.Drawing.Point(729, 586);
             this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.enterBTN.Name = "enterBTN";
             this.enterBTN.Size = new System.Drawing.Size(112, 32);
@@ -122,7 +124,7 @@
             // 
             // cancelBTN
             // 
-            this.cancelBTN.Location = new System.Drawing.Point(577, 540);
+            this.cancelBTN.Location = new System.Drawing.Point(574, 586);
             this.cancelBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelBTN.Name = "cancelBTN";
             this.cancelBTN.Size = new System.Drawing.Size(112, 32);
@@ -191,6 +193,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.categoryTB);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.nodeTypeCBB);
             this.groupBox1.Controls.Add(this.classTypeTB);
             this.groupBox1.Controls.Add(this.label3);
@@ -199,15 +203,14 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(832, 168);
+            this.groupBox1.Size = new System.Drawing.Size(832, 209);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listViewFields);
-            this.groupBox2.Location = new System.Drawing.Point(12, 186);
+            this.groupBox2.Location = new System.Drawing.Point(12, 227);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(832, 333);
             this.groupBox2.TabIndex = 2;
@@ -257,12 +260,29 @@
             this.columnHeader4.Text = "描述";
             this.columnHeader4.Width = 300;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 93);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "类别：";
+            // 
+            // categoryTB
+            // 
+            this.categoryTB.Location = new System.Drawing.Point(66, 90);
+            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.categoryTB.Name = "categoryTB";
+            this.categoryTB.Size = new System.Drawing.Size(456, 25);
+            this.categoryTB.TabIndex = 7;
+            // 
             // AddClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(856, 594);
+            this.ClientSize = new System.Drawing.Size(855, 639);
             this.Controls.Add(this.enterBTN);
             this.Controls.Add(this.cancelBTN);
             this.Controls.Add(this.groupBox2);
@@ -303,5 +323,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TextBox categoryTB;
+        private System.Windows.Forms.Label label4;
     }
 }

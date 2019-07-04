@@ -26,12 +26,13 @@ namespace BehaviorTreeEditor
 
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
-            for (int i = 2; i < enumNames.Length; i++)
+            for (int i = 1; i < enumNames.Length; i++)
             {
                 nodeTypeCBB.Items.Add(enumNames[i]);
             }
-            nodeTypeCBB.SelectedIndex = (int)m_EditNodeClass.NodeType - 2;
+            nodeTypeCBB.SelectedIndex = (int)m_EditNodeClass.NodeType - 1;
 
+            categoryTB.Text = m_EditNodeClass.Category;
             describeTB.Text = m_EditNodeClass.Describe;
 
             ShowFieldDataInPage(m_EditNodeClass);
@@ -51,8 +52,9 @@ namespace BehaviorTreeEditor
             }
 
             m_EditNodeClass.ClassType = classTypeTB.Text.Trim();
-            m_EditNodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 2);
+            m_EditNodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 1);
             m_EditNodeClass.Describe = describeTB.Text.Trim();
+            m_EditNodeClass.Category = categoryTB.Text.Trim();
 
             //校验节点类是否合法
             VerifyInfo verifyNodeClass = m_EditNodeClass.VerifyNodeClass();

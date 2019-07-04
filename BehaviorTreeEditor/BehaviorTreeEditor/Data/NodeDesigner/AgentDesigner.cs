@@ -172,6 +172,21 @@ namespace BehaviorTreeEditor
             return false;
         }
 
+        /// <summary>
+        /// 是否存在开始节点
+        /// </summary>
+        /// <returns></returns>
+        public bool ExistStartNode()
+        {
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                NodeDesigner node = Nodes[i];
+                if (node != null && node.StartNode)
+                    return true;
+            }
+            return false;
+        }
+
         public NodeDesigner FindByID(int ID)
         {
             for (int i = 0; i < Nodes.Count; i++)
@@ -237,6 +252,8 @@ namespace BehaviorTreeEditor
             }
             return false;
         }
+
+
 
         /// <summary>
         /// 检验AgentID是否合法
