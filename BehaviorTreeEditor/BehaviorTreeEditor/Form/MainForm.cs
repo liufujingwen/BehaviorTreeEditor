@@ -85,7 +85,7 @@ namespace BehaviorTreeEditor
         {
             treeView1.Nodes.Clear();
 
-            if (FilterAgentList.Count > 0)
+            if (!string.IsNullOrEmpty(SearchStr))
             {
                 for (int i = 0; i < FilterAgentList.Count; i++)
                 {
