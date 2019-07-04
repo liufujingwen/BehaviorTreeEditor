@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BehaviorTreeEditor
 {
-    public class BehaviorTreeData
+    public class TreeData
     {
         private List<AgentDesigner> m_Agents = new List<AgentDesigner>();
 

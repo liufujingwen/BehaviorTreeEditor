@@ -173,6 +173,21 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 获取开始节点
+        /// </summary>
+        /// <returns></returns>
+        public NodeDesigner GetStartNode()
+        {
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                NodeDesigner node = Nodes[i];
+                if (node != null && node.StartNode)
+                    return node;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 是否存在开始节点
         /// </summary>
         /// <returns></returns>

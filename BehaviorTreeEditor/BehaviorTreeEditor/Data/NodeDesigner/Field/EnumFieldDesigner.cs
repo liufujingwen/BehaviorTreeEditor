@@ -57,5 +57,23 @@ namespace BehaviorTreeEditor
         {
             return string.IsNullOrEmpty(m_Value) ? string.Empty : m_Value;
         }
+
+        public int ValueInt
+        {
+            get
+            {
+                CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+                if (customEnum != null)
+                {
+                    for (int i = 0; i < customEnum.Enums.Count; i++)
+                    {
+                        EnumItem enumItem = customEnum.Enums[i];
+                        if (enumItem.EnumStr == m_Value)
+                            return enumItem.EnumValue;
+                    }
+                }
+                return 0;
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace BehaviorTreeEditor
         public string NodeClassesStringContent;
 
         //行为树数据
-        public BehaviorTreeData BehaviorTreeData;
+        public TreeData BehaviorTreeData;
 
         //行为树数据上一次保存的时候的内容，用于检测行为树dirty
         public string BehaviorTreeDataStringContent;
@@ -925,10 +925,10 @@ namespace BehaviorTreeEditor
         public void LoadBehaviorTreeData()
         {
             //读取行为树数据
-            BehaviorTreeData = XmlUtility.Read<BehaviorTreeData>(GetBehaviorTreeDataPath());
+            BehaviorTreeData = XmlUtility.Read<TreeData>(GetBehaviorTreeDataPath());
             if (BehaviorTreeData == null)
             {
-                BehaviorTreeData = new BehaviorTreeData();
+                BehaviorTreeData = new TreeData();
                 XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
             }
 
