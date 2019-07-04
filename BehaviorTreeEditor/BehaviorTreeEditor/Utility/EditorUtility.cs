@@ -22,20 +22,20 @@ namespace BehaviorTreeEditor
         //视图缩放最大值
         public static float ZoomScaleMax = 2.0f;
         //普通格子线 画笔
-        public static Pen LineNormalPen = new Pen(Color.FromArgb(172, 172, 172), 1);
+        public static Pen LineNormalPen = new Pen(Color.FromArgb(8, 8, 8), 1);
         //粗格子线 画笔
-        public static Pen LineBoldPen = new Pen(Color.FromArgb(172, 172, 172), 2);
+        public static Pen LineBoldPen = new Pen(Color.FromArgb(8, 8, 8), 2);
 
         #endregion
 
         #region ==================Transition===================
 
         //节点普通连线 画笔
-        public static Pen TransitionNormalPen = new Pen(Color.Blue, 2);
+        public static Pen TransitionNormalPen = new Pen(Color.White, 2);
         //节点普通连线 画笔
         public static Pen TransitionSelectedPen = new Pen(Color.Orange, 2);
         //普通箭头 笔刷
-        public static Brush ArrowNormalBrush = new SolidBrush(Color.Blue);
+        public static Brush ArrowNormalBrush = new SolidBrush(Color.White);
         //普通箭头 笔刷
         public static Brush ArrowSelectedBrush = new SolidBrush(Color.Orange);
         //箭头宽度像素
