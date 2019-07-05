@@ -78,6 +78,8 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -121,7 +123,9 @@
             this.toolStripSeparator1,
             this.freshToolStripButton,
             this.deleteAgentToolStripButton,
-            this.toolStripSeparator5});
+            this.toolStripSeparator5,
+            this.playToolStripButton,
+            this.stopToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(2282, 27);
@@ -551,6 +555,26 @@
             this.toolStripMenuItem4.Text = "删除";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
+            // playToolStripButton
+            // 
+            this.playToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.playToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.run;
+            this.playToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.playToolStripButton.Name = "playToolStripButton";
+            this.playToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.playToolStripButton.Text = "播放";
+            this.playToolStripButton.Click += new System.EventHandler(this.playToolStripButton_Click);
+            // 
+            // stopToolStripButton
+            // 
+            this.stopToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stopToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.stop;
+            this.stopToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stopToolStripButton.Name = "stopToolStripButton";
+            this.stopToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.stopToolStripButton.Text = "停止";
+            this.stopToolStripButton.Click += new System.EventHandler(this.stopToolStripButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -641,5 +665,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.ToolStripButton playToolStripButton;
+        private System.Windows.Forms.ToolStripButton stopToolStripButton;
     }
 }

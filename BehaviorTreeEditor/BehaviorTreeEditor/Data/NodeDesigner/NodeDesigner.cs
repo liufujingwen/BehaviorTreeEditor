@@ -203,6 +203,22 @@ namespace BehaviorTreeEditor
             });
         }
 
+        public FieldDesigner this[string fieldName]
+        {
+            get
+            {
+                for (int i = 0; i < Fields.Count; i++)
+                {
+                    FieldDesigner field = Fields[i];
+                    if (field == null)
+                        continue;
+                    if (field.FieldName == fieldName)
+                        return field;
+                }
+                return null;
+            }
+        }
+
         public override string ToString()
         {
             string content = string.Empty;

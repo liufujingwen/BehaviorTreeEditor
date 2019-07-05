@@ -64,6 +64,22 @@
     <Compile Include="Data\NodeDesigner\NodeClass\StringDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector3DefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector2DefaultValue.cs" />
+    <Compile Include="Debug\Action\DebugActionNode.cs" />
+    <Compile Include="Debug\Composite\DebugIfElseNode.cs" />
+    <Compile Include="Debug\Composite\DebugRandomNode.cs" />
+    <Compile Include="Debug\Composite\DebugRandomSelector.cs" />
+    <Compile Include="Debug\Composite\DebugRandomSequence.cs" />
+    <Compile Include="Debug\Composite\DebugRateSelector.cs" />
+    <Compile Include="Debug\Composite\DebugSelectorNode.cs" />
+    <Compile Include="Debug\Condition\DebugConditionNode.cs" />
+    <Compile Include="Debug\Decorator\DebugDecoratorNode.cs" />
+    <Compile Include="Debug\DebugManager.cs" />
+    <Compile Include="Debug\DebugNode.cs" />
+    <Compile Include="Debug\DebugNodeState.cs" />
+    <Compile Include="Debug\Action\DebugNodeWait.cs" />
+    <Compile Include="Debug\Composite\DebugParallelNode.cs" />
+    <Compile Include="Debug\Composite\DebugSequenceNode.cs" />
+    <Compile Include="Debug\DebugState.cs" />
     <Compile Include="Form\Agent\EditAgentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,7 +118,6 @@
     </Compile>
     <Compile Include="Utility\BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
-    <Compile Include="Data\NodeData.cs" />
     <Compile Include="Form\NodeClass\EditClassForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,7 +149,7 @@
     <Compile Include="Form\InputValueDialogForm.Designer.cs">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\NodeType.cs" />
+    <Compile Include="Data\NodeDesigner\NodeType.cs" />
     <Compile Include="Form\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

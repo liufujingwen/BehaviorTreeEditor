@@ -1030,5 +1030,15 @@ namespace BehaviorTreeEditor
                 //}
             }
         }
+
+        private void playToolStripButton_Click(object sender, EventArgs e)
+        {
+            DebugManager.Instance.Debug(SelectedAgent);
+        }
+
+        private void stopToolStripButton_Click(object sender, EventArgs e)
+        {
+            DebugManager.Instance.Stop();
+        }
     }
 }

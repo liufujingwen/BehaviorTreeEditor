@@ -148,6 +148,7 @@ namespace BehaviorTreeEditor.UIControls
         private void ContentUserControl_Paint(object sender, PaintEventArgs e)
         {
             Begin(sender, e);
+            DebugManager.Instance.Update(m_Deltaltime);
             End(sender, e);
         }
 
@@ -224,6 +225,7 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             DoTransitions();
+            DoDebugTransitions();
 
             for (int i = 0; i < Agent.Nodes.Count; i++)
             {
@@ -241,8 +243,14 @@ namespace BehaviorTreeEditor.UIControls
                 EditorUtility.Draw(node, m_Graphics, m_Offset, true);
             }
 
+            DoDebugNodes();
+
             DrawSelectionRect();
             AutoPanNodes(3.0f);
+        }
+
+        void DoDebugNodes()
+        {
         }
 
         //画节点连线
@@ -277,6 +285,10 @@ namespace BehaviorTreeEditor.UIControls
             {
                 BezierLink.DrawNodeToNode(m_Graphics, m_SelectedTransition.FromNode, m_SelectedTransition.ToNode, true, m_Offset);
             }
+        }
+
+        private void DoDebugTransitions()
+        {
         }
 
         public void SelectTransition(Transition transition)
