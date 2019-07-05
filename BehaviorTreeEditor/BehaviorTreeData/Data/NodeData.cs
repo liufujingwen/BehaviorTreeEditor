@@ -9,26 +9,26 @@ namespace BehaviorTreeData
         public int ID;
         public string ClassType;
         public string Label;
-        public List<BaseField> Fileds = new List<BaseField>();
+        public List<BaseField> Fields = new List<BaseField>();
         public List<NodeData> Childs = null;
 
         public override void Read(ref Reader reader)
         {
-            reader.Read(ref ID).Read(ref ClassType).Read(ref Label).Read(ref Fileds).Read(ref Childs);
+            reader.Read(ref ID).Read(ref ClassType).Read(ref Label).Read(ref Fields).Read(ref Childs);
         }
 
         public override void Write(ref Writer writer)
         {
-            writer.Write(ID).Write(ClassType).Write(Label).Write(Fileds).Write(Childs);
+            writer.Write(ID).Write(ClassType).Write(Label).Write(Fields).Write(Childs);
         }
 
         public BaseField this[string fieldName]
         {
             get
             {
-                for (int i = 0; i < Fileds.Count; i++)
+                for (int i = 0; i < Fields.Count; i++)
                 {
-                    BaseField field = Fileds[i];
+                    BaseField field = Fields[i];
                     if (field == null)
                         continue;
                     if (field.FieldName == fieldName)

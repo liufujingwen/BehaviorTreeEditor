@@ -701,7 +701,7 @@ namespace BehaviorTreeEditor
                 FieldDesigner field = nodeData.Fields[i];
                 if (field == null)
                     continue;
-                data.Fileds.Add(CreateField(field));
+                data.Fields.Add(CreateField(field));
             }
 
             if (nodeData.Transitions.Count > 0)

@@ -28,7 +28,7 @@ namespace SerializeTest
             IntField intField = new IntField();
             intField.FieldName = "IntField";
             intField.Value = 100;
-            agent.StartNode.Fileds.Add(intField);
+            agent.StartNode.Fields.Add(intField);
 
             RepeatIntField repeatIntField = new RepeatIntField();
             repeatIntField.FieldName = "RepeatIntField";
@@ -37,7 +37,7 @@ namespace SerializeTest
             repeatIntField.Value.Add(100);
             repeatIntField.Value.Add(-1000000);
             repeatIntField.Value.Add(10000);
-            agent.StartNode.Fileds.Add(repeatIntField);
+            agent.StartNode.Fields.Add(repeatIntField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -51,7 +51,7 @@ namespace SerializeTest
             LongField longField = new LongField();
             longField.FieldName = "LongField";
             longField.Value = 100;
-            agent.StartNode.Fileds.Add(longField);
+            agent.StartNode.Fields.Add(longField);
 
             RepeatLongField repeatLongField = new RepeatLongField();
             repeatLongField.FieldName = "RepeatLongField";
@@ -60,7 +60,7 @@ namespace SerializeTest
             repeatLongField.Value.Add(100);
             repeatLongField.Value.Add(1000);
             repeatLongField.Value.Add(10000);
-            agent.StartNode.Fileds.Add(repeatLongField);
+            agent.StartNode.Fields.Add(repeatLongField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -74,7 +74,7 @@ namespace SerializeTest
             FloatField floatField = new FloatField();
             floatField.FieldName = "FloatField";
             floatField.Value = 100.001f;
-            agent.StartNode.Fileds.Add(floatField);
+            agent.StartNode.Fields.Add(floatField);
 
             RepeatFloatField repeatFloatField = new RepeatFloatField();
             repeatFloatField.FieldName = "RepeatIntField";
@@ -83,7 +83,7 @@ namespace SerializeTest
             repeatFloatField.Value.Add(100.11f);
             repeatFloatField.Value.Add(1000.11f);
             repeatFloatField.Value.Add(10000.1119f);
-            agent.StartNode.Fileds.Add(repeatFloatField);
+            agent.StartNode.Fields.Add(repeatFloatField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -97,7 +97,7 @@ namespace SerializeTest
             DoubleField doubleField = new DoubleField();
             doubleField.FieldName = "DoubleField";
             doubleField.Value = 100.001d;
-            agent.StartNode.Fileds.Add(doubleField);
+            agent.StartNode.Fields.Add(doubleField);
 
             RepeatDoubleField repeatDoubleField = new RepeatDoubleField();
             repeatDoubleField.FieldName = "RepeatDoubleField";
@@ -106,7 +106,7 @@ namespace SerializeTest
             repeatDoubleField.Value.Add(100.11d);
             repeatDoubleField.Value.Add(1000.11d);
             repeatDoubleField.Value.Add(10000.1119d);
-            agent.StartNode.Fileds.Add(repeatDoubleField);
+            agent.StartNode.Fields.Add(repeatDoubleField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -120,7 +120,7 @@ namespace SerializeTest
             EnumField enumField = new EnumField();
             enumField.FieldName = "EnumField";
             enumField.Value = 100;
-            agent.StartNode.Fileds.Add(enumField);
+            agent.StartNode.Fields.Add(enumField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -134,7 +134,7 @@ namespace SerializeTest
             BooleanField booleanField = new BooleanField();
             booleanField.FieldName = "BooleanField";
             booleanField.Value = true;
-            agent.StartNode.Fileds.Add(booleanField);
+            agent.StartNode.Fields.Add(booleanField);
 
             byte[] bytes = Serializer.Serialize(agent);
             AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
@@ -152,7 +152,7 @@ namespace SerializeTest
             IntField intField = new IntField();
             intField.FieldName = "IntField";
             intField.Value = 100;
-            agent.StartNode.Fileds.Add(intField);
+            agent.StartNode.Fields.Add(intField);
 
             //创建开始节点的第一个子节点
             NodeData node1 = new NodeData();
@@ -160,7 +160,7 @@ namespace SerializeTest
             EnumField enumField = new EnumField();
             enumField.FieldName = "EnumField";
             enumField.Value = 100;
-            node1.Fileds.Add(enumField);
+            node1.Fields.Add(enumField);
 
             //创建开始节点的第二个子节点
             NodeData node2 = new NodeData();
@@ -168,7 +168,7 @@ namespace SerializeTest
             LongField longField = new LongField();
             longField.FieldName = "LongField";
             longField.Value = 100;
-            node2.Fileds.Add(longField);
+            node2.Fields.Add(longField);
 
             agent.StartNode.Childs = new List<NodeData>();
             agent.StartNode.Childs.Add(node1);
