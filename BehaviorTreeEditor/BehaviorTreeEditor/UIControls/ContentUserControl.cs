@@ -526,7 +526,7 @@ namespace BehaviorTreeEditor.UIControls
             if (Agent != null)
             {
                 bool removeEnum = Agent.RemoveUnDefineNode();
-                bool ajust = Agent.AjustField();
+                bool ajust = Agent.AjustData();
 
                 if ((removeEnum || ajust) && m_SelectionNodes.Count == 1)
                     NodePropertyUserControl.Instance.SetSelectedNode(m_SelectionNodes[0]);
@@ -1081,9 +1081,9 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             Rect rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
-            NodeDesigner node = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
+            NodeDesigner node = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
             node.ID = Agent.GenNodeID();
-            node.ClassName = nodeClass.ClassName;
+            node.Label = nodeClass.Label;
             node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
             node.Describe = nodeClass.Describe;

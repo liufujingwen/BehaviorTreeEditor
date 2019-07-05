@@ -3,27 +3,37 @@
   <Agents>
     <AgentDesigner>
       <AgentID>NewAgent_636978680837590994</AgentID>
-      <Fields />
+      <Describe />
+      <Fields>
+        <FieldDesigner>
+          <FieldName>aaa</FieldName>
+          <Label>测试</Label>
+          <FieldType>IntField</FieldType>
+          <Field xsi:type="IntFieldDesigner">
+            <Value>100</Value>
+          </Field>
+        </FieldDesigner>
+      </Fields>
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4574</x>
-            <y>5013</y>
+            <x>4535.631</x>
+            <y>4758.843</y>
             <position>
-              <x>4574</x>
-              <y>5013</y>
+              <x>4535.631</x>
+              <y>4758.843</y>
             </position>
             <center>
-              <x>4649</x>
-              <y>5043</y>
+              <x>4610.631</x>
+              <y>4788.843</y>
             </center>
             <min>
-              <x>4574</x>
-              <y>5013</y>
+              <x>4535.631</x>
+              <y>4758.843</y>
             </min>
             <max>
-              <x>4724</x>
-              <y>5073</y>
+              <x>4685.631</x>
+              <y>4818.843</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,43 +41,48 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4574</xMin>
-            <yMin>5013</yMin>
-            <xMax>4724</xMax>
-            <yMax>5073</yMax>
+            <xMin>4535.631</xMin>
+            <yMin>4758.843</yMin>
+            <xMax>4685.631</xMax>
+            <yMax>4818.843</yMax>
           </Rect>
           <Transitions>
             <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>2</ToNodeID>
+              <FromNodeID>2</FromNodeID>
+              <ToNodeID>3</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>2</FromNodeID>
+              <ToNodeID>6</ToNodeID>
             </Transition>
           </Transitions>
-          <ID>1</ID>
+          <ID>2</ID>
           <StartNode>true</StartNode>
           <ClassType>Sequence</ClassType>
+          <Label>顺序节点</Label>
           <NodeType>Composite</NodeType>
           <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
           <Fields />
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>4967.5</x>
-            <y>4937</y>
+            <x>4746.052</x>
+            <y>4708.34863</y>
             <position>
-              <x>4967.5</x>
-              <y>4937</y>
+              <x>4746.052</x>
+              <y>4708.34863</y>
             </position>
             <center>
-              <x>5042.5</x>
-              <y>4967</y>
+              <x>4821.052</x>
+              <y>4738.34863</y>
             </center>
             <min>
-              <x>4967.5</x>
-              <y>4937</y>
+              <x>4746.052</x>
+              <y>4708.34863</y>
             </min>
             <max>
-              <x>5117.5</x>
-              <y>4997</y>
+              <x>4896.052</x>
+              <y>4768.34863</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -75,56 +90,339 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4967.5</xMin>
-            <yMin>4937</yMin>
-            <xMax>5117.5</xMax>
-            <yMax>4997</yMax>
+            <xMin>4746.052</xMin>
+            <yMin>4708.34863</yMin>
+            <xMax>4896.052</xMax>
+            <yMax>4768.34863</yMax>
           </Rect>
-          <Transitions />
-          <ID>2</ID>
+          <Transitions>
+            <Transition>
+              <FromNodeID>3</FromNodeID>
+              <ToNodeID>4</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>3</ID>
           <StartNode>false</StartNode>
-          <ClassType>Compare</ClassType>
-          <NodeType>Condition</NodeType>
-          <Describe>Compare节点对左右参数进行比较</Describe>
+          <ClassType>Selector</ClassType>
+          <Label>选择节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>选择节点</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>4953.729</x>
+            <y>4706.51367</y>
+            <position>
+              <x>4953.729</x>
+              <y>4706.51367</y>
+            </position>
+            <center>
+              <x>5028.729</x>
+              <y>4736.51367</y>
+            </center>
+            <min>
+              <x>4953.729</x>
+              <y>4706.51367</y>
+            </min>
+            <max>
+              <x>5103.729</x>
+              <y>4766.51367</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>4953.729</xMin>
+            <yMin>4706.51367</yMin>
+            <xMax>5103.729</xMax>
+            <yMax>4766.51367</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>4</FromNodeID>
+              <ToNodeID>5</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>4</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Parallel</ClassType>
+          <Label>并行节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
           <Fields>
             <FieldDesigner>
-              <FieldName>LeftType</FieldName>
+              <FieldName>SuccessType</FieldName>
+              <Label>成功条件</Label>
               <FieldType>EnumField</FieldType>
-              <Describe />
+              <Describe>成功条件</Describe>
               <Field xsi:type="EnumFieldDesigner">
-                <EnumType>ParameterType</EnumType>
-                <Value>Agent</Value>
+                <EnumType>FAILURE_POLICY</EnumType>
+                <Value>FAIL_ON_ONE</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>LeftParameter</FieldName>
+              <FieldName>FailType</FieldName>
+              <Label>失败条件</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe>失败条件</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>SUCCESS_POLICY</EnumType>
+                <Value>SUCCEED_ON_ONE</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5273.75146</x>
+            <y>4708.8335</y>
+            <position>
+              <x>5273.75146</x>
+              <y>4708.8335</y>
+            </position>
+            <center>
+              <x>5348.75146</x>
+              <y>4738.8335</y>
+            </center>
+            <min>
+              <x>5273.75146</x>
+              <y>4708.8335</y>
+            </min>
+            <max>
+              <x>5423.75146</x>
+              <y>4768.8335</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5273.75146</xMin>
+            <yMin>4708.8335</yMin>
+            <xMax>5423.75146</xMax>
+            <yMax>4768.8335</yMax>
+          </Rect>
+          <Transitions />
+          <ID>5</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>4749.17969</x>
+            <y>4815.451</y>
+            <position>
+              <x>4749.17969</x>
+              <y>4815.451</y>
+            </position>
+            <center>
+              <x>4824.17969</x>
+              <y>4845.451</y>
+            </center>
+            <min>
+              <x>4749.17969</x>
+              <y>4815.451</y>
+            </min>
+            <max>
+              <x>4899.17969</x>
+              <y>4875.451</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>4749.17969</xMin>
+            <yMin>4815.451</yMin>
+            <xMax>4899.17969</xMax>
+            <yMax>4875.451</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>8</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>7</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>6</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Selector</ClassType>
+          <Label>选择节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>选择节点</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5266.161</x>
+            <y>4928.65527</y>
+            <position>
+              <x>5266.161</x>
+              <y>4928.65527</y>
+            </position>
+            <center>
+              <x>5341.161</x>
+              <y>4958.65527</y>
+            </center>
+            <min>
+              <x>5266.161</x>
+              <y>4928.65527</y>
+            </min>
+            <max>
+              <x>5416.161</x>
+              <y>4988.65527</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5266.161</xMin>
+            <yMin>4928.65527</yMin>
+            <xMax>5416.161</xMax>
+            <yMax>4988.65527</yMax>
+          </Rect>
+          <Transitions />
+          <ID>7</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>0</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5096.02344</x>
+            <y>4812.843</y>
+            <position>
+              <x>5096.02344</x>
+              <y>4812.843</y>
+            </position>
+            <center>
+              <x>5171.02344</x>
+              <y>4842.843</y>
+            </center>
+            <min>
+              <x>5096.02344</x>
+              <y>4812.843</y>
+            </min>
+            <max>
+              <x>5246.02344</x>
+              <y>4872.843</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5096.02344</xMin>
+            <yMin>4812.843</yMin>
+            <xMax>5246.02344</xMax>
+            <yMax>4872.843</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>8</FromNodeID>
+              <ToNodeID>9</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>8</ID>
+          <StartNode>false</StartNode>
+          <ClassType>WaitUntil</ClassType>
+          <Label>等待返回True</Label>
+          <NodeType>Decorator</NodeType>
+          <Describe>阻塞，直到子节点返回true</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5312.17</x>
+            <y>4813.22656</y>
+            <position>
+              <x>5312.17</x>
+              <y>4813.22656</y>
+            </position>
+            <center>
+              <x>5387.17</x>
+              <y>4843.22656</y>
+            </center>
+            <min>
+              <x>5312.17</x>
+              <y>4813.22656</y>
+            </min>
+            <max>
+              <x>5462.17</x>
+              <y>4873.22656</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5312.17</xMin>
+            <yMin>4813.22656</yMin>
+            <xMax>5462.17</xMax>
+            <yMax>4873.22656</yMax>
+          </Rect>
+          <Transitions />
+          <ID>9</ID>
+          <StartNode>false</StartNode>
+          <ClassType>AssignmentString</ClassType>
+          <Label>赋值节点(String)</Label>
+          <NodeType>Action</NodeType>
+          <Describe>赋值节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>ParameterName</FieldName>
+              <Label>变量名</Label>
               <FieldType>StringField</FieldType>
-              <Describe>左边参数变量名</Describe>
+              <Describe>参数变量名</Describe>
               <Field xsi:type="StringFieldDesigner" />
             </FieldDesigner>
             <FieldDesigner>
-              <FieldName>CompareType</FieldName>
-              <FieldType>EnumField</FieldType>
-              <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>CompareType</EnumType>
-                <Value>Less</Value>
+              <FieldName>Parameter</FieldName>
+              <Label>赋值字符串</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>参数值</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>0</Value>
               </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>RightType</FieldName>
-              <FieldType>EnumField</FieldType>
-              <Describe />
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>ParameterType</EnumType>
-                <Value>Agent</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>RightParameter</FieldName>
-              <FieldType>StringField</FieldType>
-              <Describe>右边参数变量名</Describe>
-              <Field xsi:type="StringFieldDesigner" />
             </FieldDesigner>
           </Fields>
         </NodeDesigner>

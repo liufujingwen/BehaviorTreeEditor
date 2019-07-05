@@ -63,7 +63,7 @@ namespace BehaviorTreeEditor
         public static Pen SelectionModePen = new Pen(Color.Green, 1.5f);
 
         //节点字体
-        public static Font NodeFont = new Font("宋体", 15, FontStyle.Regular);
+        public static Font NodeFont = new Font("宋体", 12, FontStyle.Regular);
         public static Brush NodeBrush = new SolidBrush(Color.White);
         //节点错误 笔刷
         public static Brush NodeErrorBrush = new SolidBrush(Color.Red);
@@ -203,7 +203,7 @@ namespace BehaviorTreeEditor
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);
             //标题
-            graphics.DrawString(node.ClassType, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
+            graphics.DrawString(node.Title, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
             //画内容底框
             graphics.FillRectangle(EditorUtility.NodeContentBrush, contentRect);
 
@@ -323,6 +323,7 @@ namespace BehaviorTreeEditor
         {
             FieldDesigner field = new FieldDesigner();
             field.FieldName = nodeField.FieldName;
+            field.Label = nodeField.Label;
             field.FieldType = nodeField.FieldType;
             field.Describe = nodeField.Describe;
             switch (nodeField.FieldType)
@@ -678,7 +679,7 @@ namespace BehaviorTreeEditor
             BehaviorTreeData.NodeData data = new BehaviorTreeData.NodeData();
             data.ID = nodeData.ID;
             data.ClassType = nodeData.ClassType;
-            data.ClassName = nodeData.ClassName;
+            data.Label = nodeData.Label;
 
             for (int i = 0; i < nodeData.Fields.Count; i++)
             {

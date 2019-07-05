@@ -285,7 +285,7 @@ namespace BehaviorTreeEditor
             {
                 Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth,
                     EditorUtility.NodeHeight);
-                NodeDesigner startNode = new NodeDesigner(nodeClass.ClassName, nodeClass.ClassType, rect);
+                NodeDesigner startNode = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
                 startNode.ID = agent.GenNodeID();
                 startNode.StartNode = true;
                 startNode.NodeType = nodeClass.NodeType;
@@ -758,8 +758,8 @@ namespace BehaviorTreeEditor
             //移除未定义的节点
             TreeData.RemoveUnDefineNode();
 
-            //修正节点字段，和模板的保持一致
-            TreeData.AjustField();
+            //修正数据，和模板的保持一致
+            TreeData.AjustData();
 
             //检验枚举
             VerifyInfo verifyEnum = NodeClasses.VerifyEnum();

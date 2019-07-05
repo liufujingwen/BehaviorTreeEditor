@@ -29,14 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.nodeTypeCBB = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.describeTB = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.classTypeTB = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.listViewFields = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,68 +44,22 @@
             this.选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelTB = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.categoryTB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.nodeTypeCBB = new System.Windows.Forms.ComboBox();
+            this.classTypeTB = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.describeTB = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // nodeTypeCBB
-            // 
-            this.nodeTypeCBB.FormattingEnabled = true;
-            this.nodeTypeCBB.Location = new System.Drawing.Point(73, 54);
-            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nodeTypeCBB.Name = "nodeTypeCBB";
-            this.nodeTypeCBB.Size = new System.Drawing.Size(456, 23);
-            this.nodeTypeCBB.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "类型：";
-            // 
-            // describeTB
-            // 
-            this.describeTB.Location = new System.Drawing.Point(73, 124);
-            this.describeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.describeTB.Multiline = true;
-            this.describeTB.Name = "describeTB";
-            this.describeTB.Size = new System.Drawing.Size(535, 69);
-            this.describeTB.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 128);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "描述：";
-            // 
-            // classTypeTB
-            // 
-            this.classTypeTB.Location = new System.Drawing.Point(73, 18);
-            this.classTypeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.classTypeTB.Name = "classTypeTB";
-            this.classTypeTB.Size = new System.Drawing.Size(456, 25);
-            this.classTypeTB.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "类名：";
             // 
             // listViewFields
             // 
@@ -129,7 +78,7 @@
             this.listViewFields.Location = new System.Drawing.Point(3, 21);
             this.listViewFields.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFields.Name = "listViewFields";
-            this.listViewFields.Size = new System.Drawing.Size(826, 309);
+            this.listViewFields.Size = new System.Drawing.Size(826, 323);
             this.listViewFields.TabIndex = 1;
             this.listViewFields.UseCompatibleStateImageBehavior = false;
             this.listViewFields.View = System.Windows.Forms.View.Details;
@@ -140,6 +89,11 @@
             // 
             this.columnHeader1.Text = "字段名";
             this.columnHeader1.Width = 125;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "标签";
+            this.columnHeader2.Width = 157;
             // 
             // columnHeader3
             // 
@@ -159,7 +113,7 @@
             // enterBTN
             // 
             this.enterBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterBTN.Location = new System.Drawing.Point(731, 587);
+            this.enterBTN.Location = new System.Drawing.Point(731, 663);
             this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.enterBTN.Name = "enterBTN";
             this.enterBTN.Size = new System.Drawing.Size(112, 32);
@@ -171,7 +125,7 @@
             // cancelBTN
             // 
             this.cancelBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBTN.Location = new System.Drawing.Point(574, 587);
+            this.cancelBTN.Location = new System.Drawing.Point(574, 663);
             this.cancelBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelBTN.Name = "cancelBTN";
             this.cancelBTN.Size = new System.Drawing.Size(112, 32);
@@ -238,84 +192,145 @@
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.categoryTB);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.nodeTypeCBB);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.classTypeTB);
-            this.groupBox1.Controls.Add(this.describeTB);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(832, 209);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            // 
-            // categoryTB
-            // 
-            this.categoryTB.Location = new System.Drawing.Point(74, 88);
-            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.categoryTB.Name = "categoryTB";
-            this.categoryTB.Size = new System.Drawing.Size(456, 25);
-            this.categoryTB.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 91);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "类别：";
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.listViewFields);
-            this.groupBox2.Location = new System.Drawing.Point(12, 227);
+            this.groupBox2.Location = new System.Drawing.Point(12, 289);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(832, 333);
+            this.groupBox2.Size = new System.Drawing.Size(832, 347);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "字段预览(右键展示操作菜单)";
             // 
-            // columnHeader2
+            // groupBox1
             // 
-            this.columnHeader2.Text = "标签";
-            this.columnHeader2.Width = 157;
+            this.groupBox1.Controls.Add(this.labelTB);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.categoryTB);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.nodeTypeCBB);
+            this.groupBox1.Controls.Add(this.classTypeTB);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.describeTB);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(832, 271);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            // 
+            // labelTB
+            // 
+            this.labelTB.Location = new System.Drawing.Point(64, 58);
+            this.labelTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelTB.Name = "labelTB";
+            this.labelTB.Size = new System.Drawing.Size(456, 25);
+            this.labelTB.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "标签：";
+            // 
+            // categoryTB
+            // 
+            this.categoryTB.Location = new System.Drawing.Point(65, 128);
+            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.categoryTB.Name = "categoryTB";
+            this.categoryTB.Size = new System.Drawing.Size(456, 25);
+            this.categoryTB.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 131);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "类别：";
+            // 
+            // nodeTypeCBB
+            // 
+            this.nodeTypeCBB.FormattingEnabled = true;
+            this.nodeTypeCBB.Location = new System.Drawing.Point(64, 96);
+            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nodeTypeCBB.Name = "nodeTypeCBB";
+            this.nodeTypeCBB.Size = new System.Drawing.Size(456, 23);
+            this.nodeTypeCBB.TabIndex = 5;
+            // 
+            // classTypeTB
+            // 
+            this.classTypeTB.Location = new System.Drawing.Point(65, 23);
+            this.classTypeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.classTypeTB.Name = "classTypeTB";
+            this.classTypeTB.Size = new System.Drawing.Size(456, 25);
+            this.classTypeTB.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "类型：";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "类名：";
+            // 
+            // describeTB
+            // 
+            this.describeTB.Location = new System.Drawing.Point(65, 166);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.describeTB.Multiline = true;
+            this.describeTB.Name = "describeTB";
+            this.describeTB.Size = new System.Drawing.Size(535, 69);
+            this.describeTB.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 170);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "描述：";
             // 
             // EditClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 639);
+            this.ClientSize = new System.Drawing.Size(855, 715);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.enterBTN);
             this.Controls.Add(this.cancelBTN);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Name = "EditClassForm";
             this.Text = "编辑节点类";
             this.Load += new System.EventHandler(this.EditClassForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ComboBox nodeTypeCBB;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox describeTB;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox classTypeTB;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listViewFields;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -330,10 +345,18 @@
         private System.Windows.Forms.ToolStripMenuItem 新建ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox labelTB;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox categoryTB;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ComboBox nodeTypeCBB;
+        private System.Windows.Forms.TextBox classTypeTB;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox describeTB;
+        private System.Windows.Forms.Label label2;
     }
 }

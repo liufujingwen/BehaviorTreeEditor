@@ -22,6 +22,7 @@ namespace BehaviorTreeEditor
         private string m_EnumType;
         private string m_Value;
 
+        [Browsable(false)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [Category("常规"), DisplayName("枚举类型"), Description("枚举类型")]
         public string EnumType
@@ -58,6 +59,7 @@ namespace BehaviorTreeEditor
             return string.IsNullOrEmpty(m_Value) ? string.Empty : m_Value;
         }
 
+        [Browsable(false)]
         public int ValueInt
         {
             get

@@ -13,9 +13,9 @@ namespace BehaviorTreeEditor
             Rect.height = EditorUtility.NodeHeight;
         }
 
-        public NodeDesigner(string name, string classType, Rect rect)
+        public NodeDesigner(string label, string classType, Rect rect)
         {
-            m_ClassName = name;
+            m_Label = label;
             ClassType = classType;
             Rect = rect;
             Rect.width = Math.Max(rect.width, EditorUtility.NodeWidth);
@@ -27,7 +27,7 @@ namespace BehaviorTreeEditor
         //是否开始节点
         private bool m_StartNode;
         //名字
-        private string m_ClassName = string.Empty;
+        private string m_Label = string.Empty;
         //节点类名
         private string m_ClassType;
         //节点类型
@@ -63,10 +63,15 @@ namespace BehaviorTreeEditor
             set { m_ClassType = value; }
         }
 
-        public string ClassName
+        public string Label
         {
-            get { return m_ClassName; }
-            set { m_ClassName = value; }
+            get { return m_Label; }
+            set { m_Label = value; }
+        }
+
+        public string Title
+        {
+            get { return !string.IsNullOrEmpty(m_Label) ? m_Label : m_ClassType; }
         }
 
         public NodeType NodeType

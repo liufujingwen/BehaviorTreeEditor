@@ -213,6 +213,29 @@ namespace BehaviorTreeEditor
             return null;
         }
 
+        /// <summary>
+        /// 查找指定节点的父节点
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public NodeDesigner FindParentNode(int ID)
+        {
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                NodeDesigner node = Nodes[i];
+                if (node.Transitions.Count > 0)
+                {
+                    for (int ii = 0; ii < node.Transitions.Count; ii++)
+                    {
+                        Transition transition = node.Transitions[ii];
+                        if (transition.ToNodeID == ID)
+                            return node;
+                    }
+                }
+            }
+            return null;
+        }
+
         public bool AddField(FieldDesigner field)
         {
             if (field == null)
@@ -398,16 +421,18 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Nodes.Count; i++)
             {
                 NodeDesigner node = m_Nodes[i];
+                NodeDesigner parentNode = FindParentNode(node.ID);
+
                 if (node.StartNode)
                 {
-                    if (node.ParentNode != null)
+                    if (parentNode != null)
                     {
                         return new VerifyInfo(string.Format("行为树[{0}]的开始节\n不能有父节点，请删除开始节点的父节点", m_AgentID));
                     }
                 }
                 else
                 {
-                    if (node.ParentNode == null)
+                    if (parentNode == null)
                     {
                         return new VerifyInfo(string.Format("行为树[{0}]的节点[{1}]\n没有父节点，请添加父节点", m_AgentID, node.ClassType));
                     }
@@ -547,9 +572,9 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 修正字段
+        /// 修正数据
         /// </summary>
-        public bool AjustField()
+        public bool AjustData()
         {
             bool ajust = false;
 
@@ -557,6 +582,14 @@ namespace BehaviorTreeEditor
             {
                 NodeDesigner node = m_Nodes[i];
                 NodeClass nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+
+                //修正节点标签
+                if (node.Label != nodeClass.Label)
+                {
+                    node.Label = nodeClass.Label;
+                    ajust = true;
+                }
+
                 //移除模板中没有的字段
                 for (int ii = node.Fields.Count - 1; ii >= 0; ii--)
                 {
@@ -606,6 +639,18 @@ namespace BehaviorTreeEditor
                         FieldDesigner tempField_ii = node.Fields[ii];
                         node.Fields[ii] = node.Fields[index];
                         node.Fields[index] = tempField_ii;
+                        ajust = true;
+                    }
+                }
+
+                //修正Label
+                for (int ii = 0; ii < node.Fields.Count; ii++)
+                {
+                    FieldDesigner field = node.Fields[ii];
+                    NodeField nodeField = nodeClass.Fields[ii];
+                    if (field.Label != nodeField.Label)
+                    {
+                        field.Label = nodeField.Label;
                         ajust = true;
                     }
                 }

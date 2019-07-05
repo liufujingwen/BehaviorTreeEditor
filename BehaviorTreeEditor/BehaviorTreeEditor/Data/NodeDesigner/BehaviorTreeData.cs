@@ -171,15 +171,15 @@ namespace BehaviorTreeEditor
 
         
         /// <summary>
-        /// 修正字段(和模板保持一致)
+        /// 修正数据(和模板保持一致)
         /// </summary>
-        public void AjustField()
+        public void AjustData()
         {
             for (int i = 0; i < m_Agents.Count; i++)
             {
                 AgentDesigner agent = m_Agents[i];
                 if (agent != null)
-                    agent.AjustField();
+                    agent.AjustData();
             }
         }
     }

@@ -68,7 +68,7 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < m_Node.Fields.Count; i++)
             {
                 FieldDesigner field = m_Node.Fields[i];
-                ListViewItem listViewItem = listView1.Items.Add(field.FieldName);
+                ListViewItem listViewItem = listView1.Items.Add(field.Title);
                 listViewItem.Tag = field;
                 listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));
                 string content = field.Field != null ? field.Field.ToString() : string.Empty;

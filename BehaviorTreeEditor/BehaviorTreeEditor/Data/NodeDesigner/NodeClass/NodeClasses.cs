@@ -119,13 +119,27 @@ namespace BehaviorTreeEditor
             //并行节点
             NodeClass parallelNode = new NodeClass();
             parallelNode.ClassType = "Parallel";
+            parallelNode.Label = "并行节点";
             parallelNode.NodeType = NodeType.Composite;
             parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
+            //成功条件
+            NodeField parallelNodeSuccessType = new NodeField() { FieldName = "SuccessType", FieldType = FieldType.EnumField, Describe = "成功条件" };
+            EnumDefaultValue parallelNodeSuccessEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
+            parallelNodeSuccessEnumDefaultValue.EnumType = "SUCCESS_POLICY";
+            parallelNodeSuccessType.Label = "成功条件";
+            parallelNode.AddField(parallelNodeSuccessType);
+            //失败条件
+            NodeField parallelNodeFailType = new NodeField() { FieldName = "FailType", FieldType = FieldType.EnumField, Describe = "失败条件" };
+            EnumDefaultValue parallelNodeFailTypeEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
+            parallelNodeFailTypeEnumDefaultValue.EnumType = "FAILURE_POLICY";
+            parallelNodeFailType.Label = "失败条件";
+            parallelNode.AddField(parallelNodeFailType);
             AddClass(parallelNode);
 
             //顺序节点
             NodeClass sequenceNode = new NodeClass();
             sequenceNode.ClassType = "Sequence";
+            sequenceNode.Label = "顺序节点";
             sequenceNode.NodeType = NodeType.Composite;
             sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
             AddClass(sequenceNode);
@@ -133,6 +147,7 @@ namespace BehaviorTreeEditor
             //选择节点
             NodeClass Selector = new NodeClass();
             Selector.ClassType = "Selector";
+            Selector.Label = "选择节点";
             Selector.Category = "";
             Selector.NodeType = NodeType.Composite;
             Selector.Describe = "选择节点";
@@ -141,6 +156,7 @@ namespace BehaviorTreeEditor
             //ifelse
             NodeClass IfElse = new NodeClass();
             IfElse.ClassType = "IfElse";
+            IfElse.Label = "IfElse";
             IfElse.NodeType = NodeType.Composite;
             IfElse.Describe = "";
             AddClass(IfElse);
@@ -148,6 +164,7 @@ namespace BehaviorTreeEditor
             //随机节点
             NodeClass Random = new NodeClass();
             Random.ClassType = "Random";
+            Random.Label = "随机节点";
             Random.Category = "随机";
             Random.NodeType = NodeType.Composite;
             Random.Describe = "随机节点";
@@ -156,6 +173,7 @@ namespace BehaviorTreeEditor
             //随机选择节点
             NodeClass RandomSelector = new NodeClass();
             RandomSelector.ClassType = "RandomSelector";
+            RandomSelector.Label = "随机选择";
             RandomSelector.Category = "随机";
             RandomSelector.NodeType = NodeType.Composite;
             RandomSelector.Describe = "随机选择节点";
@@ -164,6 +182,7 @@ namespace BehaviorTreeEditor
             //随机序列节点
             NodeClass RandomSequence = new NodeClass();
             RandomSequence.ClassType = "RandomSequence";
+            RandomSequence.Label = "随机序列";
             RandomSequence.Category = "随机";
             RandomSequence.NodeType = NodeType.Composite;
             RandomSequence.Describe = "随机序列节点";
@@ -172,10 +191,11 @@ namespace BehaviorTreeEditor
             //概率选择节点
             NodeClass RateSelector = new NodeClass();
             RateSelector.ClassType = "RateSelector";
+            RateSelector.Label = "概率选择";
             RateSelector.Category = "随机";
             RateSelector.NodeType = NodeType.Composite;
             RateSelector.Describe = "概率选择节点";
-            RateSelector.AddField(new NodeField() { FieldName = "Priority", FieldType = FieldType.RepeatIntField, Describe = "" });
+            RateSelector.AddField(new NodeField() { FieldName = "Priority", Label = "优先级", FieldType = FieldType.RepeatIntField, Describe = "" });
             AddClass(RateSelector);
 
             #endregion
@@ -185,6 +205,7 @@ namespace BehaviorTreeEditor
             //成功节点
             NodeClass Success = new NodeClass();
             Success.ClassType = "Success";
+            Success.Label = "成功节点";
             Success.NodeType = NodeType.Decorator;
             Success.Describe = "成功节点";
             AddClass(Success);
@@ -192,6 +213,7 @@ namespace BehaviorTreeEditor
             //失败节点
             NodeClass Failure = new NodeClass();
             Failure.ClassType = "Failure";
+            Failure.Label = "失败节点";
             Failure.NodeType = NodeType.Decorator;
             Failure.Describe = "失败节点";
             AddClass(Failure);
@@ -199,6 +221,7 @@ namespace BehaviorTreeEditor
             //帧数节点用于在指定的帧数内，持续调用其子节点
             NodeClass Frames = new NodeClass();
             Frames.ClassType = "Frames";
+            Frames.Label = "帧数节点";
             Frames.NodeType = NodeType.Decorator;
             Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
             AddClass(Frames);
@@ -206,22 +229,25 @@ namespace BehaviorTreeEditor
             //输出Log节点
             NodeClass Log = new NodeClass();
             Log.ClassType = "Log";
+            Log.Label = "输出节点";
             Log.NodeType = NodeType.Decorator;
             Log.Describe = "输出log节点";
-            Log.AddField(new NodeField() { FieldName = "Content", FieldType = FieldType.StringField, Describe = "输出的内容" });
+            Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容" });
             AddClass(Log);
 
             //循环节点 -1无限循环
             NodeClass Loop = new NodeClass();
             Loop.ClassType = "Loop";
+            Loop.Label = "循环节点";
             Loop.NodeType = NodeType.Decorator;
             Loop.Describe = "循环节点 -1无限循环";
-            Loop.AddField(new NodeField() { FieldName = "LoopTimes", FieldType = FieldType.IntField, Describe = "循环次数" });
+            Loop.AddField(new NodeField() { FieldName = "LoopTimes", Label = "循环次数", FieldType = FieldType.IntField, Describe = "循环次数" });
             AddClass(Loop);
 
             //直到某个值达成前一直循环
             NodeClass LoopUntil = new NodeClass();
             LoopUntil.ClassType = "LoopUntil";
+            LoopUntil.Label = "循环直到";
             LoopUntil.NodeType = NodeType.Decorator;
             LoopUntil.Describe = "直到某个值达成前一直循环";
             AddClass(LoopUntil);
@@ -229,6 +255,7 @@ namespace BehaviorTreeEditor
             //取反节点
             NodeClass Not = new NodeClass();
             Not.ClassType = "Not";
+            Not.Label = "取反节点";
             Not.NodeType = NodeType.Decorator;
             Not.Describe = "取反节点";
             AddClass(Not);
@@ -236,6 +263,7 @@ namespace BehaviorTreeEditor
             //指定时间内运行
             NodeClass Time = new NodeClass();
             Time.ClassType = "Time";
+            Time.Label = "时间";
             Time.NodeType = NodeType.Decorator;
             Time.Describe = "指定时间内运行";
             AddClass(Time);
@@ -243,6 +271,7 @@ namespace BehaviorTreeEditor
             //阻塞，直到子节点返回true
             NodeClass WaitUntil = new NodeClass();
             WaitUntil.ClassType = "WaitUntil";
+            WaitUntil.Label = "等待返回True";
             WaitUntil.NodeType = NodeType.Decorator;
             WaitUntil.Describe = "阻塞，直到子节点返回true";
             AddClass(WaitUntil);
@@ -254,27 +283,31 @@ namespace BehaviorTreeEditor
             //比较节点
             NodeClass Compare = new NodeClass();
             Compare.ClassType = "Compare";
+            Compare.Label = "比较节点";
             Compare.NodeType = NodeType.Condition;
             Compare.Describe = "Compare节点对左右参数进行比较";
             //左边参数类型
             NodeField CompareLeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
             EnumDefaultValue CompareLeftEnumDefaultValue = CompareLeftType.DefaultValue as EnumDefaultValue;
             CompareLeftEnumDefaultValue.EnumType = "ParameterType";
+            CompareLeftType.Label = "左参数类型";
             Compare.AddField(CompareLeftType);
             //左边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "LeftParameter", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
             //比较符号
             NodeField CompareType = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
             EnumDefaultValue CompareTypeDefaultValue = CompareType.DefaultValue as EnumDefaultValue;
             CompareTypeDefaultValue.EnumType = "CompareType";
+            CompareType.Label = "比较操作符";
             Compare.AddField(CompareType);
             //右边边参数类型
             NodeField CompareRightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
             EnumDefaultValue CompareRightEnumDefaultValue = CompareRightType.DefaultValue as EnumDefaultValue;
             CompareRightEnumDefaultValue.EnumType = "ParameterType";
+            CompareRightType.Label = "右参数类型";
             Compare.AddField(CompareRightType);
             //右边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "RightParameter", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
             AddClass(Compare);
 
             #endregion
@@ -283,28 +316,31 @@ namespace BehaviorTreeEditor
 
             //赋值节点Int
             NodeClass AssignmentInt = new NodeClass();
-            AssignmentInt.ClassType = "Assignment";
+            AssignmentInt.ClassType = "AssignmentInt";
+            AssignmentInt.Label = "赋值节点(Int)";
             AssignmentInt.NodeType = NodeType.Action;
             AssignmentInt.Describe = "赋值节点";
-            AssignmentInt.AddField(new NodeField() { FieldName = "ParameterName", FieldType = FieldType.StringField, Describe = "参数变量名" });
-            AssignmentInt.AddField(new NodeField() { FieldName = "Parameter", FieldType = FieldType.IntField, Describe = "参数值" });
+            AssignmentInt.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
+            AssignmentInt.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值Int", FieldType = FieldType.IntField, Describe = "参数值" });
             AddClass(AssignmentInt);
 
             //赋值节点String
             NodeClass AssignmentString = new NodeClass();
             AssignmentString.ClassType = "AssignmentString";
+            AssignmentString.Label = "赋值节点(String)";
             AssignmentString.NodeType = NodeType.Action;
             AssignmentString.Describe = "赋值节点";
-            AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", FieldType = FieldType.StringField, Describe = "参数变量名" });
-            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", FieldType = FieldType.IntField, Describe = "参数值" });
+            AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
+            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.IntField, Describe = "参数值" });
             AddClass(AssignmentString);
 
             //等待节点
             NodeClass Wait = new NodeClass();
             Wait.ClassType = "Wait";
+            Wait.Label = "等待节点";
             Wait.NodeType = NodeType.Action;
             Wait.Describe = "等待节点";
-            Wait.AddField(new NodeField() { FieldName = "Millisecond", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）" });
+            Wait.AddField(new NodeField() { FieldName = "Millisecond", Label = "等待时间(毫秒)", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）" });
             AddClass(Wait);
             #endregion
         }

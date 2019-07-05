@@ -17,14 +17,14 @@ namespace BehaviorTreeEditor
             set { m_ClassType = value; }
         }
 
-        private string m_ClassName;
+        private string m_Label;
 
-        [Category("常规"), DisplayName("类名"), Description("类名(中文名)")]
+        [Category("常规"), DisplayName("标签"), Description("中文名")]
         [XmlAttribute]
-        public string ClassName
+        public string Label
         {
-            get { return m_ClassName; }
-            set { m_ClassName = value; }
+            get { return m_Label; }
+            set { m_Label = value; }
         }
 
         private string m_Category;
@@ -262,7 +262,7 @@ namespace BehaviorTreeEditor
                 return;
 
             m_ClassType = nodeClass.ClassType;
-            m_ClassName = nodeClass.ClassName;
+            m_Label = nodeClass.Label;
             m_Category = nodeClass.Category;
             m_NodeType = nodeClass.NodeType;
             m_Describe = nodeClass.Describe;

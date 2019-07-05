@@ -9,6 +9,12 @@ namespace BehaviorTreeEditor
         [Category("常规"), DisplayName("字段名称"), Description("字段名称"), PropertyOrder(1)]
         public string FieldName { get; set; }
 
+        [Category("常规"), DisplayName("标签"), Description("标签"), PropertyOrder(1)]
+        public string Label { get; set; }
+
+        [Browsable(false)]
+        public string Title { get { return string.IsNullOrEmpty(Label) ? FieldName : Label; } }
+
         private FieldType m_FieldType;
 
         [Category("常规"), DisplayName("字段类型"), Description("字段类型"), PropertyOrder(2)]
