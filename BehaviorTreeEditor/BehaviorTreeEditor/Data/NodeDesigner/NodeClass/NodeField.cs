@@ -15,6 +15,7 @@ namespace BehaviorTreeEditor
         [Category("常规"), DisplayName("标签"), Description("标签"), PropertyOrder(1)]
         public string Label { get; set; }
 
+        [Browsable(false)]
         public string Title
         {
             get { return !string.IsNullOrEmpty(Label) ? Label : FieldName; }

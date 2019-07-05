@@ -45,14 +45,15 @@
             this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.categoryTB = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewFields = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label4 = new System.Windows.Forms.Label();
-            this.categoryTB = new System.Windows.Forms.TextBox();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -207,6 +208,23 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
+            // categoryTB
+            // 
+            this.categoryTB.Location = new System.Drawing.Point(66, 90);
+            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.categoryTB.Name = "categoryTB";
+            this.categoryTB.Size = new System.Drawing.Size(456, 25);
+            this.categoryTB.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 93);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "类别：";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listViewFields);
@@ -224,7 +242,8 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.listViewFields.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewFields.FullRowSelect = true;
             this.listViewFields.GridLines = true;
@@ -245,37 +264,25 @@
             this.columnHeader1.Text = "字段名";
             this.columnHeader1.Width = 150;
             // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "字段类型";
-            this.columnHeader2.Width = 159;
-            // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "默认值";
-            this.columnHeader3.Width = 209;
+            this.columnHeader3.Text = "字段类型";
+            this.columnHeader3.Width = 159;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "描述";
-            this.columnHeader4.Width = 300;
+            this.columnHeader4.Text = "默认值";
+            this.columnHeader4.Width = 209;
             // 
-            // label4
+            // columnHeader5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "类别：";
+            this.columnHeader5.Text = "描述";
+            this.columnHeader5.Width = 300;
             // 
-            // categoryTB
+            // columnHeader2
             // 
-            this.categoryTB.Location = new System.Drawing.Point(66, 90);
-            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.categoryTB.Name = "categoryTB";
-            this.categoryTB.Size = new System.Drawing.Size(456, 25);
-            this.categoryTB.TabIndex = 7;
+            this.columnHeader2.Text = "标签";
+            this.columnHeader2.Width = 151;
             // 
             // AddClassForm
             // 
@@ -320,10 +327,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListView listViewFields;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.TextBox categoryTB;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

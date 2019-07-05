@@ -35,7 +35,7 @@ namespace BehaviorTreeEditor
             categoryTB.Text = m_EditNodeClass.Category;
             describeTB.Text = m_EditNodeClass.Describe;
 
-            ShowFieldDataInPage(m_EditNodeClass);
+            BindField(m_EditNodeClass);
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)
@@ -175,7 +175,7 @@ namespace BehaviorTreeEditor
             switch (cmd)
             {
                 case "Refresh":
-                    ShowFieldDataInPage(m_EditNodeClass);
+                    BindField(m_EditNodeClass);
                     break;
                 case "NewField":
                     NewField();
@@ -214,7 +214,7 @@ namespace BehaviorTreeEditor
         }
 
         //刷新ListView
-        private void ShowFieldDataInPage(NodeClass m_NodeClass)
+        private void BindField(NodeClass m_NodeClass)
         {
             if (m_NodeClass == null)
                 return;
@@ -224,6 +224,7 @@ namespace BehaviorTreeEditor
             {
                 ListViewItem listViewItem = listViewFields.Items.Add(field.FieldName);
                 listViewItem.Tag = field;
+                listViewItem.SubItems.Add(field.Label);
                 listViewItem.SubItems.Add(EditorUtility.GetFieldTypeName(field.FieldType));
                 listViewItem.SubItems.Add(field.DefaultValue != null ? field.DefaultValue.ToString() : string.Empty);
                 listViewItem.SubItems.Add(field.Describe);
