@@ -22,9 +22,9 @@ namespace BehaviorTreeEditor
         //视图缩放最大值
         public static float ZoomScaleMax = 2.0f;
         //普通格子线 画笔
-        public static Pen LineNormalPen = new Pen(Color.FromArgb(8, 8, 8), 1);
+        public static Pen LineNormalPen = new Pen(Color.FromArgb(255, 30, 30, 30), 1);
         //粗格子线 画笔
-        public static Pen LineBoldPen = new Pen(Color.FromArgb(8, 8, 8), 2);
+        public static Pen LineBoldPen = new Pen(Color.FromArgb(255, 40, 40, 40), 2);
 
         #endregion
 
@@ -702,7 +702,7 @@ namespace BehaviorTreeEditor
 
             return data;
         }
-        
+
         #endregion
     }
 }

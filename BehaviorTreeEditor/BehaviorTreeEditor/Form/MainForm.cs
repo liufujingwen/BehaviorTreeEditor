@@ -511,6 +511,10 @@ namespace BehaviorTreeEditor
                     {
                         SetSelectedAgent(index);
                     }
+                    else
+                    {
+                        SetSelectedAgent(null);
+                    }
                 }
             }
         }
