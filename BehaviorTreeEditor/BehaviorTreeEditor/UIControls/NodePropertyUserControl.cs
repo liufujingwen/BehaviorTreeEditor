@@ -28,6 +28,12 @@ namespace BehaviorTreeEditor.UIControls
 
         private void NodePropertyUserControl_Load(object sender, EventArgs e)
         {
+            ImageList il = new ImageList();
+            //设置高度
+            il.ImageSize = new Size(1, 20);
+            //绑定listView控件
+            listView1.SmallImageList = il;
+
             BindNode();
         }
 

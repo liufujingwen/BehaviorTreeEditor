@@ -479,6 +479,18 @@ namespace BehaviorTreeEditor
             treeNode.Text = agent.AgentID;
         }
 
+        //重置数据
+        private void Reset()
+        {
+            EditorUtility.NodeClassDic.Clear();
+            treeView1.Nodes.Clear();
+            NodeClasses = new NodeClasses();
+            NodeClasses.ResetEnums();
+            NodeClasses.ResetNodes();
+            TreeData = new TreeData();
+            SetSelectedAgent(null);
+        }
+
         /// <summary>
         /// 删除Agent
         /// </summary>
@@ -661,6 +673,9 @@ namespace BehaviorTreeEditor
                 case OperationType.UpdateAgent:
                     UpdateAgent((AgentDesigner)args[0]);
                     break;
+                case OperationType.Reset:
+                    Reset();
+                    break;
             }
 
             return true;
@@ -682,6 +697,7 @@ namespace BehaviorTreeEditor
             if (NodeClasses == null)
             {
                 NodeClasses = new NodeClasses();
+                NodeClasses.ResetEnums();
                 NodeClasses.ResetNodes();
                 XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             }

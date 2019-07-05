@@ -12,7 +12,7 @@ namespace BehaviorTreeEditor
         private List<string> m_Value = new List<string>();
 
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
-        [Category("常规"), DisplayName("Long数组"), Description("Long数组")]
+        [Category("常规"), DisplayName("String数组"), Description("String数组")]
         public List<string> Value
         {
             get { return m_Value; }

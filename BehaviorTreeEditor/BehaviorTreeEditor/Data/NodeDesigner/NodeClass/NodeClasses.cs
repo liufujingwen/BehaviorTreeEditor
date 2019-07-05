@@ -232,6 +232,7 @@ namespace BehaviorTreeEditor
             Log.Label = "输出节点";
             Log.NodeType = NodeType.Decorator;
             Log.Describe = "输出log节点";
+            Log.ShowContent = true;
             Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容" });
             AddClass(Log);
 
@@ -241,6 +242,7 @@ namespace BehaviorTreeEditor
             Loop.Label = "循环节点";
             Loop.NodeType = NodeType.Decorator;
             Loop.Describe = "循环节点 -1无限循环";
+            Loop.ShowContent = true;
             Loop.AddField(new NodeField() { FieldName = "LoopTimes", Label = "循环次数", FieldType = FieldType.IntField, Describe = "循环次数" });
             AddClass(Loop);
 
@@ -266,6 +268,7 @@ namespace BehaviorTreeEditor
             Time.Label = "时间";
             Time.NodeType = NodeType.Decorator;
             Time.Describe = "指定时间内运行";
+            Time.ShowContent = true;
             AddClass(Time);
 
             //阻塞，直到子节点返回true
@@ -322,6 +325,7 @@ namespace BehaviorTreeEditor
             AssignmentInt.Describe = "赋值节点";
             AssignmentInt.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
             AssignmentInt.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值Int", FieldType = FieldType.IntField, Describe = "参数值" });
+            AssignmentInt.ShowContent = true;
             AddClass(AssignmentInt);
 
             //赋值节点String
@@ -332,6 +336,7 @@ namespace BehaviorTreeEditor
             AssignmentString.Describe = "赋值节点";
             AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
             AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.IntField, Describe = "参数值" });
+            AssignmentString.ShowContent = true;
             AddClass(AssignmentString);
 
             //等待节点
@@ -340,7 +345,11 @@ namespace BehaviorTreeEditor
             Wait.Label = "等待节点";
             Wait.NodeType = NodeType.Action;
             Wait.Describe = "等待节点";
-            Wait.AddField(new NodeField() { FieldName = "Millisecond", Label = "等待时间(毫秒)", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）" });
+            NodeField WaintField = new NodeField() { FieldName = "Millisecond", Label = "等待时间(毫秒)", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）" };
+            IntDefaultValue WaintFieldDefaultField = WaintField.DefaultValue as IntDefaultValue;
+            WaintFieldDefaultField.DefaultValue = 1000;
+            Wait.AddField(WaintField);
+            Wait.ShowContent = true;
             AddClass(Wait);
             #endregion
         }

@@ -8,7 +8,7 @@ namespace BehaviorTreeEditor
 {
     public class StringFieldDesigner : BaseFieldDesigner
     {
-        [Category("常规"), DisplayName("Boolean值"), Description("Boolean值")]
+        [Category("常规"), DisplayName("String值"), Description("String值")]
         public string Value { get; set; }
 
         public override string ToString()

@@ -36,6 +36,15 @@ namespace BehaviorTreeEditor
             set { m_Category = value; }
         }
 
+        private bool m_ShowContent;
+        [Category("常规"), DisplayName("展示内容"), Description("是否在节点展示内容")]
+        [XmlAttribute]
+        public bool ShowContent
+        {
+            get { return m_ShowContent; }
+            set { m_ShowContent = value; }
+        }
+
         //节点类型
         private NodeType m_NodeType;
 
@@ -266,6 +275,7 @@ namespace BehaviorTreeEditor
             m_Category = nodeClass.Category;
             m_NodeType = nodeClass.NodeType;
             m_Describe = nodeClass.Describe;
+            m_ShowContent = nodeClass.ShowContent;
 
             m_Fields.Clear();
             m_Fields.AddRange(nodeClass.Fields);

@@ -56,6 +56,8 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.showContentCB = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -198,6 +200,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.showContentCB);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.labelTB);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.categoryTB);
@@ -307,6 +311,24 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "标签：";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(592, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(127, 15);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "展示内容到节点：";
+            // 
+            // showContentCB
+            // 
+            this.showContentCB.AutoSize = true;
+            this.showContentCB.Location = new System.Drawing.Point(717, 25);
+            this.showContentCB.Name = "showContentCB";
+            this.showContentCB.Size = new System.Drawing.Size(18, 17);
+            this.showContentCB.TabIndex = 11;
+            this.showContentCB.UseVisualStyleBackColor = true;
+            // 
             // AddClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -358,5 +380,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.TextBox labelTB;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox showContentCB;
+        private System.Windows.Forms.Label label6;
     }
 }

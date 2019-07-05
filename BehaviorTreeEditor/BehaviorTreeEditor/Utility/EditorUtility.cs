@@ -6,6 +6,8 @@ namespace BehaviorTreeEditor
 {
     public static class EditorUtility
     {
+        public static Dictionary<NodeDesigner, NodeClass> NodeClassDic = new Dictionary<NodeDesigner, NodeClass>();
+
         static EditorUtility()
         {
             NameStringFormat.LineAlignment = StringAlignment.Center;
@@ -33,7 +35,7 @@ namespace BehaviorTreeEditor
         //节点普通连线 画笔
         public static Pen TransitionNormalPen = new Pen(Color.White, 2);
         //节点普通连线 画笔
-        public static Pen TransitionSelectedPen = new Pen(Color.Orange, 2);
+        public static Pen TransitionSelectedPen = new Pen(Color.Orange, 3);
         //普通箭头 笔刷
         public static Brush ArrowNormalBrush = new SolidBrush(Color.White);
         //普通箭头 笔刷
@@ -63,8 +65,10 @@ namespace BehaviorTreeEditor
         public static Pen SelectionModePen = new Pen(Color.Green, 1.5f);
 
         //节点字体
-        public static Font NodeFont = new Font("宋体", 12, FontStyle.Regular);
-        public static Brush NodeBrush = new SolidBrush(Color.White);
+        public static Font NodeTitleFont = new Font("宋体", 12, FontStyle.Regular);
+        public static Font NodeContentFont = new Font("宋体", 12, FontStyle.Regular);
+        public static Brush NodeTitleFontBrush = new SolidBrush(Color.White);
+        public static Brush NodeContentFontBrush = new SolidBrush(Color.Black);
         //节点错误 笔刷
         public static Brush NodeErrorBrush = new SolidBrush(Color.Red);
 
@@ -78,7 +82,6 @@ namespace BehaviorTreeEditor
         public static Brush NodeTitleBrush = new SolidBrush(Color.FromArgb(255, 54, 74, 85));
         public static Brush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
         public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
-
         #endregion
 
         //节点标题Rect
@@ -201,13 +204,25 @@ namespace BehaviorTreeEditor
             DrawNodeLinkPoint(graphics, node, offset);
             //画标题底框
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
-            graphics.FillRectangle(EditorUtility.NodeTitleBrush, titleRect);
+            graphics.FillRectangle(NodeTitleBrush, titleRect);
             //标题
-            graphics.DrawString(node.Title, EditorUtility.NodeFont, EditorUtility.NodeBrush, titleRect.x + titleRect.width / 2, titleRect.y + titleRect.height / 2 + 1, EditorUtility.NameStringFormat);
+            graphics.DrawString(node.Title, NodeTitleFont, NodeTitleFontBrush, titleRect.x + titleRect.width / 2.0f, titleRect.y + titleRect.height / 2.0f, EditorUtility.NameStringFormat);
             //画内容底框
-            graphics.FillRectangle(EditorUtility.NodeContentBrush, contentRect);
+            graphics.FillRectangle(NodeContentBrush, contentRect);
 
-            //graphics.DrawRectangle(EditorUtility.NodeNormalPen, node.Rect - offset);
+            //渲染内容
+            NodeClass nodeClass = null;
+            if (!NodeClassDic.TryGetValue(node, out nodeClass))
+            {
+                nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                if (nodeClass != null)
+                    NodeClassDic.Add(node, nodeClass);
+            }
+
+            if (nodeClass != null && nodeClass.ShowContent)
+            {
+                graphics.DrawString(node.ToString(), NodeContentFont, NodeContentFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, EditorUtility.NameStringFormat);
+            }
 
             //选中边框
             if (on)
@@ -223,28 +238,28 @@ namespace BehaviorTreeEditor
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("开始节点不能没有父节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("开始节点不能没有父节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (!node.StartNode && node.ParentNode == null)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("没有父节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("没有父节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if ((node.NodeType == NodeType.Composite || node.NodeType == NodeType.Decorator) && node.Transitions.Count == 0)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("没有子节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("没有子节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (node.NodeType == NodeType.Decorator && node.Transitions.Count > 1)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("装饰节点只能有一个子节点", EditorUtility.NodeFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("装饰节点只能有一个子节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (hasError)

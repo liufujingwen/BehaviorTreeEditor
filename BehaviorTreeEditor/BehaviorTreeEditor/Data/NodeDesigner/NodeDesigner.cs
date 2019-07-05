@@ -36,7 +36,6 @@ namespace BehaviorTreeEditor
         private string m_Describe;
         //字段
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
-
         //节点位置
         public Rect Rect;
         //子节点
@@ -202,6 +201,18 @@ namespace BehaviorTreeEditor
             {
                 return t2.FromNode.Rect.y.CompareTo(t1.FromNode.Rect.y);
             });
+        }
+
+        public override string ToString()
+        {
+            string content = string.Empty;
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                if (field.Field != null)
+                    content += field.Field + (i != m_Fields.Count - 1 ? "," : string.Empty);
+            }
+            return content;
         }
     }
 }

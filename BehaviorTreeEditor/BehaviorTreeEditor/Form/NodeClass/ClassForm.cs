@@ -156,11 +156,8 @@ namespace BehaviorTreeEditor
         {
             if (MessageBox.Show("是否重置所有类信息吗？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                m_Nodes = new NodeClasses();
-                MainForm.Instance.NodeClasses = m_Nodes;
-                m_Nodes.ResetEnums();
-                m_Nodes.ResetNodes();
                 BindNodeTree();
+                MainForm.Instance.Exec(OperationType.Reset);
             }
         }
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
