@@ -87,6 +87,7 @@ namespace BehaviorTreeEditor
                 treeNode.Tag = node;
             }
 
+            treeView1.SelectedNode = treeView1.Nodes[0];
             treeView1.ExpandAll();
         }
 
