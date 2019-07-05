@@ -7,23 +7,23 @@
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4814</x>
-            <y>4871</y>
+            <x>4743</x>
+            <y>4730</y>
             <position>
-              <x>4814</x>
-              <y>4871</y>
+              <x>4743</x>
+              <y>4730</y>
             </position>
             <center>
-              <x>4889</x>
-              <y>4901</y>
+              <x>4818</x>
+              <y>4760</y>
             </center>
             <min>
-              <x>4814</x>
-              <y>4871</y>
+              <x>4743</x>
+              <y>4730</y>
             </min>
             <max>
-              <x>4964</x>
-              <y>4931</y>
+              <x>4893</x>
+              <y>4790</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,12 +31,16 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4814</xMin>
-            <yMin>4871</yMin>
-            <xMax>4964</xMax>
-            <yMax>4931</yMax>
+            <xMin>4743</xMin>
+            <yMin>4730</yMin>
+            <xMax>4893</xMax>
+            <yMax>4790</yMax>
           </Rect>
           <Transitions>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
+              <ToNodeID>4</ToNodeID>
+            </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
               <ToNodeID>2</ToNodeID>
@@ -97,23 +101,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5271.5</x>
-            <y>4816</y>
+            <x>5297.5</x>
+            <y>4683</y>
             <position>
-              <x>5271.5</x>
-              <y>4816</y>
+              <x>5297.5</x>
+              <y>4683</y>
             </position>
             <center>
-              <x>5346.5</x>
-              <y>4846</y>
+              <x>5372.5</x>
+              <y>4713</y>
             </center>
             <min>
-              <x>5271.5</x>
-              <y>4816</y>
+              <x>5297.5</x>
+              <y>4683</y>
             </min>
             <max>
-              <x>5421.5</x>
-              <y>4876</y>
+              <x>5447.5</x>
+              <y>4743</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -121,10 +125,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5271.5</xMin>
-            <yMin>4816</yMin>
-            <xMax>5421.5</xMax>
-            <yMax>4876</yMax>
+            <xMin>5297.5</xMin>
+            <yMin>4683</yMin>
+            <xMax>5447.5</xMax>
+            <yMax>4743</yMax>
           </Rect>
           <Transitions />
           <ID>3</ID>
@@ -141,6 +145,56 @@
               <Describe>等待时间（毫秒）</Describe>
               <Field xsi:type="IntFieldDesigner">
                 <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5173.5</x>
+            <y>4939.3335</y>
+            <position>
+              <x>5173.5</x>
+              <y>4939.3335</y>
+            </position>
+            <center>
+              <x>5248.5</x>
+              <y>4969.3335</y>
+            </center>
+            <min>
+              <x>5173.5</x>
+              <y>4939.3335</y>
+            </min>
+            <max>
+              <x>5323.5</x>
+              <y>4999.3335</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5173.5</xMin>
+            <yMin>4939.3335</yMin>
+            <xMax>5323.5</xMax>
+            <yMax>4999.3335</yMax>
+          </Rect>
+          <Transitions />
+          <ID>4</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>10000</Value>
               </Field>
             </FieldDesigner>
           </Fields>

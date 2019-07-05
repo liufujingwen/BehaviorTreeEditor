@@ -76,7 +76,11 @@ namespace BehaviorTreeEditor
                 string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
                 if (File.Exists(oldWorkSpaceFile))
                     File.Delete(oldWorkSpaceFile);
-                //todo... 删除旧节点数据
+                
+                //删除旧二进制数据
+                string oldTreeDataFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.NodeDataFileSuffix);
+                if (File.Exists(oldTreeDataFile))
+                    File.Delete(oldTreeDataFile);
 
                 Settings.Default.Save();
                 XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
