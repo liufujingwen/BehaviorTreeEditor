@@ -83,16 +83,35 @@
     </CustomEnum>
   </Enums>
   <Nodes>
-    <NodeClass ClassType="Random" Label="随机节点" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机节点</Describe>
+    <NodeClass ClassType="IfElse" Label="IfElse" ShowContent="false" NodeType="Composite">
+      <Describe />
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Sequence" Label="顺序节点" ShowContent="false" NodeType="Composite">
+      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="RateSelector" Label="概率选择" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>概率选择节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>Priority</FieldName>
+          <Label>优先级</Label>
+          <FieldType>RepeatIntField</FieldType>
+          <Describe />
+        </NodeField>
+      </Fields>
+    </NodeClass>
+    <NodeClass ClassType="RandomSelector" Label="随机选择" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机选择节点</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Selector" Label="选择节点" Category="" ShowContent="false" NodeType="Composite">
       <Describe>选择节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="RandomSequence" Label="随机序列" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机序列节点</Describe>
+    <NodeClass ClassType="Random" Label="随机节点" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机节点</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Parallel" Label="并行节点" ShowContent="false" NodeType="Composite">
@@ -122,31 +141,36 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Sequence" Label="顺序节点" ShowContent="false" NodeType="Composite">
-      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+    <NodeClass ClassType="RandomSequence" Label="随机序列" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机序列节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="IfElse" Label="IfElse" ShowContent="false" NodeType="Composite">
-      <Describe />
-      <Fields />
-    </NodeClass>
-    <NodeClass ClassType="RandomSelector" Label="随机选择" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机选择节点</Describe>
-      <Fields />
-    </NodeClass>
-    <NodeClass ClassType="RateSelector" Label="概率选择" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>概率选择节点</Describe>
+    <NodeClass ClassType="Log" Label="输出节点" ShowContent="true" NodeType="Decorator">
+      <Describe>输出log节点</Describe>
       <Fields>
         <NodeField>
-          <FieldName>Priority</FieldName>
-          <Label>优先级</Label>
-          <FieldType>RepeatIntField</FieldType>
-          <Describe />
+          <FieldName>Content</FieldName>
+          <Label>输出内容</Label>
+          <FieldType>StringField</FieldType>
+          <Describe>输出的内容</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Success" Label="成功节点" ShowContent="false" NodeType="Decorator">
-      <Describe>成功节点</Describe>
+    <NodeClass ClassType="Failure" Label="失败节点" ShowContent="false" NodeType="Decorator">
+      <Describe>失败节点</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Time" Label="时间" ShowContent="true" NodeType="Decorator">
+      <Describe>指定时间内运行</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="LoopUntil" Label="循环直到" ShowContent="false" NodeType="Decorator">
+      <Describe>直到某个值达成前一直循环</Describe>
+      <Fields />
+    </NodeClass>
+    <NodeClass ClassType="Frames" Label="帧数节点" ShowContent="false" NodeType="Decorator">
+      <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Loop" Label="循环节点" ShowContent="true" NodeType="Decorator">
@@ -163,40 +187,16 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="WaitUntil" Label="等待返回True" ShowContent="false" NodeType="Decorator">
-      <Describe>阻塞，直到子节点返回true</Describe>
+    <NodeClass ClassType="Success" Label="成功节点" ShowContent="false" NodeType="Decorator">
+      <Describe>成功节点</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Not" Label="取反节点" ShowContent="false" NodeType="Decorator">
       <Describe>取反节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Frames" Label="帧数节点" ShowContent="false" NodeType="Decorator">
-      <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
-      <Fields />
-    </NodeClass>
-    <NodeClass ClassType="Failure" Label="失败节点" ShowContent="false" NodeType="Decorator">
-      <Describe>失败节点</Describe>
-      <Fields />
-    </NodeClass>
-    <NodeClass ClassType="Log" Label="输出节点" ShowContent="true" NodeType="Decorator">
-      <Describe>输出log节点</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>Content</FieldName>
-          <Label>输出内容</Label>
-          <FieldType>StringField</FieldType>
-          <Describe>输出的内容</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-      </Fields>
-    </NodeClass>
-    <NodeClass ClassType="LoopUntil" Label="循环直到" ShowContent="false" NodeType="Decorator">
-      <Describe>直到某个值达成前一直循环</Describe>
-      <Fields />
-    </NodeClass>
-    <NodeClass ClassType="Time" Label="时间" ShowContent="true" NodeType="Decorator">
-      <Describe>指定时间内运行</Describe>
+    <NodeClass ClassType="WaitUntil" Label="等待返回True" ShowContent="false" NodeType="Decorator">
+      <Describe>阻塞，直到子节点返回true</Describe>
       <Fields />
     </NodeClass>
     <NodeClass ClassType="Compare" Label="比较节点" ShowContent="false" NodeType="Condition">
@@ -251,6 +251,40 @@
         </NodeField>
       </Fields>
     </NodeClass>
+    <NodeClass ClassType="AssignmentString" Label="赋值节点(String)" ShowContent="true" NodeType="Action">
+      <Describe>赋值节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>ParameterName</FieldName>
+          <Label>变量名</Label>
+          <FieldType>StringField</FieldType>
+          <Describe>参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>Parameter</FieldName>
+          <Label>赋值字符串</Label>
+          <FieldType>IntField</FieldType>
+          <Describe>参数值</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
+    </NodeClass>
+    <NodeClass ClassType="TestNode" Category="测试" ShowContent="false" NodeType="Action">
+      <Describe>测试测试测试测试测试测试测试测试测试</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>testField</FieldName>
+          <Label>测试字段</Label>
+          <FieldType>IntField</FieldType>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>100</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
+    </NodeClass>
     <NodeClass ClassType="Wait" Label="等待节点" ShowContent="true" NodeType="Action">
       <Describe>等待节点</Describe>
       <Fields>
@@ -278,27 +312,6 @@
         <NodeField>
           <FieldName>Parameter</FieldName>
           <Label>赋值Int</Label>
-          <FieldType>IntField</FieldType>
-          <Describe>参数值</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>0</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-      </Fields>
-    </NodeClass>
-    <NodeClass ClassType="AssignmentString" Label="赋值节点(String)" ShowContent="true" NodeType="Action">
-      <Describe>赋值节点</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>ParameterName</FieldName>
-          <Label>变量名</Label>
-          <FieldType>StringField</FieldType>
-          <Describe>参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>Parameter</FieldName>
-          <Label>赋值字符串</Label>
           <FieldType>IntField</FieldType>
           <Describe>参数值</Describe>
           <DefaultValue xsi:type="IntDefaultValue">

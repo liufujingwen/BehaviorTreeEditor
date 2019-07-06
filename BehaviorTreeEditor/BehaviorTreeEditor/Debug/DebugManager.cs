@@ -107,10 +107,17 @@ namespace BehaviorTreeEditor
                     DebugSelectorNode debugIfElseNode = new DebugSelectorNode();
                     debugNode = debugIfElseNode;
                 }
+                //概率选择
                 else if (node.ClassType == "RateSelector")
                 {
                     DebugRateSelector debugRateSelector = new DebugRateSelector();
                     debugNode = debugRateSelector;
+                }
+                else
+                {
+                    //统一用默认的组合节点，（顺序节点）
+                    DebugCompositeNode debugCompositeNode = new DebugCompositeNode();
+                    debugNode = debugCompositeNode;
                 }
             }
             //装饰节点

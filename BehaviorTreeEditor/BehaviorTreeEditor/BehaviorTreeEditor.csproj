@@ -65,6 +65,7 @@
     <Compile Include="Data\NodeDesigner\NodeClass\Vector3DefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector2DefaultValue.cs" />
     <Compile Include="Debug\Action\DebugActionNode.cs" />
+    <Compile Include="Debug\Composite\DebugCompositeNode.cs" />
     <Compile Include="Debug\Composite\DebugIfElseNode.cs" />
     <Compile Include="Debug\Composite\DebugRandomNode.cs" />
     <Compile Include="Debug\Composite\DebugRandomSelector.cs" />
