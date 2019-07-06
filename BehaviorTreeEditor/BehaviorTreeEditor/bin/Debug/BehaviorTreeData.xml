@@ -52,23 +52,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>4831.5</x>
-            <y>4903</y>
+            <x>4832.5</x>
+            <y>4905</y>
             <position>
-              <x>4831.5</x>
-              <y>4903</y>
+              <x>4832.5</x>
+              <y>4905</y>
             </position>
             <center>
-              <x>4906.5</x>
-              <y>4933</y>
+              <x>4907.5</x>
+              <y>4935</y>
             </center>
             <min>
-              <x>4831.5</x>
-              <y>4903</y>
+              <x>4832.5</x>
+              <y>4905</y>
             </min>
             <max>
-              <x>4981.5</x>
-              <y>4963</y>
+              <x>4982.5</x>
+              <y>4965</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -76,12 +76,16 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4831.5</xMin>
-            <yMin>4903</yMin>
-            <xMax>4981.5</xMax>
-            <yMax>4963</yMax>
+            <xMin>4832.5</xMin>
+            <yMin>4905</yMin>
+            <xMax>4982.5</xMax>
+            <yMax>4965</yMax>
           </Rect>
           <Transitions>
+            <Transition>
+              <FromNodeID>2</FromNodeID>
+              <ToNodeID>6</ToNodeID>
+            </Transition>
             <Transition>
               <FromNodeID>2</FromNodeID>
               <ToNodeID>3</ToNodeID>
@@ -275,6 +279,223 @@
               <Describe>参数值</Describe>
               <Field xsi:type="IntFieldDesigner">
                 <Value>0</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5031.1</x>
+            <y>4685.6</y>
+            <position>
+              <x>5031.1</x>
+              <y>4685.6</y>
+            </position>
+            <center>
+              <x>5106.1</x>
+              <y>4715.6</y>
+            </center>
+            <min>
+              <x>5031.1</x>
+              <y>4685.6</y>
+            </min>
+            <max>
+              <x>5181.1</x>
+              <y>4745.6</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5031.1</xMin>
+            <yMin>4685.6</yMin>
+            <xMax>5181.1</xMax>
+            <yMax>4745.6</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>7</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>8</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>6</FromNodeID>
+              <ToNodeID>9</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>6</ID>
+          <StartNode>false</StartNode>
+          <ClassType>RateSelector</ClassType>
+          <Label>概率选择</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>概率选择节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Priority</FieldName>
+              <Label>优先级</Label>
+              <FieldType>RepeatIntField</FieldType>
+              <Describe />
+              <Field xsi:type="RepeatIntFieldDesigner">
+                <Value>
+                  <int>100</int>
+                  <int>200</int>
+                  <int>10</int>
+                </Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5296.1</x>
+            <y>4469.6</y>
+            <position>
+              <x>5296.1</x>
+              <y>4469.6</y>
+            </position>
+            <center>
+              <x>5371.1</x>
+              <y>4499.6</y>
+            </center>
+            <min>
+              <x>5296.1</x>
+              <y>4469.6</y>
+            </min>
+            <max>
+              <x>5446.1</x>
+              <y>4529.6</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5296.1</xMin>
+            <yMin>4469.6</yMin>
+            <xMax>5446.1</xMax>
+            <yMax>4529.6</yMax>
+          </Rect>
+          <Transitions />
+          <ID>7</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5308.67139</x>
+            <y>4552.457</y>
+            <position>
+              <x>5308.67139</x>
+              <y>4552.457</y>
+            </position>
+            <center>
+              <x>5383.67139</x>
+              <y>4582.457</y>
+            </center>
+            <min>
+              <x>5308.67139</x>
+              <y>4552.457</y>
+            </min>
+            <max>
+              <x>5458.67139</x>
+              <y>4612.457</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5308.67139</xMin>
+            <yMin>4552.457</yMin>
+            <xMax>5458.67139</xMax>
+            <yMax>4612.457</yMax>
+          </Rect>
+          <Transitions />
+          <ID>8</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5331.67139</x>
+            <y>4662.457</y>
+            <position>
+              <x>5331.67139</x>
+              <y>4662.457</y>
+            </position>
+            <center>
+              <x>5406.67139</x>
+              <y>4692.457</y>
+            </center>
+            <min>
+              <x>5331.67139</x>
+              <y>4662.457</y>
+            </min>
+            <max>
+              <x>5481.67139</x>
+              <y>4722.457</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5331.67139</xMin>
+            <yMin>4662.457</yMin>
+            <xMax>5481.67139</xMax>
+            <yMax>4722.457</yMax>
+          </Rect>
+          <Transitions />
+          <ID>9</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
               </Field>
             </FieldDesigner>
           </Fields>

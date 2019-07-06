@@ -107,6 +107,11 @@ namespace BehaviorTreeEditor
                     DebugSelectorNode debugIfElseNode = new DebugSelectorNode();
                     debugNode = debugIfElseNode;
                 }
+                else if (node.ClassType == "RateSelector")
+                {
+                    DebugRateSelector debugRateSelector = new DebugRateSelector();
+                    debugNode = debugRateSelector;
+                }
             }
             //装饰节点
             else if (node.NodeType == NodeType.Decorator)

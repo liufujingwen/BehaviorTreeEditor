@@ -22,6 +22,12 @@ namespace BehaviorTreeEditor
             RepeatIntFieldDesigner repeatIntField = Node["Priority"].Field as RepeatIntFieldDesigner;
             List<int> tempList = repeatIntField.Value;
 
+            if (Childs.Count == 1)
+            {
+                Status = DebugNodeStatus.Error;
+                return;
+            }
+
             if (tempList.Count != Childs.Count)
             {
                 Status = DebugNodeStatus.Error;

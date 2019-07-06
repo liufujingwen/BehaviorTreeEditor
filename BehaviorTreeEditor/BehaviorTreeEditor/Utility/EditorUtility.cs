@@ -721,37 +721,53 @@ namespace BehaviorTreeEditor
                     BehaviorTreeData.RepeatIntField repeatIntField = new BehaviorTreeData.RepeatIntField();
                     RepeatIntFieldDesigner repeatIntFieldDesigner = fieldData.Field as RepeatIntFieldDesigner;
                     repeatIntField.FieldName = fieldData.FieldName;
-                    for (int i = 0; i < repeatIntFieldDesigner.Value.Count; i++)
-                        repeatIntField.Value.Add(repeatIntFieldDesigner.Value[i]);
+                    if (repeatIntFieldDesigner.Value.Count > 0)
+                    {
+                        repeatIntField.Value = new List<int>();
+                        for (int i = 0; i < repeatIntFieldDesigner.Value.Count; i++)
+                            repeatIntField.Value.Add(repeatIntFieldDesigner.Value[i]);
+                    }
                     data = repeatIntField;
                     break;
                 case FieldType.RepeatLongField:
                     BehaviorTreeData.RepeatLongField repeatLongField = new BehaviorTreeData.RepeatLongField();
                     RepeatLongFieldDesigner repeatLongFieldDesigner = fieldData.Field as RepeatLongFieldDesigner;
                     repeatLongField.FieldName = fieldData.FieldName;
-                    for (int i = 0; i < repeatLongFieldDesigner.Value.Count; i++)
-                        repeatLongField.Value.Add(repeatLongFieldDesigner.Value[i]);
+                    if (repeatLongFieldDesigner.Value.Count > 0)
+                    {
+                        repeatLongField.Value = new List<long>();
+                        for (int i = 0; i < repeatLongFieldDesigner.Value.Count; i++)
+                            repeatLongField.Value.Add(repeatLongFieldDesigner.Value[i]);
+                    }
+
                     data = repeatLongField;
                     break;
                 case FieldType.RepeatFloatField:
                     BehaviorTreeData.RepeatFloatField repeatFloatField = new BehaviorTreeData.RepeatFloatField();
                     RepeatFloatFieldDesigner repeatFloatFieldDesigner = fieldData.Field as RepeatFloatFieldDesigner;
                     repeatFloatField.FieldName = fieldData.FieldName;
-                    for (int i = 0; i < repeatFloatFieldDesigner.Value.Count; i++)
-                        repeatFloatField.Value.Add(repeatFloatFieldDesigner.Value[i]);
+                    if (repeatFloatFieldDesigner.Value.Count > 0)
+                    {
+                        repeatFloatField.Value = new List<float>();
+                        for (int i = 0; i < repeatFloatFieldDesigner.Value.Count; i++)
+                            repeatFloatField.Value.Add(repeatFloatFieldDesigner.Value[i]);
+                    }
                     data = repeatFloatField;
                     break;
                 case FieldType.RepeatVector2Field:
                     BehaviorTreeData.RepeatVector2Field repeatVector2Field = new BehaviorTreeData.RepeatVector2Field();
                     RepeatVector2FieldDesigner repeatVector2FieldDesigner = fieldData.Field as RepeatVector2FieldDesigner;
                     repeatVector2Field.FieldName = fieldData.FieldName;
-                    for (int i = 0; i < repeatVector2FieldDesigner.Value.Count; i++)
+                    if (repeatVector2FieldDesigner.Value.Count > 0)
                     {
-                        Vector2 vector2 = repeatVector2FieldDesigner.Value[i];
-                        BehaviorTreeData.Vector2 temp = new BehaviorTreeData.Vector2();
-                        temp.X = vector2.X;
-                        temp.Y = vector2.Y;
-                        repeatVector2Field.Value.Add(temp);
+                        for (int i = 0; i < repeatVector2FieldDesigner.Value.Count; i++)
+                        {
+                            Vector2 vector2 = repeatVector2FieldDesigner.Value[i];
+                            BehaviorTreeData.Vector2 temp = new BehaviorTreeData.Vector2();
+                            temp.X = vector2.X;
+                            temp.Y = vector2.Y;
+                            repeatVector2Field.Value.Add(temp);
+                        }
                     }
                     data = repeatVector2Field;
                     break;
@@ -774,8 +790,12 @@ namespace BehaviorTreeEditor
                     BehaviorTreeData.RepeatStringField repeatStringField = new BehaviorTreeData.RepeatStringField();
                     RepeatStringFieldDesigner repeatStringFieldDesigner = fieldData.Field as RepeatStringFieldDesigner;
                     repeatStringField.FieldName = fieldData.FieldName;
-                    for (int i = 0; i < repeatStringFieldDesigner.Value.Count; i++)
-                        repeatStringField.Value.Add(repeatStringFieldDesigner.Value[i]);
+                    if (repeatStringFieldDesigner.Value.Count > 0)
+                    {
+                        repeatStringField.Value = new List<string>();
+                        for (int i = 0; i < repeatStringFieldDesigner.Value.Count; i++)
+                            repeatStringField.Value.Add(repeatStringFieldDesigner.Value[i]);
+                    }
                     data = repeatStringField;
                     break;
             }
