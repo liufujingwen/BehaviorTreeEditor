@@ -11,10 +11,10 @@ namespace BehaviorTreeEditor
         private List<DebugNode> Children = new List<DebugNode>();
         private Dictionary<DebugNode, int> PriorityIndex = new Dictionary<DebugNode, int>();
         private List<DebugNode> RandList = new List<DebugNode>();
-        private int RunningNodeIndex;
 
         public override void OnEnter()
         {
+            PriorityIndex.Clear();
             Children.Clear();
             Children.AddRange(Childs.ToArray());
             RandList.Clear();

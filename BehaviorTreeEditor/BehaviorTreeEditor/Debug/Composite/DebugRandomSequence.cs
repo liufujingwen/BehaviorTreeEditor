@@ -8,7 +8,6 @@ namespace BehaviorTreeEditor
     public class DebugRandomSequence : DebugNode
     {
         private List<DebugNode> Children = new List<DebugNode>();
-        private int RunningNodeIndex;
 
         public override void OnEnter()
         {

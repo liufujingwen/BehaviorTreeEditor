@@ -9,6 +9,9 @@ namespace BehaviorTreeEditor
     {
         public override void OnRunning(float deltatime)
         {
+            DebugNode runningNode = Childs[RunningNodeIndex];
+            runningNode.Update(deltatime);
+            Status = runningNode.Status;
         }
     }
 }

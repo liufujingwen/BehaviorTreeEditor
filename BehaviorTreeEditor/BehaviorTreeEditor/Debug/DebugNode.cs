@@ -8,7 +8,9 @@ namespace BehaviorTreeEditor
 {
     public class DebugNode
     {
+        public bool CanChangeStatus = false;
         public DebugNodeStatus Status = DebugNodeStatus.None;
+        public int RunningNodeIndex = 0;
         public NodeDesigner Node;
         public DebugNode ParentNode;
         public List<DebugNode> Childs = new List<DebugNode>();
@@ -57,6 +59,9 @@ namespace BehaviorTreeEditor
                 return;
             Status = DebugNodeStatus.Running;
             RunningElapsedTime = 0;
+            RunningNodeIndex = 0;
+            RunningAlpha = 0;
+            SuccessAlpha = 0;
         }
 
         public virtual void OnEnter()

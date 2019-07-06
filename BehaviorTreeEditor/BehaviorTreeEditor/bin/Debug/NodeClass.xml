@@ -104,9 +104,9 @@
           <FieldType>EnumField</FieldType>
           <Describe>成功条件</Describe>
           <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>FAILURE_POLICY</m_EnumType>
-            <EnumType>FAILURE_POLICY</EnumType>
-            <DefaultValue>FAIL_ON_ONE</DefaultValue>
+            <m_EnumType>SUCCESS_POLICY</m_EnumType>
+            <EnumType>SUCCESS_POLICY</EnumType>
+            <DefaultValue>SUCCEED_ON_ALL</DefaultValue>
           </DefaultValue>
         </NodeField>
         <NodeField>
@@ -115,9 +115,9 @@
           <FieldType>EnumField</FieldType>
           <Describe>失败条件</Describe>
           <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>SUCCESS_POLICY</m_EnumType>
-            <EnumType>SUCCESS_POLICY</EnumType>
-            <DefaultValue>SUCCEED_ON_ONE</DefaultValue>
+            <m_EnumType>FAILURE_POLICY</m_EnumType>
+            <EnumType>FAILURE_POLICY</EnumType>
+            <DefaultValue>FAIL_ON_ONE</DefaultValue>
           </DefaultValue>
         </NodeField>
       </Fields>

@@ -88,6 +88,9 @@ namespace BehaviorTreeEditor.UIControls
             m_SelectionNodes.Clear();
             m_SelectedTransition = null;
 
+            if (DebugManager.Instance.Debugging)
+                DebugManager.Instance.Stop();
+
             if (Agent != null)
             {
                 if (Agent.Nodes.Count > 0)
@@ -407,6 +410,9 @@ namespace BehaviorTreeEditor.UIControls
                 //选中线，开始节点需要改为选中状态
                 if (transition != null && node == null)
                 {
+                    if (DebugManager.Instance.Debugging)
+                        return;
+
                     this.m_SelectionNodes.Clear();
                     NodePropertyUserControl.Instance.SetSelectedNode(null);
                     //this.m_SelectionNodes.Add(transition.FromNode);
@@ -470,45 +476,56 @@ namespace BehaviorTreeEditor.UIControls
                 NodeDesigner node = MouseOverNode();
                 Transition transition = MouseOverTransition();
 
-                if (node != null)
+                if (DebugManager.Instance.Debugging)
                 {
-                    if (!m_SelectionNodes.Contains(node))
-                    {
-                        m_SelectionNodes.Clear();
+                    m_SelectionNodes.Clear();
+
+                    if (node != null)
                         m_SelectionNodes.Add(node);
-                        SelectTransition(null);
-                    }
-                    else
-                    {
-                        ShowNodeContextMenu();
-                    }
+                    ShowDebugContextMenu();
                 }
                 else
                 {
-                    if (m_SelectionNodes.Count > 1)
+                    if (node != null)
                     {
-                        ShowNodeContextMenu();
+                        if (!m_SelectionNodes.Contains(node))
+                        {
+                            m_SelectionNodes.Clear();
+                            m_SelectionNodes.Add(node);
+                            SelectTransition(null);
+                        }
+                        else
+                        {
+                            ShowNodeContextMenu();
+                        }
                     }
-                    else if (transition != null)
+                    else
                     {
-                        m_SelectionNodes.Clear();
-                        if (m_SelectedTransition == transition)
+                        if (m_SelectionNodes.Count > 1)
+                        {
+                            ShowNodeContextMenu();
+                        }
+                        else if (transition != null)
+                        {
+                            m_SelectionNodes.Clear();
+                            if (m_SelectedTransition == transition)
+                            {
+                                ShowTransitionContextMenu();
+                            }
+                            else
+                            {
+                                SelectTransition(transition);
+                            }
+                        }
+                        else if (m_SelectedTransition != null)
                         {
                             ShowTransitionContextMenu();
                         }
                         else
                         {
-                            SelectTransition(transition);
+                            m_SelectionNodes.Clear();
+                            ShowViewContextMenu();
                         }
-                    }
-                    else if (m_SelectedTransition != null)
-                    {
-                        ShowTransitionContextMenu();
-                    }
-                    else
-                    {
-                        m_SelectionNodes.Clear();
-                        ShowViewContextMenu();
                     }
                 }
             }
@@ -1042,6 +1059,39 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
+        //展示调试菜单
+        private void ShowDebugContextMenu()
+        {
+            if (!DebugManager.Instance.Debugging)
+                return;
+
+            for (int i = 0; i < debugContextMenuStrip.Items.Count; i++)
+                debugContextMenuStrip.Items[i].Visible = false;
+
+            // 0.标记节点完成
+            // 1.标记节点失败
+            // 2.停止调试
+            // 3.居中
+
+            DebugNode debugNode = null;
+            if (m_SelectionNodes.Count > 0)
+                debugNode = DebugManager.Instance.FindByID(m_SelectionNodes[0].ID);
+
+            if (debugNode != null)
+            {
+                debugContextMenuStrip.Items[0].Visible = true;
+                debugContextMenuStrip.Items[1].Visible = true;
+            }
+            else
+            {
+                debugContextMenuStrip.Items[2].Visible = true;
+                debugContextMenuStrip.Items[3].Visible = true;
+            }
+
+            debugContextMenuStrip.Show(PointToScreen(m_MouseLocalPoint));
+            this.Refresh();
+        }
+
         public void CreateNode(NodeClass node, ToolStripDropDownItem parent)
         {
             ToolStripDropDownItem toolStripDropDownItem = parent;
@@ -1126,16 +1176,8 @@ namespace BehaviorTreeEditor.UIControls
 
             Agent.AddNode(node);
         }
-
-        public Vec2 LocalToWorldPoint(Vec2 point)
-        {
-            return point / m_ZoomScale + m_Offset;
-        }
-
-        public Vec2 WorldToLocalPoint(Vec2 point)
-        {
-            return (point - m_Offset) * m_ZoomScale;
-        }
+       
+        #region Debug
 
         private void ContentUserControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -1170,6 +1212,95 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
+        private void 标记节点完成ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectionNodes.Count != 1)
+                return;
+
+            DebugNode debugNode = DebugManager.Instance.FindByID(m_SelectionNodes[0].ID);
+
+            if (debugNode.Status != DebugNodeStatus.Running)
+            {
+                MainForm.Instance.ShowMessage("只有Running的节点才能改变状态！！");
+                return;
+            }
+
+            if (debugNode.Node.NodeType == NodeType.Composite)
+            {
+                MainForm.Instance.ShowMessage("组合节点不能控制成功或者失败！！");
+                return;
+            }
+
+            if (debugNode.Node.ClassType == "Wait")
+            {
+                MainForm.Instance.ShowMessage("Wait节点不能控制成功或者失败！！");
+                return;
+            }
+
+            if (!debugNode.CanChangeStatus)
+            {
+                MainForm.Instance.ShowMessage("该节点不能控制成功或者失败！！");
+                return;
+            }
+
+            debugNode.Status = DebugNodeStatus.Success;
+
+        }
+
+        private void 标记节点失败ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_SelectionNodes.Count != 1)
+                return;
+            DebugNode debugNode = DebugManager.Instance.FindByID(m_SelectionNodes[0].ID);
+
+            if (debugNode.Status != DebugNodeStatus.Running)
+            {
+                MainForm.Instance.ShowMessage("只有Running的节点才能改变状态！！");
+                return;
+            }
+
+            if (debugNode.Node.NodeType == NodeType.Composite)
+            {
+                MainForm.Instance.ShowMessage("组合节点不能控制成功或者失败！！");
+                return;
+            }
+
+            if (debugNode.Node.ClassType == "Wait")
+            {
+                MainForm.Instance.ShowMessage("Wait节点不能控制成功或者失败！！");
+                return;
+            }
+
+            if (!debugNode.CanChangeStatus)
+            {
+                MainForm.Instance.ShowMessage("该节点不能控制成功或者失败！！");
+                return;
+            }
+
+            debugNode.Status = DebugNodeStatus.Failed;
+        }
+
+        private void 停止调试ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DebugManager.Instance.Stop();
+        }
+
+        private void 居中toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CenterView();
+        }
+
+        #endregion
+
+        public Vec2 LocalToWorldPoint(Vec2 point)
+        {
+            return point / m_ZoomScale + m_Offset;
+        }
+
+        public Vec2 WorldToLocalPoint(Vec2 point)
+        {
+            return (point - m_Offset) * m_ZoomScale;
+        }
 
     }
 }

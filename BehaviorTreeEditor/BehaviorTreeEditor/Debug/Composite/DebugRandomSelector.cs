@@ -11,11 +11,11 @@ namespace BehaviorTreeEditor
     public class DebugRandomSelector : DebugNode
     {
         private List<DebugNode> Children = new List<DebugNode>();
-        private int RunningNodeIndex = 0;
 
         public override void OnEnter()
         {
             RunningNodeIndex = 0;
+            Children.Clear();
             Children.AddRange(Childs.ToArray());
 
             Random random = new Random();

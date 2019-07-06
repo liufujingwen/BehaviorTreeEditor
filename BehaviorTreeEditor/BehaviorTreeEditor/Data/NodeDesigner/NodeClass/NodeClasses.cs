@@ -126,12 +126,14 @@ namespace BehaviorTreeEditor
             NodeField parallelNodeSuccessType = new NodeField() { FieldName = "SuccessType", FieldType = FieldType.EnumField, Describe = "成功条件" };
             EnumDefaultValue parallelNodeSuccessEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
             parallelNodeSuccessEnumDefaultValue.EnumType = "SUCCESS_POLICY";
+            parallelNodeSuccessEnumDefaultValue.DefaultValue = "SUCCEED_ON_ALL";
             parallelNodeSuccessType.Label = "成功条件";
             parallelNode.AddField(parallelNodeSuccessType);
             //失败条件
             NodeField parallelNodeFailType = new NodeField() { FieldName = "FailType", FieldType = FieldType.EnumField, Describe = "失败条件" };
-            EnumDefaultValue parallelNodeFailTypeEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
+            EnumDefaultValue parallelNodeFailTypeEnumDefaultValue = parallelNodeFailType.DefaultValue as EnumDefaultValue;
             parallelNodeFailTypeEnumDefaultValue.EnumType = "FAILURE_POLICY";
+            parallelNodeFailTypeEnumDefaultValue.DefaultValue = "FAIL_ON_ONE";
             parallelNodeFailType.Label = "失败条件";
             parallelNode.AddField(parallelNodeFailType);
             AddClass(parallelNode);

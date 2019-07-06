@@ -21,7 +21,7 @@ namespace BehaviorTreeEditor
         private DebugState State = DebugState.None;
 
         private DebugNode m_DebugNode;
-        private List<DebugNode> Nodes = new List<DebugNode>();
+        private List<DebugNode> m_Nodes = new List<DebugNode>();
 
         public bool Debugging
         {
@@ -30,7 +30,7 @@ namespace BehaviorTreeEditor
 
         public void Debug(AgentDesigner agent)
         {
-            Nodes.Clear();
+            m_Nodes.Clear();
             VerifyInfo verifyAgent = agent.VerifyAgent();
             if (verifyAgent.HasError)
             {
@@ -111,18 +111,72 @@ namespace BehaviorTreeEditor
             //装饰节点
             else if (node.NodeType == NodeType.Decorator)
             {
-                DebugDecoratorNode debugDecoratorNode = new DebugDecoratorNode();
-                debugNode = debugDecoratorNode;
+                //失败节点
+                if (node.ClassType == "Failure")
+                {
+                    DebugFailureNode debugFailureNode = new DebugFailureNode();
+                    debugNode = debugFailureNode;
+                }
+                //成功节点
+                else if (node.ClassType == "Success")
+                {
+                    DebugSuccessNode debugSuccessNode = new DebugSuccessNode();
+                    debugNode = debugSuccessNode;
+                }
+                //执行帧节点
+                else if (node.ClassType == "Frames")
+                {
+                    DebugFramesNode debugFramesNode = new DebugFramesNode();
+                    debugNode = debugFramesNode;
+                }
+                //输出log节点
+                else if (node.ClassType == "Log")
+                {
+                    DebugLogNode debugLogNode = new DebugLogNode();
+                    debugNode = debugLogNode;
+                }
+                //循环节点
+                else if (node.ClassType == "Loop")
+                {
+                    DebugLoopNode debugLoopNode = new DebugLoopNode();
+                    debugNode = debugLoopNode;
+                }
+                //取反节点
+                else if (node.ClassType == "Not")
+                {
+                    DebugNotNode debugNotNode = new DebugNotNode();
+                    debugNode = debugNotNode;
+                }
+                //指定时间内运行
+                else if (node.ClassType == "Time")
+                {
+                    DebugTimeNode debugTimeNode = new DebugTimeNode();
+                    debugNode = debugTimeNode;
+                }
+                //等待直到子节点返回成功
+                else if (node.ClassType == "WaitUntil")
+                {
+                    DebugWaitUntilNode debugWaitUntilNode = new DebugWaitUntilNode();
+                    debugNode = debugWaitUntilNode;
+                }
+                else
+                {
+                    DebugDecoratorNode debugDecoratorNode = new DebugDecoratorNode();
+                    debugDecoratorNode.CanChangeStatus = true;
+                    debugNode = debugDecoratorNode;
+                }
             }
             //条件节点
             else if (node.NodeType == NodeType.Condition)
             {
                 DebugConditionNode debugConditionNode = new DebugConditionNode();
+                debugConditionNode.CanChangeStatus = true;
                 debugNode = debugConditionNode;
             }
             //动作节点
             else if (node.NodeType == NodeType.Action)
             {
+                //等待一段时间
                 if (node.ClassType == "Wait")
                 {
                     DebugNodeWait debugActionNode = new DebugNodeWait();
@@ -132,11 +186,12 @@ namespace BehaviorTreeEditor
                 {
                     DebugActionNode debugActionNode = new DebugActionNode();
                     debugNode = debugActionNode;
+                    debugNode.CanChangeStatus = true;
                 }
             }
 
             debugNode.Node = node;
-            Nodes.Add(debugNode);
+            m_Nodes.Add(debugNode);
 
             for (int i = 0; i < node.Transitions.Count; i++)
             {
@@ -150,7 +205,7 @@ namespace BehaviorTreeEditor
             return debugNode;
         }
 
-        private DebugNode FindByID(int ID)
+        public DebugNode FindByID(int ID)
         {
             return FindByID(m_DebugNode, ID);
         }
@@ -190,9 +245,9 @@ namespace BehaviorTreeEditor
             if (State == DebugState.None)
                 return;
 
-            for (int i = 0; i < Nodes.Count; i++)
+            for (int i = 0; i < m_Nodes.Count; i++)
             {
-                DebugNode node = Nodes[i];
+                DebugNode node = m_Nodes[i];
                 if (node.Node.ParentNode == null)
                     continue;
                 if (node.Status == DebugNodeStatus.None)
@@ -213,9 +268,9 @@ namespace BehaviorTreeEditor
             if (State == DebugState.None)
                 return;
 
-            for (int i = 0; i < Nodes.Count; i++)
+            for (int i = 0; i < m_Nodes.Count; i++)
             {
-                DebugNode debugNode = Nodes[i];
+                DebugNode debugNode = m_Nodes[i];
                 EditorUtility.Draw_Debug(debugNode, graphics, offset, deltatime);
             }
         }
@@ -225,6 +280,8 @@ namespace BehaviorTreeEditor
             if (State == DebugState.None)
                 return;
 
+            m_DebugNode = null;
+            m_Nodes.Clear();
             State = DebugState.None;
             MainForm.Instance.ShowInfo("停止成功 时间:" + DateTime.Now);
         }

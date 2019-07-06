@@ -43,9 +43,16 @@
             this.centerItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transitionContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除连线ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.标记节点完成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.标记节点失败ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.停止调试ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.居中toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nodeContextMenuStrip.SuspendLayout();
             this.viewContextMenuStrip.SuspendLayout();
             this.transitionContextMenuStrip.SuspendLayout();
+            this.debugContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // refreshTimer
@@ -150,6 +157,54 @@
             this.删除连线ToolStripMenuItem.Text = "删除连线";
             this.删除连线ToolStripMenuItem.Click += new System.EventHandler(this.删除连线ToolStripMenuItem_Click);
             // 
+            // debugContextMenuStrip
+            // 
+            this.debugContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.debugContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.标记节点完成ToolStripMenuItem,
+            this.标记节点失败ToolStripMenuItem,
+            this.停止调试ToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.居中toolStripMenuItem});
+            this.debugContextMenuStrip.Name = "nodeContextMenuStrip";
+            this.debugContextMenuStrip.Size = new System.Drawing.Size(215, 142);
+            // 
+            // 标记节点完成ToolStripMenuItem
+            // 
+            this.标记节点完成ToolStripMenuItem.Name = "标记节点完成ToolStripMenuItem";
+            this.标记节点完成ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.标记节点完成ToolStripMenuItem.Text = "标记节点完成";
+            this.标记节点完成ToolStripMenuItem.Click += new System.EventHandler(this.标记节点完成ToolStripMenuItem_Click);
+            // 
+            // 标记节点失败ToolStripMenuItem
+            // 
+            this.标记节点失败ToolStripMenuItem.Name = "标记节点失败ToolStripMenuItem";
+            this.标记节点失败ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.标记节点失败ToolStripMenuItem.Text = "标记节点失败";
+            this.标记节点失败ToolStripMenuItem.Click += new System.EventHandler(this.标记节点失败ToolStripMenuItem_Click);
+            // 
+            // 停止调试ToolStripMenuItem
+            // 
+            this.停止调试ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.stop;
+            this.停止调试ToolStripMenuItem.Name = "停止调试ToolStripMenuItem";
+            this.停止调试ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.停止调试ToolStripMenuItem.Text = "停止调试";
+            this.停止调试ToolStripMenuItem.Click += new System.EventHandler(this.停止调试ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(211, 6);
+            // 
+            // 居中toolStripMenuItem
+            // 
+            this.居中toolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.CenterIcon;
+            this.居中toolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.居中toolStripMenuItem.Name = "居中toolStripMenuItem";
+            this.居中toolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.居中toolStripMenuItem.Text = "居中";
+            this.居中toolStripMenuItem.Click += new System.EventHandler(this.居中toolStripMenuItem_Click);
+            // 
             // ContentUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -157,7 +212,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ContentUserControl";
             this.Size = new System.Drawing.Size(880, 460);
             this.Load += new System.EventHandler(this.ContentUserControl_Load);
@@ -175,6 +230,7 @@
             this.nodeContextMenuStrip.ResumeLayout(false);
             this.viewContextMenuStrip.ResumeLayout(false);
             this.transitionContextMenuStrip.ResumeLayout(false);
+            this.debugContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -194,5 +250,11 @@
         private System.Windows.Forms.ToolStripMenuItem centerItem;
         private System.Windows.Forms.ContextMenuStrip transitionContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem 删除连线ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip debugContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 标记节点完成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 标记节点失败ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem 居中toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 停止调试ToolStripMenuItem;
     }
 }

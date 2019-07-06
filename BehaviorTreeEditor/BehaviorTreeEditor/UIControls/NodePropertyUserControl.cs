@@ -110,6 +110,12 @@ namespace BehaviorTreeEditor.UIControls
                 }
                 else if (listView1.SelectedItems.Count == 1)
                 {
+                    if (DebugManager.Instance.Debugging)
+                    {
+                        MainForm.Instance.ShowInfo("调试模式不能编辑");
+                        return;
+                    }
+
                     EditField();
                 }
 

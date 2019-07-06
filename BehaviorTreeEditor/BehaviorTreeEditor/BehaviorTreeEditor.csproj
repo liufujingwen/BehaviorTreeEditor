@@ -80,6 +80,14 @@
     <Compile Include="Debug\Composite\DebugParallelNode.cs" />
     <Compile Include="Debug\Composite\DebugSequenceNode.cs" />
     <Compile Include="Debug\DebugState.cs" />
+    <Compile Include="Debug\Decorator\DebugFailureNode.cs" />
+    <Compile Include="Debug\Decorator\DebugFramesNode.cs" />
+    <Compile Include="Debug\Decorator\DebugLogNode.cs" />
+    <Compile Include="Debug\Decorator\DebugLoopNode.cs" />
+    <Compile Include="Debug\Decorator\DebugNotNode.cs" />
+    <Compile Include="Debug\Decorator\DebugSuccessNode.cs" />
+    <Compile Include="Debug\Decorator\DebugTimeNode.cs" />
+    <Compile Include="Debug\Decorator\DebugWaitUntilNode.cs" />
     <Compile Include="Form\Agent\EditAgentForm.cs">
       <SubType>Form</SubType>
     </Compile>

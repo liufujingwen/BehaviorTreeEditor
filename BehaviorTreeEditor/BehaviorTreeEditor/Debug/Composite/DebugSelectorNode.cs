@@ -15,13 +15,6 @@ namespace BehaviorTreeEditor
     /// </summary>
     public class DebugSelectorNode : DebugNode
     {
-        private int RunningNodeIndex = 0;
-
-        public override void OnEnter()
-        {
-            RunningNodeIndex = 0;
-        }
-
         public override void OnRunning(float deltatime)
         {
             DebugNode runningNode = Childs[RunningNodeIndex];
