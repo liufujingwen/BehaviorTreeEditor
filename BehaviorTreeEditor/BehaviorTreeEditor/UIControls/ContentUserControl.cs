@@ -111,6 +111,14 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
+        //调试开始
+        public void OnDebugStart()
+        {
+            m_SelectionNodes.Clear();
+            NodePropertyUserControl.Instance.SetSelectedNode(null);
+            SelectTransition(null);
+        }
+
         public static Vec2 Center
         {
             get
@@ -225,7 +233,9 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             DoTransitions();
-            DoDebugTransitions();
+
+            //处理调试连线
+            DebugManager.Instance.DoTransitions(m_Graphics, m_Offset);
 
             for (int i = 0; i < Agent.Nodes.Count; i++)
             {
@@ -243,14 +253,11 @@ namespace BehaviorTreeEditor.UIControls
                 EditorUtility.Draw(node, m_Graphics, m_Offset, true);
             }
 
-            DoDebugNodes();
+            //处理调试节点
+            DebugManager.Instance.DoNodes(m_Graphics, m_Offset, m_Deltaltime);
 
             DrawSelectionRect();
             AutoPanNodes(3.0f);
-        }
-
-        void DoDebugNodes()
-        {
         }
 
         //画节点连线
@@ -287,16 +294,14 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
-        private void DoDebugTransitions()
-        {
-        }
-
         public void SelectTransition(Transition transition)
         {
-            if (m_SelectedTransition == transition)
-            {
-                return;
-            }
+            if (transition != null && DebugManager.Instance.Debugging)
+
+                if (m_SelectedTransition == transition)
+                {
+                    return;
+                }
             m_SelectedTransition = transition;
         }
 
@@ -553,6 +558,9 @@ namespace BehaviorTreeEditor.UIControls
             //按下鼠标左键且没有按Ctrl键
             if (MouseButtons == MouseButtons.Left && m_MouseDown)
             {
+                if (DebugManager.Instance.Debugging)
+                    return;
+
                 //按下Ctrl键不让拖拽
                 if (m_LControlKeyDown)
                 {
@@ -593,6 +601,9 @@ namespace BehaviorTreeEditor.UIControls
         //按键按下事件
         private void ContentUserControl_KeyDown(object sender, KeyEventArgs e)
         {
+            if (DebugManager.Instance.Debugging)
+                return;
+
             if (!e.Alt && !e.Shift && e.KeyCode == Keys.ControlKey)
             {
                 m_LControlKeyDown = true;
@@ -804,6 +815,9 @@ namespace BehaviorTreeEditor.UIControls
         private void AutoPanNodes(float speed)
         {
             if (!m_MouseDown)
+                return;
+
+            if (DebugManager.Instance.Debugging)
                 return;
 
             if (m_SelectionMode != SelectionMode.None)

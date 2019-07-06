@@ -1,4 +1,5 @@
 ﻿using BehaviorTreeEditor.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -82,7 +83,45 @@ namespace BehaviorTreeEditor
         public static Brush NodeTitleBrush = new SolidBrush(Color.FromArgb(255, 54, 74, 85));
         public static Brush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
         public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
+
         #endregion
+
+        #region Debug
+
+        //调试移动连线
+        public static Pen Debug_TransitionPen = new Pen(Color.Orange, 3);
+        public static Brush Debug_TransitionBrush = new SolidBrush(Color.Orange);
+        //错误连线
+        public static Pen Debug_Error_TransitionPen = new Pen(Color.Red, 3);
+        public static Brush Debug_Error_TransitionBrush = new SolidBrush(Color.Red);
+        //运行连线
+        public static Pen Debug_Running_TransitionPen = new Pen(Color.Orange, 3);
+        public static Brush Debug_Running_TransitionBrush = new SolidBrush(Color.Orange);
+        //失败连线
+        public static Pen Debug_Failed_TransitionPen = new Pen(Color.Gray, 3);
+        public static Brush Debug_Failed_TransitionBrush = new SolidBrush(Color.Gray);
+        //成功连线
+        public static Pen Debug_Successed_TransitionPen = new Pen(Color.Yellow, 3);
+        public static Brush Debug_Successed_TransitionBrush = new SolidBrush(Color.Yellow);
+
+        //调试节点出错 画笔
+        public static Pen Debug_Error_NodePen = new Pen(Color.Red, 4);
+        //节点运行 画笔
+        public static Pen Debug_Running_NodePen = new Pen(Color.Orange, 4);
+        //节点失败 画笔
+        public static Pen Debug_Failed_NodePen = new Pen(Color.Gray, 4);
+        //节点成功 画笔
+        public static Pen Debug_Successed_NodePen = new Pen(Color.Yellow, 4);
+        //RunningAlphaSpeed
+        public static int RunningAlphaSpeed = 5;
+
+        #endregion
+
+        //节点标题Rect
+        public static Rect GetRect(NodeDesigner node, Vec2 offset)
+        {
+            return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, node.Rect.height);
+        }
 
         //节点标题Rect
         public static Rect GetTitleRect(NodeDesigner node, Vec2 offset)
@@ -225,7 +264,7 @@ namespace BehaviorTreeEditor
             }
 
             //选中边框
-            if (on)
+            if (on && !DebugManager.Instance.Debugging)
             {
                 graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
             }
@@ -265,6 +304,61 @@ namespace BehaviorTreeEditor
             if (hasError)
             {
                 graphics.DrawImage(Resources.conflict, new PointF(contentRect.center.x - Resources.conflict.Width / 2.0f, contentRect.center.y - Resources.conflict.Height / 2.0f));
+            }
+        }
+
+        /// <summary>
+        /// 绘制节点
+        /// </summary>
+        /// <param name="node">节点</param>
+        /// <param name="graphics">graphics</param>
+        /// <param name="offset">偏移</param>
+        /// <param name="on">是否选中</param>
+        public static void Draw_Debug(DebugNode node, Graphics graphics, Vec2 offset, float deltatime)
+        {
+            Rect rect = GetRect(node.Node, offset);
+
+            switch (node.Status)
+            {
+                case DebugNodeStatus.Error:
+                    graphics.DrawRectangle(Debug_Error_NodePen, rect);
+                    break;
+                case DebugNodeStatus.Failed:
+                    graphics.DrawRectangle(Debug_Failed_NodePen, rect);
+                    break;
+                case DebugNodeStatus.Success:
+                    if (node.SuccessAlpha <= 0.9f)
+                    {
+                        Pen successed_NodePen = Debug_Successed_NodePen.Clone() as Pen;
+                        Color successColor = successed_NodePen.Color;
+                        node.SuccessAlpha = Mathf.Lerp(node.SuccessAlpha, 1, RunningAlphaSpeed * deltatime);
+                        node.SuccessAlpha = Mathf.Clamp01(node.SuccessAlpha);
+                        successColor = Color.FromArgb((int)(node.SuccessAlpha * 255), successColor);
+                        successed_NodePen.Color = successColor;
+                        graphics.DrawRectangle(successed_NodePen, rect);
+                    }
+                    else
+                    {
+                        graphics.DrawRectangle(Debug_Successed_NodePen, rect);
+                    }
+                    break;
+                case DebugNodeStatus.Running:
+
+                    if (node.SuccessAlpha <= 0.9f)
+                    {
+                        Pen runningPen = Debug_Running_NodePen.Clone() as Pen;
+                        Color color = runningPen.Color;
+                        node.RunningAlpha = Mathf.Lerp(node.RunningAlpha, 1, RunningAlphaSpeed * deltatime);
+                        node.RunningAlpha = Mathf.Clamp01(node.RunningAlpha);
+                        color = Color.FromArgb((int)(node.RunningAlpha * 255), color);
+                        runningPen.Color = color;
+                        graphics.DrawRectangle(runningPen, rect);
+                    }
+                    else
+                    {
+                        graphics.DrawRectangle(Debug_Running_NodePen, rect);
+                    }
+                    break;
             }
         }
 

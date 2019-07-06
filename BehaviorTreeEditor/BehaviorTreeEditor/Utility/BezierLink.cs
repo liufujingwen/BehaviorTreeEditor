@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace BehaviorTreeEditor
@@ -147,6 +148,89 @@ namespace BehaviorTreeEditor
             }
 
             return false;
+        }
+
+        //调试
+        public static void DrawNodeToNode_Debug(Graphics graphics, DebugNode fromNode, DebugNode toNode, Vec2 offset)
+        {
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode.Node, offset);
+            Rect toTitleRect = EditorUtility.GetContentRect(toNode.Node, offset);
+
+            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode.Node, offset);
+            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode.Node, offset);
+
+            float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
+            fromPoint.x += linkPointHalfSize;
+            toPoint.x -= linkPointHalfSize;
+
+            int fromTangentDir = 1;
+            int toTangentDir = -1;
+
+            //求出两点距离
+            double distance = (toPoint - fromPoint).magnitude;
+            int num = (int)Math.Min(distance * 0.5f, 40);
+
+            Vec2 fromTangent = fromPoint;
+            fromTangent.x = fromTangent.x + (int)(fromTangentDir * num);
+
+            Vec2 tempPoint = toPoint;
+            toPoint.x = toPoint.x + (int)(toTangentDir * EditorUtility.ArrowWidth);
+            Vec2 toTangent = toPoint;
+            toTangent.x = toTangent.x + (int)(toTangentDir * num);
+
+            float t = toNode.TransitionElapsedTime / DebugManager.TransitionTime;
+
+            Pen pen = EditorUtility.Debug_TransitionPen;
+            Brush brush = EditorUtility.Debug_TransitionBrush;
+
+            if (toNode.Status == DebugNodeStatus.Transition)
+            {
+                pen = EditorUtility.Debug_TransitionPen;
+                brush = EditorUtility.Debug_TransitionBrush;
+            }
+            else if (toNode.Status == DebugNodeStatus.Error)
+            {
+                pen = EditorUtility.Debug_Error_TransitionPen;
+                brush = EditorUtility.Debug_Error_TransitionBrush;
+            }
+            else if (toNode.Status == DebugNodeStatus.Running)
+            {
+                pen = EditorUtility.Debug_Running_TransitionPen;
+                brush = EditorUtility.Debug_Running_TransitionBrush;
+            }
+            else if (toNode.Status == DebugNodeStatus.Failed)
+            {
+                pen = EditorUtility.Debug_Failed_TransitionPen;
+                brush = EditorUtility.Debug_Failed_TransitionBrush;
+            }
+            else if (toNode.Status == DebugNodeStatus.Success)
+            {
+                pen = EditorUtility.Debug_Successed_TransitionPen;
+                brush = EditorUtility.Debug_Successed_TransitionBrush;
+            }
+
+            if (t < 1f)
+            {
+                Vec2 point = BezierPoint(t, fromPoint, fromTangent, toTangent, toPoint);
+                toNode.TransitionPoints.Add(point);
+
+                for (int i = 1; i < toNode.TransitionPoints.Count; i++)
+                {
+                    graphics.DrawLine(pen, toNode.TransitionPoints[i - 1], toNode.TransitionPoints[i]);
+                }
+            }
+            else
+            {
+                if (toNode.TransitionPoints.Count > 0)
+                    toNode.TransitionPoints.Clear();
+
+                graphics.DrawBezier(pen, fromPoint, fromTangent, toTangent, toPoint);
+                //画箭头
+                ArrowPoint[0] = tempPoint;
+                ArrowPoint[1] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y + 5);
+                ArrowPoint[2] = new PointF(tempPoint.x + (toTangentDir * EditorUtility.ArrowWidth), tempPoint.y - 5);
+                graphics.FillPolygon(brush, (PointF[])ArrowPoint);
+            }
         }
 
         public static Vec2 BezierPoint(float t, Vec2 a, Vec2 b, Vec2 c, Vec2 d)

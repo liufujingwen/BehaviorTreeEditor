@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BehaviorTreeEditor.UIControls;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -19,9 +21,16 @@ namespace BehaviorTreeEditor
         private DebugState State = DebugState.None;
 
         private DebugNode m_DebugNode;
+        private List<DebugNode> Nodes = new List<DebugNode>();
+
+        public bool Debugging
+        {
+            get { return State != DebugState.None; }
+        }
 
         public void Debug(AgentDesigner agent)
         {
+            Nodes.Clear();
             VerifyInfo verifyAgent = agent.VerifyAgent();
             if (verifyAgent.HasError)
             {
@@ -40,7 +49,7 @@ namespace BehaviorTreeEditor
             }
 
             State = DebugState.Running;
-
+            ContentUserControl.Instance.OnDebugStart();
             MainForm.Instance.ShowInfo("播放成功 时间:" + DateTime.Now);
         }
 
@@ -127,12 +136,15 @@ namespace BehaviorTreeEditor
             }
 
             debugNode.Node = node;
+            Nodes.Add(debugNode);
 
             for (int i = 0; i < node.Transitions.Count; i++)
             {
                 Transition transition = node.Transitions[i];
                 NodeDesigner childNode = agent.FindByID(transition.ToNodeID);
-                debugNode.Childs.Add(CreateDebugNode(agent, childNode));
+                DebugNode childDebugNode = CreateDebugNode(agent, childNode);
+                childDebugNode.ParentNode = debugNode;
+                debugNode.Childs.Add(childDebugNode);
             }
 
             return debugNode;
@@ -173,9 +185,44 @@ namespace BehaviorTreeEditor
             m_DebugNode.Update(deltatime);
         }
 
+        public void DoTransitions(Graphics graphics, Vec2 offset)
+        {
+            if (State == DebugState.None)
+                return;
+
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                DebugNode node = Nodes[i];
+                if (node.Node.ParentNode == null)
+                    continue;
+                if (node.Status == DebugNodeStatus.None)
+                    continue;
+                if (node.Status == DebugNodeStatus.Transition)
+                {
+                    BezierLink.DrawNodeToNode_Debug(graphics, node.ParentNode, node, offset);
+                }
+                else
+                {
+                    BezierLink.DrawNodeToNode_Debug(graphics, node.ParentNode, node, offset);
+                }
+            }
+        }
+
+        public void DoNodes(Graphics graphics, Vec2 offset, float deltatime)
+        {
+            if (State == DebugState.None)
+                return;
+
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                DebugNode debugNode = Nodes[i];
+                EditorUtility.Draw_Debug(debugNode, graphics, offset, deltatime);
+            }
+        }
+
         public void Stop()
         {
-            if (State != DebugState.None)
+            if (State == DebugState.None)
                 return;
 
             State = DebugState.None;

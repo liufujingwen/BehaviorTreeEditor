@@ -199,7 +199,7 @@ namespace BehaviorTreeEditor
         {
             Transitions.Sort(delegate (Transition t1, Transition t2)
             {
-                return t2.FromNode.Rect.y.CompareTo(t1.FromNode.Rect.y);
+                return t1.ToNode.Rect.y.CompareTo(t2.ToNode.Rect.y);
             });
         }
 

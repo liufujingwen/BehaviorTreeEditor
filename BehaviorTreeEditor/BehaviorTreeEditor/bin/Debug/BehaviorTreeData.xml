@@ -7,23 +7,23 @@
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4743</x>
-            <y>4730</y>
+            <x>5048.75</x>
+            <y>5056.667</y>
             <position>
-              <x>4743</x>
-              <y>4730</y>
+              <x>5048.75</x>
+              <y>5056.667</y>
             </position>
             <center>
-              <x>4818</x>
-              <y>4760</y>
+              <x>5123.75</x>
+              <y>5086.667</y>
             </center>
             <min>
-              <x>4743</x>
-              <y>4730</y>
+              <x>5048.75</x>
+              <y>5056.667</y>
             </min>
             <max>
-              <x>4893</x>
-              <y>4790</y>
+              <x>5198.75</x>
+              <y>5116.667</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -31,107 +31,13 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4743</xMin>
-            <yMin>4730</yMin>
-            <xMax>4893</xMax>
-            <yMax>4790</yMax>
-          </Rect>
-          <Transitions>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>4</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>2</ToNodeID>
-            </Transition>
-          </Transitions>
-          <ID>1</ID>
-          <StartNode>true</StartNode>
-          <ClassType>Sequence</ClassType>
-          <Label>顺序节点</Label>
-          <NodeType>Composite</NodeType>
-          <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
-          <Fields />
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5037.5</x>
-            <y>4756</y>
-            <position>
-              <x>5037.5</x>
-              <y>4756</y>
-            </position>
-            <center>
-              <x>5112.5</x>
-              <y>4786</y>
-            </center>
-            <min>
-              <x>5037.5</x>
-              <y>4756</y>
-            </min>
-            <max>
-              <x>5187.5</x>
-              <y>4816</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5037.5</xMin>
-            <yMin>4756</yMin>
-            <xMax>5187.5</xMax>
-            <yMax>4816</yMax>
-          </Rect>
-          <Transitions>
-            <Transition>
-              <FromNodeID>2</FromNodeID>
-              <ToNodeID>3</ToNodeID>
-            </Transition>
-          </Transitions>
-          <ID>2</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Random</ClassType>
-          <Label>随机节点</Label>
-          <NodeType>Composite</NodeType>
-          <Describe>随机节点</Describe>
-          <Fields />
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5297.5</x>
-            <y>4683</y>
-            <position>
-              <x>5297.5</x>
-              <y>4683</y>
-            </position>
-            <center>
-              <x>5372.5</x>
-              <y>4713</y>
-            </center>
-            <min>
-              <x>5297.5</x>
-              <y>4683</y>
-            </min>
-            <max>
-              <x>5447.5</x>
-              <y>4743</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5297.5</xMin>
-            <yMin>4683</yMin>
-            <xMax>5447.5</xMax>
-            <yMax>4743</yMax>
+            <xMin>5048.75</xMin>
+            <yMin>5056.667</yMin>
+            <xMax>5198.75</xMax>
+            <yMax>5116.667</yMax>
           </Rect>
           <Transitions />
-          <ID>3</ID>
+          <ID>6</ID>
           <StartNode>false</StartNode>
           <ClassType>Wait</ClassType>
           <Label>等待节点</Label>
@@ -151,23 +57,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5173.5</x>
-            <y>4939.3335</y>
+            <x>4759.5</x>
+            <y>4898.917</y>
             <position>
-              <x>5173.5</x>
-              <y>4939.3335</y>
+              <x>4759.5</x>
+              <y>4898.917</y>
             </position>
             <center>
-              <x>5248.5</x>
-              <y>4969.3335</y>
+              <x>4834.5</x>
+              <y>4928.917</y>
             </center>
             <min>
-              <x>5173.5</x>
-              <y>4939.3335</y>
+              <x>4759.5</x>
+              <y>4898.917</y>
             </min>
             <max>
-              <x>5323.5</x>
-              <y>4999.3335</y>
+              <x>4909.5</x>
+              <y>4958.917</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -175,13 +81,87 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5173.5</xMin>
-            <yMin>4939.3335</yMin>
-            <xMax>5323.5</xMax>
-            <yMax>4999.3335</yMax>
+            <xMin>4759.5</xMin>
+            <yMin>4898.917</yMin>
+            <xMax>4909.5</xMax>
+            <yMax>4958.917</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>7</FromNodeID>
+              <ToNodeID>8</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>7</FromNodeID>
+              <ToNodeID>9</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>7</FromNodeID>
+              <ToNodeID>6</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>7</ID>
+          <StartNode>true</StartNode>
+          <ClassType>Parallel</ClassType>
+          <Label>并行节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>SuccessType</FieldName>
+              <Label>成功条件</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe>成功条件</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>FAILURE_POLICY</EnumType>
+                <Value>FAIL_ON_ONE</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>FailType</FieldName>
+              <Label>失败条件</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe>失败条件</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>SUCCESS_POLICY</EnumType>
+                <Value>SUCCEED_ON_ONE</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5065.125</x>
+            <y>4762.792</y>
+            <position>
+              <x>5065.125</x>
+              <y>4762.792</y>
+            </position>
+            <center>
+              <x>5140.125</x>
+              <y>4792.792</y>
+            </center>
+            <min>
+              <x>5065.125</x>
+              <y>4762.792</y>
+            </min>
+            <max>
+              <x>5215.125</x>
+              <y>4822.792</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5065.125</xMin>
+            <yMin>4762.792</yMin>
+            <xMax>5215.125</xMax>
+            <yMax>4822.792</yMax>
           </Rect>
           <Transitions />
-          <ID>4</ID>
+          <ID>8</ID>
           <StartNode>false</StartNode>
           <ClassType>Wait</ClassType>
           <Label>等待节点</Label>
@@ -194,7 +174,210 @@
               <FieldType>IntField</FieldType>
               <Describe>等待时间（毫秒）</Describe>
               <Field xsi:type="IntFieldDesigner">
-                <Value>10000</Value>
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5038.125</x>
+            <y>4898.792</y>
+            <position>
+              <x>5038.125</x>
+              <y>4898.792</y>
+            </position>
+            <center>
+              <x>5113.125</x>
+              <y>4928.792</y>
+            </center>
+            <min>
+              <x>5038.125</x>
+              <y>4898.792</y>
+            </min>
+            <max>
+              <x>5188.125</x>
+              <y>4958.792</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5038.125</xMin>
+            <yMin>4898.792</yMin>
+            <xMax>5188.125</xMax>
+            <yMax>4958.792</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>9</FromNodeID>
+              <ToNodeID>10</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>9</FromNodeID>
+              <ToNodeID>11</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>9</FromNodeID>
+              <ToNodeID>12</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>9</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Sequence</ClassType>
+          <Label>顺序节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5349.125</x>
+            <y>4816.792</y>
+            <position>
+              <x>5349.125</x>
+              <y>4816.792</y>
+            </position>
+            <center>
+              <x>5424.125</x>
+              <y>4846.792</y>
+            </center>
+            <min>
+              <x>5349.125</x>
+              <y>4816.792</y>
+            </min>
+            <max>
+              <x>5499.125</x>
+              <y>4876.792</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5349.125</xMin>
+            <yMin>4816.792</yMin>
+            <xMax>5499.125</xMax>
+            <yMax>4876.792</yMax>
+          </Rect>
+          <Transitions />
+          <ID>10</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5338.125</x>
+            <y>4936.792</y>
+            <position>
+              <x>5338.125</x>
+              <y>4936.792</y>
+            </position>
+            <center>
+              <x>5413.125</x>
+              <y>4966.792</y>
+            </center>
+            <min>
+              <x>5338.125</x>
+              <y>4936.792</y>
+            </min>
+            <max>
+              <x>5488.125</x>
+              <y>4996.792</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5338.125</xMin>
+            <yMin>4936.792</yMin>
+            <xMax>5488.125</xMax>
+            <yMax>4996.792</yMax>
+          </Rect>
+          <Transitions />
+          <ID>11</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5339.125</x>
+            <y>5048.792</y>
+            <position>
+              <x>5339.125</x>
+              <y>5048.792</y>
+            </position>
+            <center>
+              <x>5414.125</x>
+              <y>5078.792</y>
+            </center>
+            <min>
+              <x>5339.125</x>
+              <y>5048.792</y>
+            </min>
+            <max>
+              <x>5489.125</x>
+              <y>5108.792</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5339.125</xMin>
+            <yMin>5048.792</yMin>
+            <xMax>5489.125</xMax>
+            <yMax>5108.792</yMax>
+          </Rect>
+          <Transitions />
+          <ID>12</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>等待节点</Describe>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
+              <FieldType>IntField</FieldType>
+              <Describe>等待时间（毫秒）</Describe>
+              <Field xsi:type="IntFieldDesigner">
+                <Value>1000</Value>
               </Field>
             </FieldDesigner>
           </Fields>

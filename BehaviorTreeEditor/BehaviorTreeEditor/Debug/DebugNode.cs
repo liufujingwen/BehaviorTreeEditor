@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -9,9 +10,14 @@ namespace BehaviorTreeEditor
     {
         public DebugNodeStatus Status = DebugNodeStatus.None;
         public NodeDesigner Node;
+        public DebugNode ParentNode;
         public List<DebugNode> Childs = new List<DebugNode>();
+        public List<PointF> TransitionPoints = new List<PointF>();
         public float TransitionElapsedTime = 0;
-        private bool EnterState = false; 
+        public float RunningElapsedTime = 0;
+        public float RunningAlpha = 0f;
+        public float SuccessAlpha = 0f;
+
 
         public void DoTransition()
         {
@@ -50,6 +56,7 @@ namespace BehaviorTreeEditor
             if (Status == DebugNodeStatus.Error)
                 return;
             Status = DebugNodeStatus.Running;
+            RunningElapsedTime = 0;
         }
 
         public virtual void OnEnter()
@@ -60,6 +67,7 @@ namespace BehaviorTreeEditor
         {
             if (Status == DebugNodeStatus.Error)
                 return;
+            RunningElapsedTime += deltatime;
             OnRunning(deltatime);
         }
 
