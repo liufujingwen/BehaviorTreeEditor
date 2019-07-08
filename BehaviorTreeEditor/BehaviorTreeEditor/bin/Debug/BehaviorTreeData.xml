@@ -259,9 +259,9 @@
               <Describe />
               <Field xsi:type="RepeatIntFieldDesigner">
                 <Value>
-                  <int>100</int>
-                  <int>1000</int>
-                  <int>10</int>
+                  <int>90</int>
+                  <int>8</int>
+                  <int>2</int>
                 </Value>
               </Field>
             </FieldDesigner>

@@ -82,6 +82,7 @@ namespace BehaviorTreeEditor
                         pos = i;
                         if (priority > PriorityIndex[RandList[i]])
                             break;
+                        pos++;
                     }
                     //插入节点
                     RandList.Insert(pos, Children[index]);
@@ -89,8 +90,6 @@ namespace BehaviorTreeEditor
                     PriorityIndex.Add(Children[index], priority);
                 }
             }
-
-            PriorityIndex.Clear();
         }
 
         public override void OnRunning(float deltatime)
