@@ -578,6 +578,16 @@ namespace BehaviorTreeEditor
             Exec(OperationType.AddAgent);
         }
 
+        private void 复制ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.CopyAgent);
+        }
+
+        private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.PasteAgent);
+        }
+
         #endregion
 
         //添加行为树
