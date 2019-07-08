@@ -62,8 +62,8 @@ namespace BehaviorTreeEditor
                 //顺序节点
                 if (node.ClassType == "Sequence")
                 {
-                    DebugSequenceNode debugSequenceNode = new DebugSequenceNode();
-                    debugNode = debugSequenceNode;
+                    Debug__Sequence debug__Sequence = new Debug__Sequence();
+                    debugNode = debug__Sequence;
                 }
                 //并行节点
                 else if (node.ClassType == "Parallel")
@@ -71,53 +71,53 @@ namespace BehaviorTreeEditor
                     EnumFieldDesigner successPolicy = node.Fields[0].Field as EnumFieldDesigner;
                     EnumFieldDesigner failedPolicy = node.Fields[0].Field as EnumFieldDesigner;
 
-                    DebugParallelNode debugParallelNode = new DebugParallelNode();
-                    debugParallelNode.SuccessPolicy = (DebugParallelNode.SUCCESS_POLICY)successPolicy.ValueInt;
-                    debugParallelNode.FailurePolicy = (DebugParallelNode.FAILURE_POLICY)failedPolicy.ValueInt;
+                    Debug__Parallel debug__Parallel = new Debug__Parallel();
+                    debug__Parallel.SuccessPolicy = (Debug__Parallel.SUCCESS_POLICY)successPolicy.ValueInt;
+                    debug__Parallel.FailurePolicy = (Debug__Parallel.FAILURE_POLICY)failedPolicy.ValueInt;
 
-                    debugNode = debugParallelNode;
+                    debugNode = debug__Parallel;
                 }
                 //随机节点
                 else if (node.ClassType == "Random")
                 {
-                    DebugRandomNode debugRandomNode = new DebugRandomNode();
-                    debugNode = debugRandomNode;
+                    Debug__Random debug__Random = new Debug__Random();
+                    debugNode = debug__Random;
                 }
                 //随机序列
                 else if (node.ClassType == "RandomSequence")
                 {
-                    DebugRandomSequence debugRandomNode = new DebugRandomSequence();
-                    debugNode = debugRandomNode;
+                    Debug__RandomSequence__Node debug__RandomSequence__Node = new Debug__RandomSequence__Node();
+                    debugNode = debug__RandomSequence__Node;
                 }
                 //随机选择节点
                 else if (node.ClassType == "RandomSelector")
                 {
-                    DebugRandomSelector debugRandomNode = new DebugRandomSelector();
-                    debugNode = debugRandomNode;
+                    Debug__RandomSelector debug__RandomSelector = new Debug__RandomSelector();
+                    debugNode = debug__RandomSelector;
                 }
                 //ifelse节点
                 else if (node.ClassType == "IfElse")
                 {
-                    DebugIfElseNode debugIfElseNode = new DebugIfElseNode();
-                    debugNode = debugIfElseNode;
+                    Debug__IfElse debug__IfElse = new Debug__IfElse();
+                    debugNode = debug__IfElse;
                 }
                 //选择节点
                 else if (node.ClassType == "Selector")
                 {
-                    DebugSelectorNode debugIfElseNode = new DebugSelectorNode();
-                    debugNode = debugIfElseNode;
+                    Debug__Selector debug__Selector = new Debug__Selector();
+                    debugNode = debug__Selector;
                 }
                 //概率选择
                 else if (node.ClassType == "RateSelector")
                 {
-                    DebugRateSelector debugRateSelector = new DebugRateSelector();
-                    debugNode = debugRateSelector;
+                    Debug__RateSelector debug__RateSelector = new Debug__RateSelector();
+                    debugNode = debug__RateSelector;
                 }
                 else
                 {
                     //统一用默认的组合节点，（顺序节点）
-                    DebugCompositeNode debugCompositeNode = new DebugCompositeNode();
-                    debugNode = debugCompositeNode;
+                    Debug__Composite debug__Composite = new Debug__Composite();
+                    debugNode = debug__Composite;
                 }
             }
             //装饰节点
@@ -126,64 +126,64 @@ namespace BehaviorTreeEditor
                 //失败节点
                 if (node.ClassType == "Failure")
                 {
-                    DebugFailureNode debugFailureNode = new DebugFailureNode();
-                    debugNode = debugFailureNode;
+                    Debug__Failure debug__Failure = new Debug__Failure();
+                    debugNode = debug__Failure;
                 }
                 //成功节点
                 else if (node.ClassType == "Success")
                 {
-                    DebugSuccessNode debugSuccessNode = new DebugSuccessNode();
-                    debugNode = debugSuccessNode;
+                    Debug__Success debug__Success = new Debug__Success();
+                    debugNode = debug__Success;
                 }
                 //执行帧节点
                 else if (node.ClassType == "Frames")
                 {
-                    DebugFramesNode debugFramesNode = new DebugFramesNode();
-                    debugNode = debugFramesNode;
+                    Debug__Frames debug__Frames = new Debug__Frames();
+                    debugNode = debug__Frames;
                 }
                 //输出log节点
                 else if (node.ClassType == "Log")
                 {
-                    DebugLogNode debugLogNode = new DebugLogNode();
-                    debugNode = debugLogNode;
+                    Debug__Log debug__Log = new Debug__Log();
+                    debugNode = debug__Log;
                 }
                 //循环节点
                 else if (node.ClassType == "Loop")
                 {
-                    DebugLoopNode debugLoopNode = new DebugLoopNode();
-                    debugNode = debugLoopNode;
+                    Debug__Loop debug__Loop = new Debug__Loop();
+                    debugNode = debug__Loop;
                 }
                 //取反节点
                 else if (node.ClassType == "Not")
                 {
-                    DebugNotNode debugNotNode = new DebugNotNode();
-                    debugNode = debugNotNode;
+                    Debug__Not debug__Not = new Debug__Not();
+                    debugNode = debug__Not;
                 }
                 //指定时间内运行
                 else if (node.ClassType == "Time")
                 {
-                    DebugTimeNode debugTimeNode = new DebugTimeNode();
-                    debugNode = debugTimeNode;
+                    Debug__Time debug__Time = new Debug__Time();
+                    debugNode = debug__Time;
                 }
                 //等待直到子节点返回成功
                 else if (node.ClassType == "WaitUntil")
                 {
-                    DebugWaitUntilNode debugWaitUntilNode = new DebugWaitUntilNode();
-                    debugNode = debugWaitUntilNode;
+                    Debug__WaitUntil debug__WaitUntil = new Debug__WaitUntil();
+                    debugNode = debug__WaitUntil;
                 }
                 else
                 {
-                    DebugDecoratorNode debugDecoratorNode = new DebugDecoratorNode();
-                    debugDecoratorNode.CanChangeStatus = true;
-                    debugNode = debugDecoratorNode;
+                    Debug__Decorator debug__Decorator = new Debug__Decorator();
+                    debug__Decorator.CanChangeStatus = true;
+                    debugNode = debug__Decorator;
                 }
             }
             //条件节点
             else if (node.NodeType == NodeType.Condition)
             {
-                DebugConditionNode debugConditionNode = new DebugConditionNode();
-                debugConditionNode.CanChangeStatus = true;
-                debugNode = debugConditionNode;
+                Debug__Condition debug__Condition = new Debug__Condition();
+                debug__Condition.CanChangeStatus = true;
+                debugNode = debug__Condition;
             }
             //动作节点
             else if (node.NodeType == NodeType.Action)
@@ -191,13 +191,13 @@ namespace BehaviorTreeEditor
                 //等待一段时间
                 if (node.ClassType == "Wait")
                 {
-                    DebugNodeWait debugActionNode = new DebugNodeWait();
-                    debugNode = debugActionNode;
+                    Debug__Wait debug__Wait = new Debug__Wait();
+                    debugNode = debug__Wait;
                 }
                 else
                 {
-                    DebugActionNode debugActionNode = new DebugActionNode();
-                    debugNode = debugActionNode;
+                    Debug__Action debug__Action = new Debug__Action();
+                    debugNode = debug__Action;
                     debugNode.CanChangeStatus = true;
                 }
             }
