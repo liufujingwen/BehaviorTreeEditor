@@ -30,6 +30,12 @@ namespace BehaviorTreeEditor
 
         public void Debug(AgentDesigner agent)
         {
+            if (agent == null)
+            {
+                MainForm.Instance.ShowMessage("Agent为空");
+                return;
+            }
+
             m_Nodes.Clear();
             VerifyInfo verifyAgent = agent.VerifyAgent();
             if (verifyAgent.HasError)
@@ -193,6 +199,30 @@ namespace BehaviorTreeEditor
                 {
                     Debug__Wait debug__Wait = new Debug__Wait();
                     debugNode = debug__Wait;
+                }
+                //赋值节点Int
+                else if (node.ClassType == "AssignmentInt")
+                {
+                    Debug__AssignmentInt debug__AssignmentInt = new Debug__AssignmentInt();
+                    debugNode = debug__AssignmentInt;
+                }
+                //赋值节点Float
+                else if (node.ClassType == "AssignmentFloat")
+                {
+                    Debug__AssignmentFloat debug__AssignmentFloat = new Debug__AssignmentFloat();
+                    debugNode = debug__AssignmentFloat;
+                }
+                //赋值节点String
+                else if (node.ClassType == "AssignmentString")
+                {
+                    Debug__AssignmentString debug__AssignmentString = new Debug__AssignmentString();
+                    debugNode = debug__AssignmentString;
+                }
+                //空操作节点
+                else if (node.ClassType == "Noop")
+                {
+                    Debug_Noop debug_Noop = new Debug_Noop();
+                    debugNode = debug_Noop;
                 }
                 else
                 {

@@ -11,7 +11,9 @@ namespace BehaviorTreeEditor
         {
             DebugNode runningNode = Childs[RunningNodeIndex];
             runningNode.Update(deltatime);
-            Status = runningNode.Status;
+
+            if (Status != DebugNodeStatus.Transition)
+                Status = runningNode.Status;
         }
     }
 }

@@ -225,6 +225,10 @@ namespace BehaviorTreeEditor
             Frames.ClassType = "Frames";
             Frames.Label = "帧数节点";
             Frames.NodeType = NodeType.Decorator;
+            Frames.ShowContent = true;
+            NodeField FramesField = new NodeField() { FieldName = "Frames", Label = "持续帧数", FieldType = FieldType.IntField, Describe = "持续帧数" };
+            (FramesField.DefaultValue as IntDefaultValue).DefaultValue = 1;
+            Frames.AddField(FramesField);
             Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
             AddClass(Frames);
 
@@ -270,6 +274,9 @@ namespace BehaviorTreeEditor
             Time.Label = "时间";
             Time.NodeType = NodeType.Decorator;
             Time.Describe = "指定时间内运行";
+            NodeField TimeField = new NodeField() { FieldName = "Duration", Label = "持续时间(毫秒)", FieldType = FieldType.IntField, Describe = "持续时间(毫秒)" };
+            (TimeField.DefaultValue as IntDefaultValue).DefaultValue = 1000;
+            Time.AddField(TimeField);
             Time.ShowContent = true;
             AddClass(Time);
 
@@ -285,35 +292,86 @@ namespace BehaviorTreeEditor
 
             #region 条件节点
 
-            //比较节点
-            NodeClass Compare = new NodeClass();
-            Compare.ClassType = "Compare";
-            Compare.Label = "比较节点";
-            Compare.NodeType = NodeType.Condition;
-            Compare.Describe = "Compare节点对左右参数进行比较";
+            //比较Int节点
+            NodeClass CompareInt = new NodeClass();
+            CompareInt.ClassType = "CompareInt";
+            CompareInt.Label = "比较Int节点";
+            CompareInt.NodeType = NodeType.Condition;
+            CompareInt.Describe = "Compare节点对左右参数进行比较";
             //左边参数类型
-            NodeField CompareLeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
-            EnumDefaultValue CompareLeftEnumDefaultValue = CompareLeftType.DefaultValue as EnumDefaultValue;
-            CompareLeftEnumDefaultValue.EnumType = "ParameterType";
-            CompareLeftType.Label = "左参数类型";
-            Compare.AddField(CompareLeftType);
+            NodeField CompareInt_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareInt_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareInt_LeftType.Label = "左参数类型";
+            CompareInt.AddField(CompareInt_LeftType);
             //左边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            CompareInt.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
             //比较符号
-            NodeField CompareType = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
-            EnumDefaultValue CompareTypeDefaultValue = CompareType.DefaultValue as EnumDefaultValue;
-            CompareTypeDefaultValue.EnumType = "CompareType";
-            CompareType.Label = "比较操作符";
-            Compare.AddField(CompareType);
+            NodeField CompareInt_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            (CompareInt_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
+            CompareInt_Type.Label = "比较操作符";
+            CompareInt.AddField(CompareInt_Type);
             //右边边参数类型
-            NodeField CompareRightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
-            EnumDefaultValue CompareRightEnumDefaultValue = CompareRightType.DefaultValue as EnumDefaultValue;
-            CompareRightEnumDefaultValue.EnumType = "ParameterType";
-            CompareRightType.Label = "右参数类型";
-            Compare.AddField(CompareRightType);
+            NodeField CompareInt_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareInt_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareInt_RightType.Label = "右参数类型";
+            CompareInt.AddField(CompareInt_RightType);
             //右边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
-            AddClass(Compare);
+            CompareInt.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            AddClass(CompareInt);
+
+            //比较Float节点
+            NodeClass CompareFloat = new NodeClass();
+            CompareFloat.ClassType = "CompareFloat";
+            CompareFloat.Label = "比较Float节点";
+            CompareFloat.NodeType = NodeType.Condition;
+            CompareFloat.Describe = "Compare节点对左右参数进行比较";
+            //左边参数类型
+            NodeField CompareFloat_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareFloat_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareFloat_LeftType.Label = "左参数类型";
+            CompareFloat.AddField(CompareFloat_LeftType);
+            //左边参数变量名
+            CompareFloat.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            //比较符号
+            NodeField CompareFloat_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            (CompareFloat_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
+            CompareFloat_Type.Label = "比较操作符";
+            CompareFloat.AddField(CompareFloat_Type);
+            //右边边参数类型
+            NodeField CompareFloat_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareFloat_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareFloat_RightType.Label = "右参数类型";
+            CompareFloat.AddField(CompareFloat_RightType);
+            //右边参数变量名
+            CompareFloat.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            AddClass(CompareFloat);
+
+            //比较String节点
+            NodeClass CompareString = new NodeClass();
+            CompareString.ClassType = "CompareString";
+            CompareString.Label = "比较String节点";
+            CompareString.NodeType = NodeType.Condition;
+            CompareString.Describe = "Compare节点对左右参数进行比较";
+            //左边参数类型
+            NodeField CompareString_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareString_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareString_LeftType.Label = "左参数类型";
+            CompareString.AddField(CompareString_LeftType);
+            //左边参数变量名
+            CompareString.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            //比较符号
+            NodeField CompareString_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            (CompareString_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
+            CompareString_Type.Label = "比较操作符";
+            CompareString.AddField(CompareString_Type);
+            //右边边参数类型
+            NodeField CompareString_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+            (CompareString_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            CompareString_RightType.Label = "右参数类型";
+            CompareString.AddField(CompareString_RightType);
+            //右边参数变量名
+            CompareString.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            AddClass(CompareString);
 
             #endregion
 
@@ -330,12 +388,23 @@ namespace BehaviorTreeEditor
             AssignmentInt.ShowContent = true;
             AddClass(AssignmentInt);
 
+            //赋值节点Float
+            NodeClass AssignmentFloat = new NodeClass();
+            AssignmentFloat.ClassType = "AssignmentFloat";
+            AssignmentFloat.Label = "赋值节点(Float)";
+            AssignmentFloat.NodeType = NodeType.Action;
+            AssignmentFloat.Describe = "赋值节点(Float)";
+            AssignmentFloat.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
+            AssignmentFloat.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值Float", FieldType = FieldType.FloatField, Describe = "参数值" });
+            AssignmentFloat.ShowContent = true;
+            AddClass(AssignmentFloat);
+
             //赋值节点String
             NodeClass AssignmentString = new NodeClass();
             AssignmentString.ClassType = "AssignmentString";
             AssignmentString.Label = "赋值节点(String)";
             AssignmentString.NodeType = NodeType.Action;
-            AssignmentString.Describe = "赋值节点";
+            AssignmentString.Describe = "赋值节点(String)";
             AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
             AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.IntField, Describe = "参数值" });
             AssignmentString.ShowContent = true;
@@ -353,6 +422,15 @@ namespace BehaviorTreeEditor
             Wait.AddField(WaintField);
             Wait.ShowContent = true;
             AddClass(Wait);
+
+            //空操作节点
+            NodeClass Noop = new NodeClass();
+            Noop.ClassType = "Noop";
+            Noop.Label = "空操作节点";
+            Noop.NodeType = NodeType.Action;
+            Noop.Describe = "空操作节点";
+            AddClass(Noop);
+
             #endregion
         }
 

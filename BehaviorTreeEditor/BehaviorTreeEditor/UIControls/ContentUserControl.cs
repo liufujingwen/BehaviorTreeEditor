@@ -330,6 +330,12 @@ namespace BehaviorTreeEditor.UIControls
                 return;
             }
 
+            if (fromNode.NodeType == NodeType.Condition)
+            {
+                MainForm.Instance.ShowInfo("条件节点不能包含子节点");
+                return;
+            }
+
             if (fromNode.NodeType == NodeType.Decorator)
             {
                 if (fromNode.Transitions.Count == 1)
@@ -1176,7 +1182,7 @@ namespace BehaviorTreeEditor.UIControls
 
             Agent.AddNode(node);
         }
-       
+
         #region Debug
 
         private void ContentUserControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

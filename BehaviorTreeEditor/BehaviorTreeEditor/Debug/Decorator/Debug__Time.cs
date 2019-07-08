@@ -20,29 +20,32 @@ namespace BehaviorTreeEditor
         public override void OnRunning(float deltatime)
         {
             CurTime += deltatime;
-            DebugNode debugNode = Childs[RunningNodeIndex];
+            DebugNode runningNode = Childs[RunningNodeIndex];
 
             //子节点跳过Transition状态
-            if (debugNode.Status == DebugNodeStatus.None)
+            if (runningNode.Status == DebugNodeStatus.None)
             {
-                debugNode.TransitionElapsedTime = DebugManager.TransitionTime;
+                runningNode.Status = DebugNodeStatus.Transition;
+                runningNode.TransitionElapsedTime = DebugManager.TransitionTime;
             }
 
-            debugNode.Update(deltatime);
+            runningNode.Update(deltatime);
 
-            if (debugNode.Status == DebugNodeStatus.Error)
+            if (runningNode.Status == DebugNodeStatus.Error)
             {
                 Status = DebugNodeStatus.Error;
                 return;
             }
-            else if (debugNode.Status == DebugNodeStatus.Failed || debugNode.Status == DebugNodeStatus.Success)
-            {
-                debugNode.Status = DebugNodeStatus.Transition;
-            }
-
+            
             if (CurTime >= Duration / 1000f)
             {
                 Status = DebugNodeStatus.Success;
+                return;
+            }
+
+            if (runningNode.Status == DebugNodeStatus.Failed || runningNode.Status == DebugNodeStatus.Success)
+            {
+                runningNode.Status = DebugNodeStatus.Transition;
             }
         }
     }

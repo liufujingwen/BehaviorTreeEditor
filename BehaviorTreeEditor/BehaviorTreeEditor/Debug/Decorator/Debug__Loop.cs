@@ -19,51 +19,53 @@ namespace BehaviorTreeEditor
 
         public override void OnRunning(float deltatime)
         {
-            DebugNode debugNode = Childs[RunningNodeIndex];
+            DebugNode runningNode = Childs[RunningNodeIndex];
+            runningNode.Update(deltatime);
 
             if (LoopTimes == -1)
             {
-                debugNode.Update(deltatime);
+                runningNode.Update(deltatime);
 
-                if (debugNode.Status == DebugNodeStatus.Error)
+                if (runningNode.Status == DebugNodeStatus.Error)
                 {
                     Status = DebugNodeStatus.Error;
                 }
-                else if (debugNode.Status == DebugNodeStatus.Success || debugNode.Status == DebugNodeStatus.Failed)
+                else if (runningNode.Status == DebugNodeStatus.Success || runningNode.Status == DebugNodeStatus.Failed)
                 {
-                    debugNode.Status = DebugNodeStatus.None;
+                    runningNode.Status = DebugNodeStatus.None;
                 }
             }
             else
             {
                 CurTimes++;
                 //子节点跳过Transition状态
-                if (debugNode.Status == DebugNodeStatus.None)
+                if (runningNode.Status == DebugNodeStatus.None)
                 {
-                    debugNode.TransitionElapsedTime = DebugManager.TransitionTime;
+                    runningNode.Status = DebugNodeStatus.Transition;
+                    runningNode.TransitionElapsedTime = DebugManager.TransitionTime;
                 }
 
-                debugNode.Update(deltatime);
+                runningNode.Update(deltatime);
 
-                if (debugNode.Status == DebugNodeStatus.Error)
+                if (runningNode.Status == DebugNodeStatus.Error)
                 {
                     Status = DebugNodeStatus.Error;
                 }
-                else if (debugNode.Status == DebugNodeStatus.Success || debugNode.Status == DebugNodeStatus.Failed)
+                else if (runningNode.Status == DebugNodeStatus.Success || runningNode.Status == DebugNodeStatus.Failed)
                 {
                 }
             }
 
-            debugNode.Update(deltatime);
+            runningNode.Update(deltatime);
 
-            if (debugNode.Status == DebugNodeStatus.Error)
+            if (runningNode.Status == DebugNodeStatus.Error)
             {
                 Status = DebugNodeStatus.Error;
                 return;
             }
-            else if (debugNode.Status == DebugNodeStatus.Failed || debugNode.Status == DebugNodeStatus.Success)
+            else if (runningNode.Status == DebugNodeStatus.Failed || runningNode.Status == DebugNodeStatus.Success)
             {
-                debugNode.Status = DebugNodeStatus.Transition;
+                runningNode.Status = DebugNodeStatus.Transition;
             }
 
             if (CurTimes >= LoopTimes)

@@ -320,6 +320,10 @@ namespace BehaviorTreeEditor
 
             switch (node.Status)
             {
+                case DebugNodeStatus.Transition:
+                    if (node.TransitionElapsedTime >= DebugManager.TransitionTime)
+                        graphics.DrawRectangle(Debug_Running_NodePen, rect);
+                    break;
                 case DebugNodeStatus.Error:
                     graphics.DrawRectangle(Debug_Error_NodePen, rect);
                     break;

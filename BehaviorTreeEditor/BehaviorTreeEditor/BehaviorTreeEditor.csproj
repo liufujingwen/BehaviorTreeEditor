@@ -64,7 +64,11 @@
     <Compile Include="Data\NodeDesigner\NodeClass\StringDefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector3DefaultValue.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\Vector2DefaultValue.cs" />
+    <Compile Include="Debug\Action\Debug__AssignmentString.cs" />
+    <Compile Include="Debug\Action\Debug_Noop.cs" />
     <Compile Include="Debug\Action\Debug__Action.cs" />
+    <Compile Include="Debug\Action\Debug__AssignmentFloat.cs" />
+    <Compile Include="Debug\Action\Debug__AssignmentInt.cs" />
     <Compile Include="Debug\Composite\Debug__Composite.cs" />
     <Compile Include="Debug\Composite\Debug__IfElse.cs" />
     <Compile Include="Debug\Composite\Debug__Random.cs" />

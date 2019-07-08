@@ -54,14 +54,14 @@ namespace BehaviorTreeEditor
 
         private void Enter()
         {
-            OnEnter();
-            if (Status == DebugNodeStatus.Error)
-                return;
-            Status = DebugNodeStatus.Running;
             RunningElapsedTime = 0;
             RunningNodeIndex = 0;
             RunningAlpha = 0;
             SuccessAlpha = 0;
+            OnEnter();
+            if (Status == DebugNodeStatus.Error || Status == DebugNodeStatus.Success)
+                return;
+            Status = DebugNodeStatus.Running;
         }
 
         public virtual void OnEnter()

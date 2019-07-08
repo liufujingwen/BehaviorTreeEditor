@@ -10,6 +10,8 @@ namespace BehaviorTreeEditor
         public override void OnRunning(float deltatime)
         {
             DebugNode runningNode = Childs[RunningNodeIndex];
+            runningNode.Update(deltatime);
+
             if (runningNode.Status == DebugNodeStatus.Error)
             {
                 Status = DebugNodeStatus.Error;
