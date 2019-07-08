@@ -413,11 +413,9 @@
         <NodeField>
           <FieldName>Parameter</FieldName>
           <Label>赋值字符串</Label>
-          <FieldType>IntField</FieldType>
+          <FieldType>StringField</FieldType>
           <Describe>参数值</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>0</DefaultValue>
-          </DefaultValue>
+          <DefaultValue xsi:type="StringDefaultValue" />
         </NodeField>
       </Fields>
     </NodeClass>

@@ -18,15 +18,15 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (runningNode.Status == DebugNodeStatus.Failed)
-            {
-                Status = DebugNodeStatus.None;
-                return;
-            }
-
             if (runningNode.Status == DebugNodeStatus.Success)
             {
                 Status = DebugNodeStatus.Success;
+                return;
+            }
+
+            if (runningNode.Status == DebugNodeStatus.Failed)
+            {
+                runningNode.Status = DebugNodeStatus.None;
             }
         }
     }

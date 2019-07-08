@@ -209,7 +209,7 @@ namespace BehaviorTreeEditor
                 brush = EditorUtility.Debug_Successed_TransitionBrush;
             }
 
-            if (t < 1f)
+            if (toNode.Status == DebugNodeStatus.Transition && t < 1f)
             {
                 Vec2 point = BezierPoint(t, fromPoint, fromTangent, toTangent, toPoint);
                 toNode.TransitionPoints.Add(point);
@@ -221,9 +221,6 @@ namespace BehaviorTreeEditor
             }
             else
             {
-                if (toNode.TransitionPoints.Count > 0)
-                    toNode.TransitionPoints.Clear();
-
                 graphics.DrawBezier(pen, fromPoint, fromTangent, toTangent, toPoint);
                 //画箭头
                 ArrowPoint[0] = tempPoint;

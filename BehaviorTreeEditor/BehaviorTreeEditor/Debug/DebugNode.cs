@@ -36,6 +36,7 @@ namespace BehaviorTreeEditor
             if (Status == DebugNodeStatus.None)
             {
                 TransitionElapsedTime = 0;
+                TransitionPoints.Clear();
                 Status = DebugNodeStatus.Transition;
             }
             else if (Status == DebugNodeStatus.Transition)

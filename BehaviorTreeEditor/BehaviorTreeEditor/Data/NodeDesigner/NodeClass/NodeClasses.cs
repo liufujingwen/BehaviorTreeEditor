@@ -406,7 +406,7 @@ namespace BehaviorTreeEditor
             AssignmentString.NodeType = NodeType.Action;
             AssignmentString.Describe = "赋值节点(String)";
             AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名" });
-            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.IntField, Describe = "参数值" });
+            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.StringField, Describe = "参数值" });
             AssignmentString.ShowContent = true;
             AddClass(AssignmentString);
 

@@ -158,8 +158,8 @@ namespace BehaviorTreeEditor.UIControls
 
         private void ContentUserControl_Paint(object sender, PaintEventArgs e)
         {
-            Begin(sender, e);
             DebugManager.Instance.Update(m_Deltaltime);
+            Begin(sender, e);
             End(sender, e);
         }
 

@@ -294,14 +294,7 @@ namespace BehaviorTreeEditor
                     continue;
                 if (node.Status == DebugNodeStatus.None)
                     continue;
-                if (node.Status == DebugNodeStatus.Transition)
-                {
-                    BezierLink.DrawNodeToNode_Debug(graphics, node.ParentNode, node, offset);
-                }
-                else
-                {
-                    BezierLink.DrawNodeToNode_Debug(graphics, node.ParentNode, node, offset);
-                }
+                BezierLink.DrawNodeToNode_Debug(graphics, node.ParentNode, node, offset);
             }
         }
 

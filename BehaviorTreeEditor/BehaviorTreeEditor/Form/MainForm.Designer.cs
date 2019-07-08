@@ -38,6 +38,8 @@
             this.freshToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.playToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.新建工作区ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,8 +80,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.playToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -124,6 +125,7 @@
             this.freshToolStripButton,
             this.deleteAgentToolStripButton,
             this.toolStripSeparator5,
+            this.toolStripLabel1,
             this.playToolStripButton,
             this.stopToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
@@ -181,6 +183,26 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
+            // 
+            // playToolStripButton
+            // 
+            this.playToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.playToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.run;
+            this.playToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.playToolStripButton.Name = "playToolStripButton";
+            this.playToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.playToolStripButton.Text = "播放";
+            this.playToolStripButton.Click += new System.EventHandler(this.playToolStripButton_Click);
+            // 
+            // stopToolStripButton
+            // 
+            this.stopToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stopToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.stop;
+            this.stopToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stopToolStripButton.Name = "stopToolStripButton";
+            this.stopToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.stopToolStripButton.Text = "停止";
+            this.stopToolStripButton.Click += new System.EventHandler(this.stopToolStripButton_Click);
             // 
             // menuStrip1
             // 
@@ -555,25 +577,11 @@
             this.toolStripMenuItem4.Text = "删除";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
-            // playToolStripButton
+            // toolStripLabel1
             // 
-            this.playToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.playToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.run;
-            this.playToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.playToolStripButton.Name = "playToolStripButton";
-            this.playToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.playToolStripButton.Text = "播放";
-            this.playToolStripButton.Click += new System.EventHandler(this.playToolStripButton_Click);
-            // 
-            // stopToolStripButton
-            // 
-            this.stopToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stopToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.stop;
-            this.stopToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stopToolStripButton.Name = "stopToolStripButton";
-            this.stopToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.stopToolStripButton.Text = "停止";
-            this.stopToolStripButton.Click += new System.EventHandler(this.stopToolStripButton_Click);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(169, 24);
+            this.toolStripLabel1.Text = "                                        ";
             // 
             // MainForm
             // 
@@ -667,5 +675,6 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.ToolStripButton playToolStripButton;
         private System.Windows.Forms.ToolStripButton stopToolStripButton;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
