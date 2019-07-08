@@ -60,7 +60,7 @@ namespace BehaviorTreeEditor
             RunningAlpha = 0;
             SuccessAlpha = 0;
             OnEnter();
-            if (Status == DebugNodeStatus.Error || Status == DebugNodeStatus.Success)
+            if (Status == DebugNodeStatus.Error || Status == DebugNodeStatus.Success || Status == DebugNodeStatus.Failed)
                 return;
             Status = DebugNodeStatus.Running;
         }
