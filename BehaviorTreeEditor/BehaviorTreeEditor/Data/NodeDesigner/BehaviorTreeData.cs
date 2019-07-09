@@ -5,7 +5,14 @@ namespace BehaviorTreeEditor
 {
     public class TreeData
     {
+        private List<Group> m_Groups = new List<Group>();
         private List<AgentDesigner> m_Agents = new List<AgentDesigner>();
+
+        public List<Group> Groups
+        {
+            get { return m_Groups; }
+            set { m_Groups = value; }
+        }
 
         public List<AgentDesigner> Agents
         {

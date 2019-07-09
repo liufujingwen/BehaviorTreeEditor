@@ -46,6 +46,8 @@ namespace BehaviorTreeEditor
         //当前显示的Agent
         private List<AgentDesigner> FilterAgentList = new List<AgentDesigner>();
 
+        public TreeViewManager TreeViewManager;
+
         public MainForm()
         {
             ms_Instance = this;
@@ -73,41 +75,15 @@ namespace BehaviorTreeEditor
 
             Exec(OperationType.LoadWorkSpace);
 
-            BindAgents();
+            CreateTreeViewManager();
         }
 
         #region TreeView
 
-        /// <summary>
-        /// 绑定Agents
-        /// </summary>
-        private void BindAgents()
+        public void CreateTreeViewManager()
         {
-            treeView1.Nodes.Clear();
-
-            if (!string.IsNullOrEmpty(SearchStr))
-            {
-                for (int i = 0; i < FilterAgentList.Count; i++)
-                {
-                    AgentDesigner agent = FilterAgentList[i];
-                    TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
-                    treeNode.Tag = agent;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < TreeData.Agents.Count; i++)
-                {
-                    AgentDesigner agent = TreeData.Agents[i];
-                    TreeNode treeNode = treeView1.Nodes.Add(agent.AgentID);
-                    treeNode.Tag = agent;
-                }
-            }
-
-            if (treeView1.Nodes.Count > 0)
-            {
-                treeView1.SelectedNode = treeView1.Nodes[0];
-            }
+            TreeViewManager = new TreeViewManager(this, treeView1, TreeData.Groups, TreeData.Agents);
+            TreeViewManager.BindAgents();
         }
 
         /// <summary>
@@ -197,8 +173,15 @@ namespace BehaviorTreeEditor
             if (treeView1.SelectedNode == null)
                 return;
 
-            AgentDesigner agent = treeView1.SelectedNode.Tag as AgentDesigner;
-            SetSelectedAgent(agent);
+            if (treeView1.SelectedNode.Tag is AgentItem)
+            {
+                AgentItem agentItem = treeView1.SelectedNode.Tag as AgentItem;
+                SetSelectedAgent(agentItem.Agent);
+            }
+            else
+            {
+                SetSelectedAgent(null);
+            }
         }
 
         private void treeView1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -249,7 +232,45 @@ namespace BehaviorTreeEditor
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    contextMenuStrip1.Tag = treeView1;
+                    // 0 添加分组
+                    // 1 编辑分组
+                    // 2 删除分组
+                    // 3 分割线
+                    // 4 复制Agent
+                    // 5 粘贴Agent
+                    // 6 新建Agent
+                    // 7 编辑Agent
+                    // 8 删除Agent
+
+                    for (int i = 0; i < contextMenuStrip1.Items.Count; i++)
+                        contextMenuStrip1.Items[i].Visible = true;
+
+                    if (treeView1.SelectedNode != null)
+                    {
+                        if (treeView1.SelectedNode.Tag is GroupItem)
+                        {
+                            //隐藏 复制Agent
+                            contextMenuStrip1.Items[4].Visible = false;
+                            //隐藏 编辑Agent
+                            contextMenuStrip1.Items[7].Visible = false;
+                            //隐藏 删除Agent
+                            contextMenuStrip1.Items[8].Visible = false;
+                        }
+                        else if (treeView1.SelectedNode.Tag is AgentItem)
+                        {
+                            //隐藏 添加分组
+                            contextMenuStrip1.Items[1].Visible = false;
+                            //隐藏 删除分组
+                            contextMenuStrip1.Items[2].Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        contextMenuStrip1.Items[4].Visible = false;
+                        contextMenuStrip1.Items[7].Visible = false;
+                        contextMenuStrip1.Items[8].Visible = false;
+                    }
+
                     contextMenuStrip1.Show(treeView1, e.Location);
                 }
             }
@@ -271,8 +292,6 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void AddAgent()
         {
-            ExitSearchMode();
-
             AgentDesigner agent = new AgentDesigner();
             string agentID = "NewAgent_" + DateTime.Now.Ticks;
             do
@@ -303,11 +322,8 @@ namespace BehaviorTreeEditor
 
                 agent.AddNode(startNode);
                 agent.AgentID = agentID;
-                TreeData.AddAgent(agent);
 
-
-
-                AddAgentItem(agent);
+                TreeViewManager.AddAgent(agent);
             }
         }
 
@@ -316,6 +332,9 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void EditAgent()
         {
+            if (SelectedAgent == null)
+                return;
+
             EditAgentForm editAgentForm = new EditAgentForm(SelectedAgent);
             editAgentForm.ShowDialog();
         }
@@ -337,8 +356,14 @@ namespace BehaviorTreeEditor
         {
             if (treeView1.SelectedNode != null)
             {
+                if (!(treeView1.SelectedNode.Tag is AgentItem))
+                {
+                    ShowMessage("只能复制Agent");
+                    return;
+                }
+
                 AgentListContent content = new AgentListContent();
-                content.DataList.Add((AgentDesigner)treeView1.SelectedNode.Tag);
+                content.DataList.Add((treeView1.SelectedNode.Tag as AgentItem).Agent);
 
                 if (content.DataList.Count > 0)
                     Clipboard.SetText(XmlUtility.ObjectToString(content));
@@ -361,8 +386,6 @@ namespace BehaviorTreeEditor
             {
                 AgentListContent content = XmlUtility.StringToObject<AgentListContent>(Clipboard.GetText());
 
-                ExitSearchMode();
-
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
                     AgentDesigner agent = content.DataList[i];
@@ -373,8 +396,7 @@ namespace BehaviorTreeEditor
                     } while (TreeData.ExistAgent(agentID));
 
                     agent.AgentID = agentID;
-                    TreeData.AddAgent(agent);
-                    AddAgentItem(agent);
+                    TreeViewManager.AddAgent(agent);
                 }
 
                 ShowInfo("您粘贴了" + content.DataList.Count + "棵行为树！！！");
@@ -391,8 +413,6 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void RefreshAgents()
         {
-            ExitSearchMode();
-            BindAgents();
         }
 
         //交换Agent位置
@@ -492,6 +512,56 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 添加分组
+        /// </summary>
+        private void AddGroup()
+        {
+            AddGroup addGroup = new AddGroup();
+            addGroup.ShowDialog();
+        }
+
+        //编辑分组
+        private void EditGroup()
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+            if (!(treeView1.SelectedNode.Tag is GroupItem))
+                return;
+
+            GroupItem groupItem = treeView1.SelectedNode.Tag as GroupItem;
+            EditGroupForm editGroup = new EditGroupForm(groupItem.Group);
+            editGroup.ShowDialog();
+        }
+
+        /// <summary>
+        /// 删除分组
+        /// </summary>
+        private void DeleteGroup()
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+
+            if (!(treeView1.SelectedNode.Tag is GroupItem))
+                return;
+
+            GroupItem groupItem = treeView1.SelectedNode.Tag as GroupItem;
+            Group group = groupItem.Group;
+
+            if (MessageBox.Show(string.Format("确定删除分组[{0}]吗?", group.GroupName), "提示",
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                TreeViewManager.DeleteGroup(group);
+                ShowInfo("删除分组[{0}]", group.GroupName);
+            }
+        }
+
+        //更新Group
+        private void UpdateGroup(string oldName, Group group)
+        {
+            TreeViewManager.UpdateGroup(oldName, group);
+        }
+
+        /// <summary>
         /// 删除Agent
         /// </summary>
         private void DeleteAgent()
@@ -499,35 +569,15 @@ namespace BehaviorTreeEditor
             if (treeView1.SelectedNode == null)
                 return;
 
-            int index = GetTreeNodeIndex(treeView1.SelectedNode);
-            AgentDesigner agentDesigner = treeView1.SelectedNode.Tag as AgentDesigner;
-
-            if (agentDesigner == null)
+            if (!(treeView1.SelectedNode.Tag is AgentItem))
                 return;
 
-            if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agentDesigner.AgentID), "提示",
+            AgentDesigner agent = (treeView1.SelectedNode.Tag as AgentItem).Agent;
+
+            if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", agent.AgentID), "提示",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                TreeData.RemoveAgent(agentDesigner);
-                FilterAgentList.Remove(agentDesigner);
-                treeView1.Nodes.RemoveAt(index);
-                TreeNode treeNode = GetTreeNodeByIndex(index);
-                if (treeNode != null)
-                {
-                    SetSelectedAgent(index);
-                }
-                else
-                {
-                    index--;
-                    if (index >= 0)
-                    {
-                        SetSelectedAgent(index);
-                    }
-                    else
-                    {
-                        SetSelectedAgent(null);
-                    }
-                }
+                TreeViewManager.RemoveAgent(agent.AgentID);
             }
         }
 
@@ -586,6 +636,21 @@ namespace BehaviorTreeEditor
         private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Exec(OperationType.PasteAgent);
+        }
+
+        private void 添加分组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.AddGroup);
+        }
+
+        private void 编辑分组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.EditGroup);
+        }
+
+        private void 删除分组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Exec(OperationType.DeleteGroup);
         }
 
         #endregion
@@ -686,6 +751,21 @@ namespace BehaviorTreeEditor
                 case OperationType.Reset:
                     Reset();
                     break;
+                case OperationType.AddGroup:
+                    //添加分组
+                    AddGroup();
+                    break;
+                case OperationType.EditGroup:
+                    //编辑分组
+                    EditGroup();
+                    break;
+                case OperationType.UpdateGroup:
+                    UpdateGroup((string)args[0], (Group)args[1]);
+                    break;
+                case OperationType.DeleteGroup:
+                    //删除分组
+                    DeleteGroup();
+                    break;
             }
 
             return true;
@@ -716,9 +796,6 @@ namespace BehaviorTreeEditor
 
             //读取行为树数据
             LoadBehaviorTreeData();
-
-            ExitSearchMode();
-            BindAgents();
         }
 
         //新建工作区
@@ -763,6 +840,8 @@ namespace BehaviorTreeEditor
 
                         //读取行为树数据
                         LoadBehaviorTreeData();
+
+                        CreateTreeViewManager();
                     }
                 }
             }
@@ -890,9 +969,10 @@ namespace BehaviorTreeEditor
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public void ShowInfo(String info)
+        public void ShowInfo(String info, params object[] args)
         {
-            toolStripStatusLabel1.Text = info;
+            string content = string.Format(info, args);
+            toolStripStatusLabel1.Text = content;
         }
 
         /// <summary>
@@ -948,25 +1028,6 @@ namespace BehaviorTreeEditor
             Settings.Default.Save();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            textBox1.Text = textBox1.Text.Trim();
-            SearchStr = textBox1.Text.Trim();
-
-            FilterAgentList.Clear();
-            if (!string.IsNullOrEmpty(SearchStr))
-            {
-                for (int i = 0; i < TreeData.Agents.Count; i++)
-                {
-                    AgentDesigner agent = TreeData.Agents[i];
-                    if (agent.AgentID.Contains(SearchStr))
-                        FilterAgentList.Add(agent);
-                }
-            }
-
-            BindAgents();
-        }
-
         public void LoadBehaviorTreeData()
         {
             //读取行为树数据
@@ -1006,12 +1067,6 @@ namespace BehaviorTreeEditor
                     }
                 }
             }
-        }
-
-        //退出搜索模式
-        public void ExitSearchMode()
-        {
-            textBox1.Text = string.Empty;
         }
 
         private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)

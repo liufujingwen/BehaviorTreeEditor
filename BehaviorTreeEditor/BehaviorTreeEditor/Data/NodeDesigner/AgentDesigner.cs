@@ -6,14 +6,22 @@ namespace BehaviorTreeEditor
     public class AgentDesigner
     {
         private string m_AgentID;
+        private string m_GroupName;
         private string m_Describe;
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
         private List<NodeDesigner> m_Nodes = new List<NodeDesigner>();
+        
 
         public string AgentID
         {
             get { return m_AgentID; }
             set { m_AgentID = value; }
+        }
+
+        public string GroupName
+        {
+            get { return m_GroupName; }
+            set { m_GroupName = value; }
         }
 
         public string Describe

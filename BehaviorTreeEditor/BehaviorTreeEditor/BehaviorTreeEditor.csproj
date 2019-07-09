@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\Group\EditGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Group\EditGroupForm.Designer.cs">
+      <DependentUpon>EditGroupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Group\AddGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Group\AddGroupForm.Designer.cs">
+      <DependentUpon>AddGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\NodeDesigner\Field\DoubleFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\RepeatStringFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\StringFieldDesigner.cs" />
@@ -123,6 +135,10 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TreeView\AgentItem.cs" />
+    <Compile Include="TreeView\Group.cs" />
+    <Compile Include="TreeView\GroupItem.cs" />
+    <Compile Include="TreeView\TreeViewManager.cs" />
     <Compile Include="UIControls\NodePropertyUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -244,8 +260,14 @@
     <Compile Include="Utility\Vec2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
+    <EmbeddedResource Include="Form\Group\AddGroupForm.resx">
+      <DependentUpon>AddGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">
       <DependentUpon>EditAgentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Group\EditGroupForm.resx">
+      <DependentUpon>EditGroupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\NodeClass\AddClassForm.resx">
       <DependentUpon>AddClassForm.cs</DependentUpon>
@@ -398,5 +420,6 @@
     <Content Include="Resources\view.bmp" />
     <Content Include="Resources\workspace.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

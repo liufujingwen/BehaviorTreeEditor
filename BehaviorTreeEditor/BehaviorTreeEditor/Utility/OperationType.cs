@@ -16,5 +16,9 @@
         PasteAgent,//粘贴Agent
         UpdateAgent,//刷新Agent
         Reset,//重置
+        AddGroup,//添加分组
+        EditGroup,//编辑分组
+        DeleteGroup,//删除分组
+        UpdateGroup,//更新分组
     }
 }

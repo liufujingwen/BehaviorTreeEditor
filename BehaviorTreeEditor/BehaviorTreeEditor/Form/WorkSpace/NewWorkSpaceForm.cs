@@ -82,6 +82,8 @@ namespace BehaviorTreeEditor
             XmlUtility.Save(MainForm.Instance.GetBehaviorTreeDataPath(), MainForm.Instance.TreeData);
             MainForm.Instance.BehaviorTreeDataStringContent = XmlUtility.ObjectToString(MainForm.Instance.TreeData);
 
+            MainForm.Instance.CreateTreeViewManager();
+
             MainForm.Instance.Exec(OperationType.Refresh);
 
             this.Close();
