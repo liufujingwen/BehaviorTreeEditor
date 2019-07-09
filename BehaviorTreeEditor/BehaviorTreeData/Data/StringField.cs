@@ -32,7 +32,7 @@ namespace BehaviorTreeData
 
         public static bool operator ==(StringField lhs, string rhs)
         {
-            return !(lhs.Value == rhs);
+            return lhs.Value == rhs;
         }
 
         public static bool operator !=(StringField lhs, string rhs)
