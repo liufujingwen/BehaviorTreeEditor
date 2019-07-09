@@ -495,8 +495,7 @@ namespace BehaviorTreeEditor
             if (agent == null)
                 return;
 
-            TreeNode treeNode = GetTreeNode(agent);
-            treeNode.Text = agent.AgentID;
+            TreeViewManager.UpdateAgent(agent);
         }
 
         //重置数据

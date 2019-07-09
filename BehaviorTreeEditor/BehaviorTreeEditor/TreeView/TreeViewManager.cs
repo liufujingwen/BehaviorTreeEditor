@@ -12,7 +12,6 @@ namespace BehaviorTreeEditor
         private List<AgentDesigner> m_Agents;
 
         public TreeView TreeView;
-        public Dictionary<string, AgentItem> AgentDic = new Dictionary<string, AgentItem>();
         public Dictionary<string, GroupItem> GroupDic = new Dictionary<string, GroupItem>();
 
         public TreeViewManager(Form form, TreeView treeView, List<Group> groups, List<AgentDesigner> agents)
@@ -108,7 +107,6 @@ namespace BehaviorTreeEditor
         {
             m_TreeView.Nodes.Clear();
             GroupDic.Clear();
-            AgentDic.Clear();
 
             for (int i = 0; i < m_Groups.Count; i++)
             {
@@ -167,6 +165,31 @@ namespace BehaviorTreeEditor
             }
 
             return agentItem;
+        }
+
+        public void UpdateAgent(AgentDesigner agent)
+        {
+            AgentItem agentItem = FindAgent(agent);
+            if (agentItem != null)
+                agentItem.TreeNode.Text = agent.AgentID;
+        }
+
+        public AgentItem FindAgent(AgentDesigner agent)
+        {
+            if (agent != null)
+            {
+                for (int i = 0; i < m_TreeView.Nodes.Count; i++)
+                {
+                    TreeNode treeNode = m_TreeView.Nodes[i];
+                    if (!(treeNode.Tag is AgentItem))
+                        continue;
+                    AgentItem agentItem = treeNode.Tag as AgentItem;
+                    if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
+                        return agentItem;
+                }
+            }
+
+            return null;
         }
 
         public GroupItem FindGroup(string groupName)

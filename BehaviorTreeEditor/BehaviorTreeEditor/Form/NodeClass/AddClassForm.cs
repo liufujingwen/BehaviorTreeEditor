@@ -46,6 +46,7 @@ namespace BehaviorTreeEditor
             m_NodeClass.Describe = describeTB.Text.Trim();
             m_NodeClass.Category = categoryTB.Text.Trim();
             m_NodeClass.ShowContent = showContentCB.Checked;
+            m_NodeClass.Label = labelTB.Text.Trim();
 
             //校验节点类是否合法
             VerifyInfo verifyNodeClass = m_NodeClass.VerifyNodeClass();
