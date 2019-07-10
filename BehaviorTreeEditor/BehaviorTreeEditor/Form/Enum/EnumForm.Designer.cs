@@ -87,14 +87,14 @@
             this.编辑ToolStripMenuItem,
             this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(215, 168);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(113, 140);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.copy;
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
@@ -103,21 +103,21 @@
             this.粘贴ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.paste;
             this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(211, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(109, 6);
             // 
             // 新建ToolStripMenuItem
             // 
             this.新建ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
             this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.新建ToolStripMenuItem.Text = "新建";
             this.新建ToolStripMenuItem.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
             // 
@@ -126,7 +126,7 @@
             this.编辑ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.pen;
             this.编辑ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
-            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.编辑ToolStripMenuItem.Text = "编辑";
             this.编辑ToolStripMenuItem.Click += new System.EventHandler(this.编辑ToolStripMenuItem_Click);
             // 
@@ -135,7 +135,7 @@
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click_1);
             // 
@@ -147,6 +147,7 @@
             this.Controls.Add(this.listView1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EnumForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "枚举查看窗口";
             this.Load += new System.EventHandler(this.EnumForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);

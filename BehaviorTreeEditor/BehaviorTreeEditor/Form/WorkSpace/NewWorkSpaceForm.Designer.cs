@@ -67,7 +67,7 @@
             // workSpaceNameTB
             // 
             this.workSpaceNameTB.Location = new System.Drawing.Point(180, 51);
-            this.workSpaceNameTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.workSpaceNameTB.Margin = new System.Windows.Forms.Padding(4);
             this.workSpaceNameTB.Name = "workSpaceNameTB";
             this.workSpaceNameTB.Size = new System.Drawing.Size(517, 25);
             this.workSpaceNameTB.TabIndex = 2;
@@ -75,7 +75,7 @@
             // workSpaceDirectoryTB
             // 
             this.workSpaceDirectoryTB.Location = new System.Drawing.Point(180, 89);
-            this.workSpaceDirectoryTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.workSpaceDirectoryTB.Margin = new System.Windows.Forms.Padding(4);
             this.workSpaceDirectoryTB.Name = "workSpaceDirectoryTB";
             this.workSpaceDirectoryTB.Size = new System.Drawing.Size(517, 25);
             this.workSpaceDirectoryTB.TabIndex = 3;
@@ -93,7 +93,7 @@
             // selectWorkSpaceDirectoryBTN
             // 
             this.selectWorkSpaceDirectoryBTN.Location = new System.Drawing.Point(723, 86);
-            this.selectWorkSpaceDirectoryBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectWorkSpaceDirectoryBTN.Margin = new System.Windows.Forms.Padding(4);
             this.selectWorkSpaceDirectoryBTN.Name = "selectWorkSpaceDirectoryBTN";
             this.selectWorkSpaceDirectoryBTN.Size = new System.Drawing.Size(81, 29);
             this.selectWorkSpaceDirectoryBTN.TabIndex = 5;
@@ -104,7 +104,7 @@
             // dataSaveDirectoryTB
             // 
             this.dataSaveDirectoryTB.Location = new System.Drawing.Point(180, 129);
-            this.dataSaveDirectoryTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataSaveDirectoryTB.Margin = new System.Windows.Forms.Padding(4);
             this.dataSaveDirectoryTB.Name = "dataSaveDirectoryTB";
             this.dataSaveDirectoryTB.Size = new System.Drawing.Size(517, 25);
             this.dataSaveDirectoryTB.TabIndex = 6;
@@ -112,7 +112,7 @@
             // cancelBTN
             // 
             this.cancelBTN.Location = new System.Drawing.Point(261, 284);
-            this.cancelBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(4);
             this.cancelBTN.Name = "cancelBTN";
             this.cancelBTN.Size = new System.Drawing.Size(143, 35);
             this.cancelBTN.TabIndex = 7;
@@ -123,7 +123,7 @@
             // enterBTN
             // 
             this.enterBTN.Location = new System.Drawing.Point(479, 284);
-            this.enterBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(4);
             this.enterBTN.Name = "enterBTN";
             this.enterBTN.Size = new System.Drawing.Size(143, 35);
             this.enterBTN.TabIndex = 8;
@@ -134,7 +134,7 @@
             // selectDataSaveDirectoryBTN
             // 
             this.selectDataSaveDirectoryBTN.Location = new System.Drawing.Point(723, 126);
-            this.selectDataSaveDirectoryBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectDataSaveDirectoryBTN.Margin = new System.Windows.Forms.Padding(4);
             this.selectDataSaveDirectoryBTN.Name = "selectDataSaveDirectoryBTN";
             this.selectDataSaveDirectoryBTN.Size = new System.Drawing.Size(81, 29);
             this.selectDataSaveDirectoryBTN.TabIndex = 9;
@@ -163,7 +163,7 @@
             // describeTB
             // 
             this.describeTB.Location = new System.Drawing.Point(180, 171);
-            this.describeTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(4);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
             this.describeTB.Size = new System.Drawing.Size(517, 66);
@@ -187,8 +187,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NewWorkSpaceForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "新建工作区";
             this.ResumeLayout(false);
             this.PerformLayout();

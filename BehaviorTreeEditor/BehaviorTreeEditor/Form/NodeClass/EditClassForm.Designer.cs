@@ -46,6 +46,8 @@
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.showContentCB = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.labelTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.categoryTB = new System.Windows.Forms.TextBox();
@@ -56,8 +58,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.describeTB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.showContentCB = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -227,6 +227,24 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // showContentCB
+            // 
+            this.showContentCB.AutoSize = true;
+            this.showContentCB.Location = new System.Drawing.Point(742, 25);
+            this.showContentCB.Name = "showContentCB";
+            this.showContentCB.Size = new System.Drawing.Size(18, 17);
+            this.showContentCB.TabIndex = 13;
+            this.showContentCB.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(617, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(127, 15);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "展示内容到节点：";
+            // 
             // labelTB
             // 
             this.labelTB.Location = new System.Drawing.Point(64, 58);
@@ -314,24 +332,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "描述：";
             // 
-            // showContentCB
-            // 
-            this.showContentCB.AutoSize = true;
-            this.showContentCB.Location = new System.Drawing.Point(742, 25);
-            this.showContentCB.Name = "showContentCB";
-            this.showContentCB.Size = new System.Drawing.Size(18, 17);
-            this.showContentCB.TabIndex = 13;
-            this.showContentCB.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(617, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 15);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "展示内容到节点：";
-            // 
             // EditClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -342,6 +342,7 @@
             this.Controls.Add(this.cancelBTN);
             this.Controls.Add(this.groupBox2);
             this.Name = "EditClassForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "编辑节点类";
             this.Load += new System.EventHandler(this.EditClassForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);

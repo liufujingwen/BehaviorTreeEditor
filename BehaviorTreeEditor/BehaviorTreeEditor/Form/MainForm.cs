@@ -1121,18 +1121,6 @@ namespace BehaviorTreeEditor
             {
                 e.DrawDefault = true;
             }
-
-            if ((e.State & TreeNodeStates.Focused) != 0)
-            {
-                //using (Pen focusPen = new Pen(Color.Black))
-                //{
-                //    focusPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                //    Rectangle focusBounds = e.Node.Bounds;
-                //    focusBounds.Size = new Size(focusBounds.Width - 1,
-                //        focusBounds.Height - 1);
-                //    e.Graphics.DrawRectangle(focusPen, focusBounds);
-                //}
-            }
         }
 
         private void playToolStripButton_Click(object sender, EventArgs e)

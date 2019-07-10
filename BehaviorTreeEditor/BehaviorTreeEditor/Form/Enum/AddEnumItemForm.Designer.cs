@@ -42,55 +42,52 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 53);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(33, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "枚举项:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 81);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(33, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 12);
+            this.label2.Size = new System.Drawing.Size(60, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "枚举值:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(141, 19);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(188, 24);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 12);
+            this.label3.Size = new System.Drawing.Size(197, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "为枚举类型:{0},添加枚举项";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 50);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Location = new System.Drawing.Point(100, 62);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 21);
+            this.textBox1.Size = new System.Drawing.Size(292, 25);
             this.textBox1.TabIndex = 3;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(75, 79);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Location = new System.Drawing.Point(100, 99);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(220, 21);
+            this.textBox2.Size = new System.Drawing.Size(292, 25);
             this.textBox2.TabIndex = 4;
             // 
             // cancelBTN
             // 
-            this.cancelBTN.Location = new System.Drawing.Point(88, 196);
-            this.cancelBTN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelBTN.Location = new System.Drawing.Point(117, 245);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(84, 29);
+            this.cancelBTN.Size = new System.Drawing.Size(112, 36);
             this.cancelBTN.TabIndex = 5;
             this.cancelBTN.Text = "取消";
             this.cancelBTN.UseVisualStyleBackColor = true;
@@ -98,10 +95,10 @@
             // 
             // enterBTN
             // 
-            this.enterBTN.Location = new System.Drawing.Point(265, 196);
-            this.enterBTN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.enterBTN.Location = new System.Drawing.Point(353, 245);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(84, 29);
+            this.enterBTN.Size = new System.Drawing.Size(112, 36);
             this.enterBTN.TabIndex = 6;
             this.enterBTN.Text = "确定";
             this.enterBTN.UseVisualStyleBackColor = true;
@@ -110,28 +107,27 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 113);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(37, 141);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(53, 15);
             this.label4.TabIndex = 7;
             this.label4.Text = "描 述:";
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(73, 110);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox3.Location = new System.Drawing.Point(97, 138);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(348, 56);
+            this.textBox3.Size = new System.Drawing.Size(463, 69);
             this.textBox3.TabIndex = 8;
             // 
             // AddEnumItemForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(449, 240);
+            this.ClientSize = new System.Drawing.Size(599, 300);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.enterBTN);
@@ -142,9 +138,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "AddEnumItemForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加枚举项";
             this.Load += new System.EventHandler(this.AddEnumItemForm_Load);
             this.ResumeLayout(false);

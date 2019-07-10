@@ -45,19 +45,19 @@
             this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.showContentCB = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labelTB = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.categoryTB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewFields = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.labelTB = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.showContentCB = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -218,6 +218,41 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
+            // showContentCB
+            // 
+            this.showContentCB.AutoSize = true;
+            this.showContentCB.Location = new System.Drawing.Point(717, 25);
+            this.showContentCB.Name = "showContentCB";
+            this.showContentCB.Size = new System.Drawing.Size(18, 17);
+            this.showContentCB.TabIndex = 11;
+            this.showContentCB.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(592, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(127, 15);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "展示内容到节点：";
+            // 
+            // labelTB
+            // 
+            this.labelTB.Location = new System.Drawing.Point(64, 58);
+            this.labelTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelTB.Name = "labelTB";
+            this.labelTB.Size = new System.Drawing.Size(456, 25);
+            this.labelTB.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "标签：";
+            // 
             // categoryTB
             // 
             this.categoryTB.Location = new System.Drawing.Point(65, 128);
@@ -274,6 +309,11 @@
             this.columnHeader1.Text = "字段名";
             this.columnHeader1.Width = 150;
             // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "标签";
+            this.columnHeader2.Width = 151;
+            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "字段类型";
@@ -289,46 +329,6 @@
             this.columnHeader5.Text = "描述";
             this.columnHeader5.Width = 300;
             // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "标签";
-            this.columnHeader2.Width = 151;
-            // 
-            // labelTB
-            // 
-            this.labelTB.Location = new System.Drawing.Point(64, 58);
-            this.labelTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.labelTB.Name = "labelTB";
-            this.labelTB.Size = new System.Drawing.Size(456, 25);
-            this.labelTB.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "标签：";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(592, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 15);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "展示内容到节点：";
-            // 
-            // showContentCB
-            // 
-            this.showContentCB.AutoSize = true;
-            this.showContentCB.Location = new System.Drawing.Point(717, 25);
-            this.showContentCB.Name = "showContentCB";
-            this.showContentCB.Size = new System.Drawing.Size(18, 17);
-            this.showContentCB.TabIndex = 11;
-            this.showContentCB.UseVisualStyleBackColor = true;
-            // 
             // AddClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -342,6 +342,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AddClassForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加节点类";
             this.Load += new System.EventHandler(this.AddClassForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);

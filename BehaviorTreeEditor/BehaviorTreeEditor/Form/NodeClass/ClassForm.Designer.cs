@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("节点0");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("节点0");
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.添加类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,10 +48,10 @@
             this.treeView1.ItemHeight = 25;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "节点0";
-            treeNode1.Text = "节点0";
+            treeNode2.Name = "节点0";
+            treeNode2.Text = "节点0";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeView1.Size = new System.Drawing.Size(1047, 588);
             this.treeView1.TabIndex = 0;
             this.treeView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
@@ -108,6 +108,7 @@
             this.ClientSize = new System.Drawing.Size(1047, 588);
             this.Controls.Add(this.treeView1);
             this.Name = "ClassForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "类查看窗口";
             this.Load += new System.EventHandler(this.ClassForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);

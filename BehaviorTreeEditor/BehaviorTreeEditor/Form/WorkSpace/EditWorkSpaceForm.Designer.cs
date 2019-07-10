@@ -188,6 +188,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditWorkSpaceForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "编辑工作区";
             this.Load += new System.EventHandler(this.EditWorkSpaceForm_Load);
             this.ResumeLayout(false);
