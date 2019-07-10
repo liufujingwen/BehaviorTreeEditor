@@ -95,7 +95,7 @@
       <Describe>随机序列节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Parallel" Label="并行节点" ShowContent="false" NodeType="Composite">
+    <NodeClass ClassType="Parallel" Label="并行节点" Category="" ShowContent="false" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields>
         <NodeField>
@@ -122,11 +122,11 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Sequence" Label="顺序节点" ShowContent="false" NodeType="Composite">
+    <NodeClass ClassType="Sequence" Label="顺序节点" Category="" ShowContent="false" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="IfElse" Label="IfElse" ShowContent="false" NodeType="Composite">
+    <NodeClass ClassType="IfElse" Label="IfElse" Category="" ShowContent="false" NodeType="Composite">
       <Describe />
       <Fields />
     </NodeClass>
@@ -145,11 +145,11 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Success" Label="成功节点" ShowContent="false" NodeType="Decorator">
+    <NodeClass ClassType="Success" Label="成功节点" Category="" ShowContent="false" NodeType="Decorator">
       <Describe>成功节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Loop" Label="循环节点" ShowContent="true" NodeType="Decorator">
+    <NodeClass ClassType="Loop" Label="循环节点" Category="" ShowContent="true" NodeType="Decorator">
       <Describe>循环节点 -1无限循环</Describe>
       <Fields>
         <NodeField>
@@ -163,15 +163,15 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="WaitUntil" Label="等待返回True" ShowContent="false" NodeType="Decorator">
+    <NodeClass ClassType="WaitUntil" Label="等待返回True" Category="" ShowContent="false" NodeType="Decorator">
       <Describe>阻塞，直到子节点返回true</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Not" Label="取反节点" ShowContent="false" NodeType="Decorator">
+    <NodeClass ClassType="Not" Label="取反节点" Category="" ShowContent="false" NodeType="Decorator">
       <Describe>取反节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Frames" Label="帧数节点" ShowContent="true" NodeType="Decorator">
+    <NodeClass ClassType="Frames" Label="帧数节点" Category="" ShowContent="true" NodeType="Decorator">
       <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
       <Fields>
         <NodeField>
@@ -185,11 +185,11 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Failure" Label="失败节点" ShowContent="false" NodeType="Decorator">
+    <NodeClass ClassType="Failure" Label="失败节点" Category="" ShowContent="false" NodeType="Decorator">
       <Describe>失败节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Log" Label="输出节点" ShowContent="true" NodeType="Decorator">
+    <NodeClass ClassType="Log" Label="输出节点" Category="" ShowContent="true" NodeType="Decorator">
       <Describe>输出log节点</Describe>
       <Fields>
         <NodeField>
@@ -201,11 +201,11 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="LoopUntil" Label="循环直到" ShowContent="false" NodeType="Decorator">
+    <NodeClass ClassType="LoopUntil" Label="循环直到" Category="" ShowContent="false" NodeType="Decorator">
       <Describe>直到某个值达成前一直循环</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="Time" Label="时间" ShowContent="true" NodeType="Decorator">
+    <NodeClass ClassType="Time" Label="时间" Category="" ShowContent="true" NodeType="Decorator">
       <Describe>指定时间内运行</Describe>
       <Fields>
         <NodeField>
@@ -219,7 +219,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="CompareFloat" Label="比较Float节点" ShowContent="false" NodeType="Condition">
+    <NodeClass ClassType="CompareFloat" Label="比较Float节点" Category="" ShowContent="false" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields>
         <NodeField>
@@ -271,7 +271,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="CompareInt" Label="比较Int节点" ShowContent="false" NodeType="Condition">
+    <NodeClass ClassType="CompareInt" Label="比较Int节点" Category="" ShowContent="false" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields>
         <NodeField>
@@ -323,7 +323,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="CompareString" Label="比较String节点" ShowContent="false" NodeType="Condition">
+    <NodeClass ClassType="CompareString" Label="比较String节点" Category="" ShowContent="false" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields>
         <NodeField>
@@ -375,7 +375,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="AssignmentInt" Label="赋值节点(Int)" ShowContent="true" NodeType="Action">
+    <NodeClass ClassType="AssignmentInt" Label="赋值节点(Int)" Category="" ShowContent="true" NodeType="Action">
       <Describe>赋值节点</Describe>
       <Fields>
         <NodeField>
@@ -396,11 +396,11 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Noop" Label="空操作节点" ShowContent="false" NodeType="Action">
+    <NodeClass ClassType="Noop" Label="空操作节点" Category="" ShowContent="false" NodeType="Action">
       <Describe>空操作节点</Describe>
       <Fields />
     </NodeClass>
-    <NodeClass ClassType="AssignmentString" Label="赋值节点(String)" ShowContent="true" NodeType="Action">
+    <NodeClass ClassType="AssignmentString" Label="赋值节点(String)" Category="" ShowContent="true" NodeType="Action">
       <Describe>赋值节点(String)</Describe>
       <Fields>
         <NodeField>
@@ -419,7 +419,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="AssignmentFloat" Label="赋值节点(Float)" ShowContent="true" NodeType="Action">
+    <NodeClass ClassType="AssignmentFloat" Label="赋值节点(Float)" Category="" ShowContent="true" NodeType="Action">
       <Describe>赋值节点(Float)</Describe>
       <Fields>
         <NodeField>
@@ -440,7 +440,7 @@
         </NodeField>
       </Fields>
     </NodeClass>
-    <NodeClass ClassType="Wait" Label="等待节点" ShowContent="true" NodeType="Action">
+    <NodeClass ClassType="Wait" Label="等待节点" Category="" ShowContent="true" NodeType="Action">
       <Describe>等待节点</Describe>
       <Fields>
         <NodeField>

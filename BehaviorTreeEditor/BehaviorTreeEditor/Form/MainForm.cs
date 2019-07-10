@@ -82,6 +82,9 @@ namespace BehaviorTreeEditor
 
         public void CreateTreeViewManager()
         {
+            if (TreeData == null)
+                return;
+
             TreeViewManager = new TreeViewManager(this, treeView1, TreeData.Groups, TreeData.Agents);
             TreeViewManager.BindAgents();
         }
@@ -292,6 +295,9 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void AddAgent()
         {
+            if (TreeData == null)
+                return;
+
             AgentDesigner agent = new AgentDesigner();
             string agentID = "NewAgent_" + DateTime.Now.Ticks;
             do
@@ -431,6 +437,8 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void RefreshAgents()
         {
+            if (WorkSpaceData != null)
+                this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
         }
 
         //交换Agent位置
@@ -819,6 +827,10 @@ namespace BehaviorTreeEditor
                 string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
                 return;
             WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
+
+            if (WorkSpaceData == null)
+                return;
+
             if (WorkSpaceData != null)
                 this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
 
@@ -897,6 +909,9 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
+            if (NodeClasses == null || TreeData == null)
+                return;
+
             //节点类移除未定义的枚举字段
             NodeClasses.RemoveUnDefineEnumField();
 

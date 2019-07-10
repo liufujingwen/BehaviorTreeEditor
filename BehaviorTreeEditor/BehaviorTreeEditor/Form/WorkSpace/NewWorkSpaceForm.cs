@@ -74,6 +74,7 @@ namespace BehaviorTreeEditor
 
             //初始化节点类信息
             MainForm.Instance.NodeClasses = new NodeClasses();
+            MainForm.Instance.NodeClasses.ResetNodes();
             XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
             MainForm.Instance.NodeClassesStringContent = XmlUtility.ObjectToString(MainForm.Instance.NodeClasses);
 
