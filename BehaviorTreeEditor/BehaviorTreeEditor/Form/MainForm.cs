@@ -220,7 +220,7 @@ namespace BehaviorTreeEditor
                         Exec(OperationType.AddAgent);
                         break;
                     case Keys.Delete:
-                        Exec(OperationType.DeleteAgent);
+                        Exec(OperationType.DeleteAgentOrGroup);
                         break;
                 }
             }
@@ -299,12 +299,16 @@ namespace BehaviorTreeEditor
                 agentID = "NewAgent_" + DateTime.Now.Ticks;
             } while (TreeData.ExistAgent(agentID));
 
+            agent.AgentID = agentID;
+
+            //创建开始节点
+            NodeDesigner startNode = null;
             NodeClass nodeClass = NodeClasses.FindNode("Sequence");
             if (nodeClass != null)
             {
                 Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth,
                     EditorUtility.NodeHeight);
-                NodeDesigner startNode = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
+                startNode = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
                 startNode.ID = agent.GenNodeID();
                 startNode.StartNode = true;
                 startNode.NodeType = nodeClass.NodeType;
@@ -321,10 +325,24 @@ namespace BehaviorTreeEditor
                 }
 
                 agent.AddNode(startNode);
-                agent.AgentID = agentID;
-
-                TreeViewManager.AddAgent(agent);
             }
+
+            //创建空操作节点
+            NodeClass noopClass = NodeClasses.FindNode("Noop");
+            if (startNode != null && noopClass != null)
+            {
+                Rect rect = new Rect(EditorUtility.Center.x + 250, EditorUtility.Center.y, EditorUtility.NodeWidth,
+                    EditorUtility.NodeHeight);
+                NodeDesigner noopNode = new NodeDesigner(noopClass.Label, noopClass.ClassType, rect);
+                noopNode.ID = agent.GenNodeID();
+                noopNode.NodeType = noopClass.NodeType;
+                noopNode.Describe = noopClass.Describe;
+                agent.AddNode(noopNode);
+
+                startNode.AddChildNode(noopNode);
+            }
+
+            TreeViewManager.AddAgent(agent);
         }
 
         /// <summary>
@@ -580,6 +598,24 @@ namespace BehaviorTreeEditor
             }
         }
 
+        /// <summary>
+        /// 删除Agent
+        /// </summary>
+        private void DeleteAgentOrGroup()
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+
+            if (treeView1.SelectedNode.Tag is AgentItem)
+            {
+                DeleteAgent();
+            }
+            else
+            {
+                DeleteGroup();
+            }
+        }
+
         #endregion
 
         #region ToolStrip or Menu
@@ -669,7 +705,7 @@ namespace BehaviorTreeEditor
         //删除行为树
         private void deleteAgentToolStripButton_Click(object sender, EventArgs e)
         {
-            Exec(OperationType.DeleteAgent);
+            Exec(OperationType.DeleteAgentOrGroup);
         }
 
         //刷新
@@ -739,6 +775,10 @@ namespace BehaviorTreeEditor
                 case OperationType.DeleteAgent:
                     //删除选中的Agent
                     DeleteAgent();
+                    break;
+                case OperationType.DeleteAgentOrGroup:
+                    //删除选中的Agent或者分组
+                    DeleteAgentOrGroup();
                     break;
                 case OperationType.SwapAgent:
                     //交换Agent位置

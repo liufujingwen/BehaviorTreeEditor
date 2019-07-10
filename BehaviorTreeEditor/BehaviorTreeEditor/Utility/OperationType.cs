@@ -10,6 +10,7 @@
         Refresh,//刷新
         AddAgent,//添加行为树
         CopyAgent,//复制Agent
+        DeleteAgentOrGroup,//删除Agent或者分组
         DeleteAgent,//删除Agent
         EditAgent,//编辑Agent
         SwapAgent,//交换Agent
