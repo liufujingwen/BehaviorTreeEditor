@@ -115,6 +115,7 @@
             // enterBTN
             // 
             this.enterBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.enterBTN.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.enterBTN.Location = new System.Drawing.Point(731, 663);
             this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.enterBTN.Name = "enterBTN";

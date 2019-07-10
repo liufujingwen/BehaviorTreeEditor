@@ -75,8 +75,6 @@ namespace BehaviorTreeEditor
                 m_NodeClass.UpdateNodeClass(m_EditNodeClass);
                 MainForm.Instance.ShowInfo("修改成功 时间:" + DateTime.Now);
             }
-
-            this.Close();
         }
 
         private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)

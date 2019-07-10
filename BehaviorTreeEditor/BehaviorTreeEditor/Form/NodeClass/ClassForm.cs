@@ -125,7 +125,10 @@ namespace BehaviorTreeEditor
                 NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
 
                 EditClassForm editClassForm = new EditClassForm(this, nodeClass);
-                editClassForm.ShowDialog();
+                if (editClassForm.ShowDialog() == DialogResult.OK)
+                {
+                    UpdateNodeClass(nodeClass);
+                }
             }
         }
 
@@ -203,7 +206,57 @@ namespace BehaviorTreeEditor
             NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
 
             EditClassForm editClassForm = new EditClassForm(this, nodeClass);
-            editClassForm.ShowDialog();
+            if (editClassForm.ShowDialog() == DialogResult.OK)
+            {
+                UpdateNodeClass(nodeClass);
+            }
+        }
+
+        void UpdateNodeClass(NodeClass nodeClass)
+        {
+            TreeNode parentNode = null;
+
+            if (nodeClass.NodeType == NodeType.Composite)
+                parentNode = m_CompositeNode;
+            else if (nodeClass.NodeType == NodeType.Decorator)
+                parentNode = m_DecoratorNode;
+            else if (nodeClass.NodeType == NodeType.Condition)
+                parentNode = m_ConditionNode;
+            else if (nodeClass.NodeType == NodeType.Action)
+                parentNode = m_ActionNode;
+
+            TreeNode classTreeNode = null;
+            bool flag = false;
+            for (int i = 0; i < treeView1.Nodes.Count; i++)
+            {
+                TreeNode tempNode_i = treeView1.Nodes[i];
+
+                for (int ii = 0; ii < tempNode_i.Nodes.Count; ii++)
+                {
+                    TreeNode tempNode_ii = tempNode_i.Nodes[ii];
+                    if (tempNode_ii.Tag == nodeClass)
+                    {
+                        classTreeNode = tempNode_ii;
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (flag)
+                    break;
+            }
+
+            if (classTreeNode != null)
+            {
+                classTreeNode.Text = nodeClass.ClassType;
+
+                if (classTreeNode.Parent != parentNode)
+                {
+                    classTreeNode.Remove();
+                    parentNode.Nodes.Add(classTreeNode);
+                    treeView1.SelectedNode = classTreeNode;
+                }
+            }
         }
     }
 }
