@@ -19,7 +19,6 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\B
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditEnumForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditWorkSpaceForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EnumForm.resources
-D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.InputValueDialogForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.MainForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditEnumItemForm.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.NewWorkSpaceForm.resources
@@ -40,3 +39,4 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\bin\Debug\B
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.csproj.CopyComplete
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.AddGroup.resources
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditGroupForm.resources
+D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.InputValueDialogForm.resources

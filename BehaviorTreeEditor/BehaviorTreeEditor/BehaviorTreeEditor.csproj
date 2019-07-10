@@ -129,6 +129,12 @@
     <Compile Include="Form\Enum\AddEnumItemForm.Designer.cs">
       <DependentUpon>AddEnumItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\InputValueDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\InputValueDialogForm.Designer.cs">
+      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NodeClassTreeView\CategoryItem.cs" />
     <Compile Include="NodeClassTreeView\NodeItem.cs" />
     <Compile Include="NodeClassTreeView\NodeTreeViewManager.cs" />
@@ -176,12 +182,6 @@
     </Compile>
     <Compile Include="Form\Enum\EnumForm.Designer.cs">
       <DependentUpon>EnumForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form\InputValueDialogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\InputValueDialogForm.Designer.cs">
-      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\NodeDesigner\NodeType.cs" />
     <Compile Include="Form\MainForm.cs">
@@ -296,9 +296,6 @@
     <EmbeddedResource Include="Form\Enum\EnumForm.resx">
       <DependentUpon>EnumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\InputValueDialogForm.resx">
-      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -310,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\NodeClass\ClassForm.resx">
       <DependentUpon>ClassForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\InputValueDialogForm.resx">
+      <DependentUpon>InputValueDialogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

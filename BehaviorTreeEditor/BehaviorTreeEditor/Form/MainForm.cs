@@ -637,7 +637,8 @@ namespace BehaviorTreeEditor
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TestForm testForm = new TestForm();
+            NodeClass nodeClass = new NodeClass();
+            InputValueDialogForm testForm = new InputValueDialogForm("编辑",nodeClass);
             testForm.ShowDialog();
         }
 
