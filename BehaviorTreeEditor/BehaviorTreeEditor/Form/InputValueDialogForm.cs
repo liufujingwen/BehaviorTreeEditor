@@ -28,5 +28,10 @@ namespace BehaviorTreeEditor
         {
             propertyGrid1.Refresh();
         }
+
+        private void propertyGrid1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
