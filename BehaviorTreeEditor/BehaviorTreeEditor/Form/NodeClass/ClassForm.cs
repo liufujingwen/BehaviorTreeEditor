@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
@@ -48,10 +49,14 @@ namespace BehaviorTreeEditor
 
         private void treeView1_MouseClick(object sender, MouseEventArgs e)
         {
+
         }
 
         private void treeView1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (treeView1.SelectedNode == null)
+                return;
+
             for (int i = 0; i < contextMenuStrip1.Items.Count; i++)
             {
                 contextMenuStrip1.Items[i].Visible = false;
@@ -81,7 +86,7 @@ namespace BehaviorTreeEditor
 
                 NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
                 NodeClass nodeClass = nodeItem.NodeClass;
-              
+
 
                 EditClassForm editClassForm = new EditClassForm(this, nodeClass, delegate ()
                 {
@@ -89,7 +94,7 @@ namespace BehaviorTreeEditor
                     treeView1.SelectedNode = nodeItem.TreeNode;
                 });
                 editClassForm.ShowDialog();
-               
+
             }
         }
 
@@ -163,11 +168,11 @@ namespace BehaviorTreeEditor
             NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
             NodeClass nodeClass = nodeItem.NodeClass;
 
-            EditClassForm editClassForm = new EditClassForm(this, nodeClass,delegate() 
-            {
-                nodeItem = m_NodeTreeViewManager.BindNodeClass(nodeClass);
-                treeView1.SelectedNode = nodeItem.TreeNode;
-            });
+            EditClassForm editClassForm = new EditClassForm(this, nodeClass, delegate ()
+             {
+                 nodeItem = m_NodeTreeViewManager.BindNodeClass(nodeClass);
+                 treeView1.SelectedNode = nodeItem.TreeNode;
+             });
             editClassForm.ShowDialog();
         }
 

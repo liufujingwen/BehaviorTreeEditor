@@ -17,7 +17,7 @@ namespace BehaviorTreeEditor
             get { return ms_Instance; }
         }
 
-        private Brush HighLight = new SolidBrush(Color.FromArgb(255, 0, 120, 215));
+        public Brush HighLight = new SolidBrush(Color.FromArgb(255, 0, 120, 215));
 
         //工作区配置数据
         public WorkSpaceData WorkSpaceData;
