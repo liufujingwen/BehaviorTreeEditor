@@ -191,6 +191,12 @@ namespace BehaviorTreeEditor
                     case Keys.S:
                         MainForm.Instance.Exec(OperationType.Save);
                         break;
+                    case Keys.C:
+                        CopyClass();
+                        break;
+                    case Keys.V:
+                        PasteClass();
+                        break;
                 }
             }
         }
@@ -209,6 +215,76 @@ namespace BehaviorTreeEditor
             if (editClassForm.ShowDialog() == DialogResult.OK)
             {
                 UpdateNodeClass(nodeClass);
+            }
+        }
+
+        public class NodeClassListContent
+        {
+            private List<NodeClass> m_DataList = new List<NodeClass>();
+            public List<NodeClass> DataList { get { return m_DataList; } }
+        }
+
+        private void CopyClass()
+        {
+            if (treeView1.SelectedNode == null)
+                return;
+
+            if (treeView1.SelectedNode.Tag == null)
+                return;
+
+            if (!(treeView1.SelectedNode.Tag is NodeClass))
+                return;
+
+            NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
+
+            NodeClassListContent content = new NodeClassListContent();
+            content.DataList.Add(nodeClass);
+
+            if (content.DataList.Count > 0)
+                Clipboard.SetText(XmlUtility.ObjectToString(content));
+
+            MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个节点类！！！");
+        }
+
+        private void PasteClass()
+        {
+            try
+            {
+                NodeClassListContent content = XmlUtility.StringToObject<NodeClassListContent>(Clipboard.GetText());
+
+                NodeClass nodeClass = null;
+                for (int i = 0; i < content.DataList.Count; i++)
+                {
+                    nodeClass = content.DataList[i];
+                    string classType = nodeClass.ClassType;
+                    do
+                    {
+                        classType += "_New";
+                    }
+                    while (m_Nodes.ExistClassType(classType));
+
+                    nodeClass.ClassType = classType;
+                    m_Nodes.AddClass(nodeClass);
+                }
+
+                TreeNode parentNode = null;
+                if (nodeClass.NodeType == NodeType.Composite)
+                    parentNode = m_CompositeNode;
+                else if (nodeClass.NodeType == NodeType.Decorator)
+                    parentNode = m_DecoratorNode;
+                else if (nodeClass.NodeType == NodeType.Condition)
+                    parentNode = m_ConditionNode;
+                else if (nodeClass.NodeType == NodeType.Action)
+                    parentNode = m_ActionNode;
+
+                parentNode.Nodes.Add(nodeClass.ClassType).Tag = nodeClass;
+
+                MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个节点类！！！");
+            }
+            catch (Exception ex)
+            {
+                MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
             }
         }
 

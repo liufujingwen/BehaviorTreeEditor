@@ -434,6 +434,23 @@ namespace BehaviorTreeEditor
             #endregion
         }
 
+        public bool ExistClassType(string classType)
+        {
+            if (string.IsNullOrEmpty(classType))
+                throw new System.Exception("NodeClasses.ExistClassType() classType类型为空");
+
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeClass nodeClass = m_Nodes[i];
+                if (nodeClass == null)
+                    continue;
+                if (nodeClass.ClassType == classType)
+                    return true;
+            }
+
+            return false;
+        }
+
         public bool ExistEnumType(string enumType)
         {
             if (string.IsNullOrEmpty(enumType))

@@ -200,7 +200,7 @@ namespace BehaviorTreeEditor
 
         public class EnumListContent
         {
-            List<CustomEnum> m_DataList = new List<CustomEnum>();
+            private List<CustomEnum> m_DataList = new List<CustomEnum>();
             public List<CustomEnum> DataList { get { return m_DataList; } }
         }
 
