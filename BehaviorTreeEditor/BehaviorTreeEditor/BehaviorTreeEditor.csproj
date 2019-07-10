@@ -129,6 +129,11 @@
     <Compile Include="Form\Enum\AddEnumItemForm.Designer.cs">
       <DependentUpon>AddEnumItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NodeClassTreeView\CategoryItem.cs" />
+    <Compile Include="NodeClassTreeView\NodeItem.cs" />
+    <Compile Include="NodeClassTreeView\NodeTreeViewManager.cs" />
+    <Compile Include="NodeClassTreeView\NodeTypeItem.cs" />
+    <Compile Include="NodeClassTreeView\TreeViewItem.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +261,7 @@
     <Compile Include="Utility\EditorUtility.cs" />
     <Compile Include="Utility\PropertySorter.cs" />
     <Compile Include="Utility\Rect.cs" />
+    <Compile Include="Utility\Singleton.cs" />
     <Compile Include="Utility\VerifyInfo.cs" />
     <Compile Include="Utility\Vec2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />

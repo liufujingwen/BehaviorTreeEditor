@@ -7,6 +7,7 @@ namespace BehaviorTreeEditor
     public partial class ClassForm : Form
     {
         private NodeClasses m_Nodes;
+        private NodeTreeViewManager m_NodeTreeViewManager;
         private TreeNode m_CompositeNode;
         private TreeNode m_DecoratorNode;
         private TreeNode m_ConditionNode;
@@ -21,14 +22,19 @@ namespace BehaviorTreeEditor
         private void 添加类ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NodeType nodeType = NodeType.Composite;
-            if (treeView1.SelectedNode == m_CompositeNode)
-                nodeType = NodeType.Composite;
-            else if (treeView1.SelectedNode == m_DecoratorNode)
-                nodeType = NodeType.Decorator;
-            else if (treeView1.SelectedNode == m_ConditionNode)
-                nodeType = NodeType.Condition;
-            else if (treeView1.SelectedNode == m_ActionNode)
-                nodeType = NodeType.Action;
+
+            if (treeView1.SelectedNode != null)
+            {
+                TreeNode treeNode = treeView1.SelectedNode;
+                while (treeNode.Parent != null)
+                    treeNode = treeNode.Parent;
+
+                if (treeNode.Tag is NodeTypeItem)
+                {
+                    NodeTypeItem nodeTypeItem = treeNode.Tag as NodeTypeItem;
+                    nodeType = nodeTypeItem.NodeType;
+                }
+            }
 
             AddClassForm addClassForm = new AddClassForm(nodeType, this);
             addClassForm.ShowDialog();
@@ -36,60 +42,8 @@ namespace BehaviorTreeEditor
 
         private void ClassForm_Load(object sender, EventArgs e)
         {
-            BindNodeTree();
-        }
-
-        private void BindNodeTree()
-        {
-            treeView1.Nodes.Clear();
-            m_CompositeNode = treeView1.Nodes.Add("组合节点");
-            m_DecoratorNode = treeView1.Nodes.Add("修饰节点");
-            m_ConditionNode = treeView1.Nodes.Add("条件节点");
-            m_ActionNode = treeView1.Nodes.Add("动作节点");
-
-            //绑定组合节点
-            List<NodeClass> compositeList = m_Nodes.GetClasses(NodeType.Composite);
-            m_CompositeNode.Nodes.Clear();
-            for (int i = 0; i < compositeList.Count; i++)
-            {
-                NodeClass node = compositeList[i];
-                TreeNode treeNode = m_CompositeNode.Nodes.Add(node.ClassType);
-                treeNode.Tag = node;
-            }
-
-            //绑定修饰节点
-            List<NodeClass> decoratorList = m_Nodes.GetClasses(NodeType.Decorator);
-            m_DecoratorNode.Nodes.Clear();
-            for (int i = 0; i < decoratorList.Count; i++)
-            {
-                NodeClass node = decoratorList[i];
-                TreeNode treeNode = m_DecoratorNode.Nodes.Add(node.ClassType);
-                treeNode.Tag = node;
-            }
-
-            //绑定条件节点
-            List<NodeClass> conditionList = m_Nodes.GetClasses(NodeType.Condition);
-            m_ConditionNode.Nodes.Clear();
-            for (int i = 0; i < conditionList.Count; i++)
-            {
-                NodeClass node = conditionList[i];
-                TreeNode treeNode = m_ConditionNode.Nodes.Add(node.ClassType);
-                treeNode.Tag = node;
-            }
-
-            //绑定动作节点
-            List<NodeClass> actionList = m_Nodes.GetClasses(NodeType.Action);
-            m_ActionNode.Nodes.Clear();
-            for (int i = 0; i < actionList.Count; i++)
-            {
-                NodeClass node = actionList[i];
-                TreeNode treeNode = m_ActionNode.Nodes.Add(node.ClassType);
-                treeNode.Tag = node;
-            }
-
-            treeView1.ExpandAll();
-            treeView1.SelectedNode = treeView1.Nodes[0];
-            treeView1.Nodes[0].EnsureVisible();
+            m_NodeTreeViewManager = new NodeTreeViewManager(treeView1, m_Nodes);
+            m_NodeTreeViewManager.BindNodeClasses();
         }
 
         private void treeView1_MouseClick(object sender, MouseEventArgs e)
@@ -103,12 +57,12 @@ namespace BehaviorTreeEditor
                 contextMenuStrip1.Items[i].Visible = false;
             }
 
-            if (treeView1.SelectedNode == null || treeView1.SelectedNode.Tag == null)
+            if (treeView1.SelectedNode.Tag is NodeTypeItem || treeView1.SelectedNode.Tag is CategoryItem)
             {
                 contextMenuStrip1.Items[0].Visible = true;
                 contextMenuStrip1.Items[3].Visible = true;
             }
-            else
+            else if (treeView1.SelectedNode.Tag is NodeItem)
             {
                 contextMenuStrip1.Items[1].Visible = true;
                 contextMenuStrip1.Items[2].Visible = true;
@@ -122,38 +76,26 @@ namespace BehaviorTreeEditor
                 if (treeView1.SelectedNode.Tag == null)
                     return;
 
-                NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
+                if (!(treeView1.SelectedNode.Tag is NodeItem))
+                    return;
 
-                EditClassForm editClassForm = new EditClassForm(this, nodeClass);
-                if (editClassForm.ShowDialog() == DialogResult.OK)
+                NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
+                NodeClass nodeClass = nodeItem.NodeClass;
+              
+
+                EditClassForm editClassForm = new EditClassForm(this, nodeClass, delegate ()
                 {
-                    UpdateNodeClass(nodeClass);
-                }
+                    nodeItem = m_NodeTreeViewManager.BindNodeClass(nodeClass);
+                    treeView1.SelectedNode = nodeItem.TreeNode;
+                });
+                editClassForm.ShowDialog();
+               
             }
         }
 
         public void AddClass(NodeClass nodeClass)
         {
-            if (nodeClass == null)
-                return;
-
-            TreeNode treeNode = null;
-
-            if (nodeClass.NodeType == NodeType.Composite)
-                treeNode = m_CompositeNode;
-            else if (nodeClass.NodeType == NodeType.Decorator)
-                treeNode = m_DecoratorNode;
-            else if (nodeClass.NodeType == NodeType.Condition)
-                treeNode = m_ConditionNode;
-            else if (nodeClass.NodeType == NodeType.Action)
-                treeNode = m_ActionNode;
-
-            if (treeNode == null)
-                return;
-
-            TreeNode newNode = treeNode.Nodes.Add(nodeClass.ClassType);
-            newNode.Tag = nodeClass;
-
+            m_NodeTreeViewManager.BindNodeClass(nodeClass);
             MainForm.Instance.ShowInfo("成功添加:" + nodeClass.ClassType + ",时间：" + DateTime.Now);
         }
 
@@ -161,10 +103,12 @@ namespace BehaviorTreeEditor
         {
             if (MessageBox.Show("是否重置所有类信息吗？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                BindNodeTree();
+                m_NodeTreeViewManager = new NodeTreeViewManager(treeView1, m_Nodes);
+                m_NodeTreeViewManager.BindNodeClasses();
                 MainForm.Instance.Exec(OperationType.Reset);
             }
         }
+
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode == null)
@@ -173,12 +117,16 @@ namespace BehaviorTreeEditor
             if (treeView1.SelectedNode.Tag == null)
                 return;
 
-            TreeNode selectedNode = treeView1.SelectedNode;
-            NodeClass nodeClass = selectedNode.Tag as NodeClass;
+            if (!(treeView1.SelectedNode.Tag is NodeItem))
+                return;
+
+            NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
+            NodeClass nodeClass = nodeItem.NodeClass;
+
             if (MessageBox.Show(string.Format("是否删除节点{0}？", nodeClass.ClassType), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 m_Nodes.Remove(nodeClass);
-                treeView1.Nodes.Remove(selectedNode);
+                m_NodeTreeViewManager.RemoveNodeClass(nodeClass);
             }
         }
 
@@ -209,13 +157,18 @@ namespace BehaviorTreeEditor
             if (treeView1.SelectedNode.Tag == null)
                 return;
 
-            NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
+            if (!(treeView1.SelectedNode.Tag is NodeItem))
+                return;
 
-            EditClassForm editClassForm = new EditClassForm(this, nodeClass);
-            if (editClassForm.ShowDialog() == DialogResult.OK)
+            NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
+            NodeClass nodeClass = nodeItem.NodeClass;
+
+            EditClassForm editClassForm = new EditClassForm(this, nodeClass,delegate() 
             {
-                UpdateNodeClass(nodeClass);
-            }
+                nodeItem = m_NodeTreeViewManager.BindNodeClass(nodeClass);
+                treeView1.SelectedNode = nodeItem.TreeNode;
+            });
+            editClassForm.ShowDialog();
         }
 
         public class NodeClassListContent
@@ -232,10 +185,11 @@ namespace BehaviorTreeEditor
             if (treeView1.SelectedNode.Tag == null)
                 return;
 
-            if (!(treeView1.SelectedNode.Tag is NodeClass))
+            if (!(treeView1.SelectedNode.Tag is NodeItem))
                 return;
 
-            NodeClass nodeClass = treeView1.SelectedNode.Tag as NodeClass;
+            NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
+            NodeClass nodeClass = nodeItem.NodeClass;
 
             NodeClassListContent content = new NodeClassListContent();
             content.DataList.Add(nodeClass);
@@ -267,17 +221,7 @@ namespace BehaviorTreeEditor
                     m_Nodes.AddClass(nodeClass);
                 }
 
-                TreeNode parentNode = null;
-                if (nodeClass.NodeType == NodeType.Composite)
-                    parentNode = m_CompositeNode;
-                else if (nodeClass.NodeType == NodeType.Decorator)
-                    parentNode = m_DecoratorNode;
-                else if (nodeClass.NodeType == NodeType.Condition)
-                    parentNode = m_ConditionNode;
-                else if (nodeClass.NodeType == NodeType.Action)
-                    parentNode = m_ActionNode;
-
-                parentNode.Nodes.Add(nodeClass.ClassType).Tag = nodeClass;
+                m_NodeTreeViewManager.BindNodeClass(nodeClass);
 
                 MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个节点类！！！");
             }
@@ -285,53 +229,6 @@ namespace BehaviorTreeEditor
             {
                 MainForm.Instance.ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
                 MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
-            }
-        }
-
-        void UpdateNodeClass(NodeClass nodeClass)
-        {
-            TreeNode parentNode = null;
-
-            if (nodeClass.NodeType == NodeType.Composite)
-                parentNode = m_CompositeNode;
-            else if (nodeClass.NodeType == NodeType.Decorator)
-                parentNode = m_DecoratorNode;
-            else if (nodeClass.NodeType == NodeType.Condition)
-                parentNode = m_ConditionNode;
-            else if (nodeClass.NodeType == NodeType.Action)
-                parentNode = m_ActionNode;
-
-            TreeNode classTreeNode = null;
-            bool flag = false;
-            for (int i = 0; i < treeView1.Nodes.Count; i++)
-            {
-                TreeNode tempNode_i = treeView1.Nodes[i];
-
-                for (int ii = 0; ii < tempNode_i.Nodes.Count; ii++)
-                {
-                    TreeNode tempNode_ii = tempNode_i.Nodes[ii];
-                    if (tempNode_ii.Tag == nodeClass)
-                    {
-                        classTreeNode = tempNode_ii;
-                        flag = true;
-                        break;
-                    }
-                }
-
-                if (flag)
-                    break;
-            }
-
-            if (classTreeNode != null)
-            {
-                classTreeNode.Text = nodeClass.ClassType;
-
-                if (classTreeNode.Parent != parentNode)
-                {
-                    classTreeNode.Remove();
-                    parentNode.Nodes.Add(classTreeNode);
-                    treeView1.SelectedNode = classTreeNode;
-                }
             }
         }
     }

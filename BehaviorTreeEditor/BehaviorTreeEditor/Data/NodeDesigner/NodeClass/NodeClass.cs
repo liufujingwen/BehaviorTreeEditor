@@ -27,7 +27,7 @@ namespace BehaviorTreeEditor
             set { m_Label = value; }
         }
 
-        private string m_Category;
+        private string m_Category = string.Empty;
         [Category("常规"), DisplayName("类别"), Description("类别")]
         [XmlAttribute]
         public string Category

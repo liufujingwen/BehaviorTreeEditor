@@ -10,13 +10,15 @@ namespace BehaviorTreeEditor
         private NodeClass m_EditNodeClass;
         private ClassForm m_ClassForm = null;
         private string m_Content;
+        private Action m_EditCallback;
 
-        public EditClassForm(ClassForm classForm, NodeClass nodeClass)
+        public EditClassForm(ClassForm classForm, NodeClass nodeClass, Action editCallback)
         {
             m_ClassForm = classForm;
             m_NodeClass = nodeClass;
             m_Content = XmlUtility.ObjectToString(m_NodeClass);
             m_EditNodeClass = XmlUtility.StringToObject<NodeClass>(m_Content);
+            m_EditCallback = editCallback;
             InitializeComponent();
         }
 
@@ -53,6 +55,12 @@ namespace BehaviorTreeEditor
                 return;
             }
 
+            if (categoryTB.Text.Trim().Contains(" "))
+            {
+                MainForm.Instance.ShowMessage("类别不能有空格", "提示");
+                return;
+            }
+
             m_EditNodeClass.ClassType = classTypeTB.Text.Trim();
             m_EditNodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 1);
             m_EditNodeClass.Label = labelTB.Text.Trim();
@@ -75,6 +83,10 @@ namespace BehaviorTreeEditor
                 m_NodeClass.UpdateNodeClass(m_EditNodeClass);
                 MainForm.Instance.ShowInfo("修改成功 时间:" + DateTime.Now);
             }
+
+            this.Close();
+
+            m_EditCallback?.Invoke();
         }
 
         private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)

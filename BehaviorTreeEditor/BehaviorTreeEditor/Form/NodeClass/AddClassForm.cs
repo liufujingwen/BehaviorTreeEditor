@@ -41,6 +41,12 @@ namespace BehaviorTreeEditor
                 return;
             }
 
+            if (categoryTB.Text.Trim().Contains(" "))
+            {
+                MainForm.Instance.ShowMessage("类别不能有空格", "提示");
+                return;
+            }
+
             m_NodeClass.ClassType = classTypeTB.Text.Trim();
             m_NodeClass.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 1);
             m_NodeClass.Describe = describeTB.Text.Trim();
