@@ -646,7 +646,7 @@ namespace BehaviorTreeEditor
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NodeClass nodeClass = new NodeClass();
-            InputValueDialogForm testForm = new InputValueDialogForm("编辑",nodeClass);
+            InputValueDialogForm testForm = new InputValueDialogForm("编辑", nodeClass);
             testForm.ShowDialog();
         }
 
@@ -998,7 +998,7 @@ namespace BehaviorTreeEditor
         /// <returns></returns>
         public string GetBehaviorTreeDataPath()
         {
-            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.BehaviorTreeDataFile);
+            return Path.Combine(Settings.Default.WorkDirectory, WorkSpaceData.WorkSpaceName + Settings.Default.BehaviorTreeDataFileSuffix);
         }
 
         /// <summary>

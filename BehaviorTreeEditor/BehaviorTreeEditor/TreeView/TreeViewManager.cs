@@ -181,11 +181,26 @@ namespace BehaviorTreeEditor
                 for (int i = 0; i < m_TreeView.Nodes.Count; i++)
                 {
                     TreeNode treeNode = m_TreeView.Nodes[i];
-                    if (!(treeNode.Tag is AgentItem))
-                        continue;
-                    AgentItem agentItem = treeNode.Tag as AgentItem;
-                    if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
-                        return agentItem;
+                    if (treeNode.Tag is AgentItem)
+                    {
+                        AgentItem agentItem = treeNode.Tag as AgentItem;
+                        if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
+                            return agentItem;
+                    }
+
+                    if (treeNode.Nodes.Count > 0)
+                    {
+                        for (int ii = 0; ii < treeNode.Nodes.Count; ii++)
+                        {
+                            TreeNode treeNode_ii = treeNode.Nodes[ii];
+                            if (treeNode_ii.Tag is AgentItem)
+                            {
+                                AgentItem agentItem = treeNode_ii.Tag as AgentItem;
+                                if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
+                                    return agentItem;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -240,6 +255,20 @@ namespace BehaviorTreeEditor
                     AgentItem agentItem = treeNode.Tag as AgentItem;
                     if (agentItem != null && agentItem.Agent.AgentID == agentID)
                         return agentItem;
+                }
+
+                if (treeNode.Nodes.Count > 0)
+                {
+                    for (int ii = 0; ii < treeNode.Nodes.Count; ii++)
+                    {
+                        TreeNode treeNode_ii = treeNode.Nodes[ii];
+                        if (treeNode_ii.Tag is AgentItem)
+                        {
+                            AgentItem agentItem = treeNode_ii.Tag as AgentItem;
+                            if (agentItem != null && agentItem.Agent.AgentID == agentID)
+                                return agentItem;
+                        }
+                    }
                 }
             }
             return null;
@@ -323,6 +352,9 @@ namespace BehaviorTreeEditor
             }
 
             AgentItem agentItem = FindAgentItem(agentID);
+            if (agentItem == null)
+                return;
+
             int index = GetIndex(agentItem);
             m_TreeView.Nodes.Remove(agentItem.TreeNode);
 

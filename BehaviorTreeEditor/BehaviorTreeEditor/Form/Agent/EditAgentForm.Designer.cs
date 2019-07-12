@@ -60,9 +60,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.listView1);
-            this.groupBox1.Location = new System.Drawing.Point(4, 121);
+            this.groupBox1.Location = new System.Drawing.Point(5, 151);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(852, 218);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(1136, 272);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "字段预览(右键展示操作菜单)";
@@ -78,9 +80,10 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(3, 17);
+            this.listView1.Location = new System.Drawing.Point(4, 22);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(846, 198);
+            this.listView1.Size = new System.Drawing.Size(1128, 246);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -113,51 +116,58 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(4, -4);
+            this.groupBox2.Location = new System.Drawing.Point(5, -5);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(461, 119);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(615, 149);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(62, 48);
+            this.textBox2.Location = new System.Drawing.Point(83, 60);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(349, 60);
+            this.textBox2.Size = new System.Drawing.Size(464, 74);
             this.textBox2.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Location = new System.Drawing.Point(8, 60);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 12);
+            this.label2.Size = new System.Drawing.Size(61, 15);
             this.label2.TabIndex = 7;
             this.label2.Text = "描  述:";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(62, 20);
+            this.textBox1.Location = new System.Drawing.Point(83, 25);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(277, 21);
+            this.textBox1.Size = new System.Drawing.Size(368, 25);
             this.textBox1.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 23);
+            this.label1.Location = new System.Drawing.Point(8, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(71, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "AgentID:";
             // 
             // cancelBTN
             // 
             this.cancelBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBTN.Location = new System.Drawing.Point(617, 357);
+            this.cancelBTN.Location = new System.Drawing.Point(823, 446);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(82, 28);
+            this.cancelBTN.Size = new System.Drawing.Size(109, 35);
             this.cancelBTN.TabIndex = 3;
             this.cancelBTN.Text = "取消";
             this.cancelBTN.UseVisualStyleBackColor = true;
@@ -166,9 +176,10 @@
             // enterBTN
             // 
             this.enterBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterBTN.Location = new System.Drawing.Point(732, 357);
+            this.enterBTN.Location = new System.Drawing.Point(976, 446);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(82, 28);
+            this.enterBTN.Size = new System.Drawing.Size(109, 35);
             this.enterBTN.TabIndex = 4;
             this.enterBTN.Text = "确定";
             this.enterBTN.UseVisualStyleBackColor = true;
@@ -185,14 +196,14 @@
             this.编辑ToolStripMenuItem,
             this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(105, 140);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(113, 140);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.copy;
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
@@ -201,21 +212,21 @@
             this.粘贴ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.paste;
             this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(101, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(109, 6);
             // 
             // 新建ToolStripMenuItem
             // 
             this.新建ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
             this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.新建ToolStripMenuItem.Text = "新建";
             this.新建ToolStripMenuItem.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
             // 
@@ -224,7 +235,7 @@
             this.编辑ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.pen;
             this.编辑ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
-            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.编辑ToolStripMenuItem.Text = "编辑";
             this.编辑ToolStripMenuItem.Click += new System.EventHandler(this.编辑ToolStripMenuItem_Click);
             // 
@@ -233,20 +244,22 @@
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(112, 26);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // EditAgentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 397);
+            this.ClientSize = new System.Drawing.Size(1147, 496);
             this.Controls.Add(this.enterBTN);
             this.Controls.Add(this.cancelBTN);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "EditAgentForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "编辑行为树Agent";
             this.Load += new System.EventHandler(this.EditAgentForm_Load);
             this.groupBox1.ResumeLayout(false);

@@ -73,13 +73,13 @@ namespace BehaviorTreeEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("BehaviorTreeData.xml")]
-        public string BehaviorTreeDataFile {
+        [global::System.Configuration.DefaultSettingValueAttribute(".xml")]
+        public string BehaviorTreeDataFileSuffix {
             get {
-                return ((string)(this["BehaviorTreeDataFile"]));
+                return ((string)(this["BehaviorTreeDataFileSuffix"]));
             }
             set {
-                this["BehaviorTreeDataFile"] = value;
+                this["BehaviorTreeDataFileSuffix"] = value;
             }
         }
         

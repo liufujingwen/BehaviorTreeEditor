@@ -14,8 +14,8 @@
     <Setting Name="NodeClassFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">NodeClass.xml</Value>
     </Setting>
-    <Setting Name="BehaviorTreeDataFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">BehaviorTreeData.xml</Value>
+    <Setting Name="BehaviorTreeDataFileSuffix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.xml</Value>
     </Setting>
     <Setting Name="NodeDataFileSuffix" Type="System.String" Scope="User">
       <Value Profile="(Default)">.bytes</Value>
