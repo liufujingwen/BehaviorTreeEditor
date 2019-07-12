@@ -676,7 +676,8 @@ namespace BehaviorTreeEditor.UIControls
         //删除节点
         private void 连线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            m_FromNode = m_SelectionNodes[0];
+            if (m_SelectionNodes.Count > 0)
+                m_FromNode = m_SelectionNodes[0];
         }
 
         //删除节点
