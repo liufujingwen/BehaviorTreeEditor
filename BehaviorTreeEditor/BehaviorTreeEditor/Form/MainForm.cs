@@ -902,6 +902,9 @@ namespace BehaviorTreeEditor
         //编辑工作区
         public void EditWorkSpace()
         {
+            if (WorkSpaceData == null)
+                return;
+
             EditWorkSpaceForm editWorkSpaceForm = new EditWorkSpaceForm();
             editWorkSpaceForm.ShowDialog();
         }
