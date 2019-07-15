@@ -813,6 +813,8 @@ namespace BehaviorTreeEditor
             data.ID = nodeData.ID;
             data.ClassType = nodeData.ClassType;
             data.Label = nodeData.Label;
+            data.X = (int)nodeData.Rect.x;
+            data.Y = (int)nodeData.Rect.y;
 
             for (int i = 0; i < nodeData.Fields.Count; i++)
             {

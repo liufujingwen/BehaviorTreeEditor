@@ -6,6 +6,9 @@ namespace BehaviorTreeData
 {
     public partial class NodeData : Binary
     {
+        public int X;
+        public int Y;
+
         public int ID;
         public string ClassType;
         public string Label;
@@ -14,12 +17,12 @@ namespace BehaviorTreeData
 
         public override void Read(ref Reader reader)
         {
-            reader.Read(ref ID).Read(ref ClassType).Read(ref Label).Read(ref Fields).Read(ref Childs);
+            reader.Read(ref X).Read(ref Y).Read(ref ID).Read(ref ClassType).Read(ref Label).Read(ref Fields).Read(ref Childs);
         }
 
         public override void Write(ref Writer writer)
         {
-            writer.Write(ID).Write(ClassType).Write(Label).Write(Fields).Write(Childs);
+            writer.Write(X).Write(Y).Write(ID).Write(ClassType).Write(Label).Write(Fields).Write(Childs);
         }
 
         public BaseField this[string fieldName]
