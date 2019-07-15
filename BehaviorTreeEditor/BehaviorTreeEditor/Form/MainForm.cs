@@ -295,6 +295,12 @@ namespace BehaviorTreeEditor
         /// </summary>
         private void AddAgent()
         {
+            if (WorkSpaceData == null)
+            {
+                ShowMessage("当前没有工作空间，请新建或者打开工作空间！");
+                return;
+            }
+
             if (TreeData == null)
                 return;
 
@@ -912,6 +918,12 @@ namespace BehaviorTreeEditor
         //保存
         public void Save()
         {
+            if (WorkSpaceData == null)
+            {
+                ShowMessage("当前没有工作空间，请新建或者打开工作空间！");
+                return;
+            }
+
             if (NodeClasses == null || TreeData == null)
                 return;
 
