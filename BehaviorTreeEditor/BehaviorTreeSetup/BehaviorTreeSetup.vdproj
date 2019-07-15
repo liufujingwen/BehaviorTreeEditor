@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0BA9FDF2DA130DD5D7C6454F665824D4"
+        "OwnerKey" = "8:_C7FFCF9B5063429BB1E07D0FE56A15F2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C7FFCF9B5063429BB1E07D0FE56A15F2"
+        "OwnerKey" = "8:_0BA9FDF2DA130DD5D7C6454F665824D4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -61,6 +61,32 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5.2 (x86 和 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6 (x86 和 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 和 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -77,6 +103,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -225,7 +259,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BehaviorTreeSetup"
         "ProductCode" = "8:{D8B014E7-3AEC-4605-BA98-F53970C974D8}"
-        "PackageCode" = "8:{DA26DBA4-6199-494E-B9DA-3FD1DD70DA55}"
+        "PackageCode" = "8:{27D557B8-B2D0-42FD-BD96-3FE43250A694}"
         "UpgradeCode" = "8:{2D82BC58-7389-4283-BDDE-3FB546E21806}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -347,7 +381,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B665F268E6FE4C6AB6892A716A830B20"
             {
-            "Name" = "8:BehaviorTreeEditor (Active)"
+            "Name" = "8:BehaviorTreeEditor"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -361,7 +395,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D99760531FE14BCBA9D1E1F4EDBE4EF5"
             {
-            "Name" = "8:BehaviorTreeEditor (Active)"
+            "Name" = "8:BehaviorTreeEditor"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
