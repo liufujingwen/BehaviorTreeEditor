@@ -292,11 +292,10 @@ namespace BehaviorTreeEditor
                 {
                     NodeField field = content.DataList[i];
                     string fieldName = field.FieldName;
-                    do
+                    while (m_EditNodeClass.ExistFieldName(fieldName))
                     {
                         fieldName += "_New";
                     }
-                    while (m_EditNodeClass.ExistFieldName(fieldName));
 
                     field.FieldName = fieldName;
                     m_EditNodeClass.AddField(field);
