@@ -51,13 +51,13 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (string.IsNullOrEmpty(dataSaveDirectoryTB.Text.Trim()))
-            {
-                MainForm.Instance.ShowMessage("请选择数据保存位置", "警告");
-                return;
-            }
+            //if (string.IsNullOrEmpty(dataSaveDirectoryTB.Text.Trim()))
+            //{
+            //    MainForm.Instance.ShowMessage("请选择数据保存位置", "警告");
+            //    return;
+            //}
 
-            if (!Directory.Exists(dataSaveDirectoryTB.Text.Trim()))
+            if (!string.IsNullOrEmpty(dataSaveDirectoryTB.Text.Trim()) && !Directory.Exists(dataSaveDirectoryTB.Text.Trim()))
             {
                 MainForm.Instance.ShowMessage("数据保存目录不存在", "警告");
                 return;

@@ -828,18 +828,6 @@ namespace BehaviorTreeEditor
         //加载工作区
         public void LoadWorkSpace()
         {
-            this.Text = Settings.Default.EditorTitle;
-            if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) ||
-                string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
-                return;
-            WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
-
-            if (WorkSpaceData == null)
-                return;
-
-            if (WorkSpaceData != null)
-                this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
-
             //读取行为树类信息
             NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
             if (NodeClasses == null)
@@ -851,6 +839,18 @@ namespace BehaviorTreeEditor
             }
 
             NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+
+            this.Text = Settings.Default.EditorTitle;
+            if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) || string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
+                return;
+
+            WorkSpaceData = XmlUtility.Read<WorkSpaceData>(GetWorkSpacePath());
+
+            if (WorkSpaceData == null)
+                return;
+
+            if (WorkSpaceData != null)
+                this.Text = string.Format("{0}[{1}]", Settings.Default.EditorTitle, WorkSpaceData.WorkSpaceName);
 
             //读取行为树数据
             LoadBehaviorTreeData();
@@ -1070,20 +1070,28 @@ namespace BehaviorTreeEditor
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Settings.Default.Save();
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 bool nodeClassDirty = false;
-                string tempNodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
-                if (tempNodeClassesStringContent != NodeClassesStringContent)
+                if (NodeClasses != null)
                 {
-                    nodeClassDirty = true;
+                    string tempNodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+                    if (tempNodeClassesStringContent != NodeClassesStringContent)
+                    {
+                        nodeClassDirty = true;
+                    }
                 }
 
                 bool behaviorTreeDirty = false;
-                string tempBehaviorTreeDataStringContent = XmlUtility.ObjectToString(TreeData);
-                if (tempBehaviorTreeDataStringContent != BehaviorTreeDataStringContent)
+                if (TreeData != null)
                 {
-                    behaviorTreeDirty = true;
+                    string tempBehaviorTreeDataStringContent = XmlUtility.ObjectToString(TreeData);
+                    if (tempBehaviorTreeDataStringContent != BehaviorTreeDataStringContent)
+                    {
+                        behaviorTreeDirty = true;
+                    }
                 }
 
                 if (nodeClassDirty || behaviorTreeDirty)
@@ -1094,8 +1102,6 @@ namespace BehaviorTreeEditor
                         Exec(OperationType.Save);
                 }
             }
-
-            Settings.Default.Save();
         }
 
         public void LoadBehaviorTreeData()
