@@ -95,12 +95,15 @@ namespace BehaviorTreeEditor
 
                 if (node_i.ID != node.ID && node_i.Transitions.Count > 0)
                 {
-                    Transition transition = node_i.Transitions[i];
-                    if (transition.ToNodeID == node.ID)
+                    for (int j = 0; j < node_i.Transitions.Count; j++)
                     {
-                        node.ParentNode = null;
-                        node_i.Transitions.RemoveAt(i);
-                        break;
+                        Transition transition = node_i.Transitions[j];
+                        if (transition.ToNodeID == node.ID)
+                        {
+                            node.ParentNode = null;
+                            node_i.Transitions.RemoveAt(j);
+                            break;
+                        }
                     }
                 }
             }
