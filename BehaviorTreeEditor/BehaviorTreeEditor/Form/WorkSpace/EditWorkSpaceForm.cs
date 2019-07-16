@@ -9,6 +9,7 @@ namespace BehaviorTreeEditor
     {
         private string m_OldWorkSpaceDirectory;
         private string m_OldWorkSpaceName;
+        private string m_OldDataSaveDirectory;
 
         public EditWorkSpaceForm()
         {
@@ -19,6 +20,7 @@ namespace BehaviorTreeEditor
         {
             m_OldWorkSpaceDirectory = Settings.Default.WorkDirectory;
             m_OldWorkSpaceName = MainForm.Instance.WorkSpaceData.WorkSpaceName;
+            m_OldDataSaveDirectory = string.IsNullOrEmpty(Settings.Default.NodeDataSavePath) ? Settings.Default.WorkDirectory : Settings.Default.NodeDataSavePath;
 
             workSpaceNameTB.Text = MainForm.Instance.WorkSpaceData.WorkSpaceName;
             workSpaceDirectoryTB.Text = Settings.Default.WorkDirectory;
@@ -72,15 +74,21 @@ namespace BehaviorTreeEditor
                 Settings.Default.WorkDirectory = workSpaceDirectoryTB.Text.Trim();
                 Settings.Default.NodeDataSavePath = dataSaveDirectoryTB.Text.Trim();
 
-                //删除旧文件
-                string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
-                if (File.Exists(oldWorkSpaceFile))
-                    File.Delete(oldWorkSpaceFile);
-                
+                if (m_OldWorkSpaceDirectory != Settings.Default.WorkDirectory)
+                {
+                    //删除旧文件
+                    string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+                    if (File.Exists(oldWorkSpaceFile))
+                        File.Delete(oldWorkSpaceFile);
+                }
+
                 //删除旧二进制数据
-                string oldTreeDataFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.NodeDataFileSuffix);
-                if (File.Exists(oldTreeDataFile))
-                    File.Delete(oldTreeDataFile);
+                if (Settings.Default.NodeDataSavePath != m_OldDataSaveDirectory)
+                {
+                    string oldTreeDataFile = Path.Combine(m_OldDataSaveDirectory, m_OldWorkSpaceName + Settings.Default.NodeDataFileSuffix);
+                    if (File.Exists(oldTreeDataFile))
+                        File.Delete(oldTreeDataFile);
+                }
 
                 Settings.Default.Save();
                 XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
