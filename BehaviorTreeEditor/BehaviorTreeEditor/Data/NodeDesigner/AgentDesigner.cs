@@ -10,7 +10,7 @@ namespace BehaviorTreeEditor
         private string m_Describe;
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
         private List<NodeDesigner> m_Nodes = new List<NodeDesigner>();
-        
+
 
         public string AgentID
         {
@@ -85,43 +85,40 @@ namespace BehaviorTreeEditor
 
         public void RemoveNode(NodeDesigner node)
         {
-            if (node != null)
+            if (node == null)
+                return;
+
+            //删除指向该节点的父节点
+            for (int i = 0; i < Nodes.Count; i++)
             {
-                for (int i = 0; i < Nodes.Count; i++)
+                NodeDesigner node_i = Nodes[i];
+
+                if (node_i.ID != node.ID && node_i.Transitions.Count > 0)
                 {
-                    NodeDesigner node_i = Nodes[i];
-                    if (node_i != null && node_i.ID == node.ID)
+                    Transition transition = node_i.Transitions[i];
+                    if (transition.ToNodeID == node.ID)
                     {
-                        if (node_i.Transitions.Count > 0)
-                        {
-                            //删除Transtion
-                            for (int ii = 0; ii < node_i.Transitions.Count; ii++)
-                            {
-                                Transition transition = node_i.Transitions[ii];
-                                transition.ToNode.ParentNode = null;
-                            }
-                            node_i.Transitions.Clear();
-                        }
-
-                        if (node_i.ParentNode != null)
-                        {
-                            for (int ii = 0; ii < node_i.ParentNode.Transitions.Count; ii++)
-                            {
-                                Transition transition = node_i.ParentNode.Transitions[ii];
-                                if (transition.ToNode == node_i)
-                                {
-                                    node_i.ParentNode.Transitions.RemoveAt(ii);
-                                    break;
-                                }
-                            }
-                        }
-
-                        node_i.ParentNode = null;
-                        Nodes.RemoveAt(i);
+                        node.ParentNode = null;
+                        node_i.Transitions.RemoveAt(i);
                         break;
                     }
                 }
             }
+
+            if (node.Transitions.Count > 0)
+            {
+                for (int i = 0; i < node.Transitions.Count; i++)
+                {
+                    Transition transition = node.Transitions[i];
+                    NodeDesigner childNode = FindByID(transition.ToNodeID);
+                    if (childNode != null)
+                    {
+                        childNode.ParentNode = null;
+                    }
+                }
+            }
+
+            Nodes.Remove(node);
         }
 
         //更换开始节点
