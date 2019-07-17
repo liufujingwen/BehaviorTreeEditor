@@ -74,25 +74,33 @@ namespace BehaviorTreeEditor
                 Settings.Default.WorkDirectory = workSpaceDirectoryTB.Text.Trim();
                 Settings.Default.NodeDataSavePath = dataSaveDirectoryTB.Text.Trim();
 
-                if (m_OldWorkSpaceDirectory != Settings.Default.WorkDirectory)
+                if (m_OldWorkSpaceDirectory != Settings.Default.WorkDirectory || m_OldWorkSpaceName != Settings.Default.WorkSpaceName)
                 {
-                    //删除旧文件
+                    //移动工作空间文件
                     string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
+                    string newWorkSpaceFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
                     if (File.Exists(oldWorkSpaceFile))
-                        File.Delete(oldWorkSpaceFile);
+                        File.Move(oldWorkSpaceFile, newWorkSpaceFile);
+
+                    //移动节点xml文件
+                    string oldXmlDataFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.BehaviorTreeDataFileSuffix);
+                    string newXmlDataFile = MainForm.Instance.GetBehaviorTreeDataPath();
+                    if (File.Exists(oldXmlDataFile))
+                        File.Move(oldXmlDataFile, newXmlDataFile);
                 }
 
-                //删除旧二进制数据
+                //移动旧二进制数据
                 if (Settings.Default.NodeDataSavePath != m_OldDataSaveDirectory)
                 {
                     string oldTreeDataFile = Path.Combine(m_OldDataSaveDirectory, m_OldWorkSpaceName + Settings.Default.NodeDataFileSuffix);
+                    string newFile = MainForm.Instance.GetNodeDataSavePath();
                     if (File.Exists(oldTreeDataFile))
-                        File.Delete(oldTreeDataFile);
+                        File.Move(oldTreeDataFile, newFile);
                 }
 
                 Settings.Default.Save();
                 XmlUtility.Save<WorkSpaceData>(MainForm.Instance.GetWorkSpacePath(), MainForm.Instance.WorkSpaceData);
-                MainForm.Instance.Exec(OperationType.LoadWorkSpace);
+                MainForm.Instance.Exec(OperationType.Refresh);
                 MainForm.Instance.ShowInfo("编辑工作区,时间：" + DateTime.Now);
             }
 

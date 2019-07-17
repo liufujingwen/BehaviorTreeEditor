@@ -1005,16 +1005,6 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 获取数据保存路径
-        /// </summary>
-        /// <returns></returns>
-        public string GetDataSavePath()
-        {
-            return Path.Combine(Settings.Default.NodeDataSavePath,
-                Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
-        }
-
-        /// <summary>
         /// 获取工作区配置路径
         /// </summary>
         /// <returns></returns>
