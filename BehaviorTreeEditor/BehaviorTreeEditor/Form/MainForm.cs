@@ -304,7 +304,24 @@ namespace BehaviorTreeEditor
             if (TreeData == null)
                 return;
 
+            string group = string.Empty;
+            if (treeView1.SelectedNode != null)
+            {
+                if (treeView1.SelectedNode.Tag is GroupItem)
+                {
+                    GroupItem groupItem = treeView1.SelectedNode.Tag as GroupItem;
+                    group = groupItem.Group.GroupName;
+                }
+                else if (treeView1.SelectedNode.Tag is AgentItem)
+                {
+                    AgentItem agentItem = treeView1.SelectedNode.Tag as AgentItem;
+                    if (agentItem.GroupItem != null)
+                        group = agentItem.GroupItem.Group.GroupName;
+                }
+            }
+
             AgentDesigner agent = new AgentDesigner();
+            agent.GroupName = group;
             string agentID = "NewAgent_" + DateTime.Now.Ticks;
             do
             {
@@ -1022,7 +1039,10 @@ namespace BehaviorTreeEditor
         /// <returns></returns>
         public string GetNodeDataSavePath()
         {
-            return Path.Combine(Settings.Default.NodeDataSavePath, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
+            if (string.IsNullOrEmpty(Settings.Default.NodeDataSavePath))
+                return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
+            else
+                return Path.Combine(Settings.Default.NodeDataSavePath, Settings.Default.WorkSpaceName + Settings.Default.NodeDataFileSuffix);
         }
 
         /// <summary>
