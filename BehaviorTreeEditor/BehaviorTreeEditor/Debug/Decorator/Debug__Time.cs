@@ -45,7 +45,7 @@ namespace BehaviorTreeEditor
 
             if (runningNode.Status == DebugNodeStatus.Failed || runningNode.Status == DebugNodeStatus.Success)
             {
-                runningNode.Status = DebugNodeStatus.Transition;
+                SetChildState(DebugNodeStatus.Transition);
             }
         }
     }

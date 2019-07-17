@@ -40,7 +40,16 @@ namespace BehaviorTreeEditor
 
             if (runningNode.Status == DebugNodeStatus.Failed || runningNode.Status == DebugNodeStatus.Success)
             {
-                runningNode.Status = DebugNodeStatus.None;
+                SetChildState(DebugNodeStatus.None);
+            }
+        }
+
+        private void SetChildState(DebugNodeStatus status)
+        {
+            if (Childs.Count > 0)
+            {
+                for (int i = 0; i < Childs.Count; i++)
+                    Childs[i].SetState(status);
             }
         }
     }

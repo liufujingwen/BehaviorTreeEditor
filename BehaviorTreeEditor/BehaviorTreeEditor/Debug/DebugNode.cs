@@ -80,5 +80,20 @@ namespace BehaviorTreeEditor
         public virtual void OnRunning(float deltatime)
         {
         }
+
+        public void SetState(DebugNodeStatus status)
+        {
+            this.Status = status;
+            SetChildState(status);
+        }
+
+        public void SetChildState(DebugNodeStatus status)
+        {
+            if (Childs.Count > 0)
+            {
+                for (int i = 0; i < Childs.Count; i++)
+                    Childs[i].SetState(status);
+            }
+        }
     }
 }
