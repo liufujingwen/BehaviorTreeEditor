@@ -9,10 +9,6 @@ namespace BehaviorTreeEditor
     {
         private NodeClasses m_Nodes;
         private NodeTreeViewManager m_NodeTreeViewManager;
-        private TreeNode m_CompositeNode;
-        private TreeNode m_DecoratorNode;
-        private TreeNode m_ConditionNode;
-        private TreeNode m_ActionNode;
 
         public ClassForm()
         {

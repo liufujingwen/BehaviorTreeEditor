@@ -172,6 +172,10 @@ namespace BehaviorTreeEditor
                         treeNode.Remove();
                         treeNode = parentNode;
                     }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 

@@ -41,15 +41,20 @@ namespace BehaviorTreeEditor
                 CurrentRunningIndex = 2;
             }
 
-            DebugNode debugNode = Childs[CurrentRunningIndex];
-
-            if (debugNode.Status == DebugNodeStatus.Error)
+            if (CurrentRunningIndex != 0)
             {
-                Status = DebugNodeStatus.Error;
-                return;
-            }
+                DebugNode debugNode = Childs[CurrentRunningIndex];
+                debugNode.Update(deltatime);
 
-            Status = debugNode.Status;
+                if (debugNode.Status == DebugNodeStatus.Error)
+                {
+                    Status = DebugNodeStatus.Error;
+                    return;
+                }
+
+                if (debugNode.Status >= DebugNodeStatus.Running)
+                    Status = debugNode.Status;
+            }
         }
     }
 }
