@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_79F0885F197F4256BD62CCB620766E41"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C7FFCF9B5063429BB1E07D0FE56A15F2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -110,6 +116,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -169,6 +183,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_79F0885F197F4256BD62CCB620766E41"
+            {
+            "SourcePath" = "8:D:\\BehaviorTreeEditor\\BehaviorTreeEditor\\BehaviorTreeEditor\\Resources\\BehaviorTree.ico"
+            "TargetName" = "8:BehaviorTree.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_7D407F65BAD64FC49B3275233497C914"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E1E02EB4707C497A89BA49E673051121"
@@ -390,7 +424,7 @@
             "Target" = "8:_C7FFCF9B5063429BB1E07D0FE56A15F2"
             "Folder" = "8:_F7B8BED690BE46FD826D9A0E55993D60"
             "WorkingFolder" = "8:_7D407F65BAD64FC49B3275233497C914"
-            "Icon" = "8:"
+            "Icon" = "8:_79F0885F197F4256BD62CCB620766E41"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D99760531FE14BCBA9D1E1F4EDBE4EF5"
@@ -404,7 +438,7 @@
             "Target" = "8:_C7FFCF9B5063429BB1E07D0FE56A15F2"
             "Folder" = "8:_344C4E9EF2204E60915744E6FFC1502E"
             "WorkingFolder" = "8:_7D407F65BAD64FC49B3275233497C914"
-            "Icon" = "8:_E1E02EB4707C497A89BA49E673051121"
+            "Icon" = "8:_79F0885F197F4256BD62CCB620766E41"
             "Feature" = "8:"
             }
         }
