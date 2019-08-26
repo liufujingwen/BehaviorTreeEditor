@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -362,7 +362,18 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            m_EditAgent.AgentID = textBox1.Text.Trim();
+            string agentId = textBox1.Text.Trim();
+
+            if (m_Agent.AgentID != agentId)
+            {
+                if (MainForm.Instance.TreeData.ExistAgent(agentId))
+                {
+                    MainForm.Instance.ShowInfo(string.Format("已存在AgentID:{0}", agentId));
+                    return;
+                }
+            }
+
+            m_EditAgent.AgentID = agentId;
             m_EditAgent.Describe = textBox2.Text.Trim();
 
             //检验Agent的是否合法
