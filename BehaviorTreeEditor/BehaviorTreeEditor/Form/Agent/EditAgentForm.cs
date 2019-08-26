@@ -368,6 +368,7 @@ namespace BehaviorTreeEditor
             {
                 if (MainForm.Instance.TreeData.ExistAgent(agentId))
                 {
+                    MainForm.Instance.ShowMessage(string.Format("已存在AgentID:{0}", agentId));
                     MainForm.Instance.ShowInfo(string.Format("已存在AgentID:{0}", agentId));
                     return;
                 }
