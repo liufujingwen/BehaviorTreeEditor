@@ -1,4 +1,4 @@
-﻿using BehaviorTreeEditor.Properties;
+using BehaviorTreeEditor.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -157,11 +157,11 @@ namespace BehaviorTreeEditor
         public static void DrawGridLines(Graphics graphics, Rect rect, int gridSize, Vec2 offset, bool normal)
         {
             Pen pen = normal ? EditorUtility.LineNormalPen : EditorUtility.LineBoldPen;
-            for (float i = rect.x + (offset.x < 0 ? gridSize : 0) + offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
+            for (float i = rect.x - (offset.x < 0 ? gridSize : 0) - offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
             {
                 DrawLine(graphics, pen, new Vec2(i, rect.y), new Vec2(i, rect.y + rect.height));
             }
-            for (float j = rect.y + (offset.y < 0 ? gridSize : 0) + offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
+            for (float j = rect.y - (offset.y < 0 ? gridSize : 0) - offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
             {
                 DrawLine(graphics, pen, new Vec2(rect.x, j), new Vec2(rect.x + rect.width, j));
             }

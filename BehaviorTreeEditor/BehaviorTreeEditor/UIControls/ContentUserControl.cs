@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -217,8 +217,8 @@ namespace BehaviorTreeEditor.UIControls
         //更新偏移坐标
         protected void UpdateOffset(Vec2 position)
         {
-            m_Offset = m_Offset - (m_ScrollPosition - position);
-            m_ScrollPosition = position;
+            m_Offset -= position;
+            m_ScrollPosition = m_ScrollPosition + m_Offset;
         }
 
         /// <summary>
@@ -393,8 +393,6 @@ namespace BehaviorTreeEditor.UIControls
             m_ZoomScale += e.Delta * 0.0003f;
             m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
             UpdateRect();
-            Vec2 offset = (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f;
-            UpdateOffset(m_ScrollPosition - (m_ScaledViewSize.size - m_ViewSize.size) * 0.5f + offset);
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
             this.Refresh();
         }
@@ -882,7 +880,7 @@ namespace BehaviorTreeEditor.UIControls
                         continue;
                     node.Rect += delta;
                 }
-                UpdateOffset(m_ScrollPosition + delta);
+                UpdateOffset(-delta);
             }
         }
 
@@ -959,7 +957,7 @@ namespace BehaviorTreeEditor.UIControls
             if (!m_MouseMiddle)
                 return;
 
-            UpdateOffset(m_ScrollPosition - m_Deltal);
+            UpdateOffset(m_Deltal);
         }
 
         /// 显示节点菜单上下文
