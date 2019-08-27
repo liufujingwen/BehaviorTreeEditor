@@ -27,8 +27,6 @@ namespace BehaviorTreeEditor.UIControls
         private Rect m_ViewSize;
         //缩放后的视窗大小
         private Rect m_ScaledViewSize;
-        //滑动起始位置
-        private Vec2 m_ScrollPosition;
 
         //当前缩放
         private float m_ZoomScale = 1f;
@@ -218,7 +216,6 @@ namespace BehaviorTreeEditor.UIControls
         protected void UpdateOffset(Vec2 position)
         {
             m_Offset -= position;
-            m_ScrollPosition = m_ScrollPosition + m_Offset;
         }
 
         /// <summary>
@@ -948,7 +945,8 @@ namespace BehaviorTreeEditor.UIControls
             {
                 center = Center;
             }
-            UpdateOffset(center);
+
+            m_Offset = center;
         }
 
         //按下鼠标滚轮键拖动视图
