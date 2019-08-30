@@ -771,6 +771,7 @@ namespace BehaviorTreeEditor.UIControls
                 EditorUtility.CopyNode pasteNode = XmlUtility.StringToObject<EditorUtility.CopyNode>(Clipboard.GetText());
                 EditorUtility.CopyNode.FreshTransition(pasteNode);
                 EditorUtility.AddNode(Agent, pasteNode.Node);
+                SelectNodeWithChildren(pasteNode.Node);
                 Vec2 offset = m_MouseWorldPoint - new Vec2(pasteNode.Node.Rect.x, pasteNode.Node.Rect.y);
                 EditorUtility.SetNodePositoin(pasteNode.Node, offset);
 
@@ -783,6 +784,21 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
+        /// <summary>
+        /// 选择所有根节点下的所有节点
+        /// </summary>
+        /// <param name="root"></param>
+        private void SelectNodeWithChildren(NodeDesigner root)
+        {
+            if (root == null)
+                return;
+            m_SelectionNodes.Clear();
+            List<NodeDesigner> nodeDesigners = new List<NodeDesigner>();
+            EditorUtility.GetNodeAndChilds(root, nodeDesigners);
+            m_SelectionNodes.AddRange(nodeDesigners);
+            nodeDesigners.Clear();
+            nodeDesigners = null;
+        }
         #endregion
 
         //当前鼠标悬停节点
