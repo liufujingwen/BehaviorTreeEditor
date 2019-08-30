@@ -754,6 +754,7 @@ namespace BehaviorTreeEditor.UIControls
             }
 
             EditorUtility.CopyNode copyNode = EditorUtility.CopyNodeAndChilds(m_SelectionNodes[0]);
+            Clipboard.Clear();
             Clipboard.SetText(XmlUtility.ObjectToString(copyNode));
             MainForm.Instance.ShowInfo("您复制了1个节点！！！");
         }
@@ -835,8 +836,8 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectionMode != SelectionMode.Rect)
                 return;
 
-            Vec2 tmpStartLocalPoint = WorldToLocalPoint(m_SelectionStartPosition) / m_ZoomScale;
-            Vec2 tmpEndLocalPoint = WorldToLocalPoint(m_MouseWorldPoint) / m_ZoomScale;
+            Vec2 tmpStartLocalPoint = m_SelectionStartPosition;
+            Vec2 tmpEndLocalPoint = m_MouseWorldPoint;
             Rect rect = FromToRect(tmpStartLocalPoint, tmpEndLocalPoint);
             m_Graphics.DrawRectangle(EditorUtility.SelectionModePen, rect);
             m_Graphics.FillRectangle(EditorUtility.SelectionModeBrush, rect);
@@ -889,7 +890,7 @@ namespace BehaviorTreeEditor.UIControls
                         continue;
                     node.Rect += delta;
                 }
-                UpdateOffset(-delta);
+                UpdateOffset(delta);
             }
         }
 
