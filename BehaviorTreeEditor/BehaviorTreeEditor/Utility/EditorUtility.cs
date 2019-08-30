@@ -19,9 +19,9 @@ namespace BehaviorTreeEditor
 
         #region ==================Background===================
         //画布中心点
-        public static Vec2 Center = new Vec2(5000f, 5000f);
+        public static Vec2 Center = new Vec2(5000, 5000);
         //视图缩放最小值
-        public static float ZoomScaleMin = 0.5f;
+        public static float ZoomScaleMin = 0.1f;
         //视图缩放最大值
         public static float ZoomScaleMax = 2.0f;
         //普通格子线 画笔
@@ -118,33 +118,33 @@ namespace BehaviorTreeEditor
         #endregion
 
         //节点标题Rect
-        public static Rect GetRect(NodeDesigner node, Vec2 offset)
+        public static Rect GetRect(NodeDesigner node)
         {
-            return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, node.Rect.height);
+            return new Rect(node.Rect.x, node.Rect.y, node.Rect.width, node.Rect.height);
         }
 
         //节点标题Rect
-        public static Rect GetTitleRect(NodeDesigner node, Vec2 offset)
+        public static Rect GetTitleRect(NodeDesigner node)
         {
-            return new Rect(node.Rect.x - offset.x, node.Rect.y - offset.y, node.Rect.width, EditorUtility.TitleNodeHeight);
+            return new Rect(node.Rect.x, node.Rect.y, node.Rect.width, EditorUtility.TitleNodeHeight);
         }
 
         //节点内容Rect
-        public static Rect GetContentRect(NodeDesigner node, Vec2 offset)
+        public static Rect GetContentRect(NodeDesigner node)
         {
-            return new Rect(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight - offset.y, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
+            return new Rect(node.Rect.x, node.Rect.y + EditorUtility.TitleNodeHeight, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
         }
 
         //左边连接点
-        public static Vec2 GetLeftLinkPoint(NodeDesigner node, Vec2 offset)
+        public static Vec2 GetLeftLinkPoint(NodeDesigner node)
         {
-            return new Vec2(node.Rect.x - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
+            return new Vec2(node.Rect.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f);
         }
 
         //右边连接点
-        public static Vec2 GetRightLinkPoint(NodeDesigner node, Vec2 offset)
+        public static Vec2 GetRightLinkPoint(NodeDesigner node)
         {
-            return new Vec2(node.Rect.x + node.Rect.width - offset.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f - offset.y);
+            return new Vec2(node.Rect.x + node.Rect.width, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f);
         }
 
         /// <summary>
@@ -157,13 +157,17 @@ namespace BehaviorTreeEditor
         public static void DrawGridLines(Graphics graphics, Rect rect, int gridSize, Vec2 offset, bool normal)
         {
             Pen pen = normal ? EditorUtility.LineNormalPen : EditorUtility.LineBoldPen;
-            for (float i = rect.x - (offset.x < 0 ? gridSize : 0) - offset.x % gridSize; i < rect.x + rect.width; i = i + gridSize)
+
+            offset = -offset;
+
+            for (float i = offset.x - offset.x % gridSize + gridSize; i < offset.x + rect.width; i = i + gridSize)
             {
-                DrawLine(graphics, pen, new Vec2(i, rect.y), new Vec2(i, rect.y + rect.height));
+                DrawLine(graphics, pen, new Vec2(i, rect.y), new Vec2(i, offset.y + rect.height));
             }
-            for (float j = rect.y - (offset.y < 0 ? gridSize : 0) - offset.y % gridSize; j < rect.y + rect.height; j = j + gridSize)
+
+            for (float i = offset.y - offset.y % gridSize + gridSize; i < offset.y + rect.height; i = i + gridSize)
             {
-                DrawLine(graphics, pen, new Vec2(rect.x, j), new Vec2(rect.x + rect.width, j));
+                DrawLine(graphics, pen, new Vec2(offset.x, i), new Vec2(offset.x + rect.width, i));
             }
         }
 
@@ -182,10 +186,10 @@ namespace BehaviorTreeEditor
         /// <summary>
         /// 绘制节点连接点
         /// </summary>
-        public static void DrawNodeLinkPoint(Graphics graphics, NodeDesigner node, Vec2 offset)
+        public static void DrawNodeLinkPoint(Graphics graphics, NodeDesigner node)
         {
-            Vec2 leftPoint = EditorUtility.GetLeftLinkPoint(node, offset);
-            Vec2 rightPoint = EditorUtility.GetRightLinkPoint(node, offset);
+            Vec2 leftPoint = EditorUtility.GetLeftLinkPoint(node);
+            Vec2 rightPoint = EditorUtility.GetRightLinkPoint(node);
 
             float halfSize = EditorUtility.NodeLinkPointSize / 2.0f;
             leftPoint.x -= halfSize;
@@ -212,9 +216,9 @@ namespace BehaviorTreeEditor
         /// <summary>
         /// 绘制开始节点
         /// </summary>
-        public static void DrawStartNode(Graphics graphics, NodeDesigner node, Vec2 offset)
+        public static void DrawStartNode(Graphics graphics, NodeDesigner node)
         {
-            Rect rect = EditorUtility.GetTitleRect(node, offset);
+            Rect rect = EditorUtility.GetTitleRect(node);
 
             if (!node.StartNode)
             {
@@ -231,16 +235,16 @@ namespace BehaviorTreeEditor
         /// <param name="graphics">graphics</param>
         /// <param name="offset">偏移</param>
         /// <param name="on">是否选中</param>
-        public static void Draw(NodeDesigner node, Graphics graphics, Vec2 offset, bool on)
+        public static void Draw(NodeDesigner node, Graphics graphics, bool on)
         {
-            Rect titleRect = GetTitleRect(node, offset);
-            Rect contentRect = GetContentRect(node, offset);
+            Rect titleRect = GetTitleRect(node);
+            Rect contentRect = GetContentRect(node);
 
             //绘制开始节点
             if (node.StartNode)
-                DrawStartNode(graphics, node, offset);
+                DrawStartNode(graphics, node);
             //画连接点
-            DrawNodeLinkPoint(graphics, node, offset);
+            DrawNodeLinkPoint(graphics, node);
             //画标题底框
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(NodeTitleBrush, titleRect);
@@ -266,7 +270,7 @@ namespace BehaviorTreeEditor
             //选中边框
             if (on && !DebugManager.Instance.Debugging)
             {
-                graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect - offset);
+                graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect);
             }
 
             //处理错误
@@ -314,9 +318,9 @@ namespace BehaviorTreeEditor
         /// <param name="graphics">graphics</param>
         /// <param name="offset">偏移</param>
         /// <param name="on">是否选中</param>
-        public static void Draw_Debug(DebugNode node, Graphics graphics, Vec2 offset, float deltatime)
+        public static void Draw_Debug(DebugNode node, Graphics graphics, float deltatime)
         {
-            Rect rect = GetRect(node.Node, offset);
+            Rect rect = GetRect(node.Node);
 
             switch (node.Status)
             {
@@ -558,6 +562,29 @@ namespace BehaviorTreeEditor
             }
 
             return copyNode;
+        }
+
+        /// <summary>
+        /// 获取根节点下所有的节点
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static void GetNodeAndChilds(NodeDesigner node, List<NodeDesigner> nodes)
+        {
+            if (node == null)
+                return;
+
+            nodes.Add(node);
+
+            if (node.Transitions.Count > 0)
+            {
+                for (int i = 0; i < node.Transitions.Count; i++)
+                {
+                    Transition transition = node.Transitions[i];
+                    GetNodeAndChilds(transition.ToNode, nodes);
+
+                }
+            }
         }
 
         //辅助Agent添加节点（粘贴添加）

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -18,12 +18,11 @@ namespace BehaviorTreeEditor
         /// <param name="endPoint">结束坐标点</param>
         /// <param name="linkColor">线颜色</param>
         /// <param name="linkWidth">线宽度</param>
-        /// <param name="offset">偏移</param>
-        public static void DrawNodeToPoint(Graphics graphics, NodeDesigner fromNode, Vec2 endPoint, Vec2 offset)
+        public static void DrawNodeToPoint(Graphics graphics, NodeDesigner fromNode, Vec2 endPoint)
         {
-            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode);
 
-            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset); ;
+            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode); 
             Vec2 toPoint = endPoint;
 
             int fromTangentDir = 1;
@@ -66,11 +65,11 @@ namespace BehaviorTreeEditor
             Pen pen = selected ? EditorUtility.TransitionSelectedPen : EditorUtility.TransitionNormalPen;
             Brush brush = selected ? EditorUtility.ArrowSelectedBrush : EditorUtility.ArrowNormalBrush;
 
-            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
-            Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode);
+            Rect toTitleRect = EditorUtility.GetContentRect(toNode);
 
-            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
+            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode);
+            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode);
 
             float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
             fromPoint.x += linkPointHalfSize;
@@ -101,13 +100,13 @@ namespace BehaviorTreeEditor
         }
 
         //检测某点是否点击了曲线
-        public static bool CheckPointAt(NodeDesigner fromNode, NodeDesigner toNode, Vec2 localPoint, Vec2 offset)
+        public static bool CheckPointAt(NodeDesigner fromNode, NodeDesigner toNode, Vec2 localPoint)
         {
-            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode, offset);
-            Rect toTitleRect = EditorUtility.GetContentRect(toNode, offset);
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode);
+            Rect toTitleRect = EditorUtility.GetContentRect(toNode);
 
-            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode, offset);
-            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode, offset);
+            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode);
+            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode);
 
             float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
             fromPoint.x += linkPointHalfSize;
@@ -153,11 +152,11 @@ namespace BehaviorTreeEditor
         //调试
         public static void DrawNodeToNode_Debug(Graphics graphics, DebugNode fromNode, DebugNode toNode, Vec2 offset)
         {
-            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode.Node, offset);
-            Rect toTitleRect = EditorUtility.GetContentRect(toNode.Node, offset);
+            Rect fromTitleRect = EditorUtility.GetTitleRect(fromNode.Node);
+            Rect toTitleRect = EditorUtility.GetContentRect(toNode.Node);
 
-            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode.Node, offset);
-            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode.Node, offset);
+            Vec2 fromPoint = EditorUtility.GetRightLinkPoint(fromNode.Node);
+            Vec2 toPoint = EditorUtility.GetLeftLinkPoint(toNode.Node);
 
             float linkPointHalfSize = EditorUtility.NodeLinkPointSize / 2.0f;
             fromPoint.x += linkPointHalfSize;

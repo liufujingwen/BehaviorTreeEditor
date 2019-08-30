@@ -1,4 +1,4 @@
-﻿using BehaviorTreeEditor.UIControls;
+using BehaviorTreeEditor.UIControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -298,7 +298,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public void DoNodes(Graphics graphics, Vec2 offset, float deltatime)
+        public void DoNodes(Graphics graphics, float deltatime)
         {
             if (State == DebugState.None)
                 return;
@@ -306,7 +306,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Nodes.Count; i++)
             {
                 DebugNode debugNode = m_Nodes[i];
-                EditorUtility.Draw_Debug(debugNode, graphics, offset, deltatime);
+                EditorUtility.Draw_Debug(debugNode, graphics, deltatime);
             }
         }
 

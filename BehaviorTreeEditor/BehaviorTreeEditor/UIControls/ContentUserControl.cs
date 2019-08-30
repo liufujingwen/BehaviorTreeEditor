@@ -120,14 +120,6 @@ namespace BehaviorTreeEditor.UIControls
             SelectTransition(null);
         }
 
-        public static Vec2 Center
-        {
-            get
-            {
-                return new Vec2(5000, 5000);
-            }
-        }
-
         private void ContentUserControl_Load(object sender, EventArgs e)
         {
             m_ZoomScalerUserControl = new ZoomScalerUserControl(EditorUtility.ZoomScaleMin, EditorUtility.ZoomScaleMax);
@@ -190,19 +182,25 @@ namespace BehaviorTreeEditor.UIControls
             //刷新Rect
             UpdateRect();
 
+            //双缓冲
             m_BufferedGraphicsContext = BufferedGraphicsManager.Current;
             m_BufferedGraphics = m_BufferedGraphicsContext.Allocate(e.Graphics, e.ClipRectangle);
             m_Graphics = m_BufferedGraphics.Graphics;
             m_Graphics.SmoothingMode = SmoothingMode.HighQuality;
             m_Graphics.Clear(this.BackColor);
+
+            //设置缩放、平移矩阵
             Matrix matrix = m_Graphics.Transform;
             matrix.Scale(m_ZoomScale, m_ZoomScale);
+            matrix.Translate(m_Offset.x, m_Offset.y);
             m_Graphics.Transform = matrix;
 
             //画格子线
             DrawGrid();
+
             //绘制节点
             DoNodes();
+
             //Render
             m_BufferedGraphics.Render();
         }
@@ -242,7 +240,7 @@ namespace BehaviorTreeEditor.UIControls
                 NodeDesigner node = Agent.Nodes[i];
                 if (node == null)
                     continue;
-                EditorUtility.Draw(node, m_Graphics, m_Offset, false);
+                EditorUtility.Draw(node, m_Graphics, false);
             }
 
             for (int i = 0; i < m_SelectionNodes.Count; i++)
@@ -250,11 +248,11 @@ namespace BehaviorTreeEditor.UIControls
                 NodeDesigner node = m_SelectionNodes[i];
                 if (node == null)
                     continue;
-                EditorUtility.Draw(node, m_Graphics, m_Offset, true);
+                EditorUtility.Draw(node, m_Graphics, true);
             }
 
             //处理调试节点
-            DebugManager.Instance.DoNodes(m_Graphics, m_Offset, m_Deltaltime);
+            DebugManager.Instance.DoNodes(m_Graphics, m_Deltaltime);
 
             DrawSelectionRect();
             AutoPanNodes(3.0f);
@@ -265,7 +263,7 @@ namespace BehaviorTreeEditor.UIControls
         {
             if (m_FromNode != null)
             {
-                BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseLocalPoint / m_ZoomScale, m_Offset);
+                BezierLink.DrawNodeToPoint(m_Graphics, m_FromNode, m_MouseWorldPoint);
             }
 
             for (int i = 0; i < Agent.Nodes.Count; i++)
@@ -386,11 +384,25 @@ namespace BehaviorTreeEditor.UIControls
             if (nodeContextMenuStrip.Visible || viewContextMenuStrip.Visible || transitionContextMenuStrip.Visible)
                 return;
 
+            Vec2 old = m_ScaledViewSize.size;
+
             m_ZoomScalerUserControl.SetVisible(true);
             m_ZoomScale += e.Delta * 0.0003f;
-            m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.5f, 2.0f);
+            m_ZoomScale = Mathf.Clamp(m_ZoomScale, 0.1f, 2.0f);
             UpdateRect();
             m_ZoomScalerUserControl.SetZoomScale(m_ZoomScale);
+
+            if (e.Delta > 0)
+            {
+                Vec2 offset = (m_ScaledViewSize.size - old) * 0.5f;
+                m_Offset += offset;
+            }
+            else
+            {
+                Vec2 offset = (old - m_ScaledViewSize.size) * 0.5f;
+                m_Offset -= offset;
+            }
+
             this.Refresh();
         }
 
@@ -804,7 +816,7 @@ namespace BehaviorTreeEditor.UIControls
                         Transition transition = node.Transitions[ii];
                         if (transition != null)
                         {
-                            if (BezierLink.CheckPointAt(transition.FromNode, transition.ToNode, m_MouseLocalPoint / m_ZoomScale, m_Offset))
+                            if (BezierLink.CheckPointAt(transition.FromNode, transition.ToNode, m_MouseWorldPoint))
                             {
                                 return transition;
                             }
@@ -943,10 +955,10 @@ namespace BehaviorTreeEditor.UIControls
             }
             else
             {
-                center = Center;
+                center = EditorUtility.Center;
             }
 
-            m_Offset = center;
+            m_Offset = -center;
         }
 
         //按下鼠标滚轮键拖动视图
@@ -955,7 +967,7 @@ namespace BehaviorTreeEditor.UIControls
             if (!m_MouseMiddle)
                 return;
 
-            UpdateOffset(m_Deltal);
+            UpdateOffset(-m_Deltal);
         }
 
         /// 显示节点菜单上下文
@@ -1297,12 +1309,12 @@ namespace BehaviorTreeEditor.UIControls
 
         public Vec2 LocalToWorldPoint(Vec2 point)
         {
-            return point / m_ZoomScale + m_Offset;
+            return point / m_ZoomScale - m_Offset;
         }
 
         public Vec2 WorldToLocalPoint(Vec2 point)
         {
-            return (point - m_Offset) * m_ZoomScale;
+            return (point + m_Offset) * m_ZoomScale;
         }
 
     }
