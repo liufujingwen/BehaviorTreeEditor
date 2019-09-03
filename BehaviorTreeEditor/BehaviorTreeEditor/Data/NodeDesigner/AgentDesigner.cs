@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace BehaviorTreeEditor
@@ -665,6 +665,23 @@ namespace BehaviorTreeEditor
             }
 
             return ajust;
+        }
+
+        /// <summary>
+        /// 修改节点名字
+        /// </summary>
+        /// <param name="old">旧的classType</param>
+        /// <param name="newType">新的classType</param>
+        public void UpdateClassType(string old, string newType)
+        {
+            for (int i = 0; i < m_Nodes.Count; i++)
+            {
+                NodeDesigner node = m_Nodes[i];
+                if (node.ClassType == old)
+                {
+                    node.ClassType = newType;
+                }
+            }
         }
     }
 }

@@ -112,6 +112,13 @@ namespace BehaviorTreeEditor.UIControls
             }
         }
 
+        //清除所有选中
+        public void ClearAllSelected()
+        {
+            m_SelectionNodes.Clear();
+            m_SelectedTransition = null;
+        }
+
         //调试开始
         public void OnDebugStart()
         {

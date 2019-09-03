@@ -1,4 +1,5 @@
-﻿using System;
+using BehaviorTreeEditor.UIControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -269,6 +270,13 @@ namespace BehaviorTreeEditor
 
             if (nodeClass == this)
                 return;
+
+            //改名
+            if (m_ClassType != nodeClass.ClassType)
+            {
+                MainForm.Instance.TreeData.UpdateClassType(m_ClassType, nodeClass.ClassType);
+                ContentUserControl.Instance.ClearAllSelected();
+            }
 
             m_ClassType = nodeClass.ClassType;
             m_Label = nodeClass.Label;

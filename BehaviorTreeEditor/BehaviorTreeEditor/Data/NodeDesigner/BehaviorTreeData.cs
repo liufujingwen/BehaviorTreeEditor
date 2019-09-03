@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace BehaviorTreeEditor
@@ -176,7 +176,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        
+
         /// <summary>
         /// 修正数据(和模板保持一致)
         /// </summary>
@@ -187,6 +187,21 @@ namespace BehaviorTreeEditor
                 AgentDesigner agent = m_Agents[i];
                 if (agent != null)
                     agent.AjustData();
+            }
+        }
+
+        /// <summary>
+        /// 修改节点名字
+        /// </summary>
+        /// <param name="old">旧的classType</param>
+        /// <param name="newType">新的classType</param>
+        public void UpdateClassType(string old, string newType)
+        {
+            for (int i = 0; i < m_Agents.Count; i++)
+            {
+                AgentDesigner agent = m_Agents[i];
+                if (agent != null)
+                    agent.UpdateClassType(old, newType);
             }
         }
     }
