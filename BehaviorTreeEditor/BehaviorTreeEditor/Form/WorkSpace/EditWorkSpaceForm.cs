@@ -1,4 +1,4 @@
-﻿using BehaviorTreeEditor.Properties;
+using BehaviorTreeEditor.Properties;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -87,6 +87,12 @@ namespace BehaviorTreeEditor
                     string newXmlDataFile = MainForm.Instance.GetBehaviorTreeDataPath();
                     if (File.Exists(oldXmlDataFile))
                         File.Move(oldXmlDataFile, newXmlDataFile);
+
+                    //移动NodeClass文件
+                    string oldNodeClassXmlFile = Path.Combine(m_OldWorkSpaceDirectory, Settings.Default.NodeClassFile);
+                    string newNodeClassXmlFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeClassFile);
+                    if (File.Exists(oldNodeClassXmlFile))
+                        File.Move(oldNodeClassXmlFile, newNodeClassXmlFile);
                 }
 
                 //移动旧二进制数据
