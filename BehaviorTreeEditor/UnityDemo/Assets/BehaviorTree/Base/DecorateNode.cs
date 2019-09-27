@@ -2,12 +2,8 @@
 
 namespace R7BehaviorTree
 {
-    public class DecorateNode : BaseNode
+    public class DecorateNode : CompositeNode
     {
-        public DecorateNode(NodeData data, BaseContext context) : base(data, context)
-        {
-        }
-
         public override void OnStart()
         {
             NodeProxy?.OnStart();

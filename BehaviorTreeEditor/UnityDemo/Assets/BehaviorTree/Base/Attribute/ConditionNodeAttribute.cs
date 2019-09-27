@@ -2,7 +2,7 @@
 {
     public class ConditionNodeAttribute : BaseNodeAttribute
     {
-        public ConditionNodeAttribute(string classType) : base(classType)
+        public ConditionNodeAttribute(string classType) : base(classType, ENodeType.Condition)
         {
         }
     }

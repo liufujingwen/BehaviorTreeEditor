@@ -2,7 +2,7 @@
 {
     public class CompositeNodeAttribute : BaseNodeAttribute
     {
-        public CompositeNodeAttribute(string classType) : base(classType)
+        public CompositeNodeAttribute(string classType) : base(classType, ENodeType.Composite)
         {
         }
     }

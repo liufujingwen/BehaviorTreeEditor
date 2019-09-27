@@ -7,10 +7,6 @@ namespace R7BehaviorTree
     {
         protected List<BaseNode> Childs { get; set; } = new List<BaseNode>();
 
-        public CompositeNode(NodeData data, BaseContext context) : base(data, context)
-        {
-        }
-
         public void AddChild(BaseNode childNode)
         {
             if (childNode == null || Childs.Contains(childNode))
@@ -44,6 +40,26 @@ namespace R7BehaviorTree
         public BaseNode this[int index]
         {
             get { return Childs[index]; }
+        }
+
+        public override void SetContext(BaseContext context)
+        {
+            base.SetContext(context);
+
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i]?.SetContext(context);
+            }
+        }
+
+        public override void CreateProxy()
+        {
+            base.CreateProxy();
+
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i]?.CreateProxy();
+            }
         }
 
         public override void OnStart()
