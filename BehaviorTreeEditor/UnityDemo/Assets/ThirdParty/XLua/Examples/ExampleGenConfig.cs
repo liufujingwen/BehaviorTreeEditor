@@ -64,8 +64,8 @@ public static class ExampleGenConfig
                 typeof(Action<double>),
                 typeof(UnityEngine.Events.UnityAction),
                 typeof(System.Collections.IEnumerator),
-                //typeof(UIFramework.ILuaUI),
-                //typeof(Func<string,UIFramework.UILuaProxy,UIFramework.ILuaUI>),
+                typeof(R7BehaviorTree.ILuaBehaviorNode),
+                typeof(Func<string,R7BehaviorTree.LuaNodeProxy,R7BehaviorTree.ILuaBehaviorNode>),
             };
 
     //黑名单

@@ -25,7 +25,7 @@ public class BehaviorTreeDemo : MonoBehaviour
         BehaviorTreeManager.Instance.CollectProxyInfos();
 
         //初始化lua环境
-        gameObject.AddComponent<LuaSetting>();
+        gameObject.AddComponent<LuaSetting>().Initalize();
 
         BehaviorTree behaviorTree = BehaviorTreeManager.Instance.CreateBehaviorTree((int)EBehaviorTreeType.AI, "AI1", null);
         BehaviorTreeManager.Instance.RunBehaviorTree(behaviorTree);

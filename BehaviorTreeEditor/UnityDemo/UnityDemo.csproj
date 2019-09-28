@@ -267,7 +267,6 @@
     <Compile Include="Assets\BehaviorTree\Base\ENodeStatus.cs" />
     <Compile Include="Assets\BehaviorTree\Base\ENodeType.cs" />
     <Compile Include="Assets\BehaviorTree\Base\Interface\ILuaBehaviorNode.cs" />
-    <Compile Include="Assets\BehaviorTree\Base\Interface\INodeProxy.cs" />
     <Compile Include="Assets\BehaviorTree\Base\ProxyData.cs" />
     <Compile Include="Assets\BehaviorTree\BehaviorTreeData\Data\AgentData.cs" />
     <Compile Include="Assets\BehaviorTree\BehaviorTreeData\Data\BaseField.cs" />
@@ -303,6 +302,7 @@
     <Compile Include="Assets\BehaviorTree\Proxy\ParallelProxy.cs" />
     <Compile Include="Assets\BehaviorTree\Proxy\SelectorProxy.cs" />
     <Compile Include="Assets\BehaviorTree\Proxy\SequenceProxy.cs" />
+    <Compile Include="Assets\BehaviorTree\Proxy\WaitProxy.cs" />
     <Compile Include="Assets\BehaviorTreeDemo.cs" />
     <Compile Include="Assets\BehaviorTreeSetting.cs" />
     <Compile Include="Assets\EBehaviorTreeType.cs" />
@@ -356,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
+    <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorNode.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorTreeManager.lua.txt" />

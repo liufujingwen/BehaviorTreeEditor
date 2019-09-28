@@ -12,6 +12,14 @@ function LuaBehaviorNode:OnAwake()
 
 end
 
+function LuaBehaviorNode:OnEnable()
+    
+end
+
+function LuaBehaviorNode:OnDisable()
+
+end
+
 function LuaBehaviorNode:OnStart()
 
 end

@@ -23,6 +23,11 @@ namespace R7BehaviorTree
             StartNode?.SetContext(context);
         }
 
+        internal void CreateProxy()
+        {
+            StartNode?.CreateProxy();
+        }
+
         internal void Run(float deltatime)
         {
             if (StartNode == null)
@@ -33,7 +38,7 @@ namespace R7BehaviorTree
 
             StartNode.Run(deltatime);
 
-            Status = StartNode.NodeStatus;
+            Status = StartNode.Status;
         }
 
         internal void SetActive(bool active)

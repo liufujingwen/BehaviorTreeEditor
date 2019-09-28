@@ -21,6 +21,6 @@ end
 --@proxy LuaNodeProxy(C#)
 function LuaBehaviorTreeManager.New(classType, proxy)
     local class = ClassType[classType]
-    local nodeObj = class.New(uiProxy)
+    local nodeObj = class.New(proxy)
     return nodeObj
 end

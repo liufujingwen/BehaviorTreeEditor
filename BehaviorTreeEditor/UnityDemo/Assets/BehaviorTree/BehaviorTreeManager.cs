@@ -46,7 +46,7 @@ namespace R7BehaviorTree
         /// </summary>
         public void CollectProxyInfos()
         {
-            Type[] types = typeof(INodeProxy).Assembly.GetTypes();
+            Type[] types = typeof(BaseNodeProxy).Assembly.GetTypes();
             for (int i = 0; i < types.Length; i++)
             {
                 Type type = types[i];
@@ -150,9 +150,9 @@ namespace R7BehaviorTree
                     return agentData;
             }
 
-            LogError($"There is no AgentData,BehaviorTreeType:{behaviorTreeType} id:{id}.");
-
-            return null;
+            string msg = $"There is no AgentData,BehaviorTreeType:{behaviorTreeType} id:{id}.";
+            LogError(msg);
+            throw new Exception(msg);
         }
 
         /// <summary>
@@ -174,6 +174,7 @@ namespace R7BehaviorTree
             }
 
             behaviorTree.SetContext(context);
+            behaviorTree.CreateProxy();
 
             return behaviorTree;
         }
@@ -199,6 +200,7 @@ namespace R7BehaviorTree
             }
 
             Runnings.Add(behaviorTree);
+            behaviorTree.Run(0);
         }
 
         #region Pool
@@ -371,7 +373,7 @@ namespace R7BehaviorTree
             }
 
             baseNode.SetData(nodeData);
-            baseNode.ProxyData = proxyData;
+            baseNode.SetProxyData(proxyData);
 
             if (baseNode is CompositeNode)
             {
@@ -410,14 +412,17 @@ namespace R7BehaviorTree
             if (node.ProxyData.IsLuaProxy)
             {
                 LuaNodeProxy luaNodeProxy = new LuaNodeProxy();
-                nodeProxy.SetNode(node);
+                luaNodeProxy.SetNode(node);
+                luaNodeProxy.SetData(node.NodeData);
                 luaNodeProxy.SetContext(node.Context);
                 luaNodeProxy.CreateLuaObj();
+                nodeProxy = luaNodeProxy;
             }
             else
             {
                 nodeProxy = Activator.CreateInstance(node.ProxyData.ProxyType) as BaseNodeProxy;
                 nodeProxy.SetNode(node);
+                nodeProxy.SetData(node.NodeData);
                 nodeProxy.SetContext(node.Context);
             }
 

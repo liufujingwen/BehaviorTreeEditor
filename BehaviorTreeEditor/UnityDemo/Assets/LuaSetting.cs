@@ -10,8 +10,7 @@ public class LuaSetting : MonoBehaviour
     private string m_LuaPrefix;
     private LuaEnv m_LuaEnv = new LuaEnv();
 
-    // Use this for initialization
-    void Start()
+    public void Initalize()
     {
         m_LuaPrefix = (Application.dataPath + "/LuaScript").Replace("\\", "/");
         m_LuaEnv.AddLoader(CustomLoader);

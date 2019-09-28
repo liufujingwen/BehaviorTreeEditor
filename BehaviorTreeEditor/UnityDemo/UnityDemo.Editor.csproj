@@ -314,6 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
+    <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorNode.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorTreeManager.lua.txt" />

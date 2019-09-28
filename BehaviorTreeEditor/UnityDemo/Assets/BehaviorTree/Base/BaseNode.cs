@@ -7,9 +7,9 @@ namespace R7BehaviorTree
         public int ID { get; private set; }
         public NodeData NodeData { get; private set; }
         public BaseContext Context { get; private set; }
-        public INodeProxy NodeProxy { get; private set; }
-        public ProxyData ProxyData { get; set; }
-        public ENodeStatus NodeStatus { get; set; }
+        public BaseNodeProxy NodeProxy { get; private set; }
+        public ProxyData ProxyData { get; private set; }
+        public ENodeStatus Status { get; set; }
         public string ClassType { get; private set; }
         public ENodeType NodeType { get; set; }
         public bool Active { get; set; }
@@ -28,6 +28,11 @@ namespace R7BehaviorTree
             Context = context;
         }
 
+        internal void SetProxyData(ProxyData proxyData)
+        {
+            ProxyData = proxyData;
+        }
+
         internal virtual void CreateProxy()
         {
             NodeProxy = BehaviorTreeManager.Instance.CreateProxy(this);
@@ -43,20 +48,25 @@ namespace R7BehaviorTree
         /// <param name="deltatime">帧时间</param>
         internal virtual void Run(float deltatime)
         {
-            if (NodeStatus == ENodeStatus.None)
+            if (Status == ENodeStatus.Error)
             {
-                NodeStatus = ENodeStatus.Ready;
+                return;
+            }
+
+            if (Status == ENodeStatus.None)
+            {
+                Status = ENodeStatus.Ready;
                 OnAwake();
             }
 
-            if (NodeStatus == ENodeStatus.Ready)
+            if (Status == ENodeStatus.Ready)
             {
-                NodeStatus = ENodeStatus.Running;
+                Status = ENodeStatus.Running;
                 SetActive(true);
                 OnStart();
             }
 
-            if (Active && NodeStatus == ENodeStatus.Running)
+            if (Active && Status == ENodeStatus.Running)
             {
                 OnUpdate(deltatime);
             }
@@ -64,11 +74,13 @@ namespace R7BehaviorTree
 
         internal virtual void SetActive(bool active)
         {
-            if (NodeStatus <= ENodeStatus.Ready)
+            if (Status <= ENodeStatus.Ready)
                 return;
 
             if (Active == active)
                 return;
+
+            Active = active;
 
             if (active)
                 OnEnable();
@@ -78,22 +90,22 @@ namespace R7BehaviorTree
 
         internal virtual void Reset()
         {
-            if (NodeStatus <= ENodeStatus.Ready)
+            if (Status <= ENodeStatus.Ready)
                 return;
 
             SetActive(false);
-            NodeStatus = ENodeStatus.Ready;
+            Status = ENodeStatus.Ready;
             OnReset();
         }
 
         internal virtual void Destroy()
         {
-            if (NodeStatus <= ENodeStatus.Ready)
+            if (Status <= ENodeStatus.Ready)
                 return;
 
             SetActive(false);
             OnDestroy();
-            NodeStatus = ENodeStatus.None;
+            Status = ENodeStatus.None;
             Context = null;
             NodeProxy = null;
         }

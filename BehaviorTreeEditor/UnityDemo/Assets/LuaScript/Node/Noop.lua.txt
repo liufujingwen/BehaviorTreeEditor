@@ -1,21 +1,5 @@
 local Noop = LuaBehaviorTreeManager.Register(LuaBehaviorNode,"Noop",ENodeType.Action,false)
 
-function Noop:OnAwake()
-    
-end
-
 function Noop:OnStart()
-
-end
-
-function Noop:OnUpdate()
-
-end
-
-function Noop:OnReset()
-
-end
-
-function Noop:OnDestroy()
-
+    self.Node.Status = ENodeStatus.Succeed  
 end

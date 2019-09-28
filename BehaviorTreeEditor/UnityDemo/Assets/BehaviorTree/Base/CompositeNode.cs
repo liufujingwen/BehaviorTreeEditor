@@ -5,7 +5,8 @@ namespace R7BehaviorTree
 {
     public class CompositeNode : BaseNode
     {
-        protected List<BaseNode> Childs { get; set; } = new List<BaseNode>();
+        internal List<BaseNode> Childs { get; set; } = new List<BaseNode>();
+        internal int RunningNodeIndex = 0;
 
         internal void AddChild(BaseNode childNode)
         {
@@ -53,15 +54,6 @@ namespace R7BehaviorTree
             }
         }
 
-        internal override void Run(float deltatime)
-        {
-            base.Run(deltatime);
-            for (int i = 0; i < Childs.Count; i++)
-            {
-                Childs[i].Run(deltatime);
-            }
-        }
-
         internal override void SetActive(bool active)
         {
             base.SetActive(active);
@@ -73,8 +65,9 @@ namespace R7BehaviorTree
 
         internal override void Reset()
         {
-            if (NodeStatus <= ENodeStatus.Ready)
+            if (Status <= ENodeStatus.Ready)
                 return;
+            RunningNodeIndex = 0;
             base.Reset();
             for (int i = 0; i < Childs.Count; i++)
             {
@@ -84,8 +77,9 @@ namespace R7BehaviorTree
 
         internal override void Destroy()
         {
-            if (NodeStatus <= ENodeStatus.Ready)
+            if (Status <= ENodeStatus.Ready)
                 return;
+            RunningNodeIndex = 0;
             base.Destroy();
             for (int i = 0; i < Childs.Count; i++)
             {

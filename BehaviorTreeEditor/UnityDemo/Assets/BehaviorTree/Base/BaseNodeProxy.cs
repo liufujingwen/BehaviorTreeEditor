@@ -2,7 +2,7 @@
 
 namespace R7BehaviorTree
 {
-    public abstract class BaseNodeProxy : INodeProxy
+    public abstract class BaseNodeProxy
     {
         public NodeData NodeData { get; private set; }
         public BaseContext Context { get; private set; }
