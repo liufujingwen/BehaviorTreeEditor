@@ -22,8 +22,6 @@ namespace BehaviorTreeEditor
         public SUCCESS_POLICY SuccessPolicy;
         public FAILURE_POLICY FailurePolicy;
 
-
-
         public override void OnRunning(float deltatime)
         {
             int failCount = 0;
