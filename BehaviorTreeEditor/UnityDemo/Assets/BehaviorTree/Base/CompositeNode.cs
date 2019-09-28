@@ -7,7 +7,7 @@ namespace R7BehaviorTree
     {
         protected List<BaseNode> Childs { get; set; } = new List<BaseNode>();
 
-        public void AddChild(BaseNode childNode)
+        internal void AddChild(BaseNode childNode)
         {
             if (childNode == null || Childs.Contains(childNode))
                 return;
@@ -15,7 +15,7 @@ namespace R7BehaviorTree
             Childs.Add(childNode);
         }
 
-        public BaseNode GetChild(int id)
+        internal BaseNode GetChild(int id)
         {
             for (int i = 0; i < Childs.Count; i++)
             {
@@ -28,21 +28,12 @@ namespace R7BehaviorTree
             return null;
         }
 
-        public BaseNode GetChildByIndex(int index)
-        {
-            for (int i = 0; i < Childs.Count; i++)
-            {
-
-            }
-            return null;
-        }
-
-        public BaseNode this[int index]
+        internal BaseNode this[int index]
         {
             get { return Childs[index]; }
         }
 
-        public override void SetContext(BaseContext context)
+        internal override void SetContext(BaseContext context)
         {
             base.SetContext(context);
 
@@ -52,7 +43,7 @@ namespace R7BehaviorTree
             }
         }
 
-        public override void CreateProxy()
+        internal override void CreateProxy()
         {
             base.CreateProxy();
 
@@ -62,24 +53,44 @@ namespace R7BehaviorTree
             }
         }
 
-        public override void OnStart()
+        internal override void Run(float deltatime)
         {
-            NodeProxy?.OnStart();
+            base.Run(deltatime);
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i].Run(deltatime);
+            }
         }
 
-        public override void OnUpdate(float deltatime)
+        internal override void SetActive(bool active)
         {
-            NodeProxy?.OnUpdate(deltatime);
+            base.SetActive(active);
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i].SetActive(active);
+            }
         }
 
-        public override void OnReset()
+        internal override void Reset()
         {
-            NodeProxy?.OnReset();
+            if (NodeStatus <= ENodeStatus.Ready)
+                return;
+            base.Reset();
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i].Reset();
+            }
         }
 
-        public override void OnDestroy()
+        internal override void Destroy()
         {
-            NodeProxy?.OnDestroy();
+            if (NodeStatus <= ENodeStatus.Ready)
+                return;
+            base.Destroy();
+            for (int i = 0; i < Childs.Count; i++)
+            {
+                Childs[i].Destroy();
+            }
         }
     }
 }

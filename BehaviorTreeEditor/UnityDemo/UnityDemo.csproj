@@ -266,7 +266,6 @@
     <Compile Include="Assets\BehaviorTree\Base\ELogType.cs" />
     <Compile Include="Assets\BehaviorTree\Base\ENodeStatus.cs" />
     <Compile Include="Assets\BehaviorTree\Base\ENodeType.cs" />
-    <Compile Include="Assets\BehaviorTree\Base\Interface\IBaseNode.cs" />
     <Compile Include="Assets\BehaviorTree\Base\Interface\ILuaBehaviorNode.cs" />
     <Compile Include="Assets\BehaviorTree\Base\Interface\INodeProxy.cs" />
     <Compile Include="Assets\BehaviorTree\Base\ProxyData.cs" />

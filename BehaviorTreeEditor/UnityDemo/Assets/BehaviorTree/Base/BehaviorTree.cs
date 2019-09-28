@@ -11,20 +11,39 @@ namespace R7BehaviorTree
         public BaseContext Context { get; private set; }
         public int BehaviorTreeType { get; set; }
 
-        public void SetData(AgentData agentData)
+        internal void SetData(AgentData agentData)
         {
             AgentData = agentData;
             AgentID = agentData.ID;
         }
 
-        public void SetContext(BaseContext context)
+        internal void SetContext(BaseContext context)
         {
             Context = context;
             StartNode?.SetContext(context);
         }
 
-        public void OnUpdate(float deltatime)
+        internal void Run(float deltatime)
         {
+            if (StartNode == null)
+                return;
+
+            if (Status == ENodeStatus.Failed || Status == ENodeStatus.Error || Status == ENodeStatus.Succeed)
+                return;
+
+            StartNode.Run(deltatime);
+
+            Status = StartNode.NodeStatus;
+        }
+
+        internal void SetActive(bool active)
+        {
+            StartNode?.SetActive(active);
+        }
+
+        internal void Destroy()
+        {
+            StartNode?.Destroy();
         }
     }
 }

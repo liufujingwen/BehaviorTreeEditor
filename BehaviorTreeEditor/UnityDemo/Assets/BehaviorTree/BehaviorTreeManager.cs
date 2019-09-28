@@ -284,6 +284,28 @@ namespace R7BehaviorTree
             queue.Enqueue(behaviorTree);
         }
 
+        /// <summary>
+        /// 清除所有缓存数据
+        /// </summary>
+        public void ClearPool()
+        {
+            PoolDic.Clear();
+        }
+
+        /// <summary>
+        /// 清除指定类型的缓存数据
+        /// </summary>
+        /// <param name="behaviorTreeType">行为树类型</param>
+        public void ClearPool(int behaviorTreeType)
+        {
+            Dictionary<string, Queue<BehaviorTree>> typePoolDic = null;
+            if (!PoolDic.TryGetValue(behaviorTreeType, out typePoolDic))
+                return;
+
+            if (typePoolDic != null)
+                typePoolDic.Clear();
+        }
+
         #endregion
 
         /// <summary>
@@ -420,14 +442,18 @@ namespace R7BehaviorTree
 
                     if (behaviorTree == null)
                         continue;
-                    if (behaviorTree.Status == ENodeStatus.Failed)
-                        continue;
-                    if (behaviorTree.Status == ENodeStatus.Succeed)
-                        continue;
                     if (behaviorTree.Status == ENodeStatus.Error)
                         continue;
 
-                    behaviorTree.OnUpdate(deltatime);
+                    behaviorTree.Run(deltatime);
+
+                    if (behaviorTree.Status == ENodeStatus.Failed || behaviorTree.Status == ENodeStatus.Succeed)
+                    {
+                        Runnings.RemoveAt(i);
+                        i--;
+                        behaviorTree.Destroy();
+                        Despawn(behaviorTree);
+                    }
                 }
             }
         }

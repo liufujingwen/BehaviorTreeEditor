@@ -29,6 +29,16 @@ namespace R7BehaviorTree
             m_LuaBehaviorNode?.OnAwake();
         }
 
+        public override void OnEnable()
+        {
+            m_LuaBehaviorNode?.OnEnable();
+        }
+
+        public override void OnDisable()
+        {
+            m_LuaBehaviorNode?.OnDisable();
+        }
+
         public override void OnStart()
         {
             m_LuaBehaviorNode?.OnStart();

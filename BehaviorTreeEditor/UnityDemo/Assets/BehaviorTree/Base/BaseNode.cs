@@ -2,7 +2,7 @@
 
 namespace R7BehaviorTree
 {
-    public abstract class BaseNode : IBaseNode
+    public abstract class BaseNode
     {
         public int ID { get; private set; }
         public NodeData NodeData { get; private set; }
@@ -12,42 +12,152 @@ namespace R7BehaviorTree
         public ENodeStatus NodeStatus { get; set; }
         public string ClassType { get; private set; }
         public ENodeType NodeType { get; set; }
-       
-        public virtual void SetData(NodeData data)
+        public bool Active { get; set; }
+
+        #region 数据相关
+
+        internal virtual void SetData(NodeData data)
         {
             NodeData = data;
             ID = NodeData.ID;
             ClassType = data.ClassType;
         }
 
-        public virtual void SetContext(BaseContext context)
+        internal virtual void SetContext(BaseContext context)
         {
             Context = context;
         }
 
-        public virtual void CreateProxy()
+        internal virtual void CreateProxy()
         {
             NodeProxy = BehaviorTreeManager.Instance.CreateProxy(this);
         }
 
-        public virtual void OnStart()
+        #endregion
+
+        #region 外部调用
+
+        /// <summary>
+        /// 生命周期驱动函数
+        /// </summary>
+        /// <param name="deltatime">帧时间</param>
+        internal virtual void Run(float deltatime)
+        {
+            if (NodeStatus == ENodeStatus.None)
+            {
+                NodeStatus = ENodeStatus.Ready;
+                OnAwake();
+            }
+
+            if (NodeStatus == ENodeStatus.Ready)
+            {
+                NodeStatus = ENodeStatus.Running;
+                SetActive(true);
+                OnStart();
+            }
+
+            if (Active && NodeStatus == ENodeStatus.Running)
+            {
+                OnUpdate(deltatime);
+            }
+        }
+
+        internal virtual void SetActive(bool active)
+        {
+            if (NodeStatus <= ENodeStatus.Ready)
+                return;
+
+            if (Active == active)
+                return;
+
+            if (active)
+                OnEnable();
+            else
+                OnDisable();
+        }
+
+        internal virtual void Reset()
+        {
+            if (NodeStatus <= ENodeStatus.Ready)
+                return;
+
+            SetActive(false);
+            NodeStatus = ENodeStatus.Ready;
+            OnReset();
+        }
+
+        internal virtual void Destroy()
+        {
+            if (NodeStatus <= ENodeStatus.Ready)
+                return;
+
+            SetActive(false);
+            OnDestroy();
+            NodeStatus = ENodeStatus.None;
+            Context = null;
+            NodeProxy = null;
+        }
+
+        #endregion
+
+        #region 生命周期函数
+
+        /// <summary>
+        /// 数据初始化
+        /// </summary>
+        internal virtual void OnAwake()
+        {
+            NodeProxy?.OnAwake();
+        }
+
+        /// <summary>
+        /// 节点激活
+        /// </summary>
+        internal virtual void OnEnable()
+        {
+            NodeProxy?.OnEnable();
+        }
+
+        /// <summary>
+        /// 节点暂停
+        /// </summary>
+        internal virtual void OnDisable()
+        {
+            NodeProxy?.OnDisable();
+        }
+
+        /// <summary>
+        /// 节点进入时执行OnStart
+        /// </summary>
+        internal virtual void OnStart()
         {
             NodeProxy?.OnStart();
         }
 
-        public virtual void OnUpdate(float deltatime)
+        /// <summary>
+        /// 状态NodeStatus=Running 时每帧执行OnUpdate
+        /// </summary>
+        internal virtual void OnUpdate(float deltatime)
         {
             NodeProxy?.OnUpdate(deltatime);
         }
 
-        public virtual void OnReset()
+        /// <summary>
+        /// 节点重置执行OnReset
+        /// </summary>
+        internal virtual void OnReset()
         {
             NodeProxy?.OnReset();
         }
 
-        public virtual void OnDestroy()
+        /// <summary>
+        /// 节点退出执行OnDestroy
+        /// </summary>
+        internal virtual void OnDestroy()
         {
             NodeProxy?.OnDestroy();
         }
+
+        #endregion
     }
 }
