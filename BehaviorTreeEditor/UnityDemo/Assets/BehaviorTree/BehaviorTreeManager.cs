@@ -1,7 +1,6 @@
-﻿using BehaviorTreeData;
-using System;
+﻿using System;
+using BehaviorTreeData;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace R7BehaviorTree
 {
@@ -20,7 +19,7 @@ namespace R7BehaviorTree
         /// <summary>
         /// 正在运行的行为树
         /// </summary>
-        public List<BehaviorTree> ActiveBehaviorTrees = new List<BehaviorTree>();
+        public List<BehaviorTree> Runnings = new List<BehaviorTree>();
 
         /// <summary>
         /// 管理行为树编辑器数据
@@ -120,11 +119,9 @@ namespace R7BehaviorTree
         /// 加载指定类型的行为树
         /// </summary>
         /// <param name="behaviorTreeType">行为树类型</param>
-        public void LoadBehaviorData(int behaviorTreeType)
+        public void LoadBehaviorData(int behaviorTreeType, byte[] bytes)
         {
-            string path = behaviorTreeType.ToString();
-            TextAsset textAsset = Resources.Load<TextAsset>(path);
-            TreeData treeData = Serializer.DeSerialize<TreeData>(textAsset.bytes);
+            TreeData treeData = Serializer.DeSerialize<TreeData>(bytes);
             if (treeData == null)
                 throw new Exception($"Load {behaviorTreeType} treeData failed.");
             TreeDataDic[behaviorTreeType] = treeData;
@@ -181,6 +178,29 @@ namespace R7BehaviorTree
             return behaviorTree;
         }
 
+        /// <summary>
+        /// 激活行为树
+        /// </summary>
+        /// <param name="behaviorTree"></param>
+        public void RunBehaviorTree(BehaviorTree behaviorTree)
+        {
+            if (behaviorTree == null)
+            {
+                string msg = "BehaviorTreeManager.ActiveBehaviorTree() \n Run failed, behaviorTree is null.";
+                LogError(msg);
+                throw new Exception(msg);
+            }
+
+            if (Runnings.Contains(behaviorTree))
+            {
+                string msg = "BehaviorTreeManager.ActiveBehaviorTree() \n behaviorTree already run";
+                LogError(msg);
+                throw new Exception(msg);
+            }
+
+            Runnings.Add(behaviorTree);
+        }
+
         #region Pool
 
         /// <summary>
@@ -214,6 +234,7 @@ namespace R7BehaviorTree
 
             if (behaviorTree == null)
             {
+                behaviorTree = new BehaviorTree();
                 AgentData agentData = GetAgentData(behaviorTreeType, agentId);
                 behaviorTree.SetData(agentData);
                 behaviorTree.StartNode = CreateNode(agentData.StartNode);
@@ -352,23 +373,36 @@ namespace R7BehaviorTree
             return baseNode;
         }
 
-        public INodeProxy CreateProxy(ProxyData proxyData)
+        public BaseNodeProxy CreateProxy(BaseNode node)
         {
-            INodeProxy nodeProxy = null;
-
-            if (proxyData.IsLuaProxy)
+            if (node == null)
             {
+                //组合节点必须有子节点
+                string msg = "Create nodeProxy failed,node is null.";
+                LogError(msg);
+                throw new Exception(msg);
+            }
 
+            BaseNodeProxy nodeProxy = null;
+
+            if (node.ProxyData.IsLuaProxy)
+            {
+                LuaNodeProxy luaNodeProxy = new LuaNodeProxy();
+                nodeProxy.SetNode(node);
+                luaNodeProxy.SetContext(node.Context);
+                luaNodeProxy.CreateLuaObj();
             }
             else
             {
-                nodeProxy = Activator.CreateInstance(proxyData.ProxyType) as INodeProxy;
+                nodeProxy = Activator.CreateInstance(node.ProxyData.ProxyType) as BaseNodeProxy;
+                nodeProxy.SetNode(node);
+                nodeProxy.SetContext(node.Context);
             }
 
             if (nodeProxy == null)
             {
                 //组合节点必须有子节点
-                string msg = $"Create nodeProxy failed,ClassType:{proxyData.ClassType}";
+                string msg = $"Create nodeProxy failed,ClassType:{node.ProxyData.ClassType}";
                 LogError(msg);
                 throw new Exception(msg);
             }
@@ -376,13 +410,13 @@ namespace R7BehaviorTree
             return nodeProxy;
         }
 
-        public void OnUpdate()
+        public void OnUpdate(float deltatime)
         {
-            if (ActiveBehaviorTrees.Count > 0)
+            if (Runnings.Count > 0)
             {
-                for (int i = 0; i < ActiveBehaviorTrees.Count; i++)
+                for (int i = 0; i < Runnings.Count; i++)
                 {
-                    BehaviorTree behaviorTree = ActiveBehaviorTrees[i];
+                    BehaviorTree behaviorTree = Runnings[i];
 
                     if (behaviorTree == null)
                         continue;
@@ -393,7 +427,7 @@ namespace R7BehaviorTree
                     if (behaviorTree.Status == ENodeStatus.Error)
                         continue;
 
-                    behaviorTree.OnUpdate(Time.deltaTime);
+                    behaviorTree.OnUpdate(deltatime);
                 }
             }
         }

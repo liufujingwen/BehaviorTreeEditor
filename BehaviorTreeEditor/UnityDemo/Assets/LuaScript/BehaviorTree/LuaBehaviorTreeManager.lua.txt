@@ -1,0 +1,26 @@
+LuaBehaviorTreeManager = Class("LuaBehaviorTreeManager")
+
+local ClassType = {}
+
+--注册节点
+-- @super 父类
+-- @classType 节点对应的Lua名字
+-- @uiType 节点类型和c#的ENodeType一一对应
+-- @needUpdate 行为树是否需要Update(性能优化)
+function LuaBehaviorTreeManager.Register(super, classType, nodeType, needUpdate)
+    super = LuaBehaviorNode or super
+    needUpdate = needUpdate and true or false
+    BehaviorTreeManager.Instance:RegisterLuaProxy(classType, nodeType, needUpdate)
+    local luaNodeObj = Class(classType, super)
+    ClassType[classType] = luaNodeObj
+    return luaNodeObj
+end
+
+--创建一个LuaBehaviorNode的实例
+--@classType 节点对应的lua脚本名字
+--@proxy LuaNodeProxy(C#)
+function LuaBehaviorTreeManager.New(classType, proxy)
+    local class = ClassType[classType]
+    local nodeObj = class.New(uiProxy)
+    return nodeObj
+end

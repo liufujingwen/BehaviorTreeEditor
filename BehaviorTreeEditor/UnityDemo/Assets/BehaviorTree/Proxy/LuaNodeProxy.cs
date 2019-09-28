@@ -1,33 +1,55 @@
-﻿using BehaviorTreeData;
+﻿#if LUA
+
+using BehaviorTreeData;
+using System;
+using XLua;
 
 namespace R7BehaviorTree
 {
     public class LuaNodeProxy : BaseNodeProxy
     {
-        public override void SetData(NodeData data)
+        public static LuaEnv LuaEnv { get; set; }
+        static Func<string, LuaNodeProxy, ILuaBehaviorNode> NewFunc = null;
+        private ILuaBehaviorNode m_LuaBehaviorNode;
+
+        public LuaNodeProxy()
         {
-            base.SetData(data);
+            if (NewFunc == null)
+                NewFunc = LuaEnv.Global.GetInPath<Func<string, LuaNodeProxy, ILuaBehaviorNode>>("LuaUIManager.New");
         }
 
-        public override void SetContext(BaseContext context)
+        //构建lua行为树实例
+        internal void CreateLuaObj()
         {
-            base.SetContext(context);
+            m_LuaBehaviorNode = NewFunc?.Invoke(NodeData.ClassType, this);
+        }
+
+        public override void OnAwake()
+        {
+            m_LuaBehaviorNode?.OnAwake();
         }
 
         public override void OnStart()
         {
+            m_LuaBehaviorNode?.OnStart();
         }
 
         public override void OnUpdate(float deltatime)
         {
+            if (Node.ProxyData.NeedUpdate)
+                m_LuaBehaviorNode?.OnUpdate(deltatime);
         }
 
         public override void OnReset()
         {
+            m_LuaBehaviorNode?.OnStart();
         }
 
         public override void OnDestroy()
         {
+            m_LuaBehaviorNode.OnDestroy();
         }
     }
 }
+
+#endif

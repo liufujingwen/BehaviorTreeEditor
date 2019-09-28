@@ -1,0 +1,29 @@
+--行为树节点基类
+
+LuaBehaviorNode = Class("LuaBahaviorNode")
+
+function LuaBehaviorNode:Ctor(proxy)
+    self.Context = proxy.Context
+    self.NodeProxy = proxy
+    self.Node = proxy.Node
+end
+
+function LuaBehaviorNode:OnAwake()
+
+end
+
+function LuaBehaviorNode:OnStart()
+
+end
+
+function LuaBehaviorNode:OnUpdate()
+
+end
+
+function LuaBehaviorNode:OnReset()
+
+end
+
+function LuaBehaviorNode:OnDestroy()
+
+end

@@ -1,0 +1,1 @@
+ENodeType = CS.R7BehaviorTree.ENodeType

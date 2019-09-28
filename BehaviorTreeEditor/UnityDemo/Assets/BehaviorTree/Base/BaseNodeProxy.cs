@@ -6,15 +6,21 @@ namespace R7BehaviorTree
     {
         public NodeData NodeData { get; private set; }
         public BaseContext Context { get; private set; }
+        public BaseNode Node { get; private set; }
 
-        public virtual void SetData(NodeData data)
+        internal virtual void SetData(NodeData data)
         {
             NodeData = data;
         }
 
-        public virtual void SetContext(BaseContext context)
+        internal virtual void SetContext(BaseContext context)
         {
             Context = context;
+        }
+
+        internal void SetNode(BaseNode node)
+        {
+            Node = node;
         }
 
         public virtual void OnAwake()

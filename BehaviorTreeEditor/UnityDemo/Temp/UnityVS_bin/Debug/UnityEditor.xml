@@ -24675,11 +24675,6 @@ Set this property to limit your application to only run on devices that support 
         <para>Enable Shared Depth Buffer support with Oculus.</para>
       </summary>
     </member>
-    <member name="P:UnityEditor.PlayerSettings.VROculus.v2Signing">
-      <summary>
-        <para>Enables application signing with the Android Package (APK) Signature Scheme v2.</para>
-      </summary>
-    </member>
     <member name="T:UnityEditor.PlayerSettings.WebGL">
       <summary>
         <para>WebGL specific player settings.</para>

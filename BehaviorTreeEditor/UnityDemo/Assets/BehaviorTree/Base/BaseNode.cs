@@ -5,19 +5,19 @@ namespace R7BehaviorTree
     public abstract class BaseNode : IBaseNode
     {
         public int ID { get; private set; }
-        protected NodeData NodeData { get; private set; }
-        protected BaseContext Context { get; private set; }
-        protected INodeProxy NodeProxy { get; private set; }
+        public NodeData NodeData { get; private set; }
+        public BaseContext Context { get; private set; }
+        public INodeProxy NodeProxy { get; private set; }
         public ProxyData ProxyData { get; set; }
         public ENodeStatus NodeStatus { get; set; }
-        public string NodeClass { get; private set; }
+        public string ClassType { get; private set; }
         public ENodeType NodeType { get; set; }
        
         public virtual void SetData(NodeData data)
         {
             NodeData = data;
             ID = NodeData.ID;
-            NodeClass = data.ClassType;
+            ClassType = data.ClassType;
         }
 
         public virtual void SetContext(BaseContext context)
@@ -27,7 +27,7 @@ namespace R7BehaviorTree
 
         public virtual void CreateProxy()
         {
-            NodeProxy = BehaviorTreeManager.Instance.CreateProxy(ProxyData);
+            NodeProxy = BehaviorTreeManager.Instance.CreateProxy(this);
         }
 
         public virtual void OnStart()

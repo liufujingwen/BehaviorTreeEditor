@@ -1,0 +1,1 @@
+BehaviorTreeManager = CS.R7BehaviorTree.BehaviorTreeManager
