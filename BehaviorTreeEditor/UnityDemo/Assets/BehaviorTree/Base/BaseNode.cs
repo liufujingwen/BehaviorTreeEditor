@@ -103,6 +103,9 @@ namespace R7BehaviorTree
             if (Status <= ENodeStatus.Ready)
                 return;
 
+            if (Status == ENodeStatus.Error)
+                return;
+
             SetActive(false);
             OnDestroy();
             Status = ENodeStatus.None;

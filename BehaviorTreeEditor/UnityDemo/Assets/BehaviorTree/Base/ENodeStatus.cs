@@ -4,9 +4,9 @@
     {
         None = 0,
         Ready,
+        Error,
+        Running,
         Succeed,
         Failed,
-        Running,
-        Error,
     }
 }

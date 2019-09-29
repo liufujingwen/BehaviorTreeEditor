@@ -232,16 +232,6 @@ namespace BehaviorTreeEditor
             Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
             AddClass(Frames);
 
-            //输出Log节点
-            NodeClass Log = new NodeClass();
-            Log.ClassType = "Log";
-            Log.Label = "输出节点";
-            Log.NodeType = NodeType.Decorator;
-            Log.Describe = "输出log节点";
-            Log.ShowContent = true;
-            Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容" });
-            AddClass(Log);
-
             //循环节点 -1无限循环
             NodeClass Loop = new NodeClass();
             Loop.ClassType = "Loop";
@@ -430,6 +420,16 @@ namespace BehaviorTreeEditor
             Noop.NodeType = NodeType.Action;
             Noop.Describe = "空操作节点";
             AddClass(Noop);
+
+            //输出Log节点
+            NodeClass Log = new NodeClass();
+            Log.ClassType = "Log";
+            Log.Label = "输出节点";
+            Log.NodeType = NodeType.Action;
+            Log.Describe = "输出log节点";
+            Log.ShowContent = true;
+            Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容" });
+            AddClass(Log);
 
             #endregion
         }

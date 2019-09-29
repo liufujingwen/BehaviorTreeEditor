@@ -147,12 +147,6 @@ namespace BehaviorTreeEditor
                     Debug__Frames debug__Frames = new Debug__Frames();
                     debugNode = debug__Frames;
                 }
-                //输出log节点
-                else if (node.ClassType == "Log")
-                {
-                    Debug__Log debug__Log = new Debug__Log();
-                    debugNode = debug__Log;
-                }
                 //循环节点
                 else if (node.ClassType == "Loop")
                 {
@@ -223,6 +217,12 @@ namespace BehaviorTreeEditor
                 {
                     Debug_Noop debug_Noop = new Debug_Noop();
                     debugNode = debug_Noop;
+                }
+                //输出log节点
+                else if (node.ClassType == "Log")
+                {
+                    Debug__Log debug__Log = new Debug__Log();
+                    debugNode = debug__Log;
                 }
                 else
                 {

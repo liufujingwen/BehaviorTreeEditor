@@ -54,30 +54,30 @@ namespace R7BehaviorTree
 
                     if (m_FailurePolicy == FAILURE_POLICY.FAIL_ON_ONE)
                     {
-                        Node.Status = ENodeStatus.Failed;
+                        m_CompositeNode.Status = ENodeStatus.Failed;
                         break;
                     }
                     else if (m_FailurePolicy == FAILURE_POLICY.FAIL_ON_ALL && failCount == m_CompositeNode.Childs.Count)
                     {
-                        Node.Status = ENodeStatus.Failed;
+                        m_CompositeNode.Status = ENodeStatus.Failed;
                     }
                 }
-                else if (childNode.Status == ENodeStatus.Succeed)
+                else if (childNodeStatus == ENodeStatus.Succeed)
                 {
                     successCount++;
 
                     if (m_SuccessPolicy == SUCCESS_POLICY.SUCCEED_ON_ONE)
                     {
-                        Node.Status = ENodeStatus.Succeed;
+                        m_CompositeNode.Status = ENodeStatus.Succeed;
                     }
                     else if (m_SuccessPolicy == SUCCESS_POLICY.SUCCEED_ON_ALL && successCount == m_CompositeNode.Childs.Count)
                     {
-                        Node.Status = ENodeStatus.Succeed;
+                        m_CompositeNode.Status = ENodeStatus.Succeed;
                     }
                 }
-                else if (childNode.Status == ENodeStatus.Error)
+                else if (childNodeStatus == ENodeStatus.Error)
                 {
-                    Node.Status = ENodeStatus.Error;
+                    m_CompositeNode.Status = ENodeStatus.Error;
                 }
             }
         }

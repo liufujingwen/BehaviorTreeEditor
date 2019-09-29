@@ -99,7 +99,7 @@
     <Compile Include="Debug\DebugState.cs" />
     <Compile Include="Debug\Decorator\Debug__Failure.cs" />
     <Compile Include="Debug\Decorator\Debug__Frames.cs" />
-    <Compile Include="Debug\Decorator\Debug__Log.cs" />
+    <Compile Include="Debug\Action\Debug__Log.cs" />
     <Compile Include="Debug\Decorator\Debug__Loop.cs" />
     <Compile Include="Debug\Decorator\Debug__Not.cs" />
     <Compile Include="Debug\Decorator\Debug__Success.cs" />

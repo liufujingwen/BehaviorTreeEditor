@@ -18,14 +18,5 @@ namespace BehaviorTreeData
         {
             writer.Write(FieldName).Write(X).Write(Y);
         }
-
-        public override BaseField Clone()
-        {
-            Vector2Field field = new Vector2Field();
-            field.FieldName = FieldName;
-            field.X = X;
-            field.Y = Y;
-            return field;
-        }
     }
 }

@@ -103,7 +103,6 @@ namespace BehaviorTreeEditor
             }
             else if (runningNode.Status == DebugNodeStatus.Failed)
             {
-                Status = DebugNodeStatus.Failed;
                 RunningNodeIndex++;
                 //所有运行失败将返回失败
                 if (RunningNodeIndex >= Children.Count)
