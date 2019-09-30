@@ -74,7 +74,7 @@ namespace R7BehaviorTree
 
         internal virtual void SetActive(bool active)
         {
-            if (Status <= ENodeStatus.Ready)
+            if (Status < ENodeStatus.Running)
                 return;
 
             if (Active == active)
@@ -90,7 +90,7 @@ namespace R7BehaviorTree
 
         internal virtual void Reset()
         {
-            if (Status <= ENodeStatus.Ready)
+            if (Status < ENodeStatus.Running)
                 return;
 
             SetActive(false);
@@ -100,10 +100,7 @@ namespace R7BehaviorTree
 
         internal virtual void Destroy()
         {
-            if (Status <= ENodeStatus.Ready)
-                return;
-
-            if (Status == ENodeStatus.Error)
+            if (Status < ENodeStatus.Ready)
                 return;
 
             SetActive(false);

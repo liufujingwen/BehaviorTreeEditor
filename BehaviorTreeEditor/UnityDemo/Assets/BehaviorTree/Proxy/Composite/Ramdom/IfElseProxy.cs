@@ -15,6 +15,8 @@ namespace R7BehaviorTree
 
         public override void OnStart()
         {
+            m_CompositeNode = Node as CompositeNode;
+
             if (m_CompositeNode.Childs.Count != 3)
             {
                 m_CompositeNode.Status = ENodeStatus.Error;

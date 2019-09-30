@@ -3,8 +3,8 @@
     public enum ENodeStatus
     {
         None = 0,
-        Ready,
         Error,
+        Ready,
         Running,
         Succeed,
         Failed,

@@ -5,10 +5,12 @@ using BehaviorTreeData;
 namespace R7BehaviorTree
 {
     /// <summary>
-    /// 按概率排序节点，依次执行排序后的节点，只要一个成功就为成功，全部失败为失败
+    /// 概率选择
+    /// 概率选择节点是根据概率“直接”选择并执行某个子节点，无论其返回成功还是失败，
+    /// 概率选择节点也将返回同样的结果。如果该子节点返回失败，概率选择也返回失败，它不会像选择节点那样会继续执行接下来的子节点。
     /// </summary>
-    [CompositeNode("RateSelector")]
-    public class RateSelectorProxy : CSharpNodeProxy
+    [CompositeNode("SelectorProbability")]
+    public class SelectorProbabilityProxy : CSharpNodeProxy
     {
         private List<BaseNode> Children = new List<BaseNode>();
         private Dictionary<BaseNode, int> PriorityIndex = new Dictionary<BaseNode, int>();
@@ -16,6 +18,7 @@ namespace R7BehaviorTree
         private List<int> m_PriorityList = null;
         private CompositeNode m_CompositeNode;
         private Random m_Random = new Random();
+        private BaseNode m_SelectorNode;
 
         public override void OnAwake()
         {
@@ -79,36 +82,30 @@ namespace R7BehaviorTree
                     m_RandomList.Insert(pos, childNode);
                 }
             }
+
+            m_SelectorNode = m_RandomList[0];
         }
 
         public override void OnUpdate(float deltatime)
         {
-            for (int i = m_CompositeNode.RunningNodeIndex; i < m_CompositeNode.Childs.Count;)
+            m_SelectorNode.Run(deltatime);
+            ENodeStatus childNodeStatus = m_SelectorNode.Status;
+
+            if (childNodeStatus == ENodeStatus.Error)
             {
-                BaseNode childNode = m_RandomList[i];
-                childNode.Run(deltatime);
-                ENodeStatus childNodeStatus = childNode.Status;
+                m_CompositeNode.Status = ENodeStatus.Error;
+                return;
+            }
 
-                if (childNodeStatus == ENodeStatus.Error)
-                {
-                    m_CompositeNode.Status = ENodeStatus.Error;
-                    return;
-                }
+            if (childNodeStatus == ENodeStatus.Succeed)
+            {
+                m_CompositeNode.Status = ENodeStatus.Succeed;
+                return;
+            }
 
-                if (childNodeStatus == ENodeStatus.Succeed)
-                {
-                    m_CompositeNode.Status = ENodeStatus.Succeed;
-                    return;
-                }
-
-                if (childNode.Status == ENodeStatus.Failed)
-                {
-                    m_CompositeNode.RunningNodeIndex++;
-                    i++;
-                    //所有运行失败将返回失败
-                    if (m_CompositeNode.RunningNodeIndex >= Children.Count)
-                        m_CompositeNode.Status = ENodeStatus.Failed;
-                }
+            if (childNodeStatus == ENodeStatus.Failed)
+            {
+                m_CompositeNode.Status = ENodeStatus.Failed;
             }
         }
     }
