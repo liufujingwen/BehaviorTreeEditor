@@ -326,6 +326,7 @@
     <Compile Include="Assets\Demo\Unit\EUnitState.cs" />
     <Compile Include="Assets\Demo\Unit\EUnitType.cs" />
     <Compile Include="Assets\Demo\Unit\Unit.cs" />
+    <Compile Include="Assets\Demo\Unit\UnitStateBehaviour.cs" />
     <Compile Include="Assets\ThirdParty\LuaPerfect\ObjectFormater.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\01_Helloworld\Helloworld.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\02_U3DScripting\LuaBehaviour.cs" />
