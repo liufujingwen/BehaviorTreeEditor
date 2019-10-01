@@ -452,13 +452,13 @@ namespace R7BehaviorTree
 
                     behaviorTree.Run(deltatime);
 
-                    if (behaviorTree.Status == ENodeStatus.Failed || behaviorTree.Status == ENodeStatus.Succeed)
-                    {
-                        Runnings.RemoveAt(i);
-                        i--;
-                        behaviorTree.Destroy();
-                        Despawn(behaviorTree);
-                    }
+                    //if (behaviorTree.Status == ENodeStatus.Failed || behaviorTree.Status == ENodeStatus.Succeed)
+                    //{
+                    //    Runnings.RemoveAt(i);
+                    //    i--;
+                    //    behaviorTree.Destroy();
+                    //    Despawn(behaviorTree);
+                    //}
                 }
             }
         }

@@ -296,6 +296,7 @@
     <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Serializer.cs" />
     <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Writer.cs" />
     <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeManager.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Agent.cs" />
     <Compile Include="Assets\BehaviorTreeDemo.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Action\LogProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Action\NoopProxy.cs" />
@@ -369,6 +370,7 @@
     <Compile Include="Assets\ThirdParty\XLua\Tutorial\LuaCallCSharp\LuaCallCs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BehaviorTreeDebugger\Editor\Resources\GridLine.shader" />
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />

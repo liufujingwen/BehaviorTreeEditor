@@ -5,7 +5,7 @@ namespace R7BehaviorTree
 {
     public class CompositeNode : BaseNode
     {
-        internal List<BaseNode> Childs { get; set; } = new List<BaseNode>();
+        public List<BaseNode> Childs { get; set; } = new List<BaseNode>();
         internal int RunningNodeIndex = 0;
 
         internal void AddChild(BaseNode childNode)

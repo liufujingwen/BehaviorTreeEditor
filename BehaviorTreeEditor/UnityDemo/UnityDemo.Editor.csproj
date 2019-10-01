@@ -304,6 +304,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\BehaviorTreeEditor.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\BehaviorTreeEditorStyles.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\FsmContent.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\MainToolbar.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\NodeDesigner\AgentDesigner.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\NodeDesigner\NodeDesigner.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\NodeDesigner\Transition.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\NodeEditor.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\RectExtension.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\UnityEditorUtility.cs" />
+    <Compile Include="Assets\BehaviorTreeDebugger\Editor\ZoomableArea.cs" />
     <Compile Include="Assets\ThirdParty\LuaPerfect\Editor\ApiGenerator.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Editor\ExampleConfig.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\13_BuildFromCLI\Editor\BuildFromCLI.cs" />
@@ -313,6 +324,7 @@
     <Compile Include="Assets\ThirdParty\XLua\Src\Editor\TemplateRef.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BehaviorTreeDebugger\Editor\Resources\GridLine.shader" />
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />
