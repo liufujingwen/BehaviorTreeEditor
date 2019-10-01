@@ -6,7 +6,7 @@ namespace R7BehaviorTree
     {
         public int ID { get; private set; }
         public NodeData NodeData { get; private set; }
-        public BaseContext Context { get; private set; }
+        public IContext Context { get; private set; }
         public BaseNodeProxy NodeProxy { get; private set; }
         public ProxyData ProxyData { get; private set; }
         public ENodeStatus Status { get; set; }
@@ -23,7 +23,7 @@ namespace R7BehaviorTree
             ClassType = data.ClassType;
         }
 
-        internal virtual void SetContext(BaseContext context)
+        internal virtual void SetContext(IContext context)
         {
             Context = context;
         }

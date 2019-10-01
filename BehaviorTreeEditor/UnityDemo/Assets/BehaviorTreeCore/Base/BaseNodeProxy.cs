@@ -5,7 +5,7 @@ namespace R7BehaviorTree
     public abstract class BaseNodeProxy
     {
         public NodeData NodeData { get; private set; }
-        public BaseContext Context { get; private set; }
+        public IContext Context { get; private set; }
         public BaseNode Node { get; private set; }
 
         public virtual void SetData(NodeData data)
@@ -13,7 +13,7 @@ namespace R7BehaviorTree
             NodeData = data;
         }
 
-        public virtual void SetContext(BaseContext context)
+        public virtual void SetContext(IContext context)
         {
             Context = context;
         }

@@ -95,5 +95,97 @@
         </NodeDesigner>
       </Nodes>
     </AgentDesigner>
+    <AgentDesigner>
+      <AgentID>NewAgent_637055584110834557</AgentID>
+      <GroupName />
+      <Fields />
+      <Nodes>
+        <NodeDesigner>
+          <Rect>
+            <x>5000</x>
+            <y>5000</y>
+            <position>
+              <x>5000</x>
+              <y>5000</y>
+            </position>
+            <center>
+              <x>5075</x>
+              <y>5030</y>
+            </center>
+            <min>
+              <x>5000</x>
+              <y>5000</y>
+            </min>
+            <max>
+              <x>5150</x>
+              <y>5060</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5000</xMin>
+            <yMin>5000</yMin>
+            <xMax>5150</xMax>
+            <yMax>5060</yMax>
+          </Rect>
+          <Transitions>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
+              <ToNodeID>2</ToNodeID>
+            </Transition>
+          </Transitions>
+          <ID>1</ID>
+          <StartNode>true</StartNode>
+          <ClassType>Sequence</ClassType>
+          <Label>顺序节点</Label>
+          <NodeType>Composite</NodeType>
+          <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+          <Fields />
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5250</x>
+            <y>5000</y>
+            <position>
+              <x>5250</x>
+              <y>5000</y>
+            </position>
+            <center>
+              <x>5325</x>
+              <y>5030</y>
+            </center>
+            <min>
+              <x>5250</x>
+              <y>5000</y>
+            </min>
+            <max>
+              <x>5400</x>
+              <y>5060</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5250</xMin>
+            <yMin>5000</yMin>
+            <xMax>5400</xMax>
+            <yMax>5060</yMax>
+          </Rect>
+          <Transitions />
+          <ID>2</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Noop</ClassType>
+          <Label>空操作节点</Label>
+          <NodeType>Action</NodeType>
+          <Describe>空操作节点</Describe>
+          <Fields />
+        </NodeDesigner>
+      </Nodes>
+    </AgentDesigner>
   </Agents>
 </TreeData>

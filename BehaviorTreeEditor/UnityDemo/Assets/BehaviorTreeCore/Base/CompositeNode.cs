@@ -34,7 +34,7 @@ namespace R7BehaviorTree
             get { return Childs[index]; }
         }
 
-        internal override void SetContext(BaseContext context)
+        internal override void SetContext(IContext context)
         {
             base.SetContext(context);
 

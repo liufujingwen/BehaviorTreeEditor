@@ -162,7 +162,7 @@ namespace R7BehaviorTree
         /// <param name="agentId">agentId</param>
         /// <param name="context">上下文</param>
         /// <returns></returns>
-        public BehaviorTree CreateBehaviorTree(int behaviorTreeType, string agentId, BaseContext context)
+        public BehaviorTree CreateBehaviorTree(int behaviorTreeType, string agentId, IContext context)
         {
             BehaviorTree behaviorTree = Spawn(behaviorTreeType, agentId);
 

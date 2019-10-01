@@ -8,7 +8,7 @@ namespace R7BehaviorTree
         public AgentData AgentData { get; set; }
         public ENodeStatus Status { get; set; } = ENodeStatus.None;
         public BaseNode StartNode { get; set; }
-        public BaseContext Context { get; private set; }
+        public IContext Context { get; private set; }
         public int BehaviorTreeType { get; set; }
 
         internal void SetData(AgentData agentData)
@@ -17,7 +17,7 @@ namespace R7BehaviorTree
             AgentID = agentData.ID;
         }
 
-        internal void SetContext(BaseContext context)
+        internal void SetContext(IContext context)
         {
             Context = context;
             StartNode?.SetContext(context);
