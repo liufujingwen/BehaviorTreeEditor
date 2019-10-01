@@ -116,8 +116,8 @@ namespace BehaviorTreeEditor
                 //概率选择
                 else if (node.ClassType == "RateSelector")
                 {
-                    Debug__RateSelector debug__RateSelector = new Debug__RateSelector();
-                    debugNode = debug__RateSelector;
+                    Debug__SelectorProbability debug__SelectorProbability = new Debug__SelectorProbability();
+                    debugNode = debug__SelectorProbability;
                 }
                 else
                 {
@@ -166,10 +166,10 @@ namespace BehaviorTreeEditor
                     debugNode = debug__Time;
                 }
                 //等待直到子节点返回成功
-                else if (node.ClassType == "WaitUntil")
+                else if (node.ClassType == "SuccessUntil")
                 {
-                    Debug__WaitUntil debug__WaitUntil = new Debug__WaitUntil();
-                    debugNode = debug__WaitUntil;
+                    Debug__SuccessUntil debug__SuccessUntil = new Debug__SuccessUntil();
+                    debugNode = debug__SuccessUntil;
                 }
                 else
                 {

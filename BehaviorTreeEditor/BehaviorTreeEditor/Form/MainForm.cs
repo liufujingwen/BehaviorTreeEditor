@@ -556,6 +556,7 @@ namespace BehaviorTreeEditor
             NodeClasses.ResetEnums();
             NodeClasses.ResetNodes();
             TreeData = new TreeData();
+            CreateTreeViewManager();
             SetSelectedAgent(null);
         }
 

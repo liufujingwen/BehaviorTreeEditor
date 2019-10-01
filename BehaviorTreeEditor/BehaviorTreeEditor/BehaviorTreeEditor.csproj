@@ -86,7 +86,7 @@
     <Compile Include="Debug\Composite\Debug__Random.cs" />
     <Compile Include="Debug\Composite\Debug__RandomSelector.cs" />
     <Compile Include="Debug\Composite\Debug__RandomSequence.cs" />
-    <Compile Include="Debug\Composite\Debug__RateSelector.cs" />
+    <Compile Include="Debug\Composite\Debug__SelectorProbability.cs" />
     <Compile Include="Debug\Composite\Debug__Selector.cs" />
     <Compile Include="Debug\Condition\Debug__Condition.cs" />
     <Compile Include="Debug\Decorator\Debug__Decorator.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Debug\Decorator\Debug__Not.cs" />
     <Compile Include="Debug\Decorator\Debug__Success.cs" />
     <Compile Include="Debug\Decorator\Debug__Time.cs" />
-    <Compile Include="Debug\Decorator\Debug__WaitUntil.cs" />
+    <Compile Include="Debug\Decorator\Debug__SuccessUntil.cs" />
     <Compile Include="Form\Agent\EditAgentForm.cs">
       <SubType>Form</SubType>
     </Compile>

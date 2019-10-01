@@ -191,14 +191,14 @@ namespace BehaviorTreeEditor
             AddClass(RandomSequence);
 
             //概率选择节点
-            NodeClass RateSelector = new NodeClass();
-            RateSelector.ClassType = "RateSelector";
-            RateSelector.Label = "概率选择";
-            RateSelector.Category = "随机";
-            RateSelector.NodeType = NodeType.Composite;
-            RateSelector.Describe = "概率选择节点";
-            RateSelector.AddField(new NodeField() { FieldName = "Priority", Label = "优先级", FieldType = FieldType.RepeatIntField, Describe = "" });
-            AddClass(RateSelector);
+            NodeClass SelectorProbability = new NodeClass();
+            SelectorProbability.ClassType = "SelectorProbability";
+            SelectorProbability.Label = "概率选择节点";
+            SelectorProbability.Category = "";
+            SelectorProbability.NodeType = NodeType.Composite;
+            SelectorProbability.Describe = "概率选择节点";
+            SelectorProbability.AddField(new NodeField() { FieldName = "Priority", Label = "优先级", FieldType = FieldType.RepeatIntField, Describe = "" });
+            AddClass(SelectorProbability);
 
             #endregion
 
@@ -242,14 +242,6 @@ namespace BehaviorTreeEditor
             Loop.AddField(new NodeField() { FieldName = "LoopTimes", Label = "循环次数", FieldType = FieldType.IntField, Describe = "循环次数" });
             AddClass(Loop);
 
-            //直到某个值达成前一直循环
-            NodeClass LoopUntil = new NodeClass();
-            LoopUntil.ClassType = "LoopUntil";
-            LoopUntil.Label = "循环直到";
-            LoopUntil.NodeType = NodeType.Decorator;
-            LoopUntil.Describe = "直到某个值达成前一直循环";
-            AddClass(LoopUntil);
-
             //取反节点
             NodeClass Not = new NodeClass();
             Not.ClassType = "Not";
@@ -271,12 +263,12 @@ namespace BehaviorTreeEditor
             AddClass(Time);
 
             //阻塞，直到子节点返回true
-            NodeClass WaitUntil = new NodeClass();
-            WaitUntil.ClassType = "WaitUntil";
-            WaitUntil.Label = "等待返回True";
-            WaitUntil.NodeType = NodeType.Decorator;
-            WaitUntil.Describe = "阻塞，直到子节点返回true";
-            AddClass(WaitUntil);
+            NodeClass SuccessUntil = new NodeClass();
+            SuccessUntil.ClassType = "SuccessUntil";
+            SuccessUntil.Label = "直到子节点返回True";
+            SuccessUntil.NodeType = NodeType.Decorator;
+            SuccessUntil.Describe = "直到子节点返回true";
+            AddClass(SuccessUntil);
 
             #endregion
 

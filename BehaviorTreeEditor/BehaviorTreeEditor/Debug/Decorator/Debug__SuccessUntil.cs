@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BehaviorTreeEditor
 {
-    public class Debug__WaitUntil : DebugNode
+    public class Debug__SuccessUntil : DebugNode
     {
         public override void OnRunning(float deltatime)
         {

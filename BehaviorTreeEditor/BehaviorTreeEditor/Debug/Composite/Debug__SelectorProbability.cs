@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BehaviorTreeEditor
 {
-    public class Debug__RateSelector : DebugNode
+    public class Debug__SelectorProbability : DebugNode
     {
         private List<int> PriorityList = null;
         private List<DebugNode> Children = new List<DebugNode>();
