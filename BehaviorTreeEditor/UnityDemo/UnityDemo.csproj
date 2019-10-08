@@ -297,6 +297,7 @@
     <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Writer.cs" />
     <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeManager.cs" />
     <Compile Include="Assets\BehaviorTreeDebugger\Agent.cs" />
+    <Compile Include="Assets\BehaviorTreeProxy\Action\CreateUnitProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Action\LogProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Action\NoopProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Action\WaitFramesProxy.cs" />
@@ -318,15 +319,25 @@
     <Compile Include="Assets\BehaviorTreeProxy\Decorate\SuccessUntilProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\Decorate\TimeProxy.cs" />
     <Compile Include="Assets\BehaviorTreeProxy\LuaNodeProxy.cs" />
-    <Compile Include="Assets\Demo\BehaviorTreeDemo.cs" />
-    <Compile Include="Assets\Demo\BehaviorTreeSetting.cs" />
-    <Compile Include="Assets\Demo\EBehaviorTreeType.cs" />
-    <Compile Include="Assets\Demo\Game.cs" />
-    <Compile Include="Assets\Demo\LuaSetting.cs" />
-    <Compile Include="Assets\Demo\Unit\EUnitState.cs" />
-    <Compile Include="Assets\Demo\Unit\EUnitType.cs" />
-    <Compile Include="Assets\Demo\Unit\Unit.cs" />
-    <Compile Include="Assets\Demo\Unit\UnitStateBehaviour.cs" />
+    <Compile Include="Assets\Demo\Scripts\Base\ObjectCollection.cs" />
+    <Compile Include="Assets\Demo\Scripts\Base\Singleton\Singleton.cs" />
+    <Compile Include="Assets\Demo\Scripts\Base\Singleton\SingletonMonoBehavior.cs" />
+    <Compile Include="Assets\Demo\Scripts\BehaviorTreeDemo.cs" />
+    <Compile Include="Assets\Demo\Scripts\BehaviorTreeSetting.cs" />
+    <Compile Include="Assets\Demo\Scripts\Components\HudComponent.cs" />
+    <Compile Include="Assets\Demo\Scripts\EBehaviorTreeType.cs" />
+    <Compile Include="Assets\Demo\Scripts\Game.cs" />
+    <Compile Include="Assets\Demo\Scripts\LuaSetting.cs" />
+    <Compile Include="Assets\Demo\Scripts\Managers\CameraManager.cs" />
+    <Compile Include="Assets\Demo\Scripts\Managers\HudManager.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\AttrType.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\EUnitState.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\EUnitType.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\IdGenerater.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\Unit.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\UnitFactory.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\UnitManager.cs" />
+    <Compile Include="Assets\Demo\Scripts\Unit\UnitStateBehaviour.cs" />
     <Compile Include="Assets\ThirdParty\LuaPerfect\ObjectFormater.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\01_Helloworld\Helloworld.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\02_U3DScripting\LuaBehaviour.cs" />
@@ -376,8 +387,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BehaviorTreeDebugger\Editor\Resources\GridLine.shader" />
-    <None Include="Assets\Demo\Model\Shader\DoubleSided.shader" />
-    <None Include="Assets\Demo\Model\Shader\DoubleSidedNoPass.shader" />
+    <None Include="Assets\Demo\Res\Models\Shader\DoubleSided.shader" />
+    <None Include="Assets\Demo\Res\Models\Shader\DoubleSidedNoPass.shader" />
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />

@@ -315,6 +315,7 @@
     <Compile Include="Assets\BehaviorTreeDebugger\Editor\RectExtension.cs" />
     <Compile Include="Assets\BehaviorTreeDebugger\Editor\UnityEditorUtility.cs" />
     <Compile Include="Assets\BehaviorTreeDebugger\Editor\ZoomableArea.cs" />
+    <Compile Include="Assets\Demo\Scripts\Base\Editor\ObjectCollectionInspector.cs" />
     <Compile Include="Assets\ThirdParty\LuaPerfect\Editor\ApiGenerator.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Editor\ExampleConfig.cs" />
     <Compile Include="Assets\ThirdParty\XLua\Examples\13_BuildFromCLI\Editor\BuildFromCLI.cs" />
@@ -325,8 +326,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BehaviorTreeDebugger\Editor\Resources\GridLine.shader" />
-    <None Include="Assets\Demo\Model\Shader\DoubleSided.shader" />
-    <None Include="Assets\Demo\Model\Shader\DoubleSidedNoPass.shader" />
+    <None Include="Assets\Demo\Res\Models\Shader\DoubleSided.shader" />
+    <None Include="Assets\Demo\Res\Models\Shader\DoubleSidedNoPass.shader" />
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
     <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />
