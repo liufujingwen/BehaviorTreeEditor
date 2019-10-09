@@ -17,7 +17,7 @@
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
-    <UnityVersion>2017.4.27f1</UnityVersion>
+    <UnityVersion>2017.4.32f1</UnityVersion>
     <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_27;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;LUA</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_32;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;LUA</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -43,201 +43,204 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_27;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;LUA</DefineConstants>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2017_4_32;UNITY_2017_4;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;LUA</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\mscorlib.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.dll</HintPath>
     </Reference>
     <Reference Include="System.XML">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.XML.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.XML.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Core.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\Microsoft.CSharp.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Runtime.Serialization.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Runtime.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>C:\Program Files\Unity\2017.4.27f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Xml.Linq.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\2017.4.32f1\Editor\Data\MonoBleedingEdge\lib\mono\4.6-api\System.Xml.Linq.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClothModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.WebModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VRModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StyleSheetsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticlesLegacyModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VideoModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceTesting">
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/PerformanceTesting/UnityEngine.PerformanceTesting.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIAutomation">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GoogleAudioSpatializer">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/Program Files/Unity/2017.4.27f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
@@ -248,77 +251,83 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:/Program Files/Unity/2017.4.32f1/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BehaviorTreeCore\Base\ActionNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Attribute\ActionNodeAttribute.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Attribute\BaseNodeAttribute.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Attribute\CompositeNodeAttribute.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Attribute\ConditionNodeAttribute.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Attribute\DecorateNodeAttribute.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\BaseNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\BaseNodeProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\BehaviorTree.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\CompositeNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\ConditionNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\DecorateNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\ELogType.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\ENodeStatus.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\ENodeType.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Interface\IContext.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\Interface\ILuaBehaviorNode.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\Base\ProxyData.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\AgentData.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\BaseField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\BooleanField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\ColorField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\DoubleField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\EnumField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\FloatField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\IntField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\LongField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\NodeData.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatDoubleField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatFloatField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatIntField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatLongField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatStringField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatVector2Field.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\RepeatVector3Field.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\StringField.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\TreeData.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\Vector2.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\Vector2Field.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\Vector3.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Data\Vector3Field.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Binary.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Reader.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Serializer.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeData\Serialize\Writer.cs" />
-    <Compile Include="Assets\BehaviorTreeCore\BehaviorTreeManager.cs" />
-    <Compile Include="Assets\BehaviorTreeDebugger\Agent.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Action\CreateUnitProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Action\LogProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Action\NoopProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Action\WaitFramesProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Action\WaitProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\ParallelProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\Ramdom\IfElseProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\Ramdom\RandomProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\Ramdom\RandomSelectorProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\Ramdom\RandomSequenceProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\SelectorProbabilityProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\SelectorProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Composite\SequenceProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\CSharpNodeProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\FailureProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\FramesProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\LoopProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\NotProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\SuccessProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\SuccessUntilProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\Decorate\TimeProxy.cs" />
-    <Compile Include="Assets\BehaviorTreeProxy\LuaNodeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ActionNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Attribute\ActionNodeAttribute.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Attribute\BaseNodeAttribute.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Attribute\CompositeNodeAttribute.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Attribute\ConditionNodeAttribute.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Attribute\DecorateNodeAttribute.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\BaseNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\BaseNodeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\BehaviorTree.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\CompositeNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ConditionNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\DecorateNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ELogType.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ENodeStatus.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ENodeType.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Interface\IContext.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Interface\ILuaBehaviorNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\ProxyData.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\AgentData.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\BaseField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\BooleanField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\ColorField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\DoubleField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\EnumField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\FloatField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\IntField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\LongField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\NodeData.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatDoubleField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatFloatField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatIntField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatLongField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatStringField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatVector2Field.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatVector3Field.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\StringField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\TreeData.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector2.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector2Field.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector3.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector3Field.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Binary.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Reader.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Serializer.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Writer.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeManager.cs" />
+    <Compile Include="Assets\BehaviorTree.Debugger\Agent.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Action\CreateUnitProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Action\LogProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Action\NoopProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitFramesProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\ParallelProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\IfElseProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\RandomProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\RandomSelectorProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\RandomSequenceProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\SelectorProbabilityProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\SelectorProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\SequenceProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\CSharpNodeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\FailureProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\FramesProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\LoopProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\NotProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\SuccessProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\SuccessUntilProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Decorate\TimeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\LuaNodeProxy.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\ObjectCollection.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\Singleton\Singleton.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\Singleton\SingletonMonoBehavior.cs" />
@@ -386,7 +395,7 @@
     <Compile Include="Assets\ThirdParty\XLua\Tutorial\LuaCallCSharp\LuaCallCs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\BehaviorTreeDebugger\Editor\Resources\GridLine.shader" />
+    <None Include="Assets\BehaviorTree.Debugger\Editor\Resources\GridLine.shader" />
     <None Include="Assets\Demo\Res\Models\Shader\DoubleSided.shader" />
     <None Include="Assets\Demo\Res\Models\Shader\DoubleSidedNoPass.shader" />
     <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
