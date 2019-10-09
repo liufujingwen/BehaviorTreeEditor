@@ -1248,7 +1248,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c85e966aed6e41a4d9e9e374de5ccd75, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

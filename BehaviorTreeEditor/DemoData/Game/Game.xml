@@ -170,7 +170,7 @@
               <FieldType>EnumField</FieldType>
               <Field xsi:type="EnumFieldDesigner">
                 <EnumType>EUnitType</EnumType>
-                <Value>Friend</Value>
+                <Value>Enemy</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>
@@ -401,23 +401,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5238</x>
-            <y>5088</y>
+            <x>5237</x>
+            <y>5089</y>
             <position>
-              <x>5238</x>
-              <y>5088</y>
+              <x>5237</x>
+              <y>5089</y>
             </position>
             <center>
-              <x>5313</x>
-              <y>5118</y>
+              <x>5312</x>
+              <y>5119</y>
             </center>
             <min>
-              <x>5238</x>
-              <y>5088</y>
+              <x>5237</x>
+              <y>5089</y>
             </min>
             <max>
-              <x>5388</x>
-              <y>5148</y>
+              <x>5387</x>
+              <y>5149</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -425,10 +425,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5238</xMin>
-            <yMin>5088</yMin>
-            <xMax>5388</xMax>
-            <yMax>5148</yMax>
+            <xMin>5237</xMin>
+            <yMin>5089</yMin>
+            <xMax>5387</xMax>
+            <yMax>5149</yMax>
           </Rect>
           <Transitions />
           <ID>6</ID>
@@ -452,7 +452,7 @@
               <FieldType>EnumField</FieldType>
               <Field xsi:type="EnumFieldDesigner">
                 <EnumType>EUnitType</EnumType>
-                <Value>Friend</Value>
+                <Value>Enemy</Value>
               </Field>
             </FieldDesigner>
             <FieldDesigner>

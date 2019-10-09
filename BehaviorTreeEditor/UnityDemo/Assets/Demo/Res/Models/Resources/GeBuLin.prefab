@@ -1368,7 +1368,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 39995fef4c109dc40bc41fb4c5a03cd3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1385,10 +1385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
+  Name: 
   UnitType: 0
   UnitState: 2
-  AnimationName: 
-  AnimationTime: 0
+  Animator: {fileID: 0}
+  Collider: {fileID: 0}
 --- !u!136 &136548896830693710
 CapsuleCollider:
   m_ObjectHideFlags: 1

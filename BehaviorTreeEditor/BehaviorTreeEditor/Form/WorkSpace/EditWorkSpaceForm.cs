@@ -80,19 +80,31 @@ namespace BehaviorTreeEditor
                     string oldWorkSpaceFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
                     string newWorkSpaceFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.WorkSpaceName + Settings.Default.WorkSpaceSetupSuffix);
                     if (File.Exists(oldWorkSpaceFile))
+                    {
+                        if (File.Exists(newWorkSpaceFile))
+                            File.Delete(newWorkSpaceFile);
                         File.Move(oldWorkSpaceFile, newWorkSpaceFile);
+                    }
 
                     //移动节点xml文件
                     string oldXmlDataFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.BehaviorTreeDataFileSuffix);
                     string newXmlDataFile = MainForm.Instance.GetBehaviorTreeDataPath();
                     if (File.Exists(oldXmlDataFile))
+                    {
+                        if (File.Exists(newXmlDataFile))
+                            File.Delete(newXmlDataFile);
                         File.Move(oldXmlDataFile, newXmlDataFile);
+                    }
 
                     //移动NodeClass文件
                     string oldNodeClassXmlFile = Path.Combine(m_OldWorkSpaceDirectory, Settings.Default.NodeClassFile);
                     string newNodeClassXmlFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeClassFile);
                     if (File.Exists(oldNodeClassXmlFile))
+                    {
+                        if (File.Exists(newNodeClassXmlFile))
+                            File.Delete(newNodeClassXmlFile);
                         File.Move(oldNodeClassXmlFile, newNodeClassXmlFile);
+                    }
                 }
 
                 //移动旧二进制数据
@@ -101,7 +113,11 @@ namespace BehaviorTreeEditor
                     string oldTreeDataFile = Path.Combine(m_OldDataSaveDirectory, m_OldWorkSpaceName + Settings.Default.NodeDataFileSuffix);
                     string newFile = MainForm.Instance.GetNodeDataSavePath();
                     if (File.Exists(oldTreeDataFile))
+                    {
+                        if (File.Exists(newFile))
+                            File.Delete(newFile);
                         File.Move(oldTreeDataFile, newFile);
+                    }
                 }
 
                 Settings.Default.Save();

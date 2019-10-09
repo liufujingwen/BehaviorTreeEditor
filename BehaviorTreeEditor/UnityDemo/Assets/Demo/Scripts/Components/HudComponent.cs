@@ -27,6 +27,8 @@ public class HudComponent : MonoBehaviour
         m_Name = objectCollection.GetT<Text>("Name");
         m_GreenHpBar = objectCollection.GetT<Slider>("GreenHpBar");
         m_RedHpBar = objectCollection.GetT<Slider>("RedHpBar");
+
+        m_Name.text = Owner.Name;
     }
 
     void LateUpdate()
@@ -34,5 +36,35 @@ public class HudComponent : MonoBehaviour
         Vector3 position = Owner.transform.position;
         position.y = 1.2f;
         HudTransform.position = position;
+
+        int hp = Owner.GetAttr(AttrType.Hp);
+        int hpMax = Owner.GetAttr(AttrType.HpMax);
+
+        if (hp == 0)
+        {
+            return;
+        }
+
+        //if (hp != hpMax)
+        {
+            if (Owner.UnitType == EUnitType.Enemy)
+            {
+                if (!m_RedHpBar.gameObject.activeSelf)
+                {
+                    m_RedHpBar.gameObject.SetActive(true);
+                }
+
+                m_RedHpBar.value = (float)hp / hpMax;
+            }
+            else
+            {
+                if (!m_GreenHpBar.gameObject.activeSelf)
+                {
+                    m_GreenHpBar.gameObject.SetActive(true);
+                }
+
+                m_GreenHpBar.value = (float)hp / hpMax;
+            }
+        }
     }
 }
