@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using R7BehaviorTree;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IContext
 {
     //Unit唯一识别
     public int ID;
@@ -66,8 +67,16 @@ public class Unit : MonoBehaviour
         set { transform.eulerAngles = value; }
     }
 
-    public void PlayAnimation()
+    public void PlayAnimation(string stateName, float bleendTime)
     {
+        Animator.CrossFade(stateName, bleendTime);
+    }
+
+    public void CastSkill(string skill)
+    {
+        UnitState = EUnitState.Skill;
+        BehaviorTree behaviorTree = BehaviorTreeManager.Instance.CreateBehaviorTree((int)EBehaviorTreeType.SKILL, skill, this);
+        BehaviorTreeManager.Instance.RunBehaviorTree(behaviorTree);
     }
 
     void Start()
