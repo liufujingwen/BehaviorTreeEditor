@@ -36,34 +36,41 @@ public class HudComponent : MonoBehaviour
         Vector3 position = Owner.transform.position;
         position.y = 1.2f;
         HudTransform.position = position;
+        HudTransform.rotation = HudCamera.transform.rotation;
 
         int hp = Owner.GetAttr(AttrType.Hp);
         int hpMax = Owner.GetAttr(AttrType.HpMax);
 
         if (hp == 0)
         {
-            return;
+            if (HudTransform.gameObject.activeSelf)
+                HudTransform.gameObject.SetActive(false);
         }
-
-        //if (hp != hpMax)
+        else
         {
-            if (Owner.UnitType == EUnitType.Enemy)
-            {
-                if (!m_RedHpBar.gameObject.activeSelf)
-                {
-                    m_RedHpBar.gameObject.SetActive(true);
-                }
+            if (!HudTransform.gameObject.activeSelf)
+                HudTransform.gameObject.SetActive(true);
 
-                m_RedHpBar.value = (float)hp / hpMax;
-            }
-            else
+            //if (hp != hpMax)
             {
-                if (!m_GreenHpBar.gameObject.activeSelf)
+                if (Owner.UnitType == EUnitType.Enemy)
                 {
-                    m_GreenHpBar.gameObject.SetActive(true);
-                }
+                    if (!m_RedHpBar.gameObject.activeSelf)
+                    {
+                        m_RedHpBar.gameObject.SetActive(true);
+                    }
 
-                m_GreenHpBar.value = (float)hp / hpMax;
+                    m_RedHpBar.value = (float)hp / hpMax;
+                }
+                else
+                {
+                    if (!m_GreenHpBar.gameObject.activeSelf)
+                    {
+                        m_GreenHpBar.gameObject.SetActive(true);
+                    }
+
+                    m_GreenHpBar.value = (float)hp / hpMax;
+                }
             }
         }
     }
