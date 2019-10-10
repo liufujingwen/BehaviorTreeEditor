@@ -17,13 +17,33 @@ public class Unit : MonoBehaviour, IContext
     public EUnitType UnitType;
 
     //单位状态
-    public EUnitState UnitState = EUnitState.Idle;
+    public EUnitState UnitState { get; set; }
 
     //属性
     public Dictionary<AttrType, int> AttrDic = new Dictionary<AttrType, int>();
 
     //保存动画状态机数据
     private Dictionary<int, string> StateDic = new Dictionary<int, string>();
+
+    //保存状态指向的状态
+    private Dictionary<int, string> TransitionStateDic = new Dictionary<int, string>();
+
+    public Animator Animator;
+
+    //碰撞体
+    public Collider Collider;
+
+    //Unit状态改变通知
+    public Action<EUnitState, EUnitState> UnitStateChanged;
+
+    //动画State状态改变通知
+    public Action<string, string> AnimatorStateChanged;
+
+    //动画State结束通知
+    public Action<string> AnimatorStateFinished;
+
+    //当前播放的AnimatorState
+    public string CurrentAnimatorState;
 
     //动画状态对应的状态
     private static Dictionary<string, EUnitState> NameToStateDic = new Dictionary<string, EUnitState>()
@@ -36,7 +56,8 @@ public class Unit : MonoBehaviour, IContext
         { "RunFront",EUnitState.Run},
         { "PreAirDead",EUnitState.PreAirDead},
         { "PreStandDead",EUnitState.PreStandDead},
-        { "Dead",EUnitState.Dead},
+        { "AirDead",EUnitState.AirDead},
+        { "StandDead",EUnitState.StandDead},
         { "KnockBack",EUnitState.KnockBack},
         { "KnockOut",EUnitState.KnockOut},
         { "StandHit",EUnitState.StandBeHit},
@@ -47,11 +68,6 @@ public class Unit : MonoBehaviour, IContext
         { "AirHit_02",EUnitState.AirBeHit},
         { "StandUp",EUnitState.StandUp},
     };
-
-    public Animator Animator;
-
-    //碰撞体
-    public Collider Collider;
 
     //单位位置
     public Vector3 Position
@@ -67,7 +83,7 @@ public class Unit : MonoBehaviour, IContext
         set { transform.eulerAngles = value; }
     }
 
-    public void PlayAnimation(string stateName, float bleendTime)
+    public void PlayAnimation(string stateName, float bleendTime = 0.1f)
     {
         Animator.CrossFade(stateName, bleendTime);
     }
@@ -79,7 +95,7 @@ public class Unit : MonoBehaviour, IContext
         BehaviorTreeManager.Instance.RunBehaviorTree(behaviorTree);
     }
 
-    void Start()
+    private void Start()
     {
         if (ID == 0)
             ID = IdGenerater.GenerateId();
@@ -98,20 +114,55 @@ public class Unit : MonoBehaviour, IContext
             string stateName = childAnimatorState.state.name;
             int nameHash = childAnimatorState.state.nameHash;
             StateDic.Add(nameHash, stateName);
+
+            if (childAnimatorState.state.behaviours.Length == 0)
+                childAnimatorState.state.AddStateMachineBehaviour<UnitStateBehaviour>();
+
+            AnimatorStateTransition[] transitions = childAnimatorState.state.transitions;
+            if (transitions.Length > 1)
+            {
+                throw new Exception($"State:{stateName},不能包含多个Tansition");
+            }
+
+            if (transitions.Length == 1)
+            {
+                AnimatorStateTransition transition = transitions[0];
+                TransitionStateDic.Add(nameHash, transition.destinationState.name);
+            }
         }
     }
 
     //AnimatorController通知状态改变
-    public void NotifyAnimationStateChange(AnimatorStateInfo stateInfo)
+    public void OnNotifyAnimationStateEnter(AnimatorStateInfo stateInfo)
     {
+        string preStateName = CurrentAnimatorState;
+
         string StateName = string.Empty;
-        if (StateDic.TryGetValue(stateInfo.shortNameHash, out StateName))
+        if (!StateDic.TryGetValue(stateInfo.shortNameHash, out StateName))
             return;
+
+        CurrentAnimatorState = StateName;
 
         EUnitState unitState = EUnitState.None;
         NameToStateDic.TryGetValue(StateName, out unitState);
         if (unitState != EUnitState.None)
+        {
+            EUnitState preState = UnitState;
             UnitState = unitState;
+            UnitStateChanged?.Invoke(preState, UnitState);
+        }
+
+        AnimatorStateChanged?.Invoke(preStateName, CurrentAnimatorState);
+    }
+
+    //AnimatorController通知状态改变
+    public void OnNotifyAnimationStateExit(AnimatorStateInfo stateInfo)
+    {
+        string StateName = string.Empty;
+        if (!StateDic.TryGetValue(stateInfo.shortNameHash, out StateName))
+            return;
+
+        AnimatorStateFinished?.Invoke(StateName);
     }
 
     //设置名称
@@ -124,6 +175,37 @@ public class Unit : MonoBehaviour, IContext
     public void SetAttr(AttrType attrType, int value)
     {
         AttrDic[attrType] = value;
+    }
+
+    public void SetState(EUnitState state)
+    {
+        if (UnitState == state)
+            return;
+
+        string StateName = string.Empty;
+
+        //持续的状态才需要改变动作
+        switch (state)
+        {
+            case EUnitState.Idle:
+                StateName = "Idle";
+                break;
+            case EUnitState.Walk:
+                StateName = "WalkFront";
+                break;
+            case EUnitState.Run:
+                StateName = "RunFront";
+                break;
+            case EUnitState.StandDead:
+                StateName = "StandDead";
+                break;
+            case EUnitState.AirDead:
+                StateName = "StandDead";
+                break;
+        }
+
+        if (!string.IsNullOrEmpty(StateName))
+            PlayAnimation(StateName);
     }
 
     //获取属性

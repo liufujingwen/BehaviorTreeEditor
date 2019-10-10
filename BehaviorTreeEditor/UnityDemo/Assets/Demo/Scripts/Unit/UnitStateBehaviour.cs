@@ -5,6 +5,11 @@ public class UnitStateBehaviour : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        UnitManager.Instance.NotifyAnimationStateChange(animator, stateInfo);
+        UnitManager.Instance.NotifyAnimationStateEnter(animator, stateInfo);
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        UnitManager.Instance.NotifyAnimationStateExit(animator, stateInfo);
     }
 }

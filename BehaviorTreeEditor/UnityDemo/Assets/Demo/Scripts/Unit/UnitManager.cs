@@ -47,7 +47,7 @@ public class UnitManager : Singleton<UnitManager>
         return null;
     }
 
-    public void NotifyAnimationStateChange(Animator animator, AnimatorStateInfo stateInfo)
+    public void NotifyAnimationStateEnter(Animator animator, AnimatorStateInfo stateInfo)
     {
         if (!animator)
             return;
@@ -60,6 +60,22 @@ public class UnitManager : Singleton<UnitManager>
         if (unit == null)
             return;
 
-        unit.NotifyAnimationStateChange(stateInfo);
+        unit.OnNotifyAnimationStateEnter(stateInfo);
+    }
+
+    public void NotifyAnimationStateExit(Animator animator, AnimatorStateInfo stateInfo)
+    {
+        if (!animator)
+            return;
+
+        Unit unit = null;
+
+        if (!UnitDic.TryGetValue(animator.gameObject, out unit))
+            return;
+
+        if (unit == null)
+            return;
+
+        unit.OnNotifyAnimationStateExit(stateInfo);
     }
 }
