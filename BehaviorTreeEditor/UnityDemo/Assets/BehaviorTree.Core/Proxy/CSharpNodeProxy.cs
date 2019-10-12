@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace R7BehaviorTree
 {
     public class CSharpNodeProxy : BaseNodeProxy
     {
-        private INodeProxy m_NodeProxy;
+        private BaseNodeProxy m_NodeProxy;
 
         public override void BeginInit()
         {
@@ -16,7 +14,12 @@ namespace R7BehaviorTree
         {
             ProxyData proxyData = Node.ProxyData;
             Type type = CSharpProxyManager.Instance.GetType(proxyData.ClassType);
-            m_NodeProxy = Activator.CreateInstance(type) as INodeProxy;
+            m_NodeProxy = Activator.CreateInstance(type) as BaseNodeProxy;
+            m_NodeProxy.BeginInit();
+            m_NodeProxy.SetNode(Node);
+            m_NodeProxy.SetData(Node.NodeData);
+            m_NodeProxy.SetContext(Node.Context);
+            m_NodeProxy.EndInit();
         }
 
         public override void OnAwake()

@@ -2,8 +2,9 @@
 {
     public interface IProxyManager
     {
+        EProxyType GetProxyType();
         ProxyData GetProxyData(string classType);
-        BaseNodeProxy CreateProxy(BaseNode node);
+        BaseNodeProxy CreateProxy();
 
     }
 }

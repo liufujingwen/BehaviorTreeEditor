@@ -21,8 +21,9 @@ public class BehaviorTreeDemo : MonoBehaviour
             BehaviorTreeManager.Instance.LoadBehaviorData((int)behaviorTreeSetting.BehaviorTreeType, textAsset.bytes);
         }
 
-        //收集C#所有的Proxy信息
+        //ProxyManager初始化
         CSharpProxyManager.Instance.Initalize();
+        LuaProxyManager.Instance.Initalize();
 
         //初始化lua环境
         gameObject.AddComponent<LuaSetting>().Initalize();

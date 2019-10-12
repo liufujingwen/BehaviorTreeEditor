@@ -1,6 +1,4 @@
-﻿#if LUA
-
-using BehaviorTreeData;
+﻿using BehaviorTreeData;
 using System;
 using XLua;
 
@@ -60,5 +58,3 @@ namespace R7BehaviorTree
         }
     }
 }
-
-#endif

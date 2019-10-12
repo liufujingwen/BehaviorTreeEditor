@@ -16,9 +16,9 @@ require("Common/Class.lua.txt")
 require("BehaviorTree/ENodeType.lua.txt")
 require("BehaviorTree/ENodeStatus.lua.txt")
 require("BehaviorTree/LuaNodeProxy.lua.txt")
-require("BehaviorTree/EProxyType.lua.txt")
 require("BehaviorTree/LuaBehaviorNode.lua.txt")
 require("BehaviorTree/BehaviorTreeManager.lua.txt")
+require("BehaviorTree/LuaProxyManager.lua.txt")
 require("BehaviorTree/LuaBehaviorTreeManager.lua.txt")
 
 --Node节点

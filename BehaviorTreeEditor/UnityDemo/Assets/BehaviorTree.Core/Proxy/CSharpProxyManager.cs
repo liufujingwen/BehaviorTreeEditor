@@ -3,28 +3,32 @@ using System.Collections.Generic;
 
 namespace R7BehaviorTree
 {
-    public sealed class CSharpProxyManager : Singleton<CSharpProxyManager>, IProxyManager
+    public sealed class CSharpProxyManager : IProxyManager
     {
+        /// <summary>
+        /// 单例
+        /// </summary>
+        public static CSharpProxyManager Instance { get; } = new CSharpProxyManager();
+
         private Dictionary<string, ProxyData> m_ProxyDic = new Dictionary<string, ProxyData>();
         private Dictionary<string, Type> m_ProxyTypeDic = new Dictionary<string, Type>();
 
         public void Initalize()
         {
-            BehaviorTreeManager.Instance.AddProxyManager(EProxyType.CSharp, this);
+            BehaviorTreeManager.Instance.AddProxyManager(this);
             CollectProxyInfos();
         }
 
         public ProxyData GetProxyData(string classType)
         {
-            return null;
+            ProxyData proxyData = null;
+            m_ProxyDic.TryGetValue(classType, out proxyData);
+            return proxyData;
         }
 
-        public BaseNodeProxy CreateProxy(BaseNode node)
+        public BaseNodeProxy CreateProxy()
         {
-            ProxyData proxyData = node.ProxyData;
-            CSharpNodeProxy nodeProxy = new CSharpNodeProxy();
-
-            return null;
+            return new CSharpNodeProxy();
         }
 
         /// <summary>
@@ -32,9 +36,7 @@ namespace R7BehaviorTree
         /// </summary>
         /// <param name="classType">节点类</param>
         /// <param name="nodeType">节点类型</param>
-        /// <param name="proxyType">代理类型</param>
         /// <param name="type">逻辑对应的Type</param>
-        /// <param name="needUpdate">是否执行proxy的update(优化性能)</param>
         public void Register(string classType, ENodeType nodeType, Type type)
         {
             if (string.IsNullOrEmpty(classType))
@@ -54,8 +56,6 @@ namespace R7BehaviorTree
             ProxyData proxyData = new ProxyData();
             proxyData.ClassType = classType;
             proxyData.NodeType = nodeType;
-            proxyData.ProxyType = EProxyType.CSharp;
-            proxyData.Type = type;
             proxyData.NeedUpdate = false;
 
             m_ProxyDic.Add(classType, proxyData);
@@ -100,6 +100,11 @@ namespace R7BehaviorTree
             }
 
             return type;
+        }
+
+        public EProxyType GetProxyType()
+        {
+            return EProxyType.CSharp;
         }
     }
 }

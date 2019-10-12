@@ -1,5 +1,6 @@
 local Noop = LuaBehaviorTreeManager.Register(LuaBehaviorNode,"Noop",ENodeType.Action,false)
 
 function Noop:OnStart()
-    self.Node.Status = ENodeStatus.Succeed  
+    self.Node.Status = ENodeStatus.Succeed
+    CS.UnityEngine.Debug.Log("Lua Noop")
 end

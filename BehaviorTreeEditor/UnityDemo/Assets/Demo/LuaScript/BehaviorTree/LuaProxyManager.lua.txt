@@ -1,0 +1,1 @@
+LuaProxyManager = CS.R7BehaviorTree.LuaProxyManager

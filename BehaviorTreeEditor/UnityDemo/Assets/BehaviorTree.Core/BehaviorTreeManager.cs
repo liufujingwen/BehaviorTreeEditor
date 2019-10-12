@@ -29,95 +29,14 @@ namespace R7BehaviorTree
         /// <summary>
         /// Proxy管理器
         /// </summary>
-        private readonly Dictionary<EProxyType, IProxyManager> m_ProxyManagerDic = new Dictionary<EProxyType, IProxyManager>(new EProxyType_Comparer());
-
-        /// <summary>
-        /// 所有Proxy
-        /// </summary>
-        private readonly Dictionary<string, ProxyData> ProxyDic = new Dictionary<string, ProxyData>();
+        private readonly List<IProxyManager> m_ProxyManagers = new List<IProxyManager>();
 
         /// <summary>
         /// 行为树缓存池
         /// </summary>
         public readonly Dictionary<int, Dictionary<string, Queue<BehaviorTree>>> m_PoolDic = new Dictionary<int, Dictionary<string, Queue<BehaviorTree>>>();
 
-        public Func<BaseNode, BaseNodeProxy> CreateProxyHanlder { get; set; }
-
-        /// <summary>
-        /// 收集所有C#端的Proxy信息
-        /// </summary>
-        //public void CollectProxyInfos()
-        //{
-        //    Type[] types = typeof(BaseNodeProxy).Assembly.GetTypes();
-        //    for (int i = 0; i < types.Length; i++)
-        //    {
-        //        Type type = types[i];
-        //        object[] objs = type.GetCustomAttributes(typeof(BaseNodeAttribute), true);
-        //        if (objs == null || objs.Length == 0)
-        //            continue;
-
-        //        BaseNodeAttribute baseNodeAttribute = objs[0] as BaseNodeAttribute;
-
-        //        if (baseNodeAttribute == null)
-        //            continue;
-
-        //        string classType = baseNodeAttribute.ClassType;
-
-        //        if (string.IsNullOrEmpty(classType))
-        //        {
-        //            string msg = "BehaviorTreeManager.CollectProxyInfos() \n classType is null.";
-        //            LogError(msg);
-        //            throw new Exception(msg);
-        //        }
-
-        //        if (ProxyDic.ContainsKey(classType))
-        //        {
-        //            string msg = $"BehaviorTreeManager.CollectProxyInfos() \n CSharpProxyDic exist key:{classType}.";
-        //            LogError(msg);
-        //            throw new Exception(msg);
-        //        }
-
-        //        Register(classType, baseNodeAttribute.NodeType, EProxyType.CSharp, type, true);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 注册Proxy
-        ///// </summary>
-        ///// <param name="classType">节点类</param>
-        ///// <param name="nodeType">节点类型</param>
-        ///// <param name="proxyType">代理类型</param>
-        ///// <param name="type">逻辑对应的Type</param>
-        ///// <param name="needUpdate">是否执行proxy的update(优化性能)</param>
-        //public void Register(string classType, ENodeType nodeType, EProxyType proxyType, Type type, bool needUpdate)
-        //{
-        //    if (string.IsNullOrEmpty(classType))
-        //    {
-        //        string msg = "BehaviorTreeManager.RegisterLuaProxy() \n classType is null.";
-        //        LogError(msg);
-        //        throw new Exception(msg);
-        //    }
-
-        //    ProxyData proxyData = null;
-        //    if (ProxyDic.TryGetValue(classType, out proxyData))
-        //    {
-        //        if (proxyData.ProxyType > proxyType)
-        //            return;
-
-        //        ProxyDic.Remove(classType);
-        //    }
-
-        //    proxyData = new ProxyData();
-        //    proxyData.ClassType = classType;
-        //    proxyData.NodeType = nodeType;
-        //    proxyData.ProxyType = proxyType;
-        //    proxyData.Type = type;
-        //    proxyData.NeedUpdate = needUpdate;
-
-        //    ProxyDic.Add(classType, proxyData);
-        //}
-
-        public void AddProxyManager(EProxyType proxyType, IProxyManager proxyManager)
+        public void AddProxyManager(IProxyManager proxyManager)
         {
             if (proxyManager == null)
             {
@@ -126,14 +45,26 @@ namespace R7BehaviorTree
                 throw new Exception(msg);
             }
 
-            if (m_ProxyManagerDic.ContainsKey(proxyType))
-            {
-                string msg = $"BehaviorTreeManager.AddProxyManager() \n m_ProxyManagerDic already contain key {proxyType}.";
-                LogError(msg);
-                throw new Exception(msg);
-            }
+            EProxyType proxyType = proxyManager.GetProxyType();
 
-            m_ProxyManagerDic.Add(proxyType, proxyManager);
+            if (m_ProxyManagers.Count == 0)
+            {
+                m_ProxyManagers.Add(proxyManager);
+            }
+            else
+            {
+                //插入排序，EProxyType的枚举值越大，优先级越高
+                for (int i = 0; i < m_ProxyManagers.Count; i++)
+                {
+                    IProxyManager tempProxyManager = m_ProxyManagers[i];
+                    EProxyType tempProxyType = tempProxyManager.GetProxyType();
+                    if (tempProxyType < proxyType)
+                    {
+                        m_ProxyManagers.Insert(i, proxyManager);
+                        break;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -346,8 +277,13 @@ namespace R7BehaviorTree
 
             ProxyData proxyData = null;
 
-            if (proxyData == null)
-                ProxyDic.TryGetValue(nodeData.ClassType, out proxyData);
+            for (int i = 0; i < m_ProxyManagers.Count; i++)
+            {
+                IProxyManager proxyManager = m_ProxyManagers[i];
+                proxyData = proxyManager.GetProxyData(nodeData.ClassType);
+                if (proxyData != null)
+                    break;
+            }
 
             if (proxyData == null)
             {
@@ -420,18 +356,21 @@ namespace R7BehaviorTree
             if (node == null)
             {
                 //组合节点必须有子节点
-                string msg = "Create nodeProxy failed,node is null.";
+                string msg = "BehaviorTreeManager.CreateProxy() \n Create nodeProxy failed,node is null.";
                 LogError(msg);
                 throw new Exception(msg);
             }
 
-            EProxyType proxyType = node.ProxyData.ProxyType;
             IProxyManager proxyManager = null;
-            if (!m_ProxyManagerDic.TryGetValue(proxyType, out proxyManager))
+            for (int i = 0; i < m_ProxyManagers.Count; i++)
             {
-                string msg = $"BehaviorTreeManager.CreateProxy() \n Create nodeProxy failed,m_ProxyManagerDic not contains key {proxyType}.";
-                LogError(msg);
-                throw new Exception(msg);
+                IProxyManager tempProxyManager = m_ProxyManagers[i];
+                ProxyData proxyData = tempProxyManager.GetProxyData(node.ClassType);
+                if (proxyData != null)
+                {
+                    proxyManager = tempProxyManager;
+                    break;
+                }
             }
 
             if (proxyManager == null)
@@ -441,12 +380,11 @@ namespace R7BehaviorTree
                 throw new Exception(msg);
             }
 
-            BaseNodeProxy nodeProxy = proxyManager.CreateProxy(node);
+            BaseNodeProxy nodeProxy = proxyManager.CreateProxy();
 
             if (nodeProxy == null)
             {
-                //组合节点必须有子节点
-                string msg = $"Create nodeProxy failed,ClassType:{node.ProxyData.ClassType}";
+                string msg = $"BehaviorTreeManager.CreateProxy() \n Create nodeProxy failed,ClassType:{node.ProxyData.ClassType}";
                 LogError(msg);
                 throw new Exception(msg);
             }
