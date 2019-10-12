@@ -22,7 +22,7 @@ public class BehaviorTreeDemo : MonoBehaviour
         }
 
         //收集C#所有的Proxy信息
-        BehaviorTreeManager.Instance.CollectProxyInfos();
+        CSharpProxyManager.Instance.Initalize();
 
         //初始化lua环境
         gameObject.AddComponent<LuaSetting>().Initalize();

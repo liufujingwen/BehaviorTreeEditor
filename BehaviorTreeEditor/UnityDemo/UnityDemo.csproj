@@ -275,8 +275,10 @@
     <Compile Include="Assets\BehaviorTree.Core\Base\ENodeStatus.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\ENodeType.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\EProxyType.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\EProxyType_Comparer.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\Interface\IContext.cs" />
-    <Compile Include="Assets\BehaviorTree.Core\Base\Interface\ILuaBehaviorNode.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Interface\INodeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\Interface\IProxyManager.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\ProxyData.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\AgentData.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\BaseField.cs" />
@@ -309,6 +311,7 @@
     <Compile Include="Assets\BehaviorTree.Proxy\Action\NoopProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitFramesProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\Composite\ILuaBehaviorNode.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Composite\ParallelProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\IfElseProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Composite\Ramdom\RandomProxy.cs" />
@@ -318,6 +321,7 @@
     <Compile Include="Assets\BehaviorTree.Proxy\Composite\SelectorProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Composite\SequenceProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\CSharpNodeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\CSharpProxyManager.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\FailureProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\FramesProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\LoopProxy.cs" />
@@ -325,6 +329,7 @@
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\SuccessProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\SuccessUntilProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\TimeProxy.cs" />
+    <Compile Include="Assets\BehaviorTree.Proxy\ILRuntimeNodeProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\LuaNodeProxy.cs" />
     <Compile Include="Assets\Demo\BehaviorTree.Hotfix.Proxy\Action\CreateUnitProxy.cs" />
     <Compile Include="Assets\Demo\BehaviorTree.Hotfix.Proxy\Action\LogProxy.cs" />

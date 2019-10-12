@@ -3,7 +3,7 @@
 namespace R7BehaviorTree
 {
     [CompositeNode("Parallel")]
-    public class ParallelProxy : BaseNodeProxy
+    public class ParallelProxy : INodeProxy
     {
         public enum SUCCESS_POLICY
         {
@@ -21,7 +21,7 @@ namespace R7BehaviorTree
         public SUCCESS_POLICY m_SuccessPolicy;
         public FAILURE_POLICY m_FailurePolicy;
 
-        public override void OnAwake()
+        public void OnAwake()
         {
             EnumField successPolicy = NodeData["SuccessType"] as EnumField;
             EnumField failedPolicy = NodeData["FailType"] as EnumField;
@@ -29,6 +29,7 @@ namespace R7BehaviorTree
             if (successPolicy == null || failedPolicy == null)
             {
                 Node.Status = ENodeStatus.Error;
+                return;
             }
 
             m_SuccessPolicy = (SUCCESS_POLICY)successPolicy.Value;
@@ -37,7 +38,7 @@ namespace R7BehaviorTree
             m_CompositeNode = Node as CompositeNode;
         }
 
-        public override void OnUpdate(float deltatime)
+        public void OnUpdate(float deltatime)
         {
             int failCount = 0;
             int successCount = 0;

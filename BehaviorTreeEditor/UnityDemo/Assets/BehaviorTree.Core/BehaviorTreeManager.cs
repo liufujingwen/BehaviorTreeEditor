@@ -27,94 +27,113 @@ namespace R7BehaviorTree
         public readonly Dictionary<int, TreeData> TreeDataDic = new Dictionary<int, TreeData>();
 
         /// <summary>
+        /// Proxy管理器
+        /// </summary>
+        private readonly Dictionary<EProxyType, IProxyManager> m_ProxyManagerDic = new Dictionary<EProxyType, IProxyManager>(new EProxyType_Comparer());
+
+        /// <summary>
         /// 所有Proxy
         /// </summary>
-        public readonly Dictionary<string, ProxyData> ProxyDic = new Dictionary<string, ProxyData>();
+        private readonly Dictionary<string, ProxyData> ProxyDic = new Dictionary<string, ProxyData>();
 
         /// <summary>
         /// 行为树缓存池
         /// </summary>
-        public readonly Dictionary<int, Dictionary<string, Queue<BehaviorTree>>> PoolDic = new Dictionary<int, Dictionary<string, Queue<BehaviorTree>>>();
+        public readonly Dictionary<int, Dictionary<string, Queue<BehaviorTree>>> m_PoolDic = new Dictionary<int, Dictionary<string, Queue<BehaviorTree>>>();
 
         public Func<BaseNode, BaseNodeProxy> CreateProxyHanlder { get; set; }
 
         /// <summary>
         /// 收集所有C#端的Proxy信息
         /// </summary>
-        public void CollectProxyInfos()
+        //public void CollectProxyInfos()
+        //{
+        //    Type[] types = typeof(BaseNodeProxy).Assembly.GetTypes();
+        //    for (int i = 0; i < types.Length; i++)
+        //    {
+        //        Type type = types[i];
+        //        object[] objs = type.GetCustomAttributes(typeof(BaseNodeAttribute), true);
+        //        if (objs == null || objs.Length == 0)
+        //            continue;
+
+        //        BaseNodeAttribute baseNodeAttribute = objs[0] as BaseNodeAttribute;
+
+        //        if (baseNodeAttribute == null)
+        //            continue;
+
+        //        string classType = baseNodeAttribute.ClassType;
+
+        //        if (string.IsNullOrEmpty(classType))
+        //        {
+        //            string msg = "BehaviorTreeManager.CollectProxyInfos() \n classType is null.";
+        //            LogError(msg);
+        //            throw new Exception(msg);
+        //        }
+
+        //        if (ProxyDic.ContainsKey(classType))
+        //        {
+        //            string msg = $"BehaviorTreeManager.CollectProxyInfos() \n CSharpProxyDic exist key:{classType}.";
+        //            LogError(msg);
+        //            throw new Exception(msg);
+        //        }
+
+        //        Register(classType, baseNodeAttribute.NodeType, EProxyType.CSharp, type, true);
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 注册Proxy
+        ///// </summary>
+        ///// <param name="classType">节点类</param>
+        ///// <param name="nodeType">节点类型</param>
+        ///// <param name="proxyType">代理类型</param>
+        ///// <param name="type">逻辑对应的Type</param>
+        ///// <param name="needUpdate">是否执行proxy的update(优化性能)</param>
+        //public void Register(string classType, ENodeType nodeType, EProxyType proxyType, Type type, bool needUpdate)
+        //{
+        //    if (string.IsNullOrEmpty(classType))
+        //    {
+        //        string msg = "BehaviorTreeManager.RegisterLuaProxy() \n classType is null.";
+        //        LogError(msg);
+        //        throw new Exception(msg);
+        //    }
+
+        //    ProxyData proxyData = null;
+        //    if (ProxyDic.TryGetValue(classType, out proxyData))
+        //    {
+        //        if (proxyData.ProxyType > proxyType)
+        //            return;
+
+        //        ProxyDic.Remove(classType);
+        //    }
+
+        //    proxyData = new ProxyData();
+        //    proxyData.ClassType = classType;
+        //    proxyData.NodeType = nodeType;
+        //    proxyData.ProxyType = proxyType;
+        //    proxyData.Type = type;
+        //    proxyData.NeedUpdate = needUpdate;
+
+        //    ProxyDic.Add(classType, proxyData);
+        //}
+
+        public void AddProxyManager(EProxyType proxyType, IProxyManager proxyManager)
         {
-            Type[] types = typeof(BaseNodeProxy).Assembly.GetTypes();
-            for (int i = 0; i < types.Length; i++)
+            if (proxyManager == null)
             {
-                Type type = types[i];
-                object[] objs = type.GetCustomAttributes(typeof(BaseNodeAttribute), true);
-                if (objs == null || objs.Length == 0)
-                    continue;
-
-                BaseNodeAttribute baseNodeAttribute = objs[0] as BaseNodeAttribute;
-
-                if (baseNodeAttribute == null)
-                    continue;
-
-                string classType = baseNodeAttribute.ClassType;
-
-                if (string.IsNullOrEmpty(classType))
-                {
-                    string msg = "BehaviorTreeManager.CollectProxyInfos() \n classType is null.";
-                    LogError(msg);
-                    throw new Exception(msg);
-                }
-
-                if (ProxyDic.ContainsKey(classType))
-                {
-                    string msg = $"BehaviorTreeManager.CollectProxyInfos() \n CSharpProxyDic exist key:{classType}.";
-                    LogError(msg);
-                    throw new Exception(msg);
-                }
-
-                ProxyData proxyData = new ProxyData();
-                proxyData.ClassType = classType;
-                proxyData.NodeType = baseNodeAttribute.NodeType;
-                proxyData.Type = type;
-
-                ProxyDic.Add(classType, proxyData);
-            }
-        }
-
-        /// <summary>
-        /// 注册lua proxy
-        /// </summary>
-        /// <param name="classType">节点类</param>
-        /// <param name="nodeType">节点类型</param>
-        /// <param name="proxyType">代理类型</param>
-        /// <param name="type">逻辑对应的Type</param>
-        /// <param name="needUpdate">是否执行proxy的update(优化lua性能)</param>
-        public void RegisterLuaProxy(string classType, ENodeType nodeType, EProxyType proxyType, Type type, bool needUpdate)
-        {
-            if (string.IsNullOrEmpty(classType))
-            {
-                string msg = "BehaviorTreeManager.RegisterLuaProxy() \n classType is null.";
+                string msg = "BehaviorTreeManager.AddProxyManager() \n proxyManager is null.";
                 LogError(msg);
                 throw new Exception(msg);
             }
 
-            ProxyData proxyData = null;
-            if (ProxyDic.TryGetValue(classType, out proxyData))
+            if (m_ProxyManagerDic.ContainsKey(proxyType))
             {
-                if (proxyData.ProxyType > proxyType)
-                    return;
-
-                ProxyDic.Remove(classType);
+                string msg = $"BehaviorTreeManager.AddProxyManager() \n m_ProxyManagerDic already contain key {proxyType}.";
+                LogError(msg);
+                throw new Exception(msg);
             }
 
-            proxyData = new ProxyData();
-            proxyData.ClassType = classType;
-            proxyData.NodeType = nodeType;
-            proxyData.ProxyType = proxyType;
-            proxyData.Type = type;
-            proxyData.NeedUpdate = needUpdate;
-
-            ProxyDic.Add(classType, proxyData);
+            m_ProxyManagerDic.Add(proxyType, proxyManager);
         }
 
         /// <summary>
@@ -220,7 +239,7 @@ namespace R7BehaviorTree
             do
             {
                 Dictionary<string, Queue<BehaviorTree>> typePoolDic = null;
-                if (!PoolDic.TryGetValue((int)behaviorTreeType, out typePoolDic))
+                if (!m_PoolDic.TryGetValue((int)behaviorTreeType, out typePoolDic))
                     break;
 
                 if (!typePoolDic.TryGetValue(agentId, out queue))
@@ -264,10 +283,10 @@ namespace R7BehaviorTree
             int behaviorTreeType = behaviorTree.BehaviorTreeType;
 
             Dictionary<string, Queue<BehaviorTree>> typePoolDic = null;
-            if (!PoolDic.TryGetValue(behaviorTreeType, out typePoolDic))
+            if (!m_PoolDic.TryGetValue(behaviorTreeType, out typePoolDic))
             {
                 typePoolDic = new Dictionary<string, Queue<BehaviorTree>>();
-                PoolDic.Add(behaviorTreeType, typePoolDic);
+                m_PoolDic.Add(behaviorTreeType, typePoolDic);
             }
 
             string agentId = behaviorTree.AgentID;
@@ -293,7 +312,7 @@ namespace R7BehaviorTree
         /// </summary>
         public void ClearPool()
         {
-            PoolDic.Clear();
+            m_PoolDic.Clear();
         }
 
         /// <summary>
@@ -303,7 +322,7 @@ namespace R7BehaviorTree
         public void ClearPool(int behaviorTreeType)
         {
             Dictionary<string, Queue<BehaviorTree>> typePoolDic = null;
-            if (!PoolDic.TryGetValue(behaviorTreeType, out typePoolDic))
+            if (!m_PoolDic.TryGetValue(behaviorTreeType, out typePoolDic))
                 return;
 
             if (typePoolDic != null)
@@ -406,13 +425,23 @@ namespace R7BehaviorTree
                 throw new Exception(msg);
             }
 
-            BaseNodeProxy nodeProxy = null;
-            nodeProxy = Activator.CreateInstance(node.ProxyData.Type) as BaseNodeProxy;
-            nodeProxy.BeginInit();
-            nodeProxy.SetNode(node);
-            nodeProxy.SetData(node.NodeData);
-            nodeProxy.SetContext(node.Context);
-            nodeProxy.EndInit();
+            EProxyType proxyType = node.ProxyData.ProxyType;
+            IProxyManager proxyManager = null;
+            if (!m_ProxyManagerDic.TryGetValue(proxyType, out proxyManager))
+            {
+                string msg = $"BehaviorTreeManager.CreateProxy() \n Create nodeProxy failed,m_ProxyManagerDic not contains key {proxyType}.";
+                LogError(msg);
+                throw new Exception(msg);
+            }
+
+            if (proxyManager == null)
+            {
+                string msg = $"BehaviorTreeManager.CreateProxy() \n Create nodeProxy failed,proxyManager is null.";
+                LogError(msg);
+                throw new Exception(msg);
+            }
+
+            BaseNodeProxy nodeProxy = proxyManager.CreateProxy(node);
 
             if (nodeProxy == null)
             {
@@ -421,6 +450,12 @@ namespace R7BehaviorTree
                 LogError(msg);
                 throw new Exception(msg);
             }
+
+            nodeProxy.BeginInit();
+            nodeProxy.SetNode(node);
+            nodeProxy.SetData(node.NodeData);
+            nodeProxy.SetContext(node.Context);
+            nodeProxy.EndInit();
 
             return nodeProxy;
         }

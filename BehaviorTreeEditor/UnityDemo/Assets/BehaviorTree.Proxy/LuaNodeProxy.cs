@@ -12,7 +12,7 @@ namespace R7BehaviorTree
         static Func<string, LuaNodeProxy, ILuaBehaviorNode> NewFunc = null;
         private ILuaBehaviorNode m_LuaBehaviorNode;
 
-        public LuaNodeProxy()
+        public override void BeginInit()
         {
             if (NewFunc == null)
                 NewFunc = LuaEnv.Global.GetInPath<Func<string, LuaNodeProxy, ILuaBehaviorNode>>("LuaBehaviorTreeManager.New");
