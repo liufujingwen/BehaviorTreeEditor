@@ -5,7 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace R7BehaviorTree
 {
     [ActionNode("CreateUnit")]
-    public class CreateUnitProxy : CSharpNodeProxy
+    public class CreateUnitProxy : BaseNodeProxy
     {
         private int m_ID;
         private EUnitType m_UnitType;

@@ -24,22 +24,19 @@ namespace R7BehaviorTree
         /// <summary>
         /// 管理行为树编辑器数据
         /// </summary>
-        public static readonly Dictionary<int, TreeData> TreeDataDic = new Dictionary<int, TreeData>();
+        public readonly Dictionary<int, TreeData> TreeDataDic = new Dictionary<int, TreeData>();
 
         /// <summary>
-        /// C#所有Proxy
+        /// 所有Proxy
         /// </summary>
-        public static readonly Dictionary<string, ProxyData> CSharpProxyDic = new Dictionary<string, ProxyData>();
-
-        /// <summary>
-        /// Lua所有Proxy
-        /// </summary>
-        public static readonly Dictionary<string, ProxyData> LuaProxyDic = new Dictionary<string, ProxyData>();
+        public readonly Dictionary<string, ProxyData> ProxyDic = new Dictionary<string, ProxyData>();
 
         /// <summary>
         /// 行为树缓存池
         /// </summary>
-        public static readonly Dictionary<int, Dictionary<string, Queue<BehaviorTree>>> PoolDic = new Dictionary<int, Dictionary<string, Queue<BehaviorTree>>>();
+        public readonly Dictionary<int, Dictionary<string, Queue<BehaviorTree>>> PoolDic = new Dictionary<int, Dictionary<string, Queue<BehaviorTree>>>();
+
+        public Func<BaseNode, BaseNodeProxy> CreateProxyHanlder { get; set; }
 
         /// <summary>
         /// 收集所有C#端的Proxy信息
@@ -68,7 +65,7 @@ namespace R7BehaviorTree
                     throw new Exception(msg);
                 }
 
-                if (CSharpProxyDic.ContainsKey(classType))
+                if (ProxyDic.ContainsKey(classType))
                 {
                     string msg = $"BehaviorTreeManager.CollectProxyInfos() \n CSharpProxyDic exist key:{classType}.";
                     LogError(msg);
@@ -78,9 +75,9 @@ namespace R7BehaviorTree
                 ProxyData proxyData = new ProxyData();
                 proxyData.ClassType = classType;
                 proxyData.NodeType = baseNodeAttribute.NodeType;
-                proxyData.ProxyType = type;
+                proxyData.Type = type;
 
-                CSharpProxyDic.Add(classType, proxyData);
+                ProxyDic.Add(classType, proxyData);
             }
         }
 
@@ -89,8 +86,10 @@ namespace R7BehaviorTree
         /// </summary>
         /// <param name="classType">节点类</param>
         /// <param name="nodeType">节点类型</param>
+        /// <param name="proxyType">代理类型</param>
+        /// <param name="type">逻辑对应的Type</param>
         /// <param name="needUpdate">是否执行proxy的update(优化lua性能)</param>
-        public void RegisterLuaProxy(string classType, ENodeType nodeType, bool needUpdate)
+        public void RegisterLuaProxy(string classType, ENodeType nodeType, EProxyType proxyType, Type type, bool needUpdate)
         {
             if (string.IsNullOrEmpty(classType))
             {
@@ -99,20 +98,23 @@ namespace R7BehaviorTree
                 throw new Exception(msg);
             }
 
-            if (LuaProxyDic.ContainsKey(classType))
+            ProxyData proxyData = null;
+            if (ProxyDic.TryGetValue(classType, out proxyData))
             {
-                string msg = $"BehaviorTreeManager.CollectProxyInfos() \n CSharpProxyDic exist key:{classType}.";
-                LogError(msg);
-                throw new Exception(msg);
+                if (proxyData.ProxyType > proxyType)
+                    return;
+
+                ProxyDic.Remove(classType);
             }
 
-            ProxyData proxyData = new ProxyData();
+            proxyData = new ProxyData();
             proxyData.ClassType = classType;
             proxyData.NodeType = nodeType;
-            proxyData.IsLuaProxy = true;
+            proxyData.ProxyType = proxyType;
+            proxyData.Type = type;
             proxyData.NeedUpdate = needUpdate;
 
-            LuaProxyDic.Add(classType, proxyData);
+            ProxyDic.Add(classType, proxyData);
         }
 
         /// <summary>
@@ -325,11 +327,8 @@ namespace R7BehaviorTree
 
             ProxyData proxyData = null;
 
-            //优先取lua的Proxy（如果C#端的proxy有bug,可以用lua的proxy修复）
-            LuaProxyDic.TryGetValue(nodeData.ClassType, out proxyData);
-
             if (proxyData == null)
-                CSharpProxyDic.TryGetValue(nodeData.ClassType, out proxyData);
+                ProxyDic.TryGetValue(nodeData.ClassType, out proxyData);
 
             if (proxyData == null)
             {
@@ -408,23 +407,12 @@ namespace R7BehaviorTree
             }
 
             BaseNodeProxy nodeProxy = null;
-
-            if (node.ProxyData.IsLuaProxy)
-            {
-                LuaNodeProxy luaNodeProxy = new LuaNodeProxy();
-                luaNodeProxy.SetNode(node);
-                luaNodeProxy.SetData(node.NodeData);
-                luaNodeProxy.SetContext(node.Context);
-                luaNodeProxy.CreateLuaObj();
-                nodeProxy = luaNodeProxy;
-            }
-            else
-            {
-                nodeProxy = Activator.CreateInstance(node.ProxyData.ProxyType) as BaseNodeProxy;
-                nodeProxy.SetNode(node);
-                nodeProxy.SetData(node.NodeData);
-                nodeProxy.SetContext(node.Context);
-            }
+            nodeProxy = Activator.CreateInstance(node.ProxyData.Type) as BaseNodeProxy;
+            nodeProxy.BeginInit();
+            nodeProxy.SetNode(node);
+            nodeProxy.SetData(node.NodeData);
+            nodeProxy.SetContext(node.Context);
+            nodeProxy.EndInit();
 
             if (nodeProxy == null)
             {

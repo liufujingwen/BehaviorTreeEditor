@@ -4,7 +4,7 @@
     /// 把失败包装成功返回
     /// </summary>
     [DecorateNode("Success")]
-    public class SuccessProxy : CSharpNodeProxy
+    public class SuccessProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
 

@@ -18,8 +18,7 @@ namespace R7BehaviorTree
                 NewFunc = LuaEnv.Global.GetInPath<Func<string, LuaNodeProxy, ILuaBehaviorNode>>("LuaBehaviorTreeManager.New");
         }
 
-        //构建lua行为树实例
-        internal void CreateLuaObj()
+        public override void EndInit()
         {
             m_LuaBehaviorNode = NewFunc?.Invoke(NodeData.ClassType, this);
         }
@@ -57,7 +56,7 @@ namespace R7BehaviorTree
 
         public override void OnDestroy()
         {
-            m_LuaBehaviorNode.OnDestroy();
+            m_LuaBehaviorNode?.OnDestroy();
         }
     }
 }

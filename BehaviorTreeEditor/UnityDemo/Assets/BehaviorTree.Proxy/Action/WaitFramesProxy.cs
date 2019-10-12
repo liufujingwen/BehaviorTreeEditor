@@ -6,7 +6,7 @@ namespace R7BehaviorTree
     ///  等待帧数节点
     /// </summary>
     [ActionNode("WaitFrames")]
-    public class WaitFramesProxy : CSharpNodeProxy
+    public class WaitFramesProxy : BaseNodeProxy
     {
         private int m_Frames = -1;
         private int m_CurFrames = -1;

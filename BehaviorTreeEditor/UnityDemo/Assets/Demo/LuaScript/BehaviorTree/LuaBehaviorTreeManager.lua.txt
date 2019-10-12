@@ -10,7 +10,7 @@ local ClassType = {}
 function LuaBehaviorTreeManager.Register(super, classType, nodeType, needUpdate)
     super = LuaBehaviorNode or super
     needUpdate = needUpdate and true or false
-    BehaviorTreeManager.Instance:RegisterLuaProxy(classType, nodeType, needUpdate)
+    BehaviorTreeManager.Instance:RegisterLuaProxy(classType, nodeType, EProxyType.Lua, LuaNodeProxy,needUpdate)
     local luaNodeObj = Class(classType, super)
     ClassType[classType] = luaNodeObj
     return luaNodeObj

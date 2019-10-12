@@ -1,7 +1,7 @@
 ﻿namespace R7BehaviorTree
 {
     [CompositeNode("Selector")]
-    public class SelectorProxy : CSharpNodeProxy
+    public class SelectorProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
 

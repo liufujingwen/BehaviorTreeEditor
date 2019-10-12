@@ -7,7 +7,7 @@ namespace R7BehaviorTree
     /// 在指定的时间内，持续调用其子节点
     /// </summary>
     [DecorateNode("Time")]
-    public class TimeProxy : CSharpNodeProxy
+    public class TimeProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
         int Duration = -1;

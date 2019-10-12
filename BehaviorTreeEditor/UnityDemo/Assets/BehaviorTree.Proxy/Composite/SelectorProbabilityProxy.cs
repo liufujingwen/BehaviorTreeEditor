@@ -10,7 +10,7 @@ namespace R7BehaviorTree
     /// 概率选择节点也将返回同样的结果。如果该子节点返回失败，概率选择也返回失败，它不会像选择节点那样会继续执行接下来的子节点。
     /// </summary>
     [CompositeNode("SelectorProbability")]
-    public class SelectorProbabilityProxy : CSharpNodeProxy
+    public class SelectorProbabilityProxy : BaseNodeProxy
     {
         private List<BaseNode> Children = new List<BaseNode>();
         private Dictionary<BaseNode, int> PriorityIndex = new Dictionary<BaseNode, int>();

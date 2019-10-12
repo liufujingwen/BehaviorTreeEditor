@@ -274,6 +274,7 @@
     <Compile Include="Assets\BehaviorTree.Core\Base\ELogType.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\ENodeStatus.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\ENodeType.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\Base\EProxyType.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\Interface\IContext.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\Interface\ILuaBehaviorNode.cs" />
     <Compile Include="Assets\BehaviorTree.Core\Base\ProxyData.cs" />
@@ -305,9 +306,6 @@
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Serializer.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Serialize\Writer.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeManager.cs" />
-    <Compile Include="Assets\BehaviorTree.Debugger\Agent.cs" />
-    <Compile Include="Assets\BehaviorTree.Proxy\Action\CreateUnitProxy.cs" />
-    <Compile Include="Assets\BehaviorTree.Proxy\Action\LogProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Action\NoopProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitFramesProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Action\WaitProxy.cs" />
@@ -328,6 +326,8 @@
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\SuccessUntilProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\Decorate\TimeProxy.cs" />
     <Compile Include="Assets\BehaviorTree.Proxy\LuaNodeProxy.cs" />
+    <Compile Include="Assets\Demo\BehaviorTree.Hotfix.Proxy\Action\CreateUnitProxy.cs" />
+    <Compile Include="Assets\Demo\BehaviorTree.Hotfix.Proxy\Action\LogProxy.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\ObjectCollection.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\Singleton\Singleton.cs" />
     <Compile Include="Assets\Demo\Scripts\Base\Singleton\SingletonMonoBehavior.cs" />
@@ -396,16 +396,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BehaviorTree.Debugger\Editor\Resources\GridLine.shader" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\ENodeType.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\EProxyType.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\LuaBehaviorNode.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\LuaBehaviorTreeManager.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\BehaviorTree\LuaNodeProxy.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\Common\Class.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\Node\Noop.lua.txt" />
+    <None Include="Assets\Demo\LuaScript\RequireFile.lua.txt" />
     <None Include="Assets\Demo\Res\Models\Shader\DoubleSided.shader" />
     <None Include="Assets\Demo\Res\Models\Shader\DoubleSidedNoPass.shader" />
-    <None Include="Assets\LuaScript\BehaviorTree\BehaviorTreeManager.lua.txt" />
-    <None Include="Assets\LuaScript\BehaviorTree\ENodeStatus.lua.txt" />
-    <None Include="Assets\LuaScript\BehaviorTree\ENodeType.lua.txt" />
-    <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorNode.lua.txt" />
-    <None Include="Assets\LuaScript\BehaviorTree\LuaBehaviorTreeManager.lua.txt" />
-    <None Include="Assets\LuaScript\Common\Class.lua.txt" />
-    <None Include="Assets\LuaScript\Node\Noop.lua.txt" />
-    <None Include="Assets\LuaScript\RequireFile.lua.txt" />
     <None Include="Assets\ThirdParty\XLua\CHANGELOG.txt" />
     <None Include="Assets\ThirdParty\XLua\Examples\02_U3DScripting\LuaTestScript.lua.txt" />
     <None Include="Assets\ThirdParty\XLua\Examples\03_UIEvent\ButtonInteraction.lua.txt" />

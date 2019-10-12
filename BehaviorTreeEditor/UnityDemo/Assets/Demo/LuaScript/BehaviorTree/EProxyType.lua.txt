@@ -1,0 +1,1 @@
+EProxyType = CS.R7BehaviorTree.EProxyType

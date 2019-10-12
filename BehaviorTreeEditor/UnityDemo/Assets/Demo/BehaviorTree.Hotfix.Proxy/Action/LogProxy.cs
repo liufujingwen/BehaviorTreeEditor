@@ -6,7 +6,7 @@ namespace R7BehaviorTree
     /// 输出指定Log,方便调试
     /// </summary>
     [ActionNode("Log")]
-    public class LogProxy :CSharpNodeProxy
+    public class LogProxy : BaseNodeProxy
     {
         private string m_Content;
 

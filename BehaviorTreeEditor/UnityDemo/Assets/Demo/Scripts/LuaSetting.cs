@@ -12,7 +12,7 @@ public class LuaSetting : MonoBehaviour
 
     public void Initalize()
     {
-        m_LuaPrefix = (Application.dataPath + "/LuaScript").Replace("\\", "/");
+        m_LuaPrefix = (Application.dataPath + "/Demo/LuaScript").Replace("\\", "/");
         m_LuaEnv.AddLoader(CustomLoader);
         LuaNodeProxy.LuaEnv = m_LuaEnv;
 

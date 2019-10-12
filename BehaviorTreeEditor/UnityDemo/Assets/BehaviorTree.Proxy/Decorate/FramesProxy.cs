@@ -6,7 +6,7 @@ namespace R7BehaviorTree
     /// 执行n帧后返回succeed，如果子节点返回succeed、failed,则重置子节点继续执行
     /// </summary>
     [DecorateNode("Frames")]
-    public class FramesProxy : CSharpNodeProxy
+    public class FramesProxy : BaseNodeProxy
     {
         private int m_Frames = -1;
         private int m_CurFrames = -1;

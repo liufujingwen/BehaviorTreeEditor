@@ -9,7 +9,7 @@ namespace R7BehaviorTree
     /// 如果第一个节点成功则执行第三个节点，并将第三个节点结果作为当前的结果返回
     /// </summary>
     [CompositeNode("IfElse")]
-    public class IfElseProxy : CSharpNodeProxy
+    public class IfElseProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
 

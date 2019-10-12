@@ -6,7 +6,7 @@ namespace R7BehaviorTree
     /// 随机选择一个节点，并将随机节点的结果返回
     /// </summary>
     [CompositeNode("Random")]
-    public class RandomProxy : CSharpNodeProxy
+    public class RandomProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
         private Random m_Random = new Random();

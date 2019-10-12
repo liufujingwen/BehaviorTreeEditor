@@ -1,12 +1,21 @@
 ﻿using BehaviorTreeData;
+using System.ComponentModel;
 
 namespace R7BehaviorTree
 {
-    public abstract class BaseNodeProxy
+    public abstract class BaseNodeProxy : ISupportInitialize
     {
         public NodeData NodeData { get; private set; }
         public IContext Context { get; private set; }
         public BaseNode Node { get; private set; }
+
+        public virtual void BeginInit()
+        {
+        }
+
+        public virtual void EndInit()
+        {
+        }
 
         public virtual void SetData(NodeData data)
         {
@@ -50,5 +59,7 @@ namespace R7BehaviorTree
         public virtual void OnDestroy()
         {
         }
+
+        
     }
 }

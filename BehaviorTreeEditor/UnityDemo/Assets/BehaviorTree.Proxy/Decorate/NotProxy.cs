@@ -4,7 +4,7 @@
     /// 取反节点
     /// </summary>
     [DecorateNode("Not")]
-    public class NotProxy : CSharpNodeProxy
+    public class NotProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
 

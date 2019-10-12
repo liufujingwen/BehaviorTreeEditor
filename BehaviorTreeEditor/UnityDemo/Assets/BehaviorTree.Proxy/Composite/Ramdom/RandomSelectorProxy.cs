@@ -7,7 +7,7 @@ namespace R7BehaviorTree
     /// 先打乱所有的子节点,然后从第一个节点开始执行，只要成功一个就算成功
     /// </summary>
     [CompositeNode("RandomSelector")]
-    public class RandomSelectorProxy : CSharpNodeProxy
+    public class RandomSelectorProxy : BaseNodeProxy
     {
         private List<BaseNode> m_Children = new List<BaseNode>();
         private CompositeNode m_CompositeNode;

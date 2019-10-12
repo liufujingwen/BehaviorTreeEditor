@@ -5,7 +5,7 @@
     /// 子节点返回失败直接重置继续执行
     /// </summary>
     [DecorateNode("SuccessUntil")]
-    public class SuccessUntilProxy : CSharpNodeProxy
+    public class SuccessUntilProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
 

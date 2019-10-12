@@ -8,7 +8,7 @@ namespace R7BehaviorTree
     /// 次数：如果次数配置为-1，则视为无限循环，总是返回运行。否则循环执行子节点指定的次数然后返回成功，在指定次数之前则返回运行。
     /// </summary>
     [DecorateNode("Loop")]
-    public class LoopProxy : CSharpNodeProxy
+    public class LoopProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
         private int m_LoopTimes = 0;

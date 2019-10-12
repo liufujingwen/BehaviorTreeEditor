@@ -6,17 +6,18 @@
 </BreakpointList>
 <WatchList/>
 <ProjectUI>
-  <TreeState BaseX = "0" BaseY = "0" AlternativeItem = "LuaFolders#Assets#LuaScript#Common">
+  <TreeState BaseX = "0" BaseY = "0" AlternativeItem = "LuaFolders#Assets#Demo#LuaScript#BehaviorTree#LuaBehaviorNode.lua.txt">
     <SelectedList>
-      <Selected Path = "LuaFolders#Assets#LuaScript#BehaviorTree#LuaBehaviorTreeManager.lua.txt"/>
+      <Selected Path = "LuaFolders#Assets#Demo#LuaScript#BehaviorTree#EProxyType.lua.txt"/>
     </SelectedList>
     <ExpandedList>
       <Expanded Path = "LuaFolders"/>
       <Expanded Path = "LuaFolders#Assets"/>
-      <Expanded Path = "LuaFolders#Assets#LuaScript"/>
-      <Expanded Path = "LuaFolders#Assets#LuaScript#BehaviorTree"/>
-      <Expanded Path = "LuaFolders#Assets#LuaScript#Common"/>
-      <Expanded Path = "LuaFolders#Assets#LuaScript#Node"/>
+      <Expanded Path = "LuaFolders#Assets#Demo"/>
+      <Expanded Path = "LuaFolders#Assets#Demo#BehaviorTree.Hotfix.Proxy"/>
+      <Expanded Path = "LuaFolders#Assets#Demo#LuaScript"/>
+      <Expanded Path = "LuaFolders#Assets#Demo#LuaScript#BehaviorTree"/>
+      <Expanded Path = "LuaFolders#Assets#Demo#LuaScript#Common"/>
     </ExpandedList>
   </TreeState>
 </ProjectUI>
@@ -28,16 +29,16 @@
   Target = ""
   Replace = ""/>
 <MainWindow
-  X = "174"
-  Y = "128"
+  X = "272"
+  Y = "238"
   Width = "1380"
   Height = "812"
-  Maximized = "false"
-  LastCodeFilename = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/Node/Noop.lua.txt">
+  Maximized = "true"
+  LastCodeFilename = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/BehaviorTree/LuaBehaviorTreeManager.lua.txt">
   <DockingControl>
     <DockingNode DockingDirection = "Horizontal">
       <DockingNode DockingDirection = "None">
-        <DockingBlock Width = "444" Height = "695" DocumentStyle = "false">
+        <DockingBlock Width = "661" Height = "995" DocumentStyle = "false">
           <DockingCard
             Text = "Project"
             Tag = ""
@@ -52,74 +53,56 @@
       </DockingNode>
       <DockingNode DockingDirection = "Vertical">
         <DockingNode DockingDirection = "None">
-          <DockingBlock Width = "917" Height = "533" DocumentStyle = "true">
-            <DockingCard
-              Text = "Noop.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/Node/Noop.lua.txt"
-              ActivePage = "true"
-              ActivateTime = "52226438"
-              CaretLineIndex = "6"
-              CaretCodeCharIndex = "22"
-              BaseX = "0"
-              BaseY = "0"/>
-            <DockingCard
-              Text = "RequireFile.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/RequireFile.lua.txt"
-              ActivePage = "false"
-              ActivateTime = "51396712"
-              CaretLineIndex = "22"
-              CaretCodeCharIndex = "25"
-              BaseX = "0"
-              BaseY = "-132"/>
+          <DockingBlock Width = "1368" Height = "734" DocumentStyle = "true">
             <DockingCard
               Text = "LuaBehaviorTreeManager.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/BehaviorTree/LuaBehaviorTreeManager.lua.txt"
-              ActivePage = "false"
-              ActivateTime = "51393592"
-              CaretLineIndex = "22"
-              CaretCodeCharIndex = "0"
-              BaseX = "0"
-              BaseY = "-264"/>
-            <DockingCard
-              Text = "LuaBehaviorNode.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/BehaviorTree/LuaBehaviorNode.lua.txt"
-              ActivePage = "false"
-              ActivateTime = "51269071"
-              CaretLineIndex = "5"
+              Tag = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/BehaviorTree/LuaBehaviorTreeManager.lua.txt"
+              ActivePage = "true"
+              ActivateTime = "1064072627"
+              CaretLineIndex = "13"
               CaretCodeCharIndex = "0"
               BaseX = "0"
               BaseY = "0"/>
             <DockingCard
-              Text = "ENodeType.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/BehaviorTree/ENodeType.lua.txt"
+              Text = "LuaNodeProxy.lua.txt"
+              Tag = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/BehaviorTree/LuaNodeProxy.lua.txt"
               ActivePage = "false"
-              ActivateTime = "51267983"
+              ActivateTime = "1063412498"
               CaretLineIndex = "0"
-              CaretCodeCharIndex = "9"
-              BaseX = "0"
-              BaseY = "0"/>
-            <DockingCard
-              Text = "BehaviorTreeManager.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/BehaviorTree/BehaviorTreeManager.lua.txt"
-              ActivePage = "false"
-              ActivateTime = "51267342"
-              CaretLineIndex = "0"
-              CaretCodeCharIndex = "2"
+              CaretCodeCharIndex = "44"
               BaseX = "0"
               BaseY = "0"/>
             <DockingCard
               Text = "Class.lua.txt"
-              Tag = "D:/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/LuaScript/Common/Class.lua.txt"
+              Tag = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/Common/Class.lua.txt"
               ActivePage = "false"
-              ActivateTime = "50585971"
+              ActivateTime = "1063337994"
               CaretLineIndex = "0"
-              CaretCodeCharIndex = "9"
+              CaretCodeCharIndex = "0"
+              BaseX = "0"
+              BaseY = "0"/>
+            <DockingCard
+              Text = "RequireFile.lua.txt"
+              Tag = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/RequireFile.lua.txt"
+              ActivePage = "false"
+              ActivateTime = "1063738101"
+              CaretLineIndex = "20"
+              CaretCodeCharIndex = "51"
+              BaseX = "0"
+              BaseY = "0"/>
+            <DockingCard
+              Text = "EProxyType.lua.txt"
+              Tag = "C:/D/Projects/BehaviorTreeEditor/BehaviorTreeEditor/UnityDemo/Assets/Demo/LuaScript/BehaviorTree/EProxyType.lua.txt"
+              ActivePage = "false"
+              ActivateTime = "1063748253"
+              CaretLineIndex = "0"
+              CaretCodeCharIndex = "41"
               BaseX = "0"
               BaseY = "0"/>
           </DockingBlock>
         </DockingNode>
         <DockingNode DockingDirection = "None">
-          <DockingBlock Width = "917" Height = "155" DocumentStyle = "false">
+          <DockingBlock Width = "1368" Height = "254" DocumentStyle = "false">
             <DockingCard
               Text = "Output"
               Tag = ""

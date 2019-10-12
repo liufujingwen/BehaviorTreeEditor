@@ -4,7 +4,7 @@
     /// 将子节点结果以失败返回
     /// </summary>
     [DecorateNode("Failure")]
-    public class FailureProxy : CSharpNodeProxy
+    public class FailureProxy : BaseNodeProxy
     {
         private CompositeNode m_CompositeNode;
         public override void OnStart()

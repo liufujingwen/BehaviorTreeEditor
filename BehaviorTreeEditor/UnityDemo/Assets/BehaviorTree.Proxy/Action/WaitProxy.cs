@@ -1,7 +1,7 @@
 ﻿namespace R7BehaviorTree
 {
     [ActionNode("Wait")]
-    public class WaitProxy : CSharpNodeProxy
+    public class WaitProxy : BaseNodeProxy
     {
         private int m_WaitTime;
         private float m_Time;

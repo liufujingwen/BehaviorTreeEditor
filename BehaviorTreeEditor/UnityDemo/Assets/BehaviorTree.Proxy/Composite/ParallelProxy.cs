@@ -3,7 +3,7 @@
 namespace R7BehaviorTree
 {
     [CompositeNode("Parallel")]
-    public class ParallelProxy : CSharpNodeProxy
+    public class ParallelProxy : BaseNodeProxy
     {
         public enum SUCCESS_POLICY
         {

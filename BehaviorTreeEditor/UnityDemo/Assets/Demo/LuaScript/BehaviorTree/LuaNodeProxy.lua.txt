@@ -1,0 +1,1 @@
+LuaNodeProxy = typeof(CS.R7BehaviorTree.LuaNodeProxy)

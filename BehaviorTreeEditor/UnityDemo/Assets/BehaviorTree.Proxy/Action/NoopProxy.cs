@@ -1,7 +1,7 @@
 ﻿namespace R7BehaviorTree
 {
     [ActionNode("Noop")]
-    public class NoopProxy : CSharpNodeProxy
+    public class NoopProxy : BaseNodeProxy
     {
         public override void OnStart()
         {
