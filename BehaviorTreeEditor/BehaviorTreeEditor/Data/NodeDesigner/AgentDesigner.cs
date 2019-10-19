@@ -568,7 +568,7 @@ namespace BehaviorTreeEditor
             for (int i = m_Nodes.Count - 1; i >= 0; i--)
             {
                 NodeDesigner node = m_Nodes[i];
-                NodeClass nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                NodeDefine nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
                 if (nodeClass == null)
                 {
                     RemoveNode(node);
@@ -589,7 +589,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Nodes.Count; i++)
             {
                 NodeDesigner node = m_Nodes[i];
-                NodeClass nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                NodeDefine nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
 
                 //修正节点标签
                 if (node.Label != nodeClass.Label)

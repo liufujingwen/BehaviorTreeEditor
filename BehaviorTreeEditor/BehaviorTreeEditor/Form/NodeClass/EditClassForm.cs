@@ -6,18 +6,18 @@ namespace BehaviorTreeEditor
 {
     public partial class EditClassForm : Form
     {
-        private NodeClass m_NodeClass;
-        private NodeClass m_EditNodeClass;
+        private NodeDefine m_NodeClass;
+        private NodeDefine m_EditNodeClass;
         private ClassForm m_ClassForm = null;
         private string m_Content;
         private Action m_EditCallback;
 
-        public EditClassForm(ClassForm classForm, NodeClass nodeClass, Action editCallback)
+        public EditClassForm(ClassForm classForm, NodeDefine nodeClass, Action editCallback)
         {
             m_ClassForm = classForm;
             m_NodeClass = nodeClass;
             m_Content = XmlUtility.ObjectToString(m_NodeClass);
-            m_EditNodeClass = XmlUtility.StringToObject<NodeClass>(m_Content);
+            m_EditNodeClass = XmlUtility.StringToObject<NodeDefine>(m_Content);
             m_EditCallback = editCallback;
             InitializeComponent();
         }
@@ -228,7 +228,7 @@ namespace BehaviorTreeEditor
         }
 
         //刷新ListView
-        private void BindField(NodeClass m_NodeClass)
+        private void BindField(NodeDefine m_NodeClass)
         {
             if (m_NodeClass == null)
                 return;

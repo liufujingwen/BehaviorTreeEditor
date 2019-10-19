@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace BehaviorTreeEditor
 {
-    public class NodeClass
+    public class NodeDefine
     {
         private string m_ClassType;
 
@@ -263,7 +263,7 @@ namespace BehaviorTreeEditor
         /// 更新NodeClass的内容
         /// </summary>
         /// <param name="nodeClass"></param>
-        public void UpdateNodeClass(NodeClass nodeClass)
+        public void UpdateNodeClass(NodeDefine nodeClass)
         {
             if (nodeClass == null)
                 return;

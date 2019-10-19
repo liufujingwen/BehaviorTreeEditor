@@ -6,7 +6,7 @@ namespace BehaviorTreeEditor
 {
     public partial class AddClassForm : Form
     {
-        private NodeClass m_NodeClass = new NodeClass();
+        private NodeDefine m_NodeClass = new NodeDefine();
         private ClassForm m_ClassForm = null;
         private NodeType m_DefaultNodeType = NodeType.Composite;
 
@@ -209,7 +209,7 @@ namespace BehaviorTreeEditor
         }
 
         //刷新ListView
-        private void BindFields(NodeClass m_NodeClass)
+        private void BindFields(NodeDefine m_NodeClass)
         {
             if (m_NodeClass == null)
                 return;

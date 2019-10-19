@@ -47,7 +47,7 @@ namespace BehaviorTreeEditor
         {
             for (int i = 0; i < m_NodeClasses.Nodes.Count; i++)
             {
-                NodeClass nodeClass = m_NodeClasses.Nodes[i];
+                NodeDefine nodeClass = m_NodeClasses.Nodes[i];
                 BindNodeClass(nodeClass);
             }
 
@@ -56,7 +56,7 @@ namespace BehaviorTreeEditor
             m_TreeView.Nodes[0].EnsureVisible();
         }
 
-        public NodeItem BindNodeClass(NodeClass nodeClass)
+        public NodeItem BindNodeClass(NodeDefine nodeClass)
         {
             NodeTypeItem nodeTypeItem = GetNodeTypeItem(nodeClass.NodeType);
             if (nodeTypeItem == null)
@@ -155,7 +155,7 @@ namespace BehaviorTreeEditor
             return categoryItem;
         }
 
-        public bool RemoveNodeClass(NodeClass nodeClass)
+        public bool RemoveNodeClass(NodeDefine nodeClass)
         {
             NodeItem nodeItem = FindNodeItem(nodeClass);
             if (nodeItem != null)
@@ -199,7 +199,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public NodeItem FindNodeItem(NodeClass nodeClass)
+        public NodeItem FindNodeItem(NodeDefine nodeClass)
         {
             for (int i = 0; i < m_TreeView.Nodes.Count; i++)
             {
@@ -212,7 +212,7 @@ namespace BehaviorTreeEditor
             return null;
         }
 
-        private NodeItem FindNodeItem(TreeNode treeNode, NodeClass nodeClass)
+        private NodeItem FindNodeItem(TreeNode treeNode, NodeDefine nodeClass)
         {
             if (treeNode.Tag is NodeItem)
             {

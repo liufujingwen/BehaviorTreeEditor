@@ -44,6 +44,9 @@ namespace BehaviorTreeEditor
         [XmlIgnore]
         public NodeDesigner ParentNode;
 
+        [XmlIgnore]
+        public NodeDefine NodeDefine { get; set; }
+
         public int ID
         {
             get { return m_ID; }
@@ -228,6 +231,41 @@ namespace BehaviorTreeEditor
                 if (field.Field != null)
                     content += field.Field + (i != m_Fields.Count - 1 ? "," : string.Empty);
             }
+            return content;
+        }
+
+        public string ShowContent()
+        {
+            if (NodeDefine == null)
+                NodeDefine = MainForm.Instance.NodeClasses.FindNode(ClassType);
+
+            if (NodeDefine == null)
+                throw new Exception(ClassType + "的" + nameof(NodeDefine) + "为空");
+
+            string content = string.Empty;
+
+            int showCount = 0;
+            for (int i = 0; i < m_Fields.Count; i++)
+            {
+                FieldDesigner field = m_Fields[i];
+                NodeField nodeField = NodeDefine.Fields[i];
+                if (nodeField.Show && field.Field != null)
+                {
+                    if (showCount == 0)
+                        content += "[";
+                    else
+                        content += ",";
+
+                    showCount++;
+                    content += field.Field;
+                }
+            }
+
+            if (showCount > 0)
+                content += "]";
+            else
+                content = Describe;
+
             return content;
         }
     }

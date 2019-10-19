@@ -106,6 +106,7 @@ namespace BehaviorTreeEditor.UIControls
                                 transition.Set(toNode, fromNode);
                             }
                         }
+                        node.NodeDefine = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
                     }
                     CenterView();
                 }
@@ -1044,7 +1045,7 @@ namespace BehaviorTreeEditor.UIControls
                 return;
 
             NodeClasses nodeClass = MainForm.Instance.NodeClasses;
-            List<NodeClass> nodes = nodeClass.Nodes;
+            List<NodeDefine> nodes = nodeClass.Nodes;
 
             viewContextMenuStrip.Items.Clear();
 
@@ -1054,34 +1055,34 @@ namespace BehaviorTreeEditor.UIControls
             ToolStripDropDownItem actionItem = viewContextMenuStrip.Items.Add("动作节点") as ToolStripDropDownItem;
 
             //绑定组合节点
-            List<NodeClass> compositeList = nodeClass.GetClasses(NodeType.Composite);
+            List<NodeDefine> compositeList = nodeClass.GetClasses(NodeType.Composite);
             for (int i = 0; i < compositeList.Count; i++)
             {
-                NodeClass node = compositeList[i];
+                NodeDefine node = compositeList[i];
                 CreateNode(node, compositeItem);
             }
 
             //绑定修饰节点
-            List<NodeClass> decoratorList = nodeClass.GetClasses(NodeType.Decorator);
+            List<NodeDefine> decoratorList = nodeClass.GetClasses(NodeType.Decorator);
             for (int i = 0; i < decoratorList.Count; i++)
             {
-                NodeClass node = decoratorList[i];
+                NodeDefine node = decoratorList[i];
                 CreateNode(node, decoratorItem);
             }
 
             //绑定条件节点
-            List<NodeClass> conditionList = nodeClass.GetClasses(NodeType.Condition);
+            List<NodeDefine> conditionList = nodeClass.GetClasses(NodeType.Condition);
             for (int i = 0; i < conditionList.Count; i++)
             {
-                NodeClass node = conditionList[i];
+                NodeDefine node = conditionList[i];
                 CreateNode(node, conditionItem);
             }
 
             //绑定动作节点
-            List<NodeClass> actionList = nodeClass.GetClasses(NodeType.Action);
+            List<NodeDefine> actionList = nodeClass.GetClasses(NodeType.Action);
             for (int i = 0; i < actionList.Count; i++)
             {
-                NodeClass node = actionList[i];
+                NodeDefine node = actionList[i];
                 CreateNode(node, actionItem);
             }
 
@@ -1131,7 +1132,7 @@ namespace BehaviorTreeEditor.UIControls
             this.Refresh();
         }
 
-        public void CreateNode(NodeClass node, ToolStripDropDownItem parent)
+        public void CreateNode(NodeDefine node, ToolStripDropDownItem parent)
         {
             ToolStripDropDownItem toolStripDropDownItem = parent;
             if (!string.IsNullOrEmpty(node.Category))
@@ -1190,7 +1191,7 @@ namespace BehaviorTreeEditor.UIControls
             if (toolStripDropDownItem == null)
                 return;
 
-            NodeClass nodeClass = (NodeClass)toolStripDropDownItem.Tag;
+            NodeDefine nodeClass = (NodeDefine)toolStripDropDownItem.Tag;
 
             if (nodeClass == null)
                 return;
@@ -1201,7 +1202,6 @@ namespace BehaviorTreeEditor.UIControls
             node.Label = nodeClass.Label;
             node.NodeType = nodeClass.NodeType;
             node.ClassType = nodeClass.ClassType;
-            node.Describe = nodeClass.Describe;
 
             //创建字段
             for (int i = 0; i < nodeClass.Fields.Count; i++)

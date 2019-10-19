@@ -8,3 +8,13 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\Serial
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\BehaviorTreeData.dll
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\BehaviorTreeData.pdb
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.csproj.CopyComplete
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\SerializeTest.exe.config
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\SerializeTest.exe
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\SerializeTest.pdb
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\BehaviorTreeData.dll
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\bin\Debug\BehaviorTreeData.pdb
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.csprojAssemblyReference.cache
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.csproj.CoreCompileInputs.cache
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.csproj.CopyComplete
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.exe
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\SerializeTest\obj\Debug\SerializeTest.pdb

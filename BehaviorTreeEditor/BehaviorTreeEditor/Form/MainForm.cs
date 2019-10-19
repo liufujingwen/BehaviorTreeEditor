@@ -332,7 +332,7 @@ namespace BehaviorTreeEditor
 
             //创建开始节点
             NodeDesigner startNode = null;
-            NodeClass nodeClass = NodeClasses.FindNode("Sequence");
+            NodeDefine nodeClass = NodeClasses.FindNode("Sequence");
             if (nodeClass != null)
             {
                 Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth,
@@ -341,7 +341,6 @@ namespace BehaviorTreeEditor
                 startNode.ID = agent.GenNodeID();
                 startNode.StartNode = true;
                 startNode.NodeType = nodeClass.NodeType;
-                startNode.Describe = nodeClass.Describe;
 
                 //创建字段
                 for (int i = 0; i < nodeClass.Fields.Count; i++)
@@ -357,7 +356,7 @@ namespace BehaviorTreeEditor
             }
 
             //创建空操作节点
-            NodeClass noopClass = NodeClasses.FindNode("Noop");
+            NodeDefine noopClass = NodeClasses.FindNode("Noop");
             if (startNode != null && noopClass != null)
             {
                 Rect rect = new Rect(EditorUtility.Center.x + 250, EditorUtility.Center.y, EditorUtility.NodeWidth,
@@ -669,7 +668,7 @@ namespace BehaviorTreeEditor
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NodeClass nodeClass = new NodeClass();
+            NodeDefine nodeClass = new NodeDefine();
             InputValueDialogForm testForm = new InputValueDialogForm("编辑", nodeClass);
             testForm.ShowDialog();
         }

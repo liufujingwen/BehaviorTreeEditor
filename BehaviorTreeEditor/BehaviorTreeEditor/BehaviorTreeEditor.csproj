@@ -226,7 +226,7 @@
     <Compile Include="Data\NodeDesigner\Field\RepeatVector3FieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\Vector2FieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\Vector3FieldDesigner.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\NodeClass.cs" />
+    <Compile Include="Data\NodeDesigner\NodeClass\NodeDefine.cs" />
     <Compile Include="Data\NodeDesigner\NodeClass\NodeClasses.cs" />
     <Compile Include="Data\NodeDesigner\Field\RepeatIntFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Transition.cs" />

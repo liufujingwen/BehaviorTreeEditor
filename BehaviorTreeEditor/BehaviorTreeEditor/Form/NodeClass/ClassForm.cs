@@ -81,7 +81,7 @@ namespace BehaviorTreeEditor
                     return;
 
                 NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
-                NodeClass nodeClass = nodeItem.NodeClass;
+                NodeDefine nodeClass = nodeItem.NodeClass;
 
 
                 EditClassForm editClassForm = new EditClassForm(this, nodeClass, delegate ()
@@ -94,7 +94,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public void AddClass(NodeClass nodeClass)
+        public void AddClass(NodeDefine nodeClass)
         {
             m_NodeTreeViewManager.BindNodeClass(nodeClass);
             MainForm.Instance.ShowInfo("成功添加:" + nodeClass.ClassType + ",时间：" + DateTime.Now);
@@ -123,7 +123,7 @@ namespace BehaviorTreeEditor
                 return;
 
             NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
-            NodeClass nodeClass = nodeItem.NodeClass;
+            NodeDefine nodeClass = nodeItem.NodeClass;
 
             if (MessageBox.Show(string.Format("是否删除节点{0}？", nodeClass.ClassType), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
@@ -163,7 +163,7 @@ namespace BehaviorTreeEditor
                 return;
 
             NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
-            NodeClass nodeClass = nodeItem.NodeClass;
+            NodeDefine nodeClass = nodeItem.NodeClass;
 
             EditClassForm editClassForm = new EditClassForm(this, nodeClass, delegate ()
              {
@@ -175,8 +175,8 @@ namespace BehaviorTreeEditor
 
         public class NodeClassListContent
         {
-            private List<NodeClass> m_DataList = new List<NodeClass>();
-            public List<NodeClass> DataList { get { return m_DataList; } }
+            private List<NodeDefine> m_DataList = new List<NodeDefine>();
+            public List<NodeDefine> DataList { get { return m_DataList; } }
         }
 
         private void CopyClass()
@@ -191,7 +191,7 @@ namespace BehaviorTreeEditor
                 return;
 
             NodeItem nodeItem = treeView1.SelectedNode.Tag as NodeItem;
-            NodeClass nodeClass = nodeItem.NodeClass;
+            NodeDefine nodeClass = nodeItem.NodeClass;
 
             NodeClassListContent content = new NodeClassListContent();
             content.DataList.Add(nodeClass);
@@ -208,7 +208,7 @@ namespace BehaviorTreeEditor
             {
                 NodeClassListContent content = XmlUtility.StringToObject<NodeClassListContent>(Clipboard.GetText());
 
-                NodeClass nodeClass = null;
+                NodeDefine nodeClass = null;
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
                     nodeClass = content.DataList[i];

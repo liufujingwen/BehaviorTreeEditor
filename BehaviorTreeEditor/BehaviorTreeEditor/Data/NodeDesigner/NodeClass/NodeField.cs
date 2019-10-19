@@ -15,6 +15,9 @@ namespace BehaviorTreeEditor
         [Category("常规"), DisplayName("标签"), Description("标签"), PropertyOrder(1)]
         public string Label { get; set; }
 
+        [Category("常规"), DisplayName("是否在节点中展示"), Description("是否在节点中展示"), PropertyOrder(2)]
+        public bool Show { get; set; } = false;
+
         [Browsable(false)]
         public string Title
         {
@@ -23,7 +26,7 @@ namespace BehaviorTreeEditor
 
         private FieldType m_FieldType;
 
-        [Category("常规"), DisplayName("字段类型"), Description("字段类型"), PropertyOrder(2)]
+        [Category("常规"), DisplayName("字段类型"), Description("字段类型"), PropertyOrder(3)]
         public FieldType FieldType
         {
             get { return m_FieldType; }
@@ -82,7 +85,7 @@ namespace BehaviorTreeEditor
         [Category("常规"), DisplayName("描述"), Description("描述"), PropertyOrder(3)]
         public string Describe { get; set; }
 
-        [Category("常规"), DisplayName("默认值"), Description("默认值"), PropertyOrder(4)]
+        [Category("常规"), DisplayName("默认值"), Description("默认值"), PropertyOrder(5)]
         public BaseDefaultValue DefaultValue { get; set; }
 
         public override string ToString()
