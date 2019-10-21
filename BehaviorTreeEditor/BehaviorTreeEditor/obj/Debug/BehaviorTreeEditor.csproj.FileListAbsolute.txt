@@ -71,3 +71,4 @@ C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.AddDefineForm.resources
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditNodeDefineForm.resources
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.NodeTemplateForm.resources
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.GlobalVariableForm.resources

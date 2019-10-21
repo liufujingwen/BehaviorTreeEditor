@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\NodeDesigner\VariableType.cs" />
+    <Compile Include="Data\NodeDesigner\Variable\GlobalVariable.cs" />
+    <Compile Include="Data\NodeDesigner\Variable\VariableField.cs" />
     <Compile Include="Form\Group\EditGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +137,12 @@
     </Compile>
     <Compile Include="Form\InputValueDialogForm.Designer.cs">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Variable\GlobalVariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Variable\GlobalVariableForm.Designer.cs">
+      <DependentUpon>GlobalVariableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NodeClassTreeView\CategoryItem.cs" />
     <Compile Include="NodeClassTreeView\NodeItem.cs" />
@@ -310,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\InputValueDialogForm.resx">
       <DependentUpon>InputValueDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Variable\GlobalVariableForm.resx">
+      <DependentUpon>GlobalVariableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -685,6 +685,12 @@ namespace BehaviorTreeEditor
             enumForm.ShowDialog();
         }
 
+        private void 全局变量视图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GlobalVariableForm globalVariableForm = new GlobalVariableForm(NodeTemplate.GlobalVariable);
+            globalVariableForm.ShowDialog();
+        }
+
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Exec(OperationType.DeleteAgent);

@@ -4,8 +4,15 @@ namespace BehaviorTreeEditor
 {
     public class NodeTemplate
     {
+        private GlobalVariable m_GlobalVariable = new GlobalVariable();
         private List<NodeDefine> m_Nodes = new List<NodeDefine>();
         private List<CustomEnum> m_Enums = new List<CustomEnum>();
+
+        public GlobalVariable GlobalVariable
+        {
+            get { return m_GlobalVariable; }
+            set { m_GlobalVariable = value; }
+        }
 
         public List<CustomEnum> Enums
         {
