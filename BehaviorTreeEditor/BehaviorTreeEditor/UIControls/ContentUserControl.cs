@@ -106,7 +106,7 @@ namespace BehaviorTreeEditor.UIControls
                                 transition.Set(toNode, fromNode);
                             }
                         }
-                        node.NodeDefine = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                        node.NodeDefine = MainForm.Instance.NodeTemplate.FindNode(node.ClassType);
                     }
                     CenterView();
                 }
@@ -1041,11 +1041,11 @@ namespace BehaviorTreeEditor.UIControls
             if (m_SelectionNodes.Count > 0)
                 return;
 
-            if (MainForm.Instance.NodeClasses == null)
+            if (MainForm.Instance.NodeTemplate == null)
                 return;
 
-            NodeClasses nodeClass = MainForm.Instance.NodeClasses;
-            List<NodeDefine> nodes = nodeClass.Nodes;
+            NodeTemplate nodeTemplate = MainForm.Instance.NodeTemplate;
+            List<NodeDefine> nodes = nodeTemplate.Nodes;
 
             viewContextMenuStrip.Items.Clear();
 
@@ -1055,7 +1055,7 @@ namespace BehaviorTreeEditor.UIControls
             ToolStripDropDownItem actionItem = viewContextMenuStrip.Items.Add("动作节点") as ToolStripDropDownItem;
 
             //绑定组合节点
-            List<NodeDefine> compositeList = nodeClass.GetClasses(NodeType.Composite);
+            List<NodeDefine> compositeList = nodeTemplate.GetNodeDefines(NodeType.Composite);
             for (int i = 0; i < compositeList.Count; i++)
             {
                 NodeDefine node = compositeList[i];
@@ -1063,7 +1063,7 @@ namespace BehaviorTreeEditor.UIControls
             }
 
             //绑定修饰节点
-            List<NodeDefine> decoratorList = nodeClass.GetClasses(NodeType.Decorator);
+            List<NodeDefine> decoratorList = nodeTemplate.GetNodeDefines(NodeType.Decorator);
             for (int i = 0; i < decoratorList.Count; i++)
             {
                 NodeDefine node = decoratorList[i];
@@ -1071,7 +1071,7 @@ namespace BehaviorTreeEditor.UIControls
             }
 
             //绑定条件节点
-            List<NodeDefine> conditionList = nodeClass.GetClasses(NodeType.Condition);
+            List<NodeDefine> conditionList = nodeTemplate.GetNodeDefines(NodeType.Condition);
             for (int i = 0; i < conditionList.Count; i++)
             {
                 NodeDefine node = conditionList[i];
@@ -1079,7 +1079,7 @@ namespace BehaviorTreeEditor.UIControls
             }
 
             //绑定动作节点
-            List<NodeDefine> actionList = nodeClass.GetClasses(NodeType.Action);
+            List<NodeDefine> actionList = nodeTemplate.GetNodeDefines(NodeType.Action);
             for (int i = 0; i < actionList.Count; i++)
             {
                 NodeDefine node = actionList[i];
@@ -1191,22 +1191,22 @@ namespace BehaviorTreeEditor.UIControls
             if (toolStripDropDownItem == null)
                 return;
 
-            NodeDefine nodeClass = (NodeDefine)toolStripDropDownItem.Tag;
+            NodeDefine nodeDefine = (NodeDefine)toolStripDropDownItem.Tag;
 
-            if (nodeClass == null)
+            if (nodeDefine == null)
                 return;
 
             Rect rect = new Rect(m_MouseWorldPoint.x, m_MouseWorldPoint.y, EditorUtility.NodeWidth, EditorUtility.NodeHeight);
-            NodeDesigner node = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
+            NodeDesigner node = new NodeDesigner(nodeDefine.Label, nodeDefine.ClassType, rect);
             node.ID = Agent.GenNodeID();
-            node.Label = nodeClass.Label;
-            node.NodeType = nodeClass.NodeType;
-            node.ClassType = nodeClass.ClassType;
+            node.Label = nodeDefine.Label;
+            node.NodeType = nodeDefine.NodeType;
+            node.ClassType = nodeDefine.ClassType;
 
             //创建字段
-            for (int i = 0; i < nodeClass.Fields.Count; i++)
+            for (int i = 0; i < nodeDefine.Fields.Count; i++)
             {
-                NodeField nodeField = nodeClass.Fields[i];
+                NodeField nodeField = nodeDefine.Fields[i];
                 FieldDesigner field = EditorUtility.CreateFieldByNodeField(nodeField);
                 if (field == null)
                     continue;

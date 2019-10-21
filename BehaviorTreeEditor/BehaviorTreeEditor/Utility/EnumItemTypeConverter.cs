@@ -27,7 +27,7 @@ namespace BehaviorTreeEditor
                     }
                     else
                     {
-                        m_CustomEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        m_CustomEnum = MainForm.Instance.NodeTemplate.FindEnum(enumDeaultValue.EnumType);
                         if (m_CustomEnum == null)
                         {
                             MainForm.Instance.ShowMessage(string.Format("不存在枚举类型:{0},请先注册", enumDeaultValue.EnumType));
@@ -47,7 +47,7 @@ namespace BehaviorTreeEditor
                     }
                     else
                     {
-                        m_CustomEnum = MainForm.Instance.NodeClasses.FindEnum(enumFieldDesigner.EnumType);
+                        m_CustomEnum = MainForm.Instance.NodeTemplate.FindEnum(enumFieldDesigner.EnumType);
                         if (m_CustomEnum == null)
                         {
                             MainForm.Instance.ShowMessage(string.Format("不存在枚举类型:{0},请先注册", enumFieldDesigner.EnumType));

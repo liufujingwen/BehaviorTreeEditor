@@ -247,7 +247,7 @@ namespace BehaviorTreeEditor
         /// <returns></returns>
         public VerifyInfo VerifyNotExistEnumStr()
         {
-            MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+            MainForm.Instance.NodeTemplate.FindEnum(m_EnumType);
 
             for (int i = 0; i < m_Enums.Count; i++)
             {

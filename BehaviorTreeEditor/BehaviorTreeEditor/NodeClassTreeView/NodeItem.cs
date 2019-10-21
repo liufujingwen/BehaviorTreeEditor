@@ -9,7 +9,7 @@ namespace BehaviorTreeEditor
     {
         public NodeTypeItem NodeTypeItem;
         public CategoryItem CategoryItem;
-        public NodeDefine NodeClass;
+        public NodeDefine NodeDefine;
 
         public NodeType OldNodeType;
         public string OldCategory = string.Empty;

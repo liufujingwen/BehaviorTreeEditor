@@ -10,12 +10,12 @@ namespace BehaviorTreeEditor
     {
         public EnumDefaultValue()
         {
-            if (MainForm.Instance.NodeClasses == null)
+            if (MainForm.Instance.NodeTemplate == null)
                 return;
 
-            if (MainForm.Instance.NodeClasses.Enums.Count > 0)
+            if (MainForm.Instance.NodeTemplate.Enums.Count > 0)
             {
-                CustomEnum customEnum = MainForm.Instance.NodeClasses.Enums[0];
+                CustomEnum customEnum = MainForm.Instance.NodeTemplate.Enums[0];
                 EnumType = customEnum.EnumType;
             }
         }
@@ -33,10 +33,10 @@ namespace BehaviorTreeEditor
                 m_EnumType = value;
                 DefaultValue = null;
 
-                if (MainForm.Instance.NodeClasses == null)
+                if (MainForm.Instance.NodeTemplate == null)
                     return;
 
-                CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(m_EnumType);
+                CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(m_EnumType);
                 if (customEnum != null)
                 {
                     EnumItem defaultEnumItem = customEnum.GetDefaultEnumItem();

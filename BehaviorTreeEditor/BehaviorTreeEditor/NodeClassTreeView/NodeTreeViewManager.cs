@@ -8,7 +8,7 @@ namespace BehaviorTreeEditor
 {
     public class NodeTreeViewManager
     {
-        private NodeClasses m_NodeClasses;
+        private NodeTemplate m_NodeTemplate;
         private TreeView m_TreeView;
 
         NodeTypeItem m_CompositeItem;
@@ -16,10 +16,10 @@ namespace BehaviorTreeEditor
         NodeTypeItem m_ConditionItem;
         NodeTypeItem m_ActionItem;
 
-        public NodeTreeViewManager(TreeView treeView, NodeClasses nodeClasses)
+        public NodeTreeViewManager(TreeView treeView, NodeTemplate nodeTemplate)
         {
             m_TreeView = treeView;
-            m_NodeClasses = nodeClasses;
+            m_NodeTemplate = nodeTemplate;
 
             treeView.Nodes.Clear();
             m_CompositeItem = new NodeTypeItem();
@@ -43,12 +43,12 @@ namespace BehaviorTreeEditor
             m_ActionItem.TreeNode.Tag = m_ActionItem;
         }
 
-        public void BindNodeClasses()
+        public void BindNodeTemplate()
         {
-            for (int i = 0; i < m_NodeClasses.Nodes.Count; i++)
+            for (int i = 0; i < m_NodeTemplate.Nodes.Count; i++)
             {
-                NodeDefine nodeClass = m_NodeClasses.Nodes[i];
-                BindNodeClass(nodeClass);
+                NodeDefine nodeDefine = m_NodeTemplate.Nodes[i];
+                BindNodeDefine(nodeDefine);
             }
 
             m_TreeView.ExpandAll();
@@ -56,20 +56,20 @@ namespace BehaviorTreeEditor
             m_TreeView.Nodes[0].EnsureVisible();
         }
 
-        public NodeItem BindNodeClass(NodeDefine nodeClass)
+        public NodeItem BindNodeDefine(NodeDefine nodeDefine)
         {
-            NodeTypeItem nodeTypeItem = GetNodeTypeItem(nodeClass.NodeType);
+            NodeTypeItem nodeTypeItem = GetNodeTypeItem(nodeDefine.NodeType);
             if (nodeTypeItem == null)
                 return null;
 
-            NodeItem nodeItem = FindNodeItem(nodeClass);
+            NodeItem nodeItem = FindNodeItem(nodeDefine);
 
             //刷新
             if (nodeItem != null)
             {
-                if (nodeItem.OldNodeType == nodeClass.NodeType && nodeItem.OldCategory == nodeClass.Category)
+                if (nodeItem.OldNodeType == nodeDefine.NodeType && nodeItem.OldCategory == nodeDefine.Category)
                 {
-                    nodeItem.TreeNode.Text = nodeClass.ClassType;
+                    nodeItem.TreeNode.Text = nodeDefine.ClassType + (string.IsNullOrEmpty(nodeDefine.Label) ? string.Empty : " (" + nodeDefine.Label + ")");
                     return nodeItem;
                 }
                 else
@@ -77,7 +77,7 @@ namespace BehaviorTreeEditor
                     nodeItem.TreeNode.Remove();
                 }
 
-                if (nodeItem.OldCategory != nodeClass.Category)
+                if (nodeItem.OldCategory != nodeDefine.Category)
                 {
                     CheckRemoveCategory(nodeItem.OldNodeType, nodeItem.OldCategory);
                 }
@@ -86,34 +86,34 @@ namespace BehaviorTreeEditor
             if (nodeItem == null)
                 nodeItem = new NodeItem();
 
-            if (string.IsNullOrEmpty(nodeClass.Category))
+            if (string.IsNullOrEmpty(nodeDefine.Category))
             {
-                TreeNode treeNode = nodeTypeItem.TreeNode.Nodes.Add(nodeClass.ClassType);
+                TreeNode treeNode = nodeTypeItem.TreeNode.Nodes.Add(nodeDefine.ClassType + (string.IsNullOrEmpty(nodeDefine.Label) ? string.Empty : " (" + nodeDefine.Label + ")"));
                 treeNode.Tag = nodeItem;
                 nodeItem.TreeNode = treeNode;
                 nodeItem.CategoryItem = null;
                 nodeItem.NodeTypeItem = nodeTypeItem;
-                nodeItem.NodeClass = nodeClass;
+                nodeItem.NodeDefine = nodeDefine;
 
-                nodeItem.OldCategory = nodeClass.Category;
-                nodeItem.OldNodeType = nodeClass.NodeType;
+                nodeItem.OldCategory = nodeDefine.Category;
+                nodeItem.OldNodeType = nodeDefine.NodeType;
             }
             else
             {
-                CategoryItem categoryItem = FindCategoryItem(nodeClass.NodeType, nodeClass.Category);
+                CategoryItem categoryItem = FindCategoryItem(nodeDefine.NodeType, nodeDefine.Category);
 
                 if (categoryItem == null)
-                    categoryItem = BindCategory(nodeTypeItem.TreeNode, nodeClass.Category);
+                    categoryItem = BindCategory(nodeTypeItem.TreeNode, nodeDefine.Category);
 
-                TreeNode treeNode = categoryItem.TreeNode.Nodes.Add(nodeClass.ClassType);
+                TreeNode treeNode = categoryItem.TreeNode.Nodes.Add(nodeDefine.ClassType + (string.IsNullOrEmpty(nodeDefine.Label) ? string.Empty : " (" + nodeDefine.Label + ")"));
                 treeNode.Tag = nodeItem;
                 nodeItem.TreeNode = treeNode;
                 nodeItem.CategoryItem = categoryItem;
                 nodeItem.NodeTypeItem = nodeTypeItem;
-                nodeItem.NodeClass = nodeClass;
+                nodeItem.NodeDefine = nodeDefine;
 
-                nodeItem.OldCategory = nodeClass.Category;
-                nodeItem.OldNodeType = nodeClass.NodeType;
+                nodeItem.OldCategory = nodeDefine.Category;
+                nodeItem.OldNodeType = nodeDefine.NodeType;
             }
 
             return nodeItem;
@@ -155,9 +155,9 @@ namespace BehaviorTreeEditor
             return categoryItem;
         }
 
-        public bool RemoveNodeClass(NodeDefine nodeClass)
+        public bool RemoveNodeDefine(NodeDefine nodeDefine)
         {
-            NodeItem nodeItem = FindNodeItem(nodeClass);
+            NodeItem nodeItem = FindNodeItem(nodeDefine);
             if (nodeItem != null)
                 nodeItem.TreeNode.Remove();
 
@@ -199,12 +199,12 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public NodeItem FindNodeItem(NodeDefine nodeClass)
+        public NodeItem FindNodeItem(NodeDefine nodeDefine)
         {
             for (int i = 0; i < m_TreeView.Nodes.Count; i++)
             {
                 TreeNode treeNode = m_TreeView.Nodes[i];
-                NodeItem nodeItem = FindNodeItem(treeNode, nodeClass);
+                NodeItem nodeItem = FindNodeItem(treeNode, nodeDefine);
                 if (nodeItem != null)
                     return nodeItem;
             }
@@ -212,12 +212,12 @@ namespace BehaviorTreeEditor
             return null;
         }
 
-        private NodeItem FindNodeItem(TreeNode treeNode, NodeDefine nodeClass)
+        private NodeItem FindNodeItem(TreeNode treeNode, NodeDefine nodeDefine)
         {
             if (treeNode.Tag is NodeItem)
             {
                 NodeItem nodeItem = treeNode.Tag as NodeItem;
-                if (nodeItem.NodeClass.ClassType == nodeClass.ClassType || nodeItem.NodeClass == nodeClass)
+                if (nodeItem.NodeDefine.ClassType == nodeDefine.ClassType || nodeItem.NodeDefine == nodeDefine)
                 {
                     return nodeItem;
                 }
@@ -226,7 +226,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < treeNode.Nodes.Count; i++)
             {
                 TreeNode tempTreeNode = treeNode.Nodes[i];
-                NodeItem nodeItem = FindNodeItem(tempTreeNode, nodeClass);
+                NodeItem nodeItem = FindNodeItem(tempTreeNode, nodeDefine);
                 if (nodeItem != null)
                     return nodeItem;
             }

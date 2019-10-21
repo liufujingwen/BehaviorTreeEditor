@@ -11,11 +11,11 @@ namespace BehaviorTreeEditor
 {
     public partial class EnumForm : Form
     {
-        NodeClasses m_NodeClasses;
+        NodeTemplate m_NodeTemplate;
 
         public EnumForm()
         {
-            m_NodeClasses = MainForm.Instance.NodeClasses;
+            m_NodeTemplate = MainForm.Instance.NodeTemplate;
             InitializeComponent();
         }
 
@@ -47,13 +47,13 @@ namespace BehaviorTreeEditor
 
         private void BindEnum()
         {
-            if (m_NodeClasses == null)
+            if (m_NodeTemplate == null)
                 return;
 
             listView1.Items.Clear();
-            for (int i = 0; i < m_NodeClasses.Enums.Count; i++)
+            for (int i = 0; i < m_NodeTemplate.Enums.Count; i++)
             {
-                CustomEnum customEnum = m_NodeClasses.Enums[i];
+                CustomEnum customEnum = m_NodeTemplate.Enums[i];
                 ListViewItem listViewItem = listView1.Items.Add(customEnum.EnumType);
                 listViewItem.Tag = customEnum;
                 string content = string.Empty;
@@ -241,10 +241,10 @@ namespace BehaviorTreeEditor
                     {
                         enumType += "_New";
                     }
-                    while (m_NodeClasses.ExistEnumType(enumType));
+                    while (m_NodeTemplate.ExistEnumType(enumType));
 
                     customEnum.EnumType = enumType;
-                    m_NodeClasses.AddEnum(customEnum);
+                    m_NodeTemplate.AddEnum(customEnum);
                 }
                 Exec("Refresh");
                 MainForm.Instance.ShowInfo("您粘贴了" + content.DataList.Count + "个枚举！！！");
@@ -274,11 +274,11 @@ namespace BehaviorTreeEditor
 
                 int preIdx = selectIdx - 1;
 
-                CustomEnum preEnum = m_NodeClasses.Enums[preIdx];
-                CustomEnum selectedEnum = m_NodeClasses.Enums[selectIdx];
+                CustomEnum preEnum = m_NodeTemplate.Enums[preIdx];
+                CustomEnum selectedEnum = m_NodeTemplate.Enums[selectIdx];
 
-                m_NodeClasses.Enums[preIdx] = selectedEnum;
-                m_NodeClasses.Enums[selectIdx] = preEnum;
+                m_NodeTemplate.Enums[preIdx] = selectedEnum;
+                m_NodeTemplate.Enums[selectIdx] = preEnum;
 
                 selectIdx = preIdx;
             }
@@ -290,11 +290,11 @@ namespace BehaviorTreeEditor
 
                 int nextIdx = selectIdx + 1;
 
-                CustomEnum preEnum = m_NodeClasses.Enums[nextIdx];
-                CustomEnum selectedEnum = m_NodeClasses.Enums[selectIdx];
+                CustomEnum preEnum = m_NodeTemplate.Enums[nextIdx];
+                CustomEnum selectedEnum = m_NodeTemplate.Enums[selectIdx];
 
-                m_NodeClasses.Enums[nextIdx] = selectedEnum;
-                m_NodeClasses.Enums[selectIdx] = preEnum;
+                m_NodeTemplate.Enums[nextIdx] = selectedEnum;
+                m_NodeTemplate.Enums[selectIdx] = preEnum;
 
                 selectIdx = nextIdx;
             }
@@ -327,7 +327,7 @@ namespace BehaviorTreeEditor
                 if (MessageBox.Show(string.Format("确定删除枚举类型{0}吗?", customEnum.EnumType), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     listView1.Items.RemoveAt(selectIdx);
-                    m_NodeClasses.RemoveEnum(customEnum);
+                    m_NodeTemplate.RemoveEnum(customEnum);
                     MainForm.Instance.ShowInfo(string.Format("删除枚举类型{0} 时间:{1}", customEnum.EnumType, DateTime.Now));
                     if (listView1.Items.Count > selectIdx)
                         listView1.Items[selectIdx].Selected = true;

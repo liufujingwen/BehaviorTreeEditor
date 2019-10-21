@@ -374,7 +374,7 @@ namespace BehaviorTreeEditor
                             return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型为空", m_AgentID, field.FieldName));
                         }
 
-                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumFieldDesigner.EnumType);
+                        CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(enumFieldDesigner.EnumType);
                         if (customEnum == null)
                         {
                             return new VerifyInfo(string.Format("行为树[{0}]的字段[{1}]的枚举类型[{2}]不存在", m_AgentID, field.FieldName, enumFieldDesigner.EnumType));
@@ -568,8 +568,8 @@ namespace BehaviorTreeEditor
             for (int i = m_Nodes.Count - 1; i >= 0; i--)
             {
                 NodeDesigner node = m_Nodes[i];
-                NodeDefine nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
-                if (nodeClass == null)
+                NodeDefine nodeDefine = MainForm.Instance.NodeTemplate.FindNode(node.ClassType);
+                if (nodeDefine == null)
                 {
                     RemoveNode(node);
                     remove = true;
@@ -589,12 +589,12 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_Nodes.Count; i++)
             {
                 NodeDesigner node = m_Nodes[i];
-                NodeDefine nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
+                NodeDefine nodeDefine = MainForm.Instance.NodeTemplate.FindNode(node.ClassType);
 
                 //修正节点标签
-                if (node.Label != nodeClass.Label)
+                if (node.Label != nodeDefine.Label)
                 {
-                    node.Label = nodeClass.Label;
+                    node.Label = nodeDefine.Label;
                     ajust = true;
                 }
 
@@ -602,7 +602,7 @@ namespace BehaviorTreeEditor
                 for (int ii = node.Fields.Count - 1; ii >= 0; ii--)
                 {
                     FieldDesigner field = node.Fields[ii];
-                    if (!nodeClass.ExistFieldName(field.FieldName))
+                    if (!nodeDefine.ExistFieldName(field.FieldName))
                     {
                         ajust = true;
                         node.Fields.RemoveAt(ii);
@@ -613,7 +613,7 @@ namespace BehaviorTreeEditor
                 for (int ii = 0; ii < node.Fields.Count; ii++)
                 {
                     FieldDesigner field = node.Fields[ii];
-                    NodeField nodeField = nodeClass.FindField(field.FieldName);
+                    NodeField nodeField = nodeDefine.FindField(field.FieldName);
                     if (field.FieldType != nodeField.FieldType)
                     {
                         //重新给默认值
@@ -623,9 +623,9 @@ namespace BehaviorTreeEditor
                 }
 
                 //添加不存的字段
-                for (int ii = nodeClass.Fields.Count - 1; ii >= 0; ii--)
+                for (int ii = nodeDefine.Fields.Count - 1; ii >= 0; ii--)
                 {
-                    NodeField nodeField = nodeClass.Fields[ii];
+                    NodeField nodeField = nodeDefine.Fields[ii];
                     FieldDesigner field = node.FindFieldByName(nodeField.FieldName);
                     //不存在的字段要添加
                     if (field == null)
@@ -637,9 +637,9 @@ namespace BehaviorTreeEditor
                 }
 
                 //排序字段（要和模板中一致）
-                for (int ii = 0; ii < nodeClass.Fields.Count; ii++)
+                for (int ii = 0; ii < nodeDefine.Fields.Count; ii++)
                 {
-                    NodeField nodeField = nodeClass.Fields[ii];
+                    NodeField nodeField = nodeDefine.Fields[ii];
                     int index = node.GetFieldIndex(nodeField.FieldName);
                     if (index != ii)
                     {
@@ -655,7 +655,7 @@ namespace BehaviorTreeEditor
                 for (int ii = 0; ii < node.Fields.Count; ii++)
                 {
                     FieldDesigner field = node.Fields[ii];
-                    NodeField nodeField = nodeClass.Fields[ii];
+                    NodeField nodeField = nodeDefine.Fields[ii];
                     if (field.Label != nodeField.Label)
                     {
                         field.Label = nodeField.Label;

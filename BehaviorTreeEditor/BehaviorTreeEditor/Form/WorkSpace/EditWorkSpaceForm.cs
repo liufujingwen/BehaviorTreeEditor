@@ -96,14 +96,14 @@ namespace BehaviorTreeEditor
                         File.Move(oldXmlDataFile, newXmlDataFile);
                     }
 
-                    //移动NodeClass文件
-                    string oldNodeClassXmlFile = Path.Combine(m_OldWorkSpaceDirectory, Settings.Default.NodeClassFile);
-                    string newNodeClassXmlFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeClassFile);
-                    if (File.Exists(oldNodeClassXmlFile))
+                    //移动NodeTemplate文件
+                    string oldNodeTemplateXmlFile = Path.Combine(m_OldWorkSpaceDirectory, Settings.Default.NodeTemplateFile);
+                    string newNodeTemplateXmlFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeTemplateFile);
+                    if (File.Exists(oldNodeTemplateXmlFile))
                     {
-                        if (File.Exists(newNodeClassXmlFile))
-                            File.Delete(newNodeClassXmlFile);
-                        File.Move(oldNodeClassXmlFile, newNodeClassXmlFile);
+                        if (File.Exists(newNodeTemplateXmlFile))
+                            File.Delete(newNodeTemplateXmlFile);
+                        File.Move(oldNodeTemplateXmlFile, newNodeTemplateXmlFile);
                     }
                 }
 

@@ -7,7 +7,7 @@ namespace BehaviorTreeEditor
 {
     public static class EditorUtility
     {
-        public static Dictionary<NodeDesigner, NodeDefine> NodeClassDic = new Dictionary<NodeDesigner, NodeDefine>();
+        public static Dictionary<NodeDesigner, NodeDefine> NodeDefineDic = new Dictionary<NodeDesigner, NodeDefine>();
 
         static EditorUtility()
         {
@@ -254,18 +254,7 @@ namespace BehaviorTreeEditor
             graphics.FillRectangle(NodeContentBrush, contentRect);
 
             //渲染内容
-            //NodeClass nodeClass = null;
-            //if (!NodeClassDic.TryGetValue(node, out nodeClass))
-            //{
-            //    nodeClass = MainForm.Instance.NodeClasses.FindNode(node.ClassType);
-            //    if (nodeClass != null)
-            //        NodeClassDic.Add(node, nodeClass);
-            //}
-
-            //if (nodeClass != null)
-            {
-                graphics.DrawString(node.ShowContent(), NodeContentFont, NodeContentFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, EditorUtility.NameStringFormat);
-            }
+            graphics.DrawString(node.ShowContent(), NodeContentFont, NodeContentFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, EditorUtility.NameStringFormat);
 
             //选中边框
             if (on && !DebugManager.Instance.Debugging)

@@ -8,25 +8,25 @@ namespace BehaviorTreeEditor
 {
     public class EnumTypeConverter : TypeConverter
     {
-        private NodeClasses m_NodeClasses = null;
+        private NodeTemplate m_NodeTemplate = null;
         private List<string> m_EnumTypeList = new List<string>();
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            m_NodeClasses = MainForm.Instance.NodeClasses;
+            m_NodeTemplate = MainForm.Instance.NodeTemplate;
 
-            if (m_NodeClasses != null)
+            if (m_NodeTemplate != null)
             {
-                if (m_NodeClasses.Enums.Count == 0)
+                if (m_NodeTemplate.Enums.Count == 0)
                 {
                     MainForm.Instance.ShowMessage("没有任何枚举,请先注册枚举");
                 }
                 else
                 {
                     m_EnumTypeList.Clear();
-                    for (int i = 0; i < m_NodeClasses.Enums.Count; i++)
+                    for (int i = 0; i < m_NodeTemplate.Enums.Count; i++)
                     {
-                        CustomEnum customEnum = m_NodeClasses.Enums[i];
+                        CustomEnum customEnum = m_NodeTemplate.Enums[i];
                         if (customEnum == null)
                             continue;
                         m_EnumTypeList.Add(customEnum.EnumType);

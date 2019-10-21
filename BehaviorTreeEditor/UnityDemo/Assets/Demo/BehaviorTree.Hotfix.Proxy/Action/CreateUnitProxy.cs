@@ -48,7 +48,7 @@ namespace R7BehaviorTree
             Vector3Field eulerAngles = NodeData["EulerAngles"] as Vector3Field;
             m_EulerAngles = new Vector3(eulerAngles.X, eulerAngles.Y, eulerAngles.Z);
             Vector3Field position = NodeData["Position"] as Vector3Field;
-            m_Position = new Vector3(position.X, position.Y, position.Z);
+            m_Position = new Vector3(position.X * 0.01f, position.Y * 0.01f, position.Z * 0.01f);
             m_Hp = NodeData["Hp"];
             m_HpMax = NodeData["HpMax"];
             m_Name = NodeData["Name"];

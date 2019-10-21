@@ -212,7 +212,7 @@ namespace BehaviorTreeEditor
                             return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型为空", this.ClassType, field.FieldName));
                         }
 
-                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(enumDeaultValue.EnumType);
                         if (customEnum == null)
                         {
                             return new VerifyInfo(string.Format("节点类型[{0}]的字段[{1}]的枚举类型[{2}]不存在", this.ClassType, field.FieldName, enumDeaultValue.EnumType));
@@ -234,7 +234,7 @@ namespace BehaviorTreeEditor
         /// 检验节点是否合法
         /// </summary>
         /// <returns></returns>
-        public VerifyInfo VerifyNodeClass()
+        public VerifyInfo VerifyNodeDefine()
         {
             //检验ClassType
             VerifyInfo verifyClassType = VerifyClassType();
@@ -260,33 +260,33 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 更新NodeClass的内容
+        /// 更新NodeDefine的内容
         /// </summary>
-        /// <param name="nodeClass"></param>
-        public void UpdateNodeClass(NodeDefine nodeClass)
+        /// <param name="nodeDefine"></param>
+        public void UpdateNodeDefine(NodeDefine nodeDefine)
         {
-            if (nodeClass == null)
+            if (nodeDefine == null)
                 return;
 
-            if (nodeClass == this)
+            if (nodeDefine == this)
                 return;
 
             //改名
-            if (m_ClassType != nodeClass.ClassType)
+            if (m_ClassType != nodeDefine.ClassType)
             {
-                MainForm.Instance.TreeData.UpdateClassType(m_ClassType, nodeClass.ClassType);
+                MainForm.Instance.TreeData.UpdateClassType(m_ClassType, nodeDefine.ClassType);
                 ContentUserControl.Instance.ClearAllSelected();
             }
 
-            m_ClassType = nodeClass.ClassType;
-            m_Label = nodeClass.Label;
-            m_Category = nodeClass.Category;
-            m_NodeType = nodeClass.NodeType;
-            m_Describe = nodeClass.Describe;
-            m_ShowContent = nodeClass.ShowContent;
+            m_ClassType = nodeDefine.ClassType;
+            m_Label = nodeDefine.Label;
+            m_Category = nodeDefine.Category;
+            m_NodeType = nodeDefine.NodeType;
+            m_Describe = nodeDefine.Describe;
+            m_ShowContent = nodeDefine.ShowContent;
 
             m_Fields.Clear();
-            m_Fields.AddRange(nodeClass.Fields);
+            m_Fields.AddRange(nodeDefine.Fields);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace BehaviorTreeEditor
                     EnumDefaultValue enumDeaultValue = field.DefaultValue as EnumDefaultValue;
                     if (enumDeaultValue != null)
                     {
-                        CustomEnum customEnum = MainForm.Instance.NodeClasses.FindEnum(enumDeaultValue.EnumType);
+                        CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(enumDeaultValue.EnumType);
                         if (customEnum == null)
                         {
                             m_Fields.RemoveAt(i);

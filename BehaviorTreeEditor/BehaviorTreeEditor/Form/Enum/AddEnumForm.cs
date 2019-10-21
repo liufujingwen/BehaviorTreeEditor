@@ -288,7 +288,6 @@ namespace BehaviorTreeEditor
                 selectIdx = nextIdx;
             }
 
-            //MainForm.Instance.NodeClassDirty = true;
             Exec("Refresh");
             MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
             listView1.Items[selectIdx].Selected = true;
@@ -392,7 +391,7 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (!MainForm.Instance.NodeClasses.AddEnum(m_CustomEnum))
+            if (!MainForm.Instance.NodeTemplate.AddEnum(m_CustomEnum))
             {
                 return;
             }

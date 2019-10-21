@@ -73,10 +73,10 @@ namespace BehaviorTreeEditor
             MainForm.Instance.ShowInfo("新建工作区成功,时间：" + DateTime.Now);
 
             //初始化节点类信息
-            MainForm.Instance.NodeClasses = new NodeClasses();
-            MainForm.Instance.NodeClasses.ResetNodes();
-            XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
-            MainForm.Instance.NodeClassesStringContent = XmlUtility.ObjectToString(MainForm.Instance.NodeClasses);
+            MainForm.Instance.NodeTemplate = new NodeTemplate();
+            MainForm.Instance.NodeTemplate.ResetNodes();
+            XmlUtility.Save(MainForm.Instance.GetNodeTemplatePath(), MainForm.Instance.NodeTemplate);
+            MainForm.Instance.NodeTemplateStringContent = XmlUtility.ObjectToString(MainForm.Instance.NodeTemplate);
 
             //初始化行为树数据
             MainForm.Instance.TreeData = new TreeData();

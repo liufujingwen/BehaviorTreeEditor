@@ -22,11 +22,11 @@ namespace BehaviorTreeEditor
         //工作区配置数据
         public WorkSpaceData WorkSpaceData;
 
-        //节点类数据（节点模板）
-        public NodeClasses NodeClasses;
+        //节点模板数据
+        public NodeTemplate NodeTemplate;
 
         //节点类上一次保存的时候的内容，用于检测节点类dirty
-        public string NodeClassesStringContent;
+        public string NodeTemplateStringContent;
 
         //行为树数据
         public TreeData TreeData;
@@ -332,20 +332,20 @@ namespace BehaviorTreeEditor
 
             //创建开始节点
             NodeDesigner startNode = null;
-            NodeDefine nodeClass = NodeClasses.FindNode("Sequence");
-            if (nodeClass != null)
+            NodeDefine nodeDefine = NodeTemplate.FindNode("Sequence");
+            if (nodeDefine != null)
             {
                 Rect rect = new Rect(EditorUtility.Center.x, EditorUtility.Center.y, EditorUtility.NodeWidth,
                     EditorUtility.NodeHeight);
-                startNode = new NodeDesigner(nodeClass.Label, nodeClass.ClassType, rect);
+                startNode = new NodeDesigner(nodeDefine.Label, nodeDefine.ClassType, rect);
                 startNode.ID = agent.GenNodeID();
                 startNode.StartNode = true;
-                startNode.NodeType = nodeClass.NodeType;
+                startNode.NodeType = nodeDefine.NodeType;
 
                 //创建字段
-                for (int i = 0; i < nodeClass.Fields.Count; i++)
+                for (int i = 0; i < nodeDefine.Fields.Count; i++)
                 {
-                    NodeField nodeField = nodeClass.Fields[i];
+                    NodeField nodeField = nodeDefine.Fields[i];
                     FieldDesigner field = EditorUtility.CreateFieldByNodeField(nodeField);
                     if (field == null)
                         continue;
@@ -356,15 +356,15 @@ namespace BehaviorTreeEditor
             }
 
             //创建空操作节点
-            NodeDefine noopClass = NodeClasses.FindNode("Noop");
-            if (startNode != null && noopClass != null)
+            NodeDefine noopDefine = NodeTemplate.FindNode("Noop");
+            if (startNode != null && noopDefine != null)
             {
                 Rect rect = new Rect(EditorUtility.Center.x + 250, EditorUtility.Center.y, EditorUtility.NodeWidth,
                     EditorUtility.NodeHeight);
-                NodeDesigner noopNode = new NodeDesigner(noopClass.Label, noopClass.ClassType, rect);
+                NodeDesigner noopNode = new NodeDesigner(noopDefine.Label, noopDefine.ClassType, rect);
                 noopNode.ID = agent.GenNodeID();
-                noopNode.NodeType = noopClass.NodeType;
-                noopNode.Describe = noopClass.Describe;
+                noopNode.NodeType = noopDefine.NodeType;
+                noopNode.Describe = noopDefine.Describe;
                 agent.AddNode(noopNode);
 
                 startNode.AddChildNode(noopNode);
@@ -549,11 +549,11 @@ namespace BehaviorTreeEditor
         //重置数据
         private void Reset()
         {
-            EditorUtility.NodeClassDic.Clear();
+            EditorUtility.NodeDefineDic.Clear();
             treeView1.Nodes.Clear();
-            NodeClasses = new NodeClasses();
-            NodeClasses.ResetEnums();
-            NodeClasses.ResetNodes();
+            NodeTemplate = new NodeTemplate();
+            NodeTemplate.ResetEnums();
+            NodeTemplate.ResetNodes();
             TreeData = new TreeData();
             CreateTreeViewManager();
             SetSelectedAgent(null);
@@ -668,14 +668,14 @@ namespace BehaviorTreeEditor
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NodeDefine nodeClass = new NodeDefine();
-            InputValueDialogForm testForm = new InputValueDialogForm("编辑", nodeClass);
+            NodeDefine nodeDefine = new NodeDefine();
+            InputValueDialogForm testForm = new InputValueDialogForm("编辑", nodeDefine);
             testForm.ShowDialog();
         }
 
         private void 类视图ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClassForm classForm = new ClassForm();
+            NodeTemplateForm classForm = new NodeTemplateForm();
             classForm.ShowDialog();
         }
 
@@ -846,16 +846,16 @@ namespace BehaviorTreeEditor
         public void LoadWorkSpace()
         {
             //读取行为树类信息
-            NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
-            if (NodeClasses == null)
+            NodeTemplate = XmlUtility.Read<NodeTemplate>(GetNodeTemplatePath());
+            if (NodeTemplate == null)
             {
-                NodeClasses = new NodeClasses();
-                NodeClasses.ResetEnums();
-                NodeClasses.ResetNodes();
-                XmlUtility.Save(MainForm.Instance.GetNodeClassPath(), MainForm.Instance.NodeClasses);
+                NodeTemplate = new NodeTemplate();
+                NodeTemplate.ResetEnums();
+                NodeTemplate.ResetNodes();
+                XmlUtility.Save(MainForm.Instance.GetNodeTemplatePath(), MainForm.Instance.NodeTemplate);
             }
 
-            NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+            NodeTemplateStringContent = XmlUtility.ObjectToString(NodeTemplate);
 
             this.Text = Settings.Default.EditorTitle;
             if (string.IsNullOrEmpty(Settings.Default.WorkDirectory) || string.IsNullOrEmpty(Settings.Default.WorkSpaceName))
@@ -903,15 +903,15 @@ namespace BehaviorTreeEditor
                         ShowInfo("打开工作区,时间：" + DateTime.Now);
 
                         //读取行为树类信息
-                        NodeClasses = XmlUtility.Read<NodeClasses>(GetNodeClassPath());
-                        if (NodeClasses == null)
+                        NodeTemplate = XmlUtility.Read<NodeTemplate>(GetNodeTemplatePath());
+                        if (NodeTemplate == null)
                         {
-                            NodeClasses = new NodeClasses();
-                            NodeClasses.ResetNodes();
-                            XmlUtility.Save(GetNodeClassPath(), NodeClasses);
+                            NodeTemplate = new NodeTemplate();
+                            NodeTemplate.ResetNodes();
+                            XmlUtility.Save(GetNodeTemplatePath(), NodeTemplate);
                         }
 
-                        NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+                        NodeTemplateStringContent = XmlUtility.ObjectToString(NodeTemplate);
 
                         //读取行为树数据
                         LoadBehaviorTreeData();
@@ -941,11 +941,11 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (NodeClasses == null || TreeData == null)
+            if (NodeTemplate == null || TreeData == null)
                 return;
 
-            //节点类移除未定义的枚举字段
-            NodeClasses.RemoveUnDefineEnumField();
+            //移除未定义的枚举字段
+            NodeTemplate.RemoveUnDefineEnumField();
 
             //移除未定义的节点
             TreeData.RemoveUnDefineNode();
@@ -954,7 +954,7 @@ namespace BehaviorTreeEditor
             TreeData.AjustData();
 
             //检验枚举
-            VerifyInfo verifyEnum = NodeClasses.VerifyEnum();
+            VerifyInfo verifyEnum = NodeTemplate.VerifyEnum();
             if (verifyEnum.HasError)
             {
                 ShowMessage(verifyEnum.Msg);
@@ -963,11 +963,11 @@ namespace BehaviorTreeEditor
             }
 
             //检验节点类
-            VerifyInfo verifyNodeClass = NodeClasses.VerifyNodeClass();
-            if (verifyNodeClass.HasError)
+            VerifyInfo verifyNodeTemplate = NodeTemplate.VerifyNodeTemplate();
+            if (verifyNodeTemplate.HasError)
             {
-                ShowMessage(verifyNodeClass.Msg);
-                ShowInfo(verifyNodeClass.Msg);
+                ShowMessage(verifyNodeTemplate.Msg);
+                ShowInfo(verifyNodeTemplate.Msg);
                 return;
             }
 
@@ -980,9 +980,9 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (XmlUtility.Save(GetNodeClassPath(), NodeClasses))
+            if (XmlUtility.Save(GetNodeTemplatePath(), NodeTemplate))
             {
-                NodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
+                NodeTemplateStringContent = XmlUtility.ObjectToString(NodeTemplate);
             }
 
 
@@ -1039,9 +1039,9 @@ namespace BehaviorTreeEditor
         /// 获取行为树类信息路径
         /// </summary>
         /// <returns></returns>
-        public string GetNodeClassPath()
+        public string GetNodeTemplatePath()
         {
-            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeClassFile);
+            return Path.Combine(Settings.Default.WorkDirectory, Settings.Default.NodeTemplateFile);
         }
 
         /// <summary>
@@ -1084,13 +1084,13 @@ namespace BehaviorTreeEditor
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                bool nodeClassDirty = false;
-                if (NodeClasses != null)
+                bool nodeDefineDirty = false;
+                if (NodeTemplate != null)
                 {
-                    string tempNodeClassesStringContent = XmlUtility.ObjectToString(NodeClasses);
-                    if (tempNodeClassesStringContent != NodeClassesStringContent)
+                    string tempNodeTemplateStringContent = XmlUtility.ObjectToString(NodeTemplate);
+                    if (tempNodeTemplateStringContent != NodeTemplateStringContent)
                     {
-                        nodeClassDirty = true;
+                        nodeDefineDirty = true;
                     }
                 }
 
@@ -1104,7 +1104,7 @@ namespace BehaviorTreeEditor
                     }
                 }
 
-                if (nodeClassDirty || behaviorTreeDirty)
+                if (nodeDefineDirty || behaviorTreeDirty)
                 {
                     DialogResult result = MessageBox.Show(Settings.Default.SaveWarnning, Settings.Default.EditorTitle,
                         MessageBoxButtons.OKCancel);

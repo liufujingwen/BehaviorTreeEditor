@@ -9,10 +9,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CopyRight" Type="System.String" Scope="User">
-      <Value Profile="(Default)">jingwen</Value>
+      <Value Profile="(Default)">R7</Value>
     </Setting>
-    <Setting Name="NodeClassFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NodeClass.xml</Value>
+    <Setting Name="NodeTemplateFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NodeTemplate.xml</Value>
     </Setting>
     <Setting Name="BehaviorTreeDataFileSuffix" Type="System.String" Scope="User">
       <Value Profile="(Default)">.xml</Value>

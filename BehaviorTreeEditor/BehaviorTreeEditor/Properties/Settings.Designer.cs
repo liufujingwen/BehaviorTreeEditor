@@ -49,7 +49,7 @@ namespace BehaviorTreeEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("jingwen")]
+        [global::System.Configuration.DefaultSettingValueAttribute("R7")]
         public string CopyRight {
             get {
                 return ((string)(this["CopyRight"]));
@@ -61,13 +61,13 @@ namespace BehaviorTreeEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NodeClass.xml")]
-        public string NodeClassFile {
+        [global::System.Configuration.DefaultSettingValueAttribute("NodeTemplate.xml")]
+        public string NodeTemplateFile {
             get {
-                return ((string)(this["NodeClassFile"]));
+                return ((string)(this["NodeTemplateFile"]));
             }
             set {
-                this["NodeClassFile"] = value;
+                this["NodeTemplateFile"] = value;
             }
         }
         

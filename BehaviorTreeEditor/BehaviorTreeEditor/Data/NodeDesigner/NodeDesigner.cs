@@ -237,7 +237,7 @@ namespace BehaviorTreeEditor
         public string ShowContent()
         {
             if (NodeDefine == null)
-                NodeDefine = MainForm.Instance.NodeClasses.FindNode(ClassType);
+                NodeDefine = MainForm.Instance.NodeTemplate.FindNode(ClassType);
 
             if (NodeDefine == null)
                 throw new Exception(ClassType + "的" + nameof(NodeDefine) + "为空");
