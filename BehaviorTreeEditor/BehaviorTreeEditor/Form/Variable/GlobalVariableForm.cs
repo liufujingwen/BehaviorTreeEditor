@@ -11,15 +11,15 @@ namespace BehaviorTreeEditor
 {
     public partial class GlobalVariableForm : Form
     {
-        private GlobalVariable m_EditGlobalVariable;
-        private GlobalVariable m_GlobalVariable;
+        private GlobalVariableDesigner m_EditGlobalVariable;
+        private GlobalVariableDesigner m_GlobalVariable;
         private string m_OldContent = null;
 
-        public GlobalVariableForm(GlobalVariable globalVariable)
+        public GlobalVariableForm(GlobalVariableDesigner globalVariable)
         {
             m_GlobalVariable = globalVariable;
             m_OldContent = XmlUtility.ObjectToString(globalVariable);
-            m_EditGlobalVariable = XmlUtility.StringToObject<GlobalVariable>(m_OldContent);
+            m_EditGlobalVariable = XmlUtility.StringToObject<GlobalVariableDesigner>(m_OldContent);
             InitializeComponent();
         }
 
@@ -132,20 +132,20 @@ namespace BehaviorTreeEditor
             listView1.Items.Clear();
             for (int i = 0; i < m_EditGlobalVariable.VariableFields.Count; i++)
             {
-                VariableField variableField = m_EditGlobalVariable.VariableFields[i];
+                VariableFieldDesigner variableField = m_EditGlobalVariable.VariableFields[i];
                 ListViewItem listViewItem = listView1.Items.Add((i + 1).ToString());
                 listViewItem.Tag = variableField;
                 listViewItem.SubItems.Add(variableField.VariableFieldName);
                 listViewItem.SubItems.Add(variableField.VariableFieldType.ToString());
-                listViewItem.SubItems.Add(variableField.DefaultValue == null ? string.Empty : variableField.DefaultValue.ToString());
+                listViewItem.SubItems.Add(variableField.Value == null ? string.Empty : variableField.Value.ToString());
                 listViewItem.SubItems.Add(variableField.Describe);
             }
         }
 
         public class VariableItemListContent
         {
-            private List<VariableField> m_DataList = new List<VariableField>();
-            public List<VariableField> DataList { get { return m_DataList; } }
+            private List<VariableFieldDesigner> m_DataList = new List<VariableFieldDesigner>();
+            public List<VariableFieldDesigner> DataList { get { return m_DataList; } }
         }
 
         private void Copy()
@@ -155,8 +155,8 @@ namespace BehaviorTreeEditor
                 VariableItemListContent content = new VariableItemListContent();
                 foreach (ListViewItem lvItem in listView1.SelectedItems)
                 {
-                    if (lvItem.Tag is VariableField)
-                        content.DataList.Add((VariableField)lvItem.Tag);
+                    if (lvItem.Tag is VariableFieldDesigner)
+                        content.DataList.Add((VariableFieldDesigner)lvItem.Tag);
                 }
 
                 if (content.DataList.Count > 0)
@@ -179,7 +179,7 @@ namespace BehaviorTreeEditor
 
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
-                    VariableField variableField = content.DataList[i];
+                    VariableFieldDesigner variableField = content.DataList[i];
                     string variableStr = variableField.VariableFieldName;
                     do
                     {
@@ -219,8 +219,8 @@ namespace BehaviorTreeEditor
 
                 int preIdx = selectIdx - 1;
 
-                VariableField preVariable = m_EditGlobalVariable.VariableFields[preIdx];
-                VariableField selectedVariable = m_EditGlobalVariable.VariableFields[selectIdx];
+                VariableFieldDesigner preVariable = m_EditGlobalVariable.VariableFields[preIdx];
+                VariableFieldDesigner selectedVariable = m_EditGlobalVariable.VariableFields[selectIdx];
 
                 m_EditGlobalVariable.VariableFields[preIdx] = selectedVariable;
                 m_EditGlobalVariable.VariableFields[selectIdx] = preVariable;
@@ -235,8 +235,8 @@ namespace BehaviorTreeEditor
 
                 int nextIdx = selectIdx + 1;
 
-                VariableField preVariable = m_EditGlobalVariable.VariableFields[nextIdx];
-                VariableField selectedVariable = m_EditGlobalVariable.VariableFields[selectIdx];
+                VariableFieldDesigner preVariable = m_EditGlobalVariable.VariableFields[nextIdx];
+                VariableFieldDesigner selectedVariable = m_EditGlobalVariable.VariableFields[selectIdx];
 
                 m_EditGlobalVariable.VariableFields[nextIdx] = selectedVariable;
                 m_EditGlobalVariable.VariableFields[selectIdx] = preVariable;
@@ -255,7 +255,7 @@ namespace BehaviorTreeEditor
             {
                 int selectIdx = listView1.SelectedIndices[0];
                 ListViewItem selectedItem = listView1.Items[selectIdx];
-                VariableField variableItem = selectedItem.Tag as VariableField;
+                VariableFieldDesigner variableItem = selectedItem.Tag as VariableFieldDesigner;
 
                 InputValueDialogForm testForm = new InputValueDialogForm("编辑", variableItem);
                 if (testForm.ShowDialog() == DialogResult.OK)
@@ -277,7 +277,7 @@ namespace BehaviorTreeEditor
             {
                 int selectIdx = listView1.SelectedIndices[0];
                 ListViewItem selectedItem = listView1.Items[selectIdx];
-                VariableField variableItem = selectedItem.Tag as VariableField;
+                VariableFieldDesigner variableItem = selectedItem.Tag as VariableFieldDesigner;
 
                 if (MessageBox.Show(string.Format("确定删除变量选项{0}吗?", variableItem.VariableFieldName), "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
@@ -305,7 +305,7 @@ namespace BehaviorTreeEditor
                     {
                         ListViewItem listViewItem = removeItems[0];
                         removeItems.RemoveAt(0);
-                        VariableField variableField = listViewItem.Tag as VariableField;
+                        VariableFieldDesigner variableField = listViewItem.Tag as VariableFieldDesigner;
                         listView1.Items.Remove(listViewItem);
                         m_EditGlobalVariable.Remove(variableField);
                     }
@@ -321,7 +321,7 @@ namespace BehaviorTreeEditor
 
         private void New()
         {
-            VariableField field = new VariableField();
+            VariableFieldDesigner field = new VariableFieldDesigner();
             InputValueDialogForm form = new InputValueDialogForm("添加变量", field);
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -332,7 +332,7 @@ namespace BehaviorTreeEditor
             }
         }
 
-        public void AddVariableFieldItem(VariableField variableItem)
+        public void AddVariableFieldItem(VariableFieldDesigner variableItem)
         {
             if (variableItem == null)
                 return;
@@ -341,12 +341,12 @@ namespace BehaviorTreeEditor
             listViewItem.Tag = variableItem;
             listViewItem.SubItems.Add(variableItem.VariableFieldName);
             listViewItem.SubItems.Add(variableItem.VariableFieldType.ToString());
-            listViewItem.SubItems.Add(variableItem.DefaultValue == null ? string.Empty : variableItem.DefaultValue.ToString());
+            listViewItem.SubItems.Add(variableItem.Value == null ? string.Empty : variableItem.Value.ToString());
             listViewItem.SubItems.Add(variableItem.Describe);
             listViewItem.Selected = true;
         }
 
-        public void UpdateVariableFieldItem(VariableField variableItem)
+        public void UpdateVariableFieldItem(VariableFieldDesigner variableItem)
         {
             if (variableItem == null)
                 return;
@@ -355,7 +355,7 @@ namespace BehaviorTreeEditor
 
             listViewItem.Tag = variableItem;
             listViewItem.SubItems.Add(variableItem.VariableFieldType.ToString());
-            listViewItem.SubItems.Add(variableItem.DefaultValue == null ? string.Empty : variableItem.DefaultValue.ToString());
+            listViewItem.SubItems.Add(variableItem.Value == null ? string.Empty : variableItem.Value.ToString());
             listViewItem.SubItems.Add(variableItem.Describe);
 
             listViewItem.Selected = true;

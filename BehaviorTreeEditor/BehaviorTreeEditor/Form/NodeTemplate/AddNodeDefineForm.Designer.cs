@@ -344,7 +344,7 @@
             this.Name = "AddDefineForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加节点";
-            this.Load += new System.EventHandler(this.AddClassForm_Load);
+            this.Load += new System.EventHandler(this.AddDefineForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

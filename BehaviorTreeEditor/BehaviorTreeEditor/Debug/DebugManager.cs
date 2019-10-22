@@ -28,28 +28,28 @@ namespace BehaviorTreeEditor
             get { return State != DebugState.None; }
         }
 
-        public void Debug(AgentDesigner agent)
+        public void Debug(BehaviorTreeDesigner behaviorTree)
         {
-            if (agent == null)
+            if (behaviorTree == null)
             {
-                MainForm.Instance.ShowMessage("Agent为空");
+                MainForm.Instance.ShowMessage("行为树为空");
                 return;
             }
 
             m_Nodes.Clear();
-            VerifyInfo verifyAgent = agent.VerifyAgent();
-            if (verifyAgent.HasError)
+            VerifyInfo verifyBehaviorTree = behaviorTree.VerifyBehaviorTree();
+            if (verifyBehaviorTree.HasError)
             {
-                MainForm.Instance.ShowMessage("确保行为树编辑正确后才能调试\n" + verifyAgent.Msg);
+                MainForm.Instance.ShowMessage("确保行为树编辑正确后才能调试\n" + verifyBehaviorTree.Msg);
                 return;
             }
 
-            for (int i = 0; i < agent.Nodes.Count; i++)
+            for (int i = 0; i < behaviorTree.Nodes.Count; i++)
             {
-                NodeDesigner node = agent.Nodes[i];
+                NodeDesigner node = behaviorTree.Nodes[i];
                 if (node.StartNode)
                 {
-                    m_DebugNode = CreateDebugNode(agent, node);
+                    m_DebugNode = CreateDebugNode(behaviorTree, node);
                     break;
                 }
             }
@@ -59,7 +59,7 @@ namespace BehaviorTreeEditor
             MainForm.Instance.ShowInfo("播放成功 时间:" + DateTime.Now);
         }
 
-        private DebugNode CreateDebugNode(AgentDesigner agent, NodeDesigner node)
+        private DebugNode CreateDebugNode(BehaviorTreeDesigner behaviorTree, NodeDesigner node)
         {
             DebugNode debugNode = null;
             //组合节点
@@ -238,8 +238,8 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < node.Transitions.Count; i++)
             {
                 Transition transition = node.Transitions[i];
-                NodeDesigner childNode = agent.FindByID(transition.ToNodeID);
-                DebugNode childDebugNode = CreateDebugNode(agent, childNode);
+                NodeDesigner childNode = behaviorTree.FindByID(transition.ToNodeID);
+                DebugNode childDebugNode = CreateDebugNode(behaviorTree, childNode);
                 childDebugNode.ParentNode = debugNode;
                 debugNode.Childs.Add(childDebugNode);
             }

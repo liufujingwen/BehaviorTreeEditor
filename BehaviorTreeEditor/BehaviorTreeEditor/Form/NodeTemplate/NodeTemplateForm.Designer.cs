@@ -111,7 +111,7 @@
             this.Name = "NodeTemplateForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "节点查看窗口";
-            this.Load += new System.EventHandler(this.ClassForm_Load);
+            this.Load += new System.EventHandler(this.NodeTemplateForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 

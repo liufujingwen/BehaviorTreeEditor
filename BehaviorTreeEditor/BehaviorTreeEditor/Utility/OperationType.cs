@@ -8,14 +8,14 @@
         EditWorkSpace,//编辑工作区
         Save,//保存
         Refresh,//刷新
-        AddAgent,//添加行为树
-        CopyAgent,//复制Agent
-        DeleteAgentOrGroup,//删除Agent或者分组
-        DeleteAgent,//删除Agent
-        EditAgent,//编辑Agent
-        SwapAgent,//交换Agent
-        PasteAgent,//粘贴Agent
-        UpdateAgent,//刷新Agent
+        AddBehaviorTree,//添加行为树
+        CopyBehaviorTree,//复制行为树
+        DeleteBehaviorTreeOrGroup,//删除行为树或者分组
+        DeleteBehaviorTree,//删除行为树
+        EditBehaviorTree,//编辑行为树
+        SwapBehaviorTree,//交换行为树
+        PasteBehaviorTree,//粘贴行为树
+        UpdateBehaviorTree,//刷新行为树
         Reset,//重置
         AddGroup,//添加分组
         EditGroup,//编辑分组

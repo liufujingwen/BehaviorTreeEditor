@@ -36,7 +36,7 @@
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.freshToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.deleteAgentToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteBehaviorTreeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.playToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -109,7 +109,7 @@
             this.saveToolStripButton,
             this.toolStripSeparator1,
             this.freshToolStripButton,
-            this.deleteAgentToolStripButton,
+            this.deleteBehaviorTreeToolStripButton,
             this.toolStripSeparator5,
             this.toolStripLabel1,
             this.playToolStripButton,
@@ -155,15 +155,15 @@
             this.freshToolStripButton.Text = "刷新";
             this.freshToolStripButton.Click += new System.EventHandler(this.freshToolStripButton_Click);
             // 
-            // deleteAgentToolStripButton
+            // deleteBehaviorTreeToolStripButton
             // 
-            this.deleteAgentToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteAgentToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
-            this.deleteAgentToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.deleteAgentToolStripButton.Name = "deleteAgentToolStripButton";
-            this.deleteAgentToolStripButton.Size = new System.Drawing.Size(24, 24);
-            this.deleteAgentToolStripButton.Text = "删除";
-            this.deleteAgentToolStripButton.Click += new System.EventHandler(this.deleteAgentToolStripButton_Click);
+            this.deleteBehaviorTreeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.deleteBehaviorTreeToolStripButton.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
+            this.deleteBehaviorTreeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteBehaviorTreeToolStripButton.Name = "deleteBehaviorTreeToolStripButton";
+            this.deleteBehaviorTreeToolStripButton.Size = new System.Drawing.Size(24, 24);
+            this.deleteBehaviorTreeToolStripButton.Text = "删除";
+            this.deleteBehaviorTreeToolStripButton.Click += new System.EventHandler(this.deleteBehaviorTreeToolStripButton_Click);
             // 
             // toolStripSeparator5
             // 
@@ -439,7 +439,7 @@
             this.复制ToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem1.Name = "复制ToolStripMenuItem1";
             this.复制ToolStripMenuItem1.Size = new System.Drawing.Size(157, 26);
-            this.复制ToolStripMenuItem1.Text = "复制Agent";
+            this.复制ToolStripMenuItem1.Text = "复制行为树";
             this.复制ToolStripMenuItem1.Click += new System.EventHandler(this.复制ToolStripMenuItem1_Click);
             // 
             // 粘贴ToolStripMenuItem
@@ -448,7 +448,7 @@
             this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
             this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            this.粘贴ToolStripMenuItem.Text = "粘贴Agent";
+            this.粘贴ToolStripMenuItem.Text = "粘贴行为树";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
@@ -457,7 +457,7 @@
             this.toolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(157, 26);
-            this.toolStripMenuItem2.Text = "新建Agent";
+            this.toolStripMenuItem2.Text = "新建行为树";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
@@ -466,7 +466,7 @@
             this.toolStripMenuItem3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(157, 26);
-            this.toolStripMenuItem3.Text = "编辑Agent";
+            this.toolStripMenuItem3.Text = "编辑行为树";
             // 
             // toolStripMenuItem4
             // 
@@ -474,7 +474,7 @@
             this.toolStripMenuItem4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(157, 26);
-            this.toolStripMenuItem4.Text = "删除Agent";
+            this.toolStripMenuItem4.Text = "删除行为树";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // 全局变量视图ToolStripMenuItem
@@ -526,7 +526,7 @@
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton freshToolStripButton;
-        private System.Windows.Forms.ToolStripButton deleteAgentToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteBehaviorTreeToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;

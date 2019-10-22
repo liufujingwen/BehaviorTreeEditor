@@ -22,7 +22,7 @@ namespace BehaviorTreeEditor
             InitializeComponent();
         }
 
-        private void EditClassForm_Load(object sender, EventArgs e)
+        private void EditNodeDefineForm_Load(object sender, EventArgs e)
         {
             classTypeTB.Text = m_EditNodeDefine.ClassType;
 

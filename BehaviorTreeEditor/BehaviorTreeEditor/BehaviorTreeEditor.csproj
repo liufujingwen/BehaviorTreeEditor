@@ -50,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\NodeDesigner\VariableType.cs" />
-    <Compile Include="Data\NodeDesigner\Variable\GlobalVariable.cs" />
-    <Compile Include="Data\NodeDesigner\Variable\VariableField.cs" />
+    <Compile Include="Data\NodeDesigner\Variable\GlobalVariableDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Variable\VariableFieldDesigner.cs" />
     <Compile Include="Form\Group\EditGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,18 +67,18 @@
     <Compile Include="Data\NodeDesigner\Field\DoubleFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\RepeatStringFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\StringFieldDesigner.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\BaseDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\BooleanDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\DoubleDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\EnumDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\FloatDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\IntDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\LongDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\NodeField.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\ColorDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\StringDefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\Vector3DefaultValue.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\Vector2DefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\BaseDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\BooleanDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\DoubleDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\EnumDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\FloatDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\IntDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\LongDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\NodeField.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\ColorDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\StringDefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\Vector3DefaultValue.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\Vector2DefaultValue.cs" />
     <Compile Include="Debug\Action\Debug__AssignmentString.cs" />
     <Compile Include="Debug\Action\Debug_Noop.cs" />
     <Compile Include="Debug\Action\Debug__Action.cs" />
@@ -108,11 +108,11 @@
     <Compile Include="Debug\Decorator\Debug__Success.cs" />
     <Compile Include="Debug\Decorator\Debug__Time.cs" />
     <Compile Include="Debug\Decorator\Debug__SuccessUntil.cs" />
-    <Compile Include="Form\Agent\EditAgentForm.cs">
+    <Compile Include="Form\BehaviorTree\EditBehaviorTreeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Agent\EditAgentForm.Designer.cs">
-      <DependentUpon>EditAgentForm.cs</DependentUpon>
+    <Compile Include="Form\BehaviorTree\EditBehaviorTreeForm.Designer.cs">
+      <DependentUpon>EditBehaviorTreeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\NodeTemplate\AddNodeDefineForm.cs">
       <SubType>Form</SubType>
@@ -155,7 +155,7 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TreeView\AgentItem.cs" />
+    <Compile Include="TreeView\BehaviorTreeItem.cs" />
     <Compile Include="TreeView\Group.cs" />
     <Compile Include="TreeView\GroupItem.cs" />
     <Compile Include="TreeView\TreeViewManager.cs" />
@@ -217,8 +217,8 @@
     <Compile Include="Form\NodeTemplate\NodeTemplateForm.Designer.cs">
       <DependentUpon>NodeTemplateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\NodeDesigner\AgentDesigner.cs" />
-    <Compile Include="Data\NodeDesigner\BehaviorTreeData.cs" />
+    <Compile Include="Data\NodeDesigner\BehaviorTreeDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\BehaviorTreeDataDesigner.cs" />
     <Compile Include="Data\NodeDesigner\CustomEnum.cs" />
     <Compile Include="Data\NodeDesigner\Field\BaseFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\FieldDesigner.cs" />
@@ -235,8 +235,8 @@
     <Compile Include="Data\NodeDesigner\Field\RepeatVector3FieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\Vector2FieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\Vector3FieldDesigner.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\NodeDefine.cs" />
-    <Compile Include="Data\NodeDesigner\NodeClass\NodeTemplate.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\NodeDefine.cs" />
+    <Compile Include="Data\NodeDesigner\NodeDefine\NodeTemplate.cs" />
     <Compile Include="Data\NodeDesigner\Field\RepeatIntFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Transition.cs" />
     <Compile Include="Data\NodeDesigner\Vector2.cs" />
@@ -278,8 +278,8 @@
     <EmbeddedResource Include="Form\Group\AddGroupForm.resx">
       <DependentUpon>AddGroupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\Agent\EditAgentForm.resx">
-      <DependentUpon>EditAgentForm.cs</DependentUpon>
+    <EmbeddedResource Include="Form\BehaviorTree\EditBehaviorTreeForm.resx">
+      <DependentUpon>EditBehaviorTreeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Group\EditGroupForm.resx">
       <DependentUpon>EditGroupForm.cs</DependentUpon>

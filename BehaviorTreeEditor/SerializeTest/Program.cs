@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BehaviorTreeData;
+using BTData;
 
 namespace SerializeTest
 {
@@ -22,13 +22,13 @@ namespace SerializeTest
 
         public static void TestIntField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             IntField intField = new IntField();
             intField.FieldName = "IntField";
             intField.Value = 100;
-            agent.StartNode.Fields.Add(intField);
+            behaviorTree.StartNode.Fields.Add(intField);
 
             RepeatIntField repeatIntField = new RepeatIntField();
             repeatIntField.FieldName = "RepeatIntField";
@@ -37,21 +37,21 @@ namespace SerializeTest
             repeatIntField.Value.Add(100);
             repeatIntField.Value.Add(-1000000);
             repeatIntField.Value.Add(10000);
-            agent.StartNode.Fields.Add(repeatIntField);
+            behaviorTree.StartNode.Fields.Add(repeatIntField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestLongField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             LongField longField = new LongField();
             longField.FieldName = "LongField";
             longField.Value = 100;
-            agent.StartNode.Fields.Add(longField);
+            behaviorTree.StartNode.Fields.Add(longField);
 
             RepeatLongField repeatLongField = new RepeatLongField();
             repeatLongField.FieldName = "RepeatLongField";
@@ -60,21 +60,21 @@ namespace SerializeTest
             repeatLongField.Value.Add(100);
             repeatLongField.Value.Add(1000);
             repeatLongField.Value.Add(10000);
-            agent.StartNode.Fields.Add(repeatLongField);
+            behaviorTree.StartNode.Fields.Add(repeatLongField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestFloatField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             FloatField floatField = new FloatField();
             floatField.FieldName = "FloatField";
             floatField.Value = 100.001f;
-            agent.StartNode.Fields.Add(floatField);
+            behaviorTree.StartNode.Fields.Add(floatField);
 
             RepeatFloatField repeatFloatField = new RepeatFloatField();
             repeatFloatField.FieldName = "RepeatIntField";
@@ -83,21 +83,21 @@ namespace SerializeTest
             repeatFloatField.Value.Add(100.11f);
             repeatFloatField.Value.Add(1000.11f);
             repeatFloatField.Value.Add(10000.1119f);
-            agent.StartNode.Fields.Add(repeatFloatField);
+            behaviorTree.StartNode.Fields.Add(repeatFloatField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestDoubleField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             DoubleField doubleField = new DoubleField();
             doubleField.FieldName = "DoubleField";
             doubleField.Value = 100.001d;
-            agent.StartNode.Fields.Add(doubleField);
+            behaviorTree.StartNode.Fields.Add(doubleField);
 
             RepeatDoubleField repeatDoubleField = new RepeatDoubleField();
             repeatDoubleField.FieldName = "RepeatDoubleField";
@@ -106,53 +106,52 @@ namespace SerializeTest
             repeatDoubleField.Value.Add(100.11d);
             repeatDoubleField.Value.Add(1000.11d);
             repeatDoubleField.Value.Add(10000.1119d);
-            agent.StartNode.Fields.Add(repeatDoubleField);
+            behaviorTree.StartNode.Fields.Add(repeatDoubleField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestEnumField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             EnumField enumField = new EnumField();
             enumField.FieldName = "EnumField";
             enumField.Value = 100;
-            agent.StartNode.Fields.Add(enumField);
+            behaviorTree.StartNode.Fields.Add(enumField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestBooleanField()
         {
-            AgentData agent = new AgentData();
-            agent.StartNode = new NodeData();
+            BehaviorTree behaviorTree = new BehaviorTree();
+            behaviorTree.StartNode = new NodeData();
 
             BooleanField booleanField = new BooleanField();
             booleanField.FieldName = "BooleanField";
             booleanField.Value = true;
-            agent.StartNode.Fields.Add(booleanField);
+            behaviorTree.StartNode.Fields.Add(booleanField);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
 
         public static void TestNode()
         {
-            //创建AgentData
-            AgentData agent = new AgentData();
+            BehaviorTree behaviorTree = new BehaviorTree();
 
             //添加开始节点
-            agent.StartNode = new NodeData();
+            behaviorTree.StartNode = new NodeData();
 
             //开始节点字段
             IntField intField = new IntField();
             intField.FieldName = "IntField";
             intField.Value = 100;
-            agent.StartNode.Fields.Add(intField);
+            behaviorTree.StartNode.Fields.Add(intField);
 
             //创建开始节点的第一个子节点
             NodeData node1 = new NodeData();
@@ -170,12 +169,12 @@ namespace SerializeTest
             longField.Value = 100;
             node2.Fields.Add(longField);
 
-            agent.StartNode.Childs = new List<NodeData>();
-            agent.StartNode.Childs.Add(node1);
-            agent.StartNode.Childs.Add(node2);
+            behaviorTree.StartNode.Childs = new List<NodeData>();
+            behaviorTree.StartNode.Childs.Add(node1);
+            behaviorTree.StartNode.Childs.Add(node2);
 
-            byte[] bytes = Serializer.Serialize(agent);
-            AgentData deAgentData = Serializer.DeSerialize<AgentData>(bytes);
+            byte[] bytes = Serializer.Serialize(behaviorTree);
+            BehaviorTree deBehaviorTreeData = Serializer.DeSerialize<BehaviorTree>(bytes);
         }
     }
 }

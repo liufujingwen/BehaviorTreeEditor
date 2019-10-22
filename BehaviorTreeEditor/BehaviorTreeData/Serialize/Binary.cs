@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public abstract class Binary
     {

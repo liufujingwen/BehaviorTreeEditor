@@ -36,9 +36,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\AgentData.cs" />
+    <Compile Include="Data\BehaviorTree.cs" />
     <Compile Include="Data\BaseField.cs" />
-    <Compile Include="Data\TreeData.cs" />
+    <Compile Include="Data\GlobalVariableData.cs" />
+    <Compile Include="Data\BehaviorTreeData.cs" />
     <Compile Include="Data\BooleanField.cs" />
     <Compile Include="Data\ColorField.cs" />
     <Compile Include="Data\DoubleField.cs" />

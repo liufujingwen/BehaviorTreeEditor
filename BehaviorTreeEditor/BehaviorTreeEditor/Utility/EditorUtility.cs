@@ -576,15 +576,15 @@ namespace BehaviorTreeEditor
             }
         }
 
-        //辅助Agent添加节点（粘贴添加）
-        public static void AddNode(AgentDesigner agent, NodeDesigner node)
+        //辅助行为树添加节点（粘贴添加）
+        public static void AddNode(BehaviorTreeDesigner behaviorTree, NodeDesigner node)
         {
-            node.ID = agent.GenNodeID();
+            node.ID = behaviorTree.GenNodeID();
 
             if (node.StartNode)
-                node.StartNode = agent.ExistStartNode() ? false : true;
+                node.StartNode = behaviorTree.ExistStartNode() ? false : true;
 
-            agent.AddNode(node);
+            behaviorTree.AddNode(node);
 
             if (node.Transitions.Count > 0)
             {
@@ -594,7 +594,7 @@ namespace BehaviorTreeEditor
                     transition.FromNode = node;
                     transition.FromNodeID = node.ID;
                     NodeDesigner childNode = transition.ToNode;
-                    AddNode(agent, childNode);
+                    AddNode(behaviorTree, childNode);
                     transition.ToNodeID = childNode.ID;
                 }
                 node.Sort();
@@ -620,84 +620,92 @@ namespace BehaviorTreeEditor
 
         #region serialize bytes 
 
-        public static BehaviorTreeData.TreeData CreateTreeData(TreeData treeData)
+        public static BTData.BehaviorTreeData CreateTreeData(BehaviorTreeDataDesigner treeData)
         {
-            BehaviorTreeData.TreeData data = new BehaviorTreeData.TreeData();
+            BTData.BehaviorTreeData data = new BTData.BehaviorTreeData();
 
-            for (int i = 0; i < treeData.Agents.Count; i++)
+            //全局变量
+            for (int i = 0; i < treeData.GlobalVariable.VariableFields.Count; i++)
             {
-                AgentDesigner agent = treeData.Agents[i];
-                if (agent == null)
+                VariableFieldDesigner variableField = treeData.GlobalVariable.VariableFields[i];
+                BTData.BaseField variableFieldData = CreateVariableField(variableField);
+                data.GlobalVariable.VariableFields.Add(variableFieldData);
+            }
+
+            for (int i = 0; i < treeData.BehaviorTrees.Count; i++)
+            {
+                BehaviorTreeDesigner behaviorTree = treeData.BehaviorTrees[i];
+                if (behaviorTree == null)
                     continue;
-                data.Agents.Add(CreateAgentData(agent));
+                data.BehaviorTrees.Add(CreateBehaviorTreeData(behaviorTree));
             }
 
             return data;
         }
 
-        public static BehaviorTreeData.AgentData CreateAgentData(AgentDesigner agentData)
+        public static BTData.BehaviorTree CreateBehaviorTreeData(BehaviorTreeDesigner behaviorTree)
         {
-            BehaviorTreeData.AgentData data = new BehaviorTreeData.AgentData();
-            data.ID = agentData.AgentID;
+            BTData.BehaviorTree data = new BTData.BehaviorTree();
+            data.ID = behaviorTree.ID;
 
-            for (int i = 0; i < agentData.Fields.Count; i++)
+            for (int i = 0; i < behaviorTree.Fields.Count; i++)
             {
-                FieldDesigner field = agentData.Fields[i];
+                FieldDesigner field = behaviorTree.Fields[i];
                 if (field == null)
                     continue;
                 data.Fields.Add(CreateField(field));
             }
 
-            NodeDesigner startNode = agentData.GetStartNode();
+            NodeDesigner startNode = behaviorTree.GetStartNode();
             if (startNode != null)
-                data.StartNode = CreateNode(agentData, startNode);
+                data.StartNode = CreateNode(behaviorTree, startNode);
 
             return data;
         }
 
-        public static BehaviorTreeData.BaseField CreateField(FieldDesigner fieldData)
+        public static BTData.BaseField CreateField(FieldDesigner fieldData)
         {
-            BehaviorTreeData.BaseField data = null;
+            BTData.BaseField data = null;
 
             switch (fieldData.FieldType)
             {
                 case FieldType.IntField:
-                    BehaviorTreeData.IntField intField = new BehaviorTreeData.IntField();
+                    BTData.IntField intField = new BTData.IntField();
                     IntFieldDesigner intFieldDesigner = fieldData.Field as IntFieldDesigner;
                     intField.FieldName = fieldData.FieldName;
                     intField.Value = intFieldDesigner.Value;
                     data = intField;
                     break;
                 case FieldType.LongField:
-                    BehaviorTreeData.LongField longField = new BehaviorTreeData.LongField();
+                    BTData.LongField longField = new BTData.LongField();
                     LongFieldDesigner longFieldDesigner = fieldData.Field as LongFieldDesigner;
                     longField.FieldName = fieldData.FieldName;
                     longField.Value = longFieldDesigner.Value;
                     data = longField;
                     break;
                 case FieldType.FloatField:
-                    BehaviorTreeData.FloatField floatField = new BehaviorTreeData.FloatField();
+                    BTData.FloatField floatField = new BTData.FloatField();
                     FloatFieldDesigner floatFieldDesigner = fieldData.Field as FloatFieldDesigner;
                     floatField.FieldName = fieldData.FieldName;
                     floatField.Value = floatFieldDesigner.Value;
                     data = floatField;
                     break;
                 case FieldType.DoubleField:
-                    BehaviorTreeData.DoubleField doubleField = new BehaviorTreeData.DoubleField();
+                    BTData.DoubleField doubleField = new BTData.DoubleField();
                     DoubleFieldDesigner doubleFieldDesigner = fieldData.Field as DoubleFieldDesigner;
                     doubleField.FieldName = fieldData.FieldName;
                     doubleField.Value = doubleFieldDesigner.Value;
                     data = doubleField;
                     break;
                 case FieldType.StringField:
-                    BehaviorTreeData.StringField stringField = new BehaviorTreeData.StringField();
+                    BTData.StringField stringField = new BTData.StringField();
                     StringFieldDesigner stringFieldDesigner = fieldData.Field as StringFieldDesigner;
                     stringField.FieldName = fieldData.FieldName;
                     stringField.Value = stringFieldDesigner.Value;
                     data = stringField;
                     break;
                 case FieldType.ColorField:
-                    BehaviorTreeData.ColorField colorField = new BehaviorTreeData.ColorField();
+                    BTData.ColorField colorField = new BTData.ColorField();
                     ColorFieldDesigner colorFieldDesigner = fieldData.Field as ColorFieldDesigner;
                     colorField.FieldName = fieldData.FieldName;
                     colorField.Value |= colorFieldDesigner.R << 24;
@@ -707,7 +715,7 @@ namespace BehaviorTreeEditor
                     data = colorField;
                     break;
                 case FieldType.Vector2:
-                    BehaviorTreeData.Vector2Field vector2Field = new BehaviorTreeData.Vector2Field();
+                    BTData.Vector2Field vector2Field = new BTData.Vector2Field();
                     Vector2FieldDesigner vector2FieldDesigner = fieldData.Field as Vector2FieldDesigner;
                     vector2Field.FieldName = fieldData.FieldName;
                     vector2Field.X = vector2FieldDesigner.X;
@@ -715,7 +723,7 @@ namespace BehaviorTreeEditor
                     data = vector2Field;
                     break;
                 case FieldType.Vector3:
-                    BehaviorTreeData.Vector3Field vector3Field = new BehaviorTreeData.Vector3Field();
+                    BTData.Vector3Field vector3Field = new BTData.Vector3Field();
                     Vector3FieldDesigner vector3FieldDesigner = fieldData.Field as Vector3FieldDesigner;
                     vector3Field.FieldName = fieldData.FieldName;
                     vector3Field.X = vector3FieldDesigner.X;
@@ -724,21 +732,21 @@ namespace BehaviorTreeEditor
                     data = vector3Field;
                     break;
                 case FieldType.EnumField:
-                    BehaviorTreeData.EnumField enumField = new BehaviorTreeData.EnumField();
+                    BTData.EnumField enumField = new BTData.EnumField();
                     EnumFieldDesigner enumFieldDesigner = fieldData.Field as EnumFieldDesigner;
                     enumField.FieldName = fieldData.FieldName;
                     enumField.Value = enumFieldDesigner.ValueInt;
                     data = enumField;
                     break;
                 case FieldType.BooleanField:
-                    BehaviorTreeData.BooleanField booleanField = new BehaviorTreeData.BooleanField();
+                    BTData.BooleanField booleanField = new BTData.BooleanField();
                     BooleanFieldDesigner booleanFieldDesigner = fieldData.Field as BooleanFieldDesigner;
                     booleanField.FieldName = fieldData.FieldName;
                     booleanField.Value = booleanFieldDesigner.Value;
                     data = booleanField;
                     break;
                 case FieldType.RepeatIntField:
-                    BehaviorTreeData.RepeatIntField repeatIntField = new BehaviorTreeData.RepeatIntField();
+                    BTData.RepeatIntField repeatIntField = new BTData.RepeatIntField();
                     RepeatIntFieldDesigner repeatIntFieldDesigner = fieldData.Field as RepeatIntFieldDesigner;
                     repeatIntField.FieldName = fieldData.FieldName;
                     if (repeatIntFieldDesigner.Value.Count > 0)
@@ -750,7 +758,7 @@ namespace BehaviorTreeEditor
                     data = repeatIntField;
                     break;
                 case FieldType.RepeatLongField:
-                    BehaviorTreeData.RepeatLongField repeatLongField = new BehaviorTreeData.RepeatLongField();
+                    BTData.RepeatLongField repeatLongField = new BTData.RepeatLongField();
                     RepeatLongFieldDesigner repeatLongFieldDesigner = fieldData.Field as RepeatLongFieldDesigner;
                     repeatLongField.FieldName = fieldData.FieldName;
                     if (repeatLongFieldDesigner.Value.Count > 0)
@@ -763,7 +771,7 @@ namespace BehaviorTreeEditor
                     data = repeatLongField;
                     break;
                 case FieldType.RepeatFloatField:
-                    BehaviorTreeData.RepeatFloatField repeatFloatField = new BehaviorTreeData.RepeatFloatField();
+                    BTData.RepeatFloatField repeatFloatField = new BTData.RepeatFloatField();
                     RepeatFloatFieldDesigner repeatFloatFieldDesigner = fieldData.Field as RepeatFloatFieldDesigner;
                     repeatFloatField.FieldName = fieldData.FieldName;
                     if (repeatFloatFieldDesigner.Value.Count > 0)
@@ -775,7 +783,7 @@ namespace BehaviorTreeEditor
                     data = repeatFloatField;
                     break;
                 case FieldType.RepeatVector2Field:
-                    BehaviorTreeData.RepeatVector2Field repeatVector2Field = new BehaviorTreeData.RepeatVector2Field();
+                    BTData.RepeatVector2Field repeatVector2Field = new BTData.RepeatVector2Field();
                     RepeatVector2FieldDesigner repeatVector2FieldDesigner = fieldData.Field as RepeatVector2FieldDesigner;
                     repeatVector2Field.FieldName = fieldData.FieldName;
                     if (repeatVector2FieldDesigner.Value.Count > 0)
@@ -783,7 +791,7 @@ namespace BehaviorTreeEditor
                         for (int i = 0; i < repeatVector2FieldDesigner.Value.Count; i++)
                         {
                             Vector2 vector2 = repeatVector2FieldDesigner.Value[i];
-                            BehaviorTreeData.Vector2 temp = new BehaviorTreeData.Vector2();
+                            BTData.Vector2 temp = new BTData.Vector2();
                             temp.X = vector2.X;
                             temp.Y = vector2.Y;
                             repeatVector2Field.Value.Add(temp);
@@ -792,13 +800,13 @@ namespace BehaviorTreeEditor
                     data = repeatVector2Field;
                     break;
                 case FieldType.RepeatVector3Field:
-                    BehaviorTreeData.RepeatVector3Field repeatVector3Field = new BehaviorTreeData.RepeatVector3Field();
+                    BTData.RepeatVector3Field repeatVector3Field = new BTData.RepeatVector3Field();
                     RepeatVector3FieldDesigner repeatVector3FieldDesigner = fieldData.Field as RepeatVector3FieldDesigner;
                     repeatVector3Field.FieldName = fieldData.FieldName;
                     for (int i = 0; i < repeatVector3FieldDesigner.Value.Count; i++)
                     {
                         Vector3 vector3 = repeatVector3FieldDesigner.Value[i];
-                        BehaviorTreeData.Vector3 temp = new BehaviorTreeData.Vector3();
+                        BTData.Vector3 temp = new BTData.Vector3();
                         temp.X = vector3.X;
                         temp.Y = vector3.Y;
                         temp.Z = vector3.Z;
@@ -807,7 +815,7 @@ namespace BehaviorTreeEditor
                     data = repeatVector3Field;
                     break;
                 case FieldType.RepeatStringField:
-                    BehaviorTreeData.RepeatStringField repeatStringField = new BehaviorTreeData.RepeatStringField();
+                    BTData.RepeatStringField repeatStringField = new BTData.RepeatStringField();
                     RepeatStringFieldDesigner repeatStringFieldDesigner = fieldData.Field as RepeatStringFieldDesigner;
                     repeatStringField.FieldName = fieldData.FieldName;
                     if (repeatStringFieldDesigner.Value.Count > 0)
@@ -823,9 +831,62 @@ namespace BehaviorTreeEditor
             return data;
         }
 
-        public static BehaviorTreeData.NodeData CreateNode(AgentDesigner agent, NodeDesigner nodeData)
+        public static BTData.BaseField CreateVariableField(VariableFieldDesigner variableFieldData)
         {
-            BehaviorTreeData.NodeData data = new BehaviorTreeData.NodeData();
+            BTData.BaseField data = null;
+
+            switch (variableFieldData.VariableFieldType)
+            {
+                case FieldType.IntField:
+                    BTData.IntField intField = new BTData.IntField();
+                    IntFieldDesigner intFieldDesigner = variableFieldData.Value as IntFieldDesigner;
+                    intField.FieldName = variableFieldData.VariableFieldName;
+                    intField.Value = intFieldDesigner.Value;
+                    data = intField;
+                    break;
+                case FieldType.LongField:
+                    BTData.LongField longField = new BTData.LongField();
+                    LongFieldDesigner longFieldDesigner = variableFieldData.Value as LongFieldDesigner;
+                    longField.FieldName = variableFieldData.VariableFieldName;
+                    longField.Value = longFieldDesigner.Value;
+                    data = longField;
+                    break;
+                case FieldType.FloatField:
+                    BTData.FloatField floatField = new BTData.FloatField();
+                    FloatFieldDesigner floatFieldDesigner = variableFieldData.Value as FloatFieldDesigner;
+                    floatField.FieldName = variableFieldData.VariableFieldName;
+                    floatField.Value = floatFieldDesigner.Value;
+                    data = floatField;
+                    break;
+                case FieldType.DoubleField:
+                    BTData.DoubleField doubleField = new BTData.DoubleField();
+                    DoubleFieldDesigner doubleFieldDesigner = variableFieldData.Value as DoubleFieldDesigner;
+                    doubleField.FieldName = variableFieldData.VariableFieldName;
+                    doubleField.Value = doubleFieldDesigner.Value;
+                    data = doubleField;
+                    break;
+                case FieldType.StringField:
+                    BTData.StringField stringField = new BTData.StringField();
+                    StringFieldDesigner stringFieldDesigner = variableFieldData.Value as StringFieldDesigner;
+                    stringField.FieldName = variableFieldData.VariableFieldName;
+                    stringField.Value = stringFieldDesigner.Value;
+                    data = stringField;
+                    break;
+                case FieldType.BooleanField:
+                    BTData.BooleanField booleanField = new BTData.BooleanField();
+                    BooleanFieldDesigner booleanFieldDesigner = variableFieldData.Value as BooleanFieldDesigner;
+                    booleanField.FieldName = variableFieldData.VariableFieldName;
+                    booleanField.Value = booleanFieldDesigner.Value;
+                    data = booleanField;
+                    break;
+            }
+
+            return data;
+        }
+
+        public static BTData.NodeData CreateNode(BehaviorTreeDesigner behaviorTree, NodeDesigner nodeData)
+        {
+            BTData.NodeData data = new BTData.NodeData();
             data.ID = nodeData.ID;
             data.ClassType = nodeData.ClassType;
             data.Label = nodeData.Label;
@@ -842,12 +903,12 @@ namespace BehaviorTreeEditor
 
             if (nodeData.Transitions.Count > 0)
             {
-                data.Childs = new List<BehaviorTreeData.NodeData>(nodeData.Transitions.Count);
+                data.Childs = new List<BTData.NodeData>(nodeData.Transitions.Count);
                 for (int i = 0; i < nodeData.Transitions.Count; i++)
                 {
                     Transition transition = nodeData.Transitions[i];
-                    NodeDesigner childNode = agent.FindByID(transition.ToNodeID);
-                    BehaviorTreeData.NodeData childNodeData = CreateNode(agent, childNode);
+                    NodeDesigner childNode = behaviorTree.FindByID(transition.ToNodeID);
+                    BTData.NodeData childNodeData = CreateNode(behaviorTree, childNode);
                     data.Childs.Add(childNodeData);
                 }
             }

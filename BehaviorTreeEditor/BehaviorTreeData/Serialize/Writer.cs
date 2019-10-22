@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public class Writer
     {

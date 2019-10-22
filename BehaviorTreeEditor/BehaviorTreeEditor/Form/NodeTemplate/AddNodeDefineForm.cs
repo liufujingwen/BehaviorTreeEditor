@@ -7,17 +7,17 @@ namespace BehaviorTreeEditor
     public partial class AddDefineForm : Form
     {
         private NodeDefine m_NodeDefine = new NodeDefine();
-        private NodeTemplateForm m_ClassForm = null;
+        private NodeTemplateForm m_NodeTemplateForm = null;
         private NodeType m_DefaultNodeType = NodeType.Composite;
 
         public AddDefineForm(NodeType nodeType, NodeTemplateForm classForm)
         {
             m_DefaultNodeType = nodeType;
-            m_ClassForm = classForm;
+            m_NodeTemplateForm = classForm;
             InitializeComponent();
         }
 
-        private void AddClassForm_Load(object sender, EventArgs e)
+        private void AddDefineForm_Load(object sender, EventArgs e)
         {
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
@@ -65,7 +65,7 @@ namespace BehaviorTreeEditor
             if (!MainForm.Instance.NodeTemplate.AddClass(m_NodeDefine))
                 return;
 
-            m_ClassForm.AddNodeDefine(m_NodeDefine);
+            m_NodeTemplateForm.AddNodeDefine(m_NodeDefine);
 
             this.Close();
         }

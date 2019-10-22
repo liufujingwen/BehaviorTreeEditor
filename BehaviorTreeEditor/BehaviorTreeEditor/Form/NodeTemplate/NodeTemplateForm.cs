@@ -37,7 +37,7 @@ namespace BehaviorTreeEditor
             addDefineForm.ShowDialog();
         }
 
-        private void ClassForm_Load(object sender, EventArgs e)
+        private void NodeTemplateForm_Load(object sender, EventArgs e)
         {
             m_NodeTreeViewManager = new NodeTreeViewManager(treeView1, m_Nodes);
             m_NodeTreeViewManager.BindNodeTemplate();

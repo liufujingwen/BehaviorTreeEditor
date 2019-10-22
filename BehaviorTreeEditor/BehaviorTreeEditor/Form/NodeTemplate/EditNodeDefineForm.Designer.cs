@@ -344,7 +344,7 @@
             this.Name = "EditNodeDefineForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "编辑节点";
-            this.Load += new System.EventHandler(this.EditClassForm_Load);
+            this.Load += new System.EventHandler(this.EditNodeDefineForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

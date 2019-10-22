@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TreeData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<BehaviorTreeDataDesigner xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <GlobalVariable>
+    <VariableFields />
+  </GlobalVariable>
   <Groups />
   <Agents>
-    <AgentDesigner>
-      <AgentID>Map</AgentID>
+    <BehaviorTreeDesigner>
+      <TreeID>NewAgent_637073562590539226</TreeID>
       <GroupName />
       <Describe />
-      <Fields />
+      <Fields>
+        <FieldDesigner>
+          <FieldName>1</FieldName>
+          <Label>1</Label>
+          <FieldType>IntField</FieldType>
+          <Field xsi:type="IntFieldDesigner">
+            <Value>1</Value>
+          </Field>
+        </FieldDesigner>
+      </Fields>
+      <BehaviorTreeVariableFields>
+        <VariableFieldDesigner>
+          <VariableFieldName>2</VariableFieldName>
+          <Describe>2</Describe>
+          <VariableFieldType>IntField</VariableFieldType>
+          <Value xsi:type="IntFieldDesigner">
+            <Value>2</Value>
+          </Value>
+        </VariableFieldDesigner>
+      </BehaviorTreeVariableFields>
+      <ContextVariableFields>
+        <VariableFieldDesigner>
+          <VariableFieldName>3</VariableFieldName>
+          <Describe>3</Describe>
+          <VariableFieldType>IntField</VariableFieldType>
+          <Value xsi:type="IntFieldDesigner">
+            <Value>3</Value>
+          </Value>
+        </VariableFieldDesigner>
+      </ContextVariableFields>
       <Nodes>
         <NodeDesigner>
           <Rect>
-            <x>4999</x>
+            <x>5000</x>
             <y>5000</y>
             <position>
-              <x>4999</x>
+              <x>5000</x>
               <y>5000</y>
             </position>
             <center>
-              <x>5074</x>
+              <x>5075</x>
               <y>5030</y>
             </center>
             <min>
-              <x>4999</x>
+              <x>5000</x>
               <y>5000</y>
             </min>
             <max>
-              <x>5149</x>
+              <x>5150</x>
               <y>5060</y>
             </max>
             <width>150</width>
@@ -34,36 +66,12 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>4999</xMin>
+            <xMin>5000</xMin>
             <yMin>5000</yMin>
-            <xMax>5149</xMax>
+            <xMax>5150</xMax>
             <yMax>5060</yMax>
           </Rect>
           <Transitions>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>4</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>3</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>6</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>5</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>8</ToNodeID>
-            </Transition>
-            <Transition>
-              <FromNodeID>1</FromNodeID>
-              <ToNodeID>7</ToNodeID>
-            </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
               <ToNodeID>2</ToNodeID>
@@ -79,22 +87,22 @@
         <NodeDesigner>
           <Rect>
             <x>5250</x>
-            <y>5345</y>
+            <y>5000</y>
             <position>
               <x>5250</x>
-              <y>5345</y>
+              <y>5000</y>
             </position>
             <center>
               <x>5325</x>
-              <y>5375</y>
+              <y>5030</y>
             </center>
             <min>
               <x>5250</x>
-              <y>5345</y>
+              <y>5000</y>
             </min>
             <max>
               <x>5400</x>
-              <y>5405</y>
+              <y>5060</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -103,9 +111,9 @@
               <y>60</y>
             </size>
             <xMin>5250</xMin>
-            <yMin>5345</yMin>
+            <yMin>5000</yMin>
             <xMax>5400</xMax>
-            <yMax>5405</yMax>
+            <yMax>5060</yMax>
           </Rect>
           <Transitions />
           <ID>2</ID>
@@ -116,502 +124,7 @@
           <Describe>空操作节点</Describe>
           <Fields />
         </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5255.5</x>
-            <y>4903.5</y>
-            <position>
-              <x>5255.5</x>
-              <y>4903.5</y>
-            </position>
-            <center>
-              <x>5330.5</x>
-              <y>4933.5</y>
-            </center>
-            <min>
-              <x>5255.5</x>
-              <y>4903.5</y>
-            </min>
-            <max>
-              <x>5405.5</x>
-              <y>4963.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5255.5</xMin>
-            <yMin>4903.5</yMin>
-            <xMax>5405.5</xMax>
-            <yMax>4963.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>3</ID>
-          <StartNode>false</StartNode>
-          <ClassType>CreateUnit</ClassType>
-          <Label>创建Unit</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>ID</FieldName>
-              <Label>Unit唯一识别</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>Unit唯一识别</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Name</FieldName>
-              <Label>单位名称</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>单位名称</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>哥布林</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>UnitType</FieldName>
-              <Label>Unit类型</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe>Unit类型</Describe>
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>EUnitType</EnumType>
-                <Value>Enemy</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Res</FieldName>
-              <Label>资源路径</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>资源路径</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>GeBuLin</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>EulerAngles</FieldName>
-              <Label>单位旋转欧拉角</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位选择欧拉角</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>180</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Position</FieldName>
-              <Label>单位位置</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位位置</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>0</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Hp</FieldName>
-              <Label>单位血量</Label>
-              <FieldType>IntField</FieldType>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>HpMax</FieldName>
-              <Label>单位血量上限</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>单位血量上限</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5258.6665</x>
-            <y>4807.5</y>
-            <position>
-              <x>5258.6665</x>
-              <y>4807.5</y>
-            </position>
-            <center>
-              <x>5333.6665</x>
-              <y>4837.5</y>
-            </center>
-            <min>
-              <x>5258.6665</x>
-              <y>4807.5</y>
-            </min>
-            <max>
-              <x>5408.6665</x>
-              <y>4867.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5258.6665</xMin>
-            <yMin>4807.5</yMin>
-            <xMax>5408.6665</xMax>
-            <yMax>4867.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>4</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Wait</ClassType>
-          <Label>等待节点</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>Millisecond</FieldName>
-              <Label>等待时间(毫秒)</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>等待时间（毫秒）</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1000</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5254.6665</x>
-            <y>5086.5</y>
-            <position>
-              <x>5254.6665</x>
-              <y>5086.5</y>
-            </position>
-            <center>
-              <x>5329.6665</x>
-              <y>5116.5</y>
-            </center>
-            <min>
-              <x>5254.6665</x>
-              <y>5086.5</y>
-            </min>
-            <max>
-              <x>5404.6665</x>
-              <y>5146.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5254.6665</xMin>
-            <yMin>5086.5</yMin>
-            <xMax>5404.6665</xMax>
-            <yMax>5146.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>5</ID>
-          <StartNode>false</StartNode>
-          <ClassType>CreateUnit</ClassType>
-          <Label>创建Unit</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>ID</FieldName>
-              <Label>Unit唯一识别</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>Unit唯一识别</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>2</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Name</FieldName>
-              <Label>单位名称</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>单位名称</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>双头龙</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>UnitType</FieldName>
-              <Label>Unit类型</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe>Unit类型</Describe>
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>EUnitType</EnumType>
-                <Value>Enemy</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Res</FieldName>
-              <Label>资源路径</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>资源路径</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>ShuangTouLong</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>EulerAngles</FieldName>
-              <Label>单位旋转欧拉角</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位选择欧拉角</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>180</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Position</FieldName>
-              <Label>单位位置</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位位置</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>-150</X>
-                <Y>0</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Hp</FieldName>
-              <Label>单位血量</Label>
-              <FieldType>IntField</FieldType>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>HpMax</FieldName>
-              <Label>单位血量上限</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>单位血量上限</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5258.6665</x>
-            <y>4991.5</y>
-            <position>
-              <x>5258.6665</x>
-              <y>4991.5</y>
-            </position>
-            <center>
-              <x>5333.6665</x>
-              <y>5021.5</y>
-            </center>
-            <min>
-              <x>5258.6665</x>
-              <y>4991.5</y>
-            </min>
-            <max>
-              <x>5408.6665</x>
-              <y>5051.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5258.6665</xMin>
-            <yMin>4991.5</yMin>
-            <xMax>5408.6665</xMax>
-            <yMax>5051.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>6</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Wait</ClassType>
-          <Label>等待节点</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>Millisecond</FieldName>
-              <Label>等待时间(毫秒)</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>等待时间（毫秒）</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1000</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5256.6665</x>
-            <y>5255.5</y>
-            <position>
-              <x>5256.6665</x>
-              <y>5255.5</y>
-            </position>
-            <center>
-              <x>5331.6665</x>
-              <y>5285.5</y>
-            </center>
-            <min>
-              <x>5256.6665</x>
-              <y>5255.5</y>
-            </min>
-            <max>
-              <x>5406.6665</x>
-              <y>5315.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5256.6665</xMin>
-            <yMin>5255.5</yMin>
-            <xMax>5406.6665</xMax>
-            <yMax>5315.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>7</ID>
-          <StartNode>false</StartNode>
-          <ClassType>CreateUnit</ClassType>
-          <Label>创建Unit</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>ID</FieldName>
-              <Label>Unit唯一识别</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>Unit唯一识别</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>3</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Name</FieldName>
-              <Label>单位名称</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>单位名称</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>虾将军</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>UnitType</FieldName>
-              <Label>Unit类型</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe>Unit类型</Describe>
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>EUnitType</EnumType>
-                <Value>Enemy</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Res</FieldName>
-              <Label>资源路径</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>资源路径</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>Xia</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>EulerAngles</FieldName>
-              <Label>单位旋转欧拉角</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位选择欧拉角</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>0</X>
-                <Y>180</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Position</FieldName>
-              <Label>单位位置</Label>
-              <FieldType>Vector3</FieldType>
-              <Describe>单位位置</Describe>
-              <Field xsi:type="Vector3FieldDesigner">
-                <X>150</X>
-                <Y>0</Y>
-                <Z>0</Z>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>Hp</FieldName>
-              <Label>单位血量</Label>
-              <FieldType>IntField</FieldType>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>HpMax</FieldName>
-              <Label>单位血量上限</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>单位血量上限</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>100</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
-        <NodeDesigner>
-          <Rect>
-            <x>5258.6665</x>
-            <y>5165.5</y>
-            <position>
-              <x>5258.6665</x>
-              <y>5165.5</y>
-            </position>
-            <center>
-              <x>5333.6665</x>
-              <y>5195.5</y>
-            </center>
-            <min>
-              <x>5258.6665</x>
-              <y>5165.5</y>
-            </min>
-            <max>
-              <x>5408.6665</x>
-              <y>5225.5</y>
-            </max>
-            <width>150</width>
-            <height>60</height>
-            <size>
-              <x>150</x>
-              <y>60</y>
-            </size>
-            <xMin>5258.6665</xMin>
-            <yMin>5165.5</yMin>
-            <xMax>5408.6665</xMax>
-            <yMax>5225.5</yMax>
-          </Rect>
-          <Transitions />
-          <ID>8</ID>
-          <StartNode>false</StartNode>
-          <ClassType>Wait</ClassType>
-          <Label>等待节点</Label>
-          <NodeType>Action</NodeType>
-          <Fields>
-            <FieldDesigner>
-              <FieldName>Millisecond</FieldName>
-              <Label>等待时间(毫秒)</Label>
-              <FieldType>IntField</FieldType>
-              <Describe>等待时间（毫秒）</Describe>
-              <Field xsi:type="IntFieldDesigner">
-                <Value>1000</Value>
-              </Field>
-            </FieldDesigner>
-          </Fields>
-        </NodeDesigner>
       </Nodes>
-    </AgentDesigner>
+    </BehaviorTreeDesigner>
   </Agents>
-</TreeData>
+</BehaviorTreeDataDesigner>

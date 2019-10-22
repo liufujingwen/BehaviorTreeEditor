@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public class Reader
     {

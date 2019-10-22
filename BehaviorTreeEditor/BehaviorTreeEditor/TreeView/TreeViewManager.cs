@@ -9,16 +9,16 @@ namespace BehaviorTreeEditor
         private Form m_Form;
         private TreeView m_TreeView;
         private List<Group> m_Groups;
-        private List<AgentDesigner> m_Agents;
+        private List<BehaviorTreeDesigner> m_BehaviorTrees;
 
         public TreeView TreeView;
         public Dictionary<string, GroupItem> GroupDic = new Dictionary<string, GroupItem>();
 
-        public TreeViewManager(Form form, TreeView treeView, List<Group> groups, List<AgentDesigner> agents)
+        public TreeViewManager(Form form, TreeView treeView, List<Group> groups, List<BehaviorTreeDesigner> behaviorTrees)
         {
             m_Form = form;
             m_Groups = groups;
-            m_Agents = agents;
+            m_BehaviorTrees = behaviorTrees;
             m_TreeView = treeView;
             m_TreeView.ItemDrag += new ItemDragEventHandler(ItemDrag);
             m_TreeView.DragEnter += new DragEventHandler(DragEnter);
@@ -47,63 +47,63 @@ namespace BehaviorTreeEditor
             m_Groups.Insert(index2, group1);
         }
 
-        //把agent1插入到agent2的前面或者后面
-        public void InsertAgent(AgentDesigner agent1, AgentDesigner agent2)
+        //把行为树1插入到行为树2的前面或者后面
+        public void InsertBehaviorTree(BehaviorTreeDesigner behaviorTree1, BehaviorTreeDesigner behaviorTree2)
         {
             int index1 = 0;
             int index2 = 0;
 
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (agent.AgentID == agent1.AgentID)
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (behaviorTree.ID == behaviorTree1.ID)
                     index1 = i;
 
-                if (agent.AgentID == agent2.AgentID)
+                if (behaviorTree.ID == behaviorTree2.ID)
                     index2 = i;
             }
 
-            m_Agents.RemoveAt(index1);
-            m_Agents.Insert(index2, agent1);
+            m_BehaviorTrees.RemoveAt(index1);
+            m_BehaviorTrees.Insert(index2, behaviorTree1);
         }
 
         //放到最后
-        public void AddLast(AgentDesigner agent)
+        public void AddLast(BehaviorTreeDesigner behaviorTree)
         {
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner temp = m_Agents[i];
-                if (temp.AgentID == agent.AgentID)
+                BehaviorTreeDesigner temp = m_BehaviorTrees[i];
+                if (temp.ID == behaviorTree.ID)
                 {
-                    m_Agents.RemoveAt(i);
+                    m_BehaviorTrees.RemoveAt(i);
                     break;
                 }
             }
 
-            m_Agents.Add(agent);
+            m_BehaviorTrees.Add(behaviorTree);
         }
 
-        //交换Agent
-        public void SwapAgent(AgentDesigner agent1, AgentDesigner agent2)
+        //交换行为树
+        public void SwapBehaviorTree(BehaviorTreeDesigner behaviorTree1, BehaviorTreeDesigner behaviorTree2)
         {
             int index1 = 0;
             int index2 = 0;
 
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (agent.AgentID == agent1.AgentID)
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (behaviorTree.ID == behaviorTree1.ID)
                     index1 = i;
-                if (agent.AgentID == agent2.AgentID)
+                if (behaviorTree.ID == behaviorTree2.ID)
                     index2 = i;
             }
 
-            AgentDesigner tempAgentDisigner = m_Agents[index1];
-            m_Agents[index1] = m_Agents[index2];
-            m_Agents[index2] = tempAgentDisigner;
+            BehaviorTreeDesigner tempAgentDisigner = m_BehaviorTrees[index1];
+            m_BehaviorTrees[index1] = m_BehaviorTrees[index2];
+            m_BehaviorTrees[index2] = tempAgentDisigner;
         }
 
-        public void BindAgents()
+        public void BindBehaviorTrees()
         {
             m_TreeView.Nodes.Clear();
             GroupDic.Clear();
@@ -115,77 +115,77 @@ namespace BehaviorTreeEditor
             }
 
             //分组优先
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (!string.IsNullOrEmpty(agent.GroupName))
-                    BindAgent(agent);
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (!string.IsNullOrEmpty(behaviorTree.GroupName))
+                    BindBehaviorTreeItem(behaviorTree);
             }
 
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (string.IsNullOrEmpty(agent.GroupName))
-                    BindAgent(agent);
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (string.IsNullOrEmpty(behaviorTree.GroupName))
+                    BindBehaviorTreeItem(behaviorTree);
             }
         }
 
-        public AgentItem AddAgent(AgentDesigner agent)
+        public BehaviorTreeItem AddBehaviorTree(BehaviorTreeDesigner behaviorTree)
         {
-            m_Agents.Add(agent);
-            AgentItem agentItem = BindAgent(agent);
-            m_TreeView.SelectedNode = agentItem.TreeNode;
-            return agentItem;
+            m_BehaviorTrees.Add(behaviorTree);
+            BehaviorTreeItem behaviorTreeItem = BindBehaviorTreeItem(behaviorTree);
+            m_TreeView.SelectedNode = behaviorTreeItem.TreeNode;
+            return behaviorTreeItem;
         }
 
-        public AgentItem BindAgent(AgentDesigner agent)
+        public BehaviorTreeItem BindBehaviorTreeItem(BehaviorTreeDesigner behaviorTree)
         {
-            AgentItem agentItem = new AgentItem();
-            agentItem.Agent = agent;
+            BehaviorTreeItem behaviorTreeItem = new BehaviorTreeItem();
+            behaviorTreeItem.BehaviorTree = behaviorTree;
 
-            if (string.IsNullOrEmpty(agent.GroupName))
+            if (string.IsNullOrEmpty(behaviorTree.GroupName))
             {
-                TreeNode treeNode = m_TreeView.Nodes.Add(agent.AgentID);
-                treeNode.Tag = agentItem;
-                agentItem.GroupItem = null;
-                agentItem.TreeNode = treeNode;
+                TreeNode treeNode = m_TreeView.Nodes.Add(behaviorTree.ID);
+                treeNode.Tag = behaviorTreeItem;
+                behaviorTreeItem.GroupItem = null;
+                behaviorTreeItem.TreeNode = treeNode;
             }
             else
             {
-                GroupItem groupItem = FindGroup(agent.GroupName);
+                GroupItem groupItem = FindGroup(behaviorTree.GroupName);
                 //添加分组
                 if (groupItem == null)
                 {
-                    groupItem = AddGroup(agent.GroupName);
+                    groupItem = AddGroup(behaviorTree.GroupName);
                 }
-                TreeNode treeNode = groupItem.TreeNode.Nodes.Add(agent.AgentID);
-                treeNode.Tag = agentItem;
-                agentItem.GroupItem = groupItem;
-                agentItem.TreeNode = treeNode;
+                TreeNode treeNode = groupItem.TreeNode.Nodes.Add(behaviorTree.ID);
+                treeNode.Tag = behaviorTreeItem;
+                behaviorTreeItem.GroupItem = groupItem;
+                behaviorTreeItem.TreeNode = treeNode;
             }
 
-            return agentItem;
+            return behaviorTreeItem;
         }
 
-        public void UpdateAgent(AgentDesigner agent)
+        public void UpdateBehaviorTreeItem(BehaviorTreeDesigner behaviorTree)
         {
-            AgentItem agentItem = FindAgent(agent);
-            if (agentItem != null)
-                agentItem.TreeNode.Text = agent.AgentID;
+            BehaviorTreeItem behaviorTreeItem = FindBehaviorTreeItem(behaviorTree);
+            if (behaviorTreeItem != null)
+                behaviorTreeItem.TreeNode.Text = behaviorTree.ID;
         }
 
-        public AgentItem FindAgent(AgentDesigner agent)
+        public BehaviorTreeItem FindBehaviorTreeItem(BehaviorTreeDesigner behaviorTree)
         {
-            if (agent != null)
+            if (behaviorTree != null)
             {
                 for (int i = 0; i < m_TreeView.Nodes.Count; i++)
                 {
                     TreeNode treeNode = m_TreeView.Nodes[i];
-                    if (treeNode.Tag is AgentItem)
+                    if (treeNode.Tag is BehaviorTreeItem)
                     {
-                        AgentItem agentItem = treeNode.Tag as AgentItem;
-                        if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
-                            return agentItem;
+                        BehaviorTreeItem behaviorTreeItem = treeNode.Tag as BehaviorTreeItem;
+                        if (behaviorTreeItem.BehaviorTree == behaviorTree || behaviorTreeItem.BehaviorTree.ID == behaviorTree.ID)
+                            return behaviorTreeItem;
                     }
 
                     if (treeNode.Nodes.Count > 0)
@@ -193,11 +193,11 @@ namespace BehaviorTreeEditor
                         for (int ii = 0; ii < treeNode.Nodes.Count; ii++)
                         {
                             TreeNode treeNode_ii = treeNode.Nodes[ii];
-                            if (treeNode_ii.Tag is AgentItem)
+                            if (treeNode_ii.Tag is BehaviorTreeItem)
                             {
-                                AgentItem agentItem = treeNode_ii.Tag as AgentItem;
-                                if (agentItem.Agent == agent || agentItem.Agent.AgentID == agent.AgentID)
-                                    return agentItem;
+                                BehaviorTreeItem behaviorTreeItem = treeNode_ii.Tag as BehaviorTreeItem;
+                                if (behaviorTreeItem.BehaviorTree == behaviorTree || behaviorTreeItem.BehaviorTree.ID == behaviorTree.ID)
+                                    return behaviorTreeItem;
                             }
                         }
                     }
@@ -235,26 +235,26 @@ namespace BehaviorTreeEditor
                 }
             }
 
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (agent.GroupName == oldName)
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (behaviorTree.GroupName == oldName)
                 {
-                    agent.GroupName = group.GroupName;
+                    behaviorTree.GroupName = group.GroupName;
                 }
             }
         }
 
-        public AgentItem FindAgentItem(string agentID)
+        public BehaviorTreeItem FindBehaviorTreeItem(string behaviorTreeID)
         {
             for (int i = 0; i < m_TreeView.Nodes.Count; i++)
             {
                 TreeNode treeNode = m_TreeView.Nodes[i];
-                if (treeNode.Tag != null && treeNode.Tag is AgentItem)
+                if (treeNode.Tag != null && treeNode.Tag is BehaviorTreeItem)
                 {
-                    AgentItem agentItem = treeNode.Tag as AgentItem;
-                    if (agentItem != null && agentItem.Agent.AgentID == agentID)
-                        return agentItem;
+                    BehaviorTreeItem behaviorTreeItem = treeNode.Tag as BehaviorTreeItem;
+                    if (behaviorTreeItem != null && behaviorTreeItem.BehaviorTree.ID == behaviorTreeID)
+                        return behaviorTreeItem;
                 }
 
                 if (treeNode.Nodes.Count > 0)
@@ -262,11 +262,11 @@ namespace BehaviorTreeEditor
                     for (int ii = 0; ii < treeNode.Nodes.Count; ii++)
                     {
                         TreeNode treeNode_ii = treeNode.Nodes[ii];
-                        if (treeNode_ii.Tag is AgentItem)
+                        if (treeNode_ii.Tag is BehaviorTreeItem)
                         {
-                            AgentItem agentItem = treeNode_ii.Tag as AgentItem;
-                            if (agentItem != null && agentItem.Agent.AgentID == agentID)
-                                return agentItem;
+                            BehaviorTreeItem behaviorTreeItem = treeNode_ii.Tag as BehaviorTreeItem;
+                            if (behaviorTreeItem != null && behaviorTreeItem.BehaviorTree.ID == behaviorTreeID)
+                                return behaviorTreeItem;
                         }
                     }
                 }
@@ -296,11 +296,11 @@ namespace BehaviorTreeEditor
 
             m_Groups.Remove(group);
 
-            for (int i = m_Agents.Count - 1; i >= 0; i--)
+            for (int i = m_BehaviorTrees.Count - 1; i >= 0; i--)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (agent.GroupName == group.GroupName)
-                    m_Agents.RemoveAt(i);
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (behaviorTree.GroupName == group.GroupName)
+                    m_BehaviorTrees.RemoveAt(i);
             }
         }
 
@@ -339,24 +339,24 @@ namespace BehaviorTreeEditor
             groupItem.TreeNode = treeNode;
         }
 
-        public void RemoveAgent(string agentID)
+        public void RemoveBehaviorTree(string behaviorTreeID)
         {
-            for (int i = 0; i < m_Agents.Count; i++)
+            for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
-                AgentDesigner agent = m_Agents[i];
-                if (agent.AgentID == agentID)
+                BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
+                if (behaviorTree.ID == behaviorTreeID)
                 {
-                    m_Agents.RemoveAt(i);
+                    m_BehaviorTrees.RemoveAt(i);
                     break;
                 }
             }
 
-            AgentItem agentItem = FindAgentItem(agentID);
-            if (agentItem == null)
+            BehaviorTreeItem behaviorTreeItem = FindBehaviorTreeItem(behaviorTreeID);
+            if (behaviorTreeItem == null)
                 return;
 
-            int index = GetIndex(agentItem);
-            m_TreeView.Nodes.Remove(agentItem.TreeNode);
+            int index = GetIndex(behaviorTreeItem);
+            m_TreeView.Nodes.Remove(behaviorTreeItem.TreeNode);
 
             if (index >= 0 && index < m_TreeView.Nodes.Count)
             {
@@ -389,33 +389,33 @@ namespace BehaviorTreeEditor
         }
 
 
-        public int GetIndex(AgentItem agentItem)
+        public int GetIndex(BehaviorTreeItem behaviorTreeItem)
         {
-            if (agentItem == null)
+            if (behaviorTreeItem == null)
                 return -1;
 
             for (int i = 0; i < m_TreeView.Nodes.Count; i++)
             {
                 TreeNode treeNode = m_TreeView.Nodes[i];
-                if (treeNode.Tag != null && treeNode.Tag == agentItem)
+                if (treeNode.Tag != null && treeNode.Tag == behaviorTreeItem)
                     return i;
             }
 
             return -1;
         }
 
-        public void SetSelectItem(string agentID)
+        public void SetSelectItem(string behaviorTreeID)
         {
-            if (string.IsNullOrEmpty(agentID))
+            if (string.IsNullOrEmpty(behaviorTreeID))
             {
                 m_TreeView.SelectedNode = null;
             }
             else
             {
-                AgentItem agentItem = FindAgentItem(agentID);
-                if (agentItem != null)
+                BehaviorTreeItem behaviorTreeItem = FindBehaviorTreeItem(behaviorTreeID);
+                if (behaviorTreeItem != null)
                 {
-                    m_TreeView.SelectedNode = agentItem.TreeNode;
+                    m_TreeView.SelectedNode = behaviorTreeItem.TreeNode;
                 }
             }
         }
@@ -456,18 +456,18 @@ namespace BehaviorTreeEditor
 
             if (dropNode == null)
             {
-                if (selectedNode.Tag is AgentItem)
+                if (selectedNode.Tag is BehaviorTreeItem)
                 {
-                    AgentItem agentItem = selectedNode.Tag as AgentItem;
-                    if (agentItem.GroupItem != null)
+                    BehaviorTreeItem behaviorTreeItem = selectedNode.Tag as BehaviorTreeItem;
+                    if (behaviorTreeItem.GroupItem != null)
                     {
-                        agentItem.TreeNode.Remove();
-                        agentItem.GroupItem = null;
-                        agentItem.Agent.GroupName = null;
-                        m_TreeView.Nodes.Add(agentItem.TreeNode);
+                        behaviorTreeItem.TreeNode.Remove();
+                        behaviorTreeItem.GroupItem = null;
+                        behaviorTreeItem.BehaviorTree.GroupName = null;
+                        m_TreeView.Nodes.Add(behaviorTreeItem.TreeNode);
                         m_TreeView.SelectedNode = selectedNode;
 
-                        AddLast(agentItem.Agent);
+                        AddLast(behaviorTreeItem.BehaviorTree);
                     }
                 }
 
@@ -479,21 +479,21 @@ namespace BehaviorTreeEditor
                 return;
 
             //拖进指定组
-            if (selectedNode.Tag is AgentItem && dropNode.Tag is GroupItem)
+            if (selectedNode.Tag is BehaviorTreeItem && dropNode.Tag is GroupItem)
             {
-                AgentItem selectedAgentItem = selectedNode.Tag as AgentItem;
+                BehaviorTreeItem selectedBehaviorTreeItem = selectedNode.Tag as BehaviorTreeItem;
                 GroupItem dropGroupItem = dropNode.Tag as GroupItem;
 
                 //相同组
-                if (selectedAgentItem.GroupItem == dropGroupItem)
+                if (selectedBehaviorTreeItem.GroupItem == dropGroupItem)
                     return;
 
-                selectedAgentItem.TreeNode.Remove();
-                selectedAgentItem.GroupItem = dropGroupItem;
-                selectedAgentItem.Agent.GroupName = dropGroupItem.Group.GroupName;
-                dropGroupItem.TreeNode.Nodes.Add(selectedAgentItem.TreeNode);
+                selectedBehaviorTreeItem.TreeNode.Remove();
+                selectedBehaviorTreeItem.GroupItem = dropGroupItem;
+                selectedBehaviorTreeItem.BehaviorTree.GroupName = dropGroupItem.Group.GroupName;
+                dropGroupItem.TreeNode.Nodes.Add(selectedBehaviorTreeItem.TreeNode);
 
-                AddLast(selectedAgentItem.Agent);
+                AddLast(selectedBehaviorTreeItem.BehaviorTree);
             }
             //交换组
             else if (selectedNode.Tag is GroupItem && dropNode.Tag is GroupItem)
@@ -511,26 +511,26 @@ namespace BehaviorTreeEditor
                 //把group1插入到group2的前面或者后面
                 InsertGroup(selectedGroupItem.Group, dropGroupItem.Group);
             }
-            else if (selectedNode.Tag is AgentItem && dropNode.Tag is AgentItem)
+            else if (selectedNode.Tag is BehaviorTreeItem && dropNode.Tag is BehaviorTreeItem)
             {
-                AgentItem selectedAgentItem = selectedNode.Tag as AgentItem;
-                AgentItem dropAgentItem = dropNode.Tag as AgentItem;
+                BehaviorTreeItem selectedBehaviorTreeItem = selectedNode.Tag as BehaviorTreeItem;
+                BehaviorTreeItem dropBehaviorTreeItem = dropNode.Tag as BehaviorTreeItem;
 
                 //没有组的节点拖拽
-                if (selectedAgentItem.GroupItem == null)
+                if (selectedBehaviorTreeItem.GroupItem == null)
                 {
                     //加入组
-                    if (dropAgentItem.GroupItem != null)
+                    if (dropBehaviorTreeItem.GroupItem != null)
                     {
-                        GroupItem groupItem = dropAgentItem.GroupItem as GroupItem;
+                        GroupItem groupItem = dropBehaviorTreeItem.GroupItem as GroupItem;
                         int dropIndex = GetGroupIndex(groupItem, dropNode);
 
-                        selectedAgentItem.TreeNode.Remove();
+                        selectedBehaviorTreeItem.TreeNode.Remove();
                         groupItem.TreeNode.Nodes.Add(selectedNode);
-                        selectedAgentItem.GroupItem = groupItem;
-                        selectedAgentItem.Agent.GroupName = groupItem.Group.GroupName;
+                        selectedBehaviorTreeItem.GroupItem = groupItem;
+                        selectedBehaviorTreeItem.BehaviorTree.GroupName = groupItem.Group.GroupName;
 
-                        AddLast(selectedAgentItem.Agent);
+                        AddLast(selectedBehaviorTreeItem.BehaviorTree);
                     }
                     //没组的交换
                     else
@@ -538,46 +538,46 @@ namespace BehaviorTreeEditor
                         int selectedIndex = GetTreeViewIndex(selectedNode);
                         int dropIndex = GetTreeViewIndex(dropNode);
 
-                        selectedAgentItem.TreeNode.Remove();
+                        selectedBehaviorTreeItem.TreeNode.Remove();
                         m_TreeView.Nodes.Insert(dropIndex, selectedNode);
 
-                        //把agent1插入agent2的前面或者后面
-                        InsertAgent(selectedAgentItem.Agent, dropAgentItem.Agent);
+                        //把行为树1插入行为树2的前面或者后面
+                        InsertBehaviorTree(selectedBehaviorTreeItem.BehaviorTree, dropBehaviorTreeItem.BehaviorTree);
                     }
                 }
                 //有组的节点拖拽
-                else if (selectedAgentItem.GroupItem != null)
+                else if (selectedBehaviorTreeItem.GroupItem != null)
                 {
                     //删除组
-                    if (dropAgentItem.GroupItem == null)
+                    if (dropBehaviorTreeItem.GroupItem == null)
                     {
-                        GroupItem groupItem = selectedAgentItem.GroupItem as GroupItem;
+                        GroupItem groupItem = selectedBehaviorTreeItem.GroupItem as GroupItem;
                         int dropIndex = GetTreeViewIndex(dropNode);
 
-                        selectedAgentItem.TreeNode.Remove();
+                        selectedBehaviorTreeItem.TreeNode.Remove();
 
-                        AgentDesigner lastAgent = null;
+                        BehaviorTreeDesigner lastBehaviorTree = null;
                         if (dropIndex < m_TreeView.Nodes.Count)
                         {
-                            AgentItem agentItem = m_TreeView.Nodes[dropIndex].Tag as AgentItem;
-                            lastAgent = agentItem.Agent;
+                            BehaviorTreeItem behaviorTreeItem = m_TreeView.Nodes[dropIndex].Tag as BehaviorTreeItem;
+                            lastBehaviorTree = behaviorTreeItem.BehaviorTree;
                         }
 
-                        m_TreeView.Nodes.Add(selectedAgentItem.TreeNode);
-                        selectedAgentItem.GroupItem = null;
-                        selectedAgentItem.Agent.GroupName = null;
+                        m_TreeView.Nodes.Add(selectedBehaviorTreeItem.TreeNode);
+                        selectedBehaviorTreeItem.GroupItem = null;
+                        selectedBehaviorTreeItem.BehaviorTree.GroupName = null;
 
-                        AddLast(selectedAgentItem.Agent);
+                        AddLast(selectedBehaviorTreeItem.BehaviorTree);
                     }
                     //组内交换
-                    else if (selectedAgentItem.GroupItem.Group.GroupName == dropAgentItem.GroupItem.Group.GroupName)
+                    else if (selectedBehaviorTreeItem.GroupItem.Group.GroupName == dropBehaviorTreeItem.GroupItem.Group.GroupName)
                     {
-                        GroupItem groupItem = selectedAgentItem.GroupItem as GroupItem;
+                        GroupItem groupItem = selectedBehaviorTreeItem.GroupItem as GroupItem;
                         int selectedIndex = GetGroupIndex(groupItem, selectedNode);
                         int dropIndex = GetGroupIndex(groupItem, dropNode);
 
-                        selectedAgentItem.TreeNode.Remove();
-                        dropAgentItem.TreeNode.Remove();
+                        selectedBehaviorTreeItem.TreeNode.Remove();
+                        dropBehaviorTreeItem.TreeNode.Remove();
 
                         if (dropIndex > selectedIndex)
                         {
@@ -590,29 +590,29 @@ namespace BehaviorTreeEditor
                             groupItem.TreeNode.Nodes.Insert(selectedIndex, dropNode);
                         }
 
-                        //把agent1插入agent2的前面或者后面
-                        InsertAgent(selectedAgentItem.Agent, dropAgentItem.Agent);
+                        //把行为树1插入行为树2的前面或者后面
+                        InsertBehaviorTree(selectedBehaviorTreeItem.BehaviorTree, dropBehaviorTreeItem.BehaviorTree);
                     }
                     //把拖拽节点加入Drop的组
                     else
                     {
-                        GroupItem dropGroupItem = dropAgentItem.GroupItem as GroupItem;
+                        GroupItem dropGroupItem = dropBehaviorTreeItem.GroupItem as GroupItem;
                         int dropIndex = GetGroupIndex(dropGroupItem, dropNode);
 
-                        selectedAgentItem.TreeNode.Remove();
+                        selectedBehaviorTreeItem.TreeNode.Remove();
 
-                        AgentDesigner lastAgent = null;
+                        BehaviorTreeDesigner lastBehaviorTree = null;
                         if (dropIndex < dropGroupItem.TreeNode.Nodes.Count)
                         {
-                            AgentItem agentItem = dropGroupItem.TreeNode.Nodes[dropIndex].Tag as AgentItem;
-                            lastAgent = agentItem.Agent;
+                            BehaviorTreeItem behaviorTreeItem = dropGroupItem.TreeNode.Nodes[dropIndex].Tag as BehaviorTreeItem;
+                            lastBehaviorTree = behaviorTreeItem.BehaviorTree;
                         }
 
-                        dropGroupItem.TreeNode.Nodes.Insert(dropIndex, selectedAgentItem.TreeNode);
-                        selectedAgentItem.GroupItem = dropGroupItem;
-                        selectedAgentItem.Agent.GroupName = dropGroupItem.Group.GroupName;
+                        dropGroupItem.TreeNode.Nodes.Insert(dropIndex, selectedBehaviorTreeItem.TreeNode);
+                        selectedBehaviorTreeItem.GroupItem = dropGroupItem;
+                        selectedBehaviorTreeItem.BehaviorTree.GroupName = dropGroupItem.Group.GroupName;
 
-                        AddLast(selectedAgentItem.Agent);
+                        AddLast(selectedBehaviorTreeItem.BehaviorTree);
                     }
                 }
             }

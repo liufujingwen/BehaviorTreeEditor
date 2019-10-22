@@ -4,3 +4,9 @@ D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\Beh
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.dll
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.pdb
 D:\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.csprojAssemblyReference.cache
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\bin\Debug\BehaviorTreeData.dll
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\bin\Debug\BehaviorTreeData.pdb
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.csprojAssemblyReference.cache
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.csproj.CoreCompileInputs.cache
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.dll
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeData\obj\Debug\BehaviorTreeData.pdb
