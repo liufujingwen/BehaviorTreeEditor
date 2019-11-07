@@ -1,5 +1,5 @@
 ﻿using R7BehaviorTree;
-using BehaviorTreeData;
+using BTData;
 using BehaviorTreeViewer;
 using System.Collections.Generic;
 using System.Reflection;

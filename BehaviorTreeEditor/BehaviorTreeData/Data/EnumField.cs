@@ -17,13 +17,5 @@ namespace BTData
         {
             writer.Write(FieldName).Write(Value);
         }
-
-        public override BaseField Clone()
-        {
-            EnumField field = new EnumField();
-            field.FieldName = FieldName;
-            field.Value = Value;
-            return field;
-        }
     }
 }

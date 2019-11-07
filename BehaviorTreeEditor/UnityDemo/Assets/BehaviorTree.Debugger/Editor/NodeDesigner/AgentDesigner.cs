@@ -1,4 +1,4 @@
-﻿using BehaviorTreeData;
+﻿using BTData;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +6,7 @@ namespace BehaviorTreeViewer
 {
     public class Debugger
     {
-        public AgentData AgentData;
+        public BehaviorTreeElement BehaviorTreeElement;
         public List<NodeDesigner> Nodes = new List<NodeDesigner>();
 
         /// <summary>

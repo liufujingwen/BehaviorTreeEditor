@@ -17,20 +17,5 @@ namespace BTData
         {
             writer.Write(FieldName).Write(Value);
         }
-
-        public override BaseField Clone()
-        {
-            RepeatStringField field = new RepeatStringField();
-            field.FieldName = FieldName;
-            if (Value != null)
-            {
-                field.Value = new List<string>(Value.Count);
-                for (int i = 0; i < Value.Count; i++)
-                {
-                    field.Value.Add(Value[i]);
-                }
-            }
-            return field;
-        }
     }
 }

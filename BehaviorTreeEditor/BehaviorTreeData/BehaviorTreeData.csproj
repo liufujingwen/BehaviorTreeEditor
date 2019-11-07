@@ -36,7 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\BehaviorTree.cs" />
+    <Compile Include="Data\BehaviorTreeElement.cs" />
     <Compile Include="Data\BaseField.cs" />
     <Compile Include="Data\GlobalVariableData.cs" />
     <Compile Include="Data\BehaviorTreeData.cs" />

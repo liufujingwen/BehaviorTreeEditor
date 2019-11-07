@@ -17,13 +17,5 @@ namespace BTData
         {
             writer.Write(FieldName).Write(Value);
         }
-
-        public override BaseField Clone()
-        {
-            ColorField field = new ColorField();
-            field.FieldName = FieldName;
-            field.Value = Value;
-            return field;
-        }
     }
 }
