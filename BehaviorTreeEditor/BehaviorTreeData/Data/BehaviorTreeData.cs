@@ -7,7 +7,7 @@ namespace BTData
     public partial class BehaviorTreeData : Binary
     {
         public GlobalVariableData GlobalVariable = new GlobalVariableData();
-        public List<BehaviorTree> BehaviorTrees = new List<BehaviorTree>();
+        public List<BehaviorTreeElement> BehaviorTrees = new List<BehaviorTreeElement>();
 
         public override void Read(ref Reader reader)
         {

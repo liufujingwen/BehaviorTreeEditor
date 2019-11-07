@@ -643,9 +643,9 @@ namespace BehaviorTreeEditor
             return data;
         }
 
-        public static BTData.BehaviorTree CreateBehaviorTreeData(BehaviorTreeDesigner behaviorTree)
+        public static BTData.BehaviorTreeElement CreateBehaviorTreeData(BehaviorTreeDesigner behaviorTree)
         {
-            BTData.BehaviorTree data = new BTData.BehaviorTree();
+            BTData.BehaviorTreeElement data = new BTData.BehaviorTreeElement();
             data.ID = behaviorTree.ID;
 
             for (int i = 0; i < behaviorTree.Fields.Count; i++)

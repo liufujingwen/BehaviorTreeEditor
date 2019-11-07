@@ -98,9 +98,9 @@ namespace BehaviorTreeEditor
                     index2 = i;
             }
 
-            BehaviorTreeDesigner tempAgentDisigner = m_BehaviorTrees[index1];
+            BehaviorTreeDesigner tempBehaviorTreeDisigner = m_BehaviorTrees[index1];
             m_BehaviorTrees[index1] = m_BehaviorTrees[index2];
-            m_BehaviorTrees[index2] = tempAgentDisigner;
+            m_BehaviorTrees[index2] = tempBehaviorTreeDisigner;
         }
 
         public void BindBehaviorTrees()

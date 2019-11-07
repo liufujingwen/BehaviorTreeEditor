@@ -83,10 +83,14 @@ namespace BTData
                 {
                     string str = value[i];
                     if (str == null)
-                        str = string.Empty;
-                    str += "\0";
-
-                    m_binaryWriter.Write(Serializer.UTF8.GetBytes(str));
+                    {
+                        m_binaryWriter.Write(Serializer.UTF8.GetBytes("\0"));
+                    }
+                    else
+                    {
+                        str += "\0";
+                        m_binaryWriter.Write(Serializer.UTF8.GetBytes(str));
+                    }
                 }
             }
 

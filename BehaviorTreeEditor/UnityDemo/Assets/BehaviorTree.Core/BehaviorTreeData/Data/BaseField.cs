@@ -2,23 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public abstract class BaseField : Binary
     {
         public string FieldName;
 
         #region operator
-
-        public static implicit operator string(BaseField field)
-        {
-            return (field as StringField).Value;
-        }
-
-        public static implicit operator List<string>(BaseField field)
-        {
-            return (field as RepeatStringField).Value;
-        }
 
         public static implicit operator int(BaseField field)
         {
@@ -58,6 +48,11 @@ namespace BehaviorTreeData
         public static implicit operator List<long>(BaseField field)
         {
             return (field as RepeatLongField).Value;
+        }
+
+        public static implicit operator string(BaseField field)
+        {
+            return (field as StringField).Value;
         }
 
         public static implicit operator bool(BaseField field)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public class BooleanField : BaseField
     {
@@ -28,6 +28,22 @@ namespace BehaviorTreeData
         public static explicit operator BooleanField(bool value)
         {
             return new BooleanField { Value = value };
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other is bool)
+            {
+                bool field = (bool)other;
+                return this.Value.Equals(field);
+            }
+            else if (other is BooleanField)
+            {
+                BooleanField field = (BooleanField)other;
+                return this.Value.Equals(field.Value);
+            }
+
+            return false;
         }
 
         #endregion

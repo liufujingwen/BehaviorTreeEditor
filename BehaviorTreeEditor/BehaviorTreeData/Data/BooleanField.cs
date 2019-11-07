@@ -30,31 +30,6 @@ namespace BTData
             return new BooleanField { Value = value };
         }
 
-        public static bool operator ==(BooleanField lhs, bool rhs)
-        {
-            return lhs.Value == rhs;
-        }
-
-        public static bool operator !=(BooleanField lhs, bool rhs)
-        {
-            return !(lhs.Value == rhs);
-        }
-
-        public static bool operator ==(bool lhs, BooleanField rhs)
-        {
-            return lhs == rhs.Value;
-        }
-
-        public static bool operator !=(bool lhs, BooleanField rhs)
-        {
-            return !(lhs == rhs.Value);
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
         public override bool Equals(object other)
         {
             if (other is bool)
@@ -72,13 +47,5 @@ namespace BTData
         }
 
         #endregion
-
-        public override BaseField Clone()
-        {
-            BooleanField field = new BooleanField();
-            field.FieldName = FieldName;
-            field.Value = Value;
-            return field;
-        }
     }
 }

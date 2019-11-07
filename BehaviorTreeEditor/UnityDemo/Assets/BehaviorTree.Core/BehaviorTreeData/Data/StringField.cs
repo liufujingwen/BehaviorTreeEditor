@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public partial class StringField : BaseField
     {
@@ -31,7 +31,5 @@ namespace BehaviorTreeData
         }
 
         #endregion
-
-
     }
 }

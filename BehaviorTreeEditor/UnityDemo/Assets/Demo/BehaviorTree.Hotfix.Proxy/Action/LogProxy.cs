@@ -1,4 +1,4 @@
-﻿using BehaviorTreeData;
+﻿using BTData;
 
 namespace R7BehaviorTree
 {

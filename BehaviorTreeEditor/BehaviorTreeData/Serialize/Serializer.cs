@@ -15,7 +15,7 @@ namespace BTData
         {
             List<Type> list = new List<Type>();
 
-            list.Add(typeof(BehaviorTree));
+            list.Add(typeof(BehaviorTreeElement));
             list.Add(typeof(NodeData));
             list.Add(typeof(BehaviorTreeData));
 

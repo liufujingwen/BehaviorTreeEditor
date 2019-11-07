@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public partial class FloatField : BaseField
     {
@@ -28,6 +28,22 @@ namespace BehaviorTreeData
         public static explicit operator FloatField(float value)
         {
             return new FloatField { Value = value };
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other is float)
+            {
+                float field = (float)other;
+                return this.Value.Equals(field);
+            }
+            else if (other is FloatField)
+            {
+                FloatField field = (FloatField)other;
+                return this.Value.Equals(field.Value);
+            }
+
+            return false;
         }
 
         #endregion

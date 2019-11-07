@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public partial class RepeatDoubleField : BaseField
     {

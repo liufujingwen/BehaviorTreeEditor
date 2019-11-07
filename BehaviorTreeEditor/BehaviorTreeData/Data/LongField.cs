@@ -30,55 +30,6 @@ namespace BTData
             return new LongField { Value = value };
         }
 
-        public static bool operator ==(LongField lhs, long rhs)
-        {
-            return lhs.Value == rhs;
-        }
-
-        public static bool operator !=(LongField lhs, long rhs)
-        {
-            return !(lhs.Value == rhs);
-        }
-
-        public static bool operator ==(long lhs, LongField rhs)
-        {
-            return lhs == rhs.Value;
-        }
-
-        public static bool operator !=(long lhs, LongField rhs)
-        {
-            return !(lhs == rhs.Value);
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
-        public override bool Equals(object other)
-        {
-            if (other is long)
-            {
-                long field = (long)other;
-                return this.Value.Equals(field);
-            }
-            else if (other is LongField)
-            {
-                LongField field = (LongField)other;
-                return this.Value.Equals(field.Value);
-            }
-
-            return false;
-        }
-
         #endregion
-
-        public override BaseField Clone()
-        {
-            LongField field = new LongField();
-            field.FieldName = FieldName;
-            field.Value = Value;
-            return field;
-        }
     }
 }

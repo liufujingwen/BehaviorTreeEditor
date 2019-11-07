@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using BehaviorTreeData;
+using BTData;
 using Vector3 = UnityEngine.Vector3;
 
 namespace R7BehaviorTree

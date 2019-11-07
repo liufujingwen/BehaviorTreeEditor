@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public class Reader
     {
@@ -274,7 +274,10 @@ namespace BehaviorTreeData
                 int length = 0;
                 while (0 < m_buffer[m_index + length])
                     ++length;
-                value = Serializer.UTF8.GetString(m_buffer, m_index, length);
+
+                string temp = Serializer.UTF8.GetString(m_buffer, m_index, length);
+                if (!string.IsNullOrEmpty(temp))
+                    value = temp;
                 m_index += length + 1;
                 m_stream.Position += length + 1;
             }
@@ -297,6 +300,8 @@ namespace BehaviorTreeData
                         while (0 < m_buffer[m_index + length])
                             ++length;
                         string temp = Serializer.UTF8.GetString(m_buffer, m_index, length);
+                        if (string.IsNullOrEmpty(temp))
+                            temp = null;
                         m_index += length + 1;
                         m_stream.Position += length + 1;
                         value.Add(temp);

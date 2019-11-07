@@ -30,31 +30,6 @@ namespace BTData
             return new FloatField { Value = value };
         }
 
-        public static bool operator ==(FloatField lhs, float rhs)
-        {
-            return lhs.Value == rhs;
-        }
-
-        public static bool operator !=(FloatField lhs, float rhs)
-        {
-            return !(lhs.Value == rhs);
-        }
-
-        public static bool operator ==(float lhs, FloatField rhs)
-        {
-            return lhs == rhs.Value;
-        }
-
-        public static bool operator !=(float lhs, FloatField rhs)
-        {
-            return !(lhs == rhs.Value);
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
         public override bool Equals(object other)
         {
             if (other is float)
@@ -72,13 +47,5 @@ namespace BTData
         }
 
         #endregion
-
-        public override BaseField Clone()
-        {
-            FloatField field = new FloatField();
-            field.FieldName = FieldName;
-            field.Value = Value;
-            return field;
-        }
     }
 }

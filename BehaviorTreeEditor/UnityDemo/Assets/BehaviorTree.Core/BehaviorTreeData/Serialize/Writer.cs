@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public class Writer
     {
@@ -83,10 +83,14 @@ namespace BehaviorTreeData
                 {
                     string str = value[i];
                     if (str == null)
-                        str = string.Empty;
-                    str += "\0";
-
-                    m_binaryWriter.Write(Serializer.UTF8.GetBytes(str));
+                    {
+                        m_binaryWriter.Write(Serializer.UTF8.GetBytes("\0"));
+                    }
+                    else
+                    {
+                        str += "\0";
+                        m_binaryWriter.Write(Serializer.UTF8.GetBytes(str));
+                    }
                 }
             }
 

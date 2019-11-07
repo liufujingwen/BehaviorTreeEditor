@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BehaviorTreeData;
+using BTData;
 
 namespace R7BehaviorTree
 {

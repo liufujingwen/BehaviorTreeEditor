@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BehaviorTreeData
+namespace BTData
 {
     public static class Serializer
     {
@@ -14,9 +14,12 @@ namespace BehaviorTreeData
         static Serializer()
         {
             List<Type> list = new List<Type>();
-            list.Add(typeof(AgentData));
+
+            list.Add(typeof(BehaviorTreeElement));
             list.Add(typeof(NodeData));
-            list.Add(typeof(TreeData));
+            list.Add(typeof(BehaviorTreeData));
+
+            list.Add(typeof(GlobalVariableData));
 
             list.Add(typeof(IntField));
             list.Add(typeof(RepeatIntField));

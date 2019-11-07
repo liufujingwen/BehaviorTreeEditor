@@ -1,20 +1,20 @@
-﻿using BehaviorTreeData;
+﻿using BTData;
 
 namespace R7BehaviorTree
 {
     public class BehaviorTree
     {
         public string AgentID { get; set; }
-        public AgentData AgentData { get; set; }
+        public BehaviorTreeElement BehaviorTreeElement { get; set; }
         public ENodeStatus Status { get; set; } = ENodeStatus.None;
         public BaseNode StartNode { get; set; }
         public IContext Context { get; private set; }
         public int BehaviorTreeType { get; set; }
 
-        internal void SetData(AgentData agentData)
+        internal void SetData(BehaviorTreeElement behaviorTreeElement)
         {
-            AgentData = agentData;
-            AgentID = agentData.ID;
+            BehaviorTreeElement = behaviorTreeElement;
+            AgentID = behaviorTreeElement.ID;
         }
 
         internal void SetContext(IContext context)

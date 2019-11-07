@@ -1,4 +1,4 @@
-﻿using BehaviorTreeData;
+﻿using BTData;
 using System;
 using XLua;
 

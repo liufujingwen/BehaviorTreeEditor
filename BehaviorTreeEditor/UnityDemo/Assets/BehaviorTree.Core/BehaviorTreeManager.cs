@@ -1,5 +1,5 @@
 ﻿using System;
-using BehaviorTreeData;
+using BTData;
 using System.Collections.Generic;
 
 namespace R7BehaviorTree
@@ -24,7 +24,7 @@ namespace R7BehaviorTree
         /// <summary>
         /// 管理行为树编辑器数据
         /// </summary>
-        public readonly Dictionary<int, TreeData> TreeDataDic = new Dictionary<int, TreeData>();
+        public readonly Dictionary<int, BehaviorTreeData> TreeDataDic = new Dictionary<int, BehaviorTreeData>();
 
         /// <summary>
         /// Proxy管理器
@@ -73,7 +73,7 @@ namespace R7BehaviorTree
         /// <param name="behaviorTreeType">行为树类型</param>
         public void LoadBehaviorData(int behaviorTreeType, byte[] bytes)
         {
-            TreeData treeData = Serializer.DeSerialize<TreeData>(bytes);
+            BehaviorTreeData treeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
             if (treeData == null)
                 throw new Exception($"Load {behaviorTreeType} treeData failed.");
             TreeDataDic[behaviorTreeType] = treeData;
@@ -85,9 +85,9 @@ namespace R7BehaviorTree
         /// <param name="behaviorTreeType">行为树类型</param>
         /// <param name="id">AgentId</param>
         /// <returns></returns>
-        public AgentData GetAgentData(int behaviorTreeType, string id)
+        public BehaviorTreeElement GetAgentData(int behaviorTreeType, string id)
         {
-            TreeData treeData = null;
+            BehaviorTreeData treeData = null;
 
             if (!TreeDataDic.TryGetValue(behaviorTreeType, out treeData))
                 throw new Exception($"There is no treeData,BehaviorTreeType:{behaviorTreeType}.");
@@ -95,11 +95,11 @@ namespace R7BehaviorTree
             if (treeData == null)
                 return null;
 
-            for (int i = 0; i < treeData.Agents.Count; i++)
+            for (int i = 0; i < treeData.BehaviorTrees.Count; i++)
             {
-                AgentData agentData = treeData.Agents[i];
-                if (agentData != null && agentData.ID == id)
-                    return agentData;
+                BehaviorTreeElement behaviorTreeElement = treeData.BehaviorTrees[i];
+                if (behaviorTreeElement != null && behaviorTreeElement.ID == id)
+                    return behaviorTreeElement;
             }
 
             string msg = $"There is no AgentData,BehaviorTreeType:{behaviorTreeType} id:{id}.";
@@ -189,9 +189,9 @@ namespace R7BehaviorTree
             if (behaviorTree == null)
             {
                 behaviorTree = new BehaviorTree();
-                AgentData agentData = GetAgentData(behaviorTreeType, agentId);
-                behaviorTree.SetData(agentData);
-                behaviorTree.StartNode = CreateNode(agentData.StartNode);
+                BehaviorTreeElement behaviorTreeElement = GetAgentData(behaviorTreeType, agentId);
+                behaviorTree.SetData(behaviorTreeElement);
+                behaviorTree.StartNode = CreateNode(behaviorTreeElement.StartNode);
                 behaviorTree.BehaviorTreeType = behaviorTreeType;
             }
 
