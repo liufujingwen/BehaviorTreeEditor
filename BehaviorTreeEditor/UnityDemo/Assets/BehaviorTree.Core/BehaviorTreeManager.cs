@@ -111,16 +111,16 @@ namespace R7BehaviorTree
         /// 创建行为树
         /// </summary>
         /// <param name="behaviorTreeType">行为树类型</param>
-        /// <param name="agentId">agentId</param>
+        /// <param name="behaviorTreeId">行为树ID</param>
         /// <param name="context">上下文</param>
         /// <returns></returns>
-        public BehaviorTree CreateBehaviorTree(int behaviorTreeType, string agentId, IContext context)
+        public BehaviorTree CreateBehaviorTree(int behaviorTreeType, string behaviorTreeId, IContext context)
         {
-            BehaviorTree behaviorTree = Spawn(behaviorTreeType, agentId);
+            BehaviorTree behaviorTree = Spawn(behaviorTreeType, behaviorTreeId);
 
             if (behaviorTree == null)
             {
-                string msg = $"BehaviorTreeManager.CreateBehaviorTree() \n Create failed, EBehaviorTreeType:{behaviorTreeType} AgentId:{agentId}.";
+                string msg = $"BehaviorTreeManager.CreateBehaviorTree() \n Create failed, EBehaviorTreeType:{behaviorTreeType} AgentId:{behaviorTreeId}.";
                 LogError(msg);
                 throw new Exception(msg);
             }
@@ -161,9 +161,9 @@ namespace R7BehaviorTree
         /// 从池中产生行为树，如果没有就创建
         /// </summary>
         /// <param name="behaviorTreeType">行为树类型</param>
-        /// <param name="agentId">AgentId</param>
+        /// <param name="behaviorTreeId">行为树ID</param>
         /// <returns>行为树</returns>
-        private BehaviorTree Spawn(int behaviorTreeType, string agentId)
+        private BehaviorTree Spawn(int behaviorTreeType, string behaviorTreeId)
         {
             Queue<BehaviorTree> queue = null;
 
@@ -173,7 +173,7 @@ namespace R7BehaviorTree
                 if (!m_PoolDic.TryGetValue((int)behaviorTreeType, out typePoolDic))
                     break;
 
-                if (!typePoolDic.TryGetValue(agentId, out queue))
+                if (!typePoolDic.TryGetValue(behaviorTreeId, out queue))
                     break;
             }
             while (false);
@@ -189,7 +189,7 @@ namespace R7BehaviorTree
             if (behaviorTree == null)
             {
                 behaviorTree = new BehaviorTree();
-                BehaviorTreeElement behaviorTreeElement = GetAgentData(behaviorTreeType, agentId);
+                BehaviorTreeElement behaviorTreeElement = GetAgentData(behaviorTreeType, behaviorTreeId);
                 behaviorTree.SetData(behaviorTreeElement);
                 behaviorTree.StartNode = CreateNode(behaviorTreeElement.StartNode);
                 behaviorTree.BehaviorTreeType = behaviorTreeType;
@@ -220,17 +220,17 @@ namespace R7BehaviorTree
                 m_PoolDic.Add(behaviorTreeType, typePoolDic);
             }
 
-            string agentId = behaviorTree.AgentID;
+            string behaviorTreeId = behaviorTree.BehaviorTreeID;
             Queue<BehaviorTree> queue = null;
-            if (!typePoolDic.TryGetValue(agentId, out queue))
+            if (!typePoolDic.TryGetValue(behaviorTreeId, out queue))
             {
                 queue = new Queue<BehaviorTree>();
-                typePoolDic.Add(agentId, queue);
+                typePoolDic.Add(behaviorTreeId, queue);
             }
 
             if (queue.Contains(behaviorTree))
             {
-                string msg = $"BehaviorTreeManager.Despawn() \n queue contains behaviorTree,agentId:{agentId}.";
+                string msg = $"BehaviorTreeManager.Despawn() \n queue contains behaviorTree,behaviorTreeId:{behaviorTreeId}.";
                 LogError(msg);
                 throw new Exception(msg);
             }
