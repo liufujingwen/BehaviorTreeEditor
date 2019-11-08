@@ -10,7 +10,6 @@ namespace BehaviorTreeEditor
         private string m_Describe;
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
         private List<VariableFieldDesigner> m_BehaviorTreeVariables = new List<VariableFieldDesigner>();
-        private List<VariableFieldDesigner> m_ContextVariables = new List<VariableFieldDesigner>();
         private List<NodeDesigner> m_Nodes = new List<NodeDesigner>();
 
 
@@ -43,13 +42,6 @@ namespace BehaviorTreeEditor
             get { return m_BehaviorTreeVariables; }
             set { m_BehaviorTreeVariables = value; }
         }
-
-        public List<VariableFieldDesigner> ContextVariableFields
-        {
-            get { return m_ContextVariables; }
-            set { m_ContextVariables = value; }
-        }
-
 
         public List<NodeDesigner> Nodes
         {
@@ -339,48 +331,6 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
-        /// 添加行为树变量
-        /// </summary>
-        /// <param name="field">行为树变量</param>
-        /// <returns></returns>
-        public bool AddContextVar(VariableFieldDesigner field)
-        {
-            if (field == null)
-            {
-                return false;
-            }
-
-            if (field.VariableFieldType == FieldType.None)
-            {
-                MainForm.Instance.ShowInfo("Context变量类型为None,添加失败！！！");
-                MainForm.Instance.ShowMessage("Context变量类型为None,添加失败！！！", "警告");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(field.VariableFieldName))
-            {
-                MainForm.Instance.ShowInfo("Context变量名为空,添加失败！！！");
-                MainForm.Instance.ShowMessage("Context变量名为空,添加失败！！！", "警告");
-                return false;
-            }
-
-            for (int i = 0; i < m_ContextVariables.Count; i++)
-            {
-                VariableFieldDesigner temp = m_ContextVariables[i];
-                if (temp.VariableFieldName == field.VariableFieldName)
-                {
-                    MainForm.Instance.ShowInfo(string.Format("Context变量名字{0}相同,添加失败！！！", temp.VariableFieldName));
-                    MainForm.Instance.ShowMessage(string.Format("Context变量名字{0}相同,添加失败！！！", temp.VariableFieldName), "警告");
-                    return false;
-                }
-            }
-
-            m_ContextVariables.Add(field);
-
-            return true;
-        }
-
-        /// <summary>
         /// 判断字段名是否已存在
         /// </summary>
         /// <param name="fieldName"></param>
@@ -408,24 +358,6 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < m_BehaviorTreeVariables.Count; i++)
             {
                 VariableFieldDesigner temp = m_BehaviorTreeVariables[i];
-                if (temp.VariableFieldName == varName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// 判断Context变量是否已存在
-        /// </summary>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        public bool ExistContextVar(string varName)
-        {
-            for (int i = 0; i < m_ContextVariables.Count; i++)
-            {
-                VariableFieldDesigner temp = m_ContextVariables[i];
                 if (temp.VariableFieldName == varName)
                 {
                     return true;
@@ -692,9 +624,6 @@ namespace BehaviorTreeEditor
 
             m_BehaviorTreeVariables.Clear();
             m_BehaviorTreeVariables.AddRange(behaviorTree.BehaviorTreeVariableFields.ToArray());
-
-            m_ContextVariables.Clear();
-            m_ContextVariables.AddRange(behaviorTree.ContextVariableFields.ToArray());
         }
 
         /// <summary>

@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="Data\BehaviorTreeElement.cs" />
     <Compile Include="Data\BaseField.cs" />
-    <Compile Include="Data\GlobalVariableData.cs" />
+    <Compile Include="Data\VariableData.cs" />
     <Compile Include="Data\BehaviorTreeData.cs" />
     <Compile Include="Data\BooleanField.cs" />
     <Compile Include="Data\ColorField.cs" />

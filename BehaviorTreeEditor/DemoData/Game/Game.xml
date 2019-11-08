@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <BehaviorTreeDataDesigner xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <GlobalVariable>
-    <VariableFields />
+    <VariableFields>
+      <VariableFieldDesigner>
+        <VariableFieldName>Global1</VariableFieldName>
+        <Describe>全局变量</Describe>
+        <VariableFieldType>IntField</VariableFieldType>
+        <Value xsi:type="IntFieldDesigner">
+          <Value>100</Value>
+        </Value>
+      </VariableFieldDesigner>
+      <VariableFieldDesigner>
+        <VariableFieldName>Global1_New</VariableFieldName>
+        <Describe>全局变量</Describe>
+        <VariableFieldType>IntField</VariableFieldType>
+        <Value xsi:type="IntFieldDesigner">
+          <Value>100</Value>
+        </Value>
+      </VariableFieldDesigner>
+    </VariableFields>
   </GlobalVariable>
+  <ContextVariable>
+    <VariableFields>
+      <VariableFieldDesigner>
+        <VariableFieldName>Context1</VariableFieldName>
+        <Describe>Context变量</Describe>
+        <VariableFieldType>IntField</VariableFieldType>
+        <Value xsi:type="IntFieldDesigner">
+          <Value>1000</Value>
+        </Value>
+      </VariableFieldDesigner>
+    </VariableFields>
+  </ContextVariable>
   <Groups />
-  <Agents>
+  <BehaviorTrees>
     <BehaviorTreeDesigner>
-      <TreeID>NewAgent_637073562590539226</TreeID>
+      <ID>New_637088478409864607</ID>
       <GroupName />
       <Describe />
-      <Fields>
-        <FieldDesigner>
-          <FieldName>1</FieldName>
-          <Label>1</Label>
-          <FieldType>IntField</FieldType>
-          <Field xsi:type="IntFieldDesigner">
-            <Value>1</Value>
-          </Field>
-        </FieldDesigner>
-      </Fields>
+      <Fields />
       <BehaviorTreeVariableFields>
         <VariableFieldDesigner>
-          <VariableFieldName>2</VariableFieldName>
-          <Describe>2</Describe>
+          <VariableFieldName>B11</VariableFieldName>
+          <Describe>行为树变量</Describe>
           <VariableFieldType>IntField</VariableFieldType>
           <Value xsi:type="IntFieldDesigner">
-            <Value>2</Value>
+            <Value>111</Value>
           </Value>
         </VariableFieldDesigner>
       </BehaviorTreeVariableFields>
-      <ContextVariableFields>
-        <VariableFieldDesigner>
-          <VariableFieldName>3</VariableFieldName>
-          <Describe>3</Describe>
-          <VariableFieldType>IntField</VariableFieldType>
-          <Value xsi:type="IntFieldDesigner">
-            <Value>3</Value>
-          </Value>
-        </VariableFieldDesigner>
-      </ContextVariableFields>
       <Nodes>
         <NodeDesigner>
           <Rect>
@@ -74,6 +84,10 @@
           <Transitions>
             <Transition>
               <FromNodeID>1</FromNodeID>
+              <ToNodeID>3</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
               <ToNodeID>2</ToNodeID>
             </Transition>
           </Transitions>
@@ -86,22 +100,22 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5250</x>
+            <x>5248</x>
             <y>5000</y>
             <position>
-              <x>5250</x>
+              <x>5248</x>
               <y>5000</y>
             </position>
             <center>
-              <x>5325</x>
+              <x>5323</x>
               <y>5030</y>
             </center>
             <min>
-              <x>5250</x>
+              <x>5248</x>
               <y>5000</y>
             </min>
             <max>
-              <x>5400</x>
+              <x>5398</x>
               <y>5060</y>
             </max>
             <width>150</width>
@@ -110,9 +124,9 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5250</xMin>
+            <xMin>5248</xMin>
             <yMin>5000</yMin>
-            <xMax>5400</xMax>
+            <xMax>5398</xMax>
             <yMax>5060</yMax>
           </Rect>
           <Transitions />
@@ -124,7 +138,95 @@
           <Describe>空操作节点</Describe>
           <Fields />
         </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5237.5</x>
+            <y>4866</y>
+            <position>
+              <x>5237.5</x>
+              <y>4866</y>
+            </position>
+            <center>
+              <x>5312.5</x>
+              <y>4896</y>
+            </center>
+            <min>
+              <x>5237.5</x>
+              <y>4866</y>
+            </min>
+            <max>
+              <x>5387.5</x>
+              <y>4926</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5237.5</xMin>
+            <yMin>4866</yMin>
+            <xMax>5387.5</xMax>
+            <yMax>4926</yMax>
+          </Rect>
+          <Transitions />
+          <ID>3</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Compare</ClassType>
+          <Label>比较节点</Label>
+          <NodeType>Condition</NodeType>
+          <Fields>
+            <FieldDesigner>
+              <FieldName>LeftType</FieldName>
+              <Label>左参数类型</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe />
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>ParameterType</EnumType>
+                <Value>GlobalVar</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>LeftParameter</FieldName>
+              <Label>左参数名</Label>
+              <FieldType>StringField</FieldType>
+              <Describe>左边参数变量名</Describe>
+              <Field xsi:type="StringFieldDesigner">
+                <Value>Global1_New</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>CompareType</FieldName>
+              <Label>比较操作符</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>CompareType</EnumType>
+                <Value>NotEqual</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>RightType</FieldName>
+              <Label>右参数类型</Label>
+              <FieldType>EnumField</FieldType>
+              <Describe />
+              <Field xsi:type="EnumFieldDesigner">
+                <EnumType>ParameterType</EnumType>
+                <Value>GlobalVar</Value>
+              </Field>
+            </FieldDesigner>
+            <FieldDesigner>
+              <FieldName>RightParameter</FieldName>
+              <Label>右参数名</Label>
+              <FieldType>StringField</FieldType>
+              <Describe>右边参数变量名</Describe>
+              <Field xsi:type="StringFieldDesigner">
+                <Value>Global1</Value>
+              </Field>
+            </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
       </Nodes>
     </BehaviorTreeDesigner>
-  </Agents>
+  </BehaviorTrees>
 </BehaviorTreeDataDesigner>

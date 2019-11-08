@@ -691,6 +691,12 @@ namespace BehaviorTreeEditor
             globalVariableForm.ShowDialog();
         }
 
+        private void context变量视图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ContextVariableForm contextVariableForm = new ContextVariableForm(BehaviorTreeData.ContextVariable);
+            contextVariableForm.ShowDialog();
+        }
+
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Exec(OperationType.DeleteBehaviorTree);

@@ -97,9 +97,10 @@ namespace BehaviorTreeEditor
 
             CustomEnum ParameterType = new CustomEnum();
             ParameterType.EnumType = "ParameterType";
-            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "Global", EnumValue = 1, Describe = "全局变量" });
-            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "BehaviorTree", EnumValue = 2, Describe = "行为树变量" });
-            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "Context", EnumValue = 2, Describe = "Context变量" });
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "GlobalVar", EnumValue = 1, Describe = "全局变量" });
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "BehaviorTreeVar", EnumValue = 2, Describe = "行为树变量" });
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "ContextVar", EnumValue = 3, Describe = "Context变量" });
+            ParameterType.AddEnumItem(new EnumItem() { EnumStr = "Const", EnumValue = 4, Describe = "常量" });
             AddEnum(ParameterType);
 
             CustomEnum CompareType = new CustomEnum();
@@ -111,6 +112,14 @@ namespace BehaviorTreeEditor
             CompareType.AddEnumItem(new EnumItem() { EnumStr = "Equal", EnumValue = 5, Describe = "==" });
             CompareType.AddEnumItem(new EnumItem() { EnumStr = "NotEqual", EnumValue = 6, Describe = "!=" });
             AddEnum(CompareType);
+
+            CustomEnum VariableType = new CustomEnum();
+            VariableType.EnumType = "VariableType";
+            VariableType.AddEnumItem(new EnumItem() { EnumStr = "GlobalVar", EnumValue = 1, Describe = "<" });
+            VariableType.AddEnumItem(new EnumItem() { EnumStr = "BehaviorTreeVar", EnumValue = 2, Describe = ">" });
+            VariableType.AddEnumItem(new EnumItem() { EnumStr = "ContextVar", EnumValue = 3, Describe = "<=" });
+            VariableType.AddEnumItem(new EnumItem() { EnumStr = "Const", EnumValue = 4, Describe = ">=" });
+            AddEnum(VariableType);
         }
 
         public void ResetNodes()
@@ -273,86 +282,34 @@ namespace BehaviorTreeEditor
 
             #region 条件节点
 
-            //比较Int节点
-            NodeDefine CompareInt = new NodeDefine();
-            CompareInt.ClassType = "CompareInt";
-            CompareInt.Label = "比较Int节点";
-            CompareInt.NodeType = NodeType.Condition;
-            CompareInt.Describe = "Compare节点对左右参数进行比较";
+            //比较节点
+            NodeDefine Compare = new NodeDefine();
+            Compare.ClassType = "Compare";
+            Compare.Label = "比较节点";
+            Compare.NodeType = NodeType.Condition;
+            Compare.Describe = "Compare节点对左右参数进行比较";
             //左边参数类型
-            NodeField CompareInt_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareInt_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareInt_LeftType.Label = "左参数类型";
-            CompareInt.AddField(CompareInt_LeftType);
+            NodeField Compare_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+            (Compare_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            Compare_LeftType.Label = "左参数类型";
+            Compare.AddField(Compare_LeftType);
             //左边参数变量名
-            CompareInt.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
-            //比较符号
-            NodeField CompareInt_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
-            (CompareInt_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
-            CompareInt_Type.Label = "比较操作符";
-            CompareInt.AddField(CompareInt_Type);
-            //右边边参数类型
-            NodeField CompareInt_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareInt_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareInt_RightType.Label = "右参数类型";
-            CompareInt.AddField(CompareInt_RightType);
-            //右边参数变量名
-            CompareInt.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
-            AddClass(CompareInt);
+            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
 
-            //比较Float节点
-            NodeDefine CompareFloat = new NodeDefine();
-            CompareFloat.ClassType = "CompareFloat";
-            CompareFloat.Label = "比较Float节点";
-            CompareFloat.NodeType = NodeType.Condition;
-            CompareFloat.Describe = "Compare节点对左右参数进行比较";
-            //左边参数类型
-            NodeField CompareFloat_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareFloat_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareFloat_LeftType.Label = "左参数类型";
-            CompareFloat.AddField(CompareFloat_LeftType);
-            //左边参数变量名
-            CompareFloat.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
             //比较符号
-            NodeField CompareFloat_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
-            (CompareFloat_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
-            CompareFloat_Type.Label = "比较操作符";
-            CompareFloat.AddField(CompareFloat_Type);
-            //右边边参数类型
-            NodeField CompareFloat_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareFloat_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareFloat_RightType.Label = "右参数类型";
-            CompareFloat.AddField(CompareFloat_RightType);
-            //右边参数变量名
-            CompareFloat.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
-            AddClass(CompareFloat);
+            NodeField Compare_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            (Compare_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
+            Compare_Type.Label = "比较操作符";
+            Compare.AddField(Compare_Type);
 
-            //比较String节点
-            NodeDefine CompareString = new NodeDefine();
-            CompareString.ClassType = "CompareString";
-            CompareString.Label = "比较String节点";
-            CompareString.NodeType = NodeType.Condition;
-            CompareString.Describe = "Compare节点对左右参数进行比较";
-            //左边参数类型
-            NodeField CompareString_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareString_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareString_LeftType.Label = "左参数类型";
-            CompareString.AddField(CompareString_LeftType);
-            //左边参数变量名
-            CompareString.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
-            //比较符号
-            NodeField CompareString_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
-            (CompareString_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
-            CompareString_Type.Label = "比较操作符";
-            CompareString.AddField(CompareString_Type);
             //右边边参数类型
-            NodeField CompareString_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
-            (CompareString_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            CompareString_RightType.Label = "右参数类型";
-            CompareString.AddField(CompareString_RightType);
+            NodeField Compare_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+            (Compare_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            Compare_RightType.Label = "右参数类型";
+            Compare.AddField(Compare_RightType);
             //右边参数变量名
-            CompareString.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
-            AddClass(CompareString);
+            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            AddClass(Compare);
 
             #endregion
 

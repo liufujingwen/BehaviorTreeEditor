@@ -35,14 +35,24 @@
       <EnumType>ParameterType</EnumType>
       <Enums>
         <EnumItem>
-          <EnumStr>Agent</EnumStr>
+          <EnumStr>GlobalVar</EnumStr>
           <EnumValue>1</EnumValue>
-          <Describe>在Agent定义的参数</Describe>
+          <Describe>全局变量</Describe>
         </EnumItem>
         <EnumItem>
-          <EnumStr>Global</EnumStr>
+          <EnumStr>BehaviorTreeVar</EnumStr>
           <EnumValue>2</EnumValue>
-          <Describe>全局定义的参数</Describe>
+          <Describe>行为树变量</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>ContextVar</EnumStr>
+          <EnumValue>3</EnumValue>
+          <Describe>Context变量</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Const</EnumStr>
+          <EnumValue>4</EnumValue>
+          <Describe>常量</Describe>
         </EnumItem>
       </Enums>
     </CustomEnum>
@@ -82,43 +92,62 @@
       </Enums>
     </CustomEnum>
     <CustomEnum>
-      <EnumType>EUnitType</EnumType>
+      <EnumType>VariableType</EnumType>
       <Enums>
         <EnumItem>
-          <EnumStr>None</EnumStr>
-          <EnumValue>0</EnumValue>
-          <Describe />
-        </EnumItem>
-        <EnumItem>
-          <EnumStr>Self</EnumStr>
+          <EnumStr>GlobalVar</EnumStr>
           <EnumValue>1</EnumValue>
-          <Describe>玩家自身</Describe>
+          <Describe>&lt;</Describe>
         </EnumItem>
         <EnumItem>
-          <EnumStr>Friend</EnumStr>
+          <EnumStr>BehaviorTreeVar</EnumStr>
           <EnumValue>2</EnumValue>
-          <Describe>友方单位</Describe>
+          <Describe>&gt;</Describe>
         </EnumItem>
         <EnumItem>
-          <EnumStr>Enemy</EnumStr>
+          <EnumStr>ContextVar</EnumStr>
+          <EnumValue>3</EnumValue>
+          <Describe>&lt;=</Describe>
+        </EnumItem>
+        <EnumItem>
+          <EnumStr>Const</EnumStr>
           <EnumValue>4</EnumValue>
-          <Describe>敌方单位</Describe>
+          <Describe>&gt;=</Describe>
         </EnumItem>
       </Enums>
-      <Describe>单位类型</Describe>
     </CustomEnum>
   </Enums>
   <Nodes>
-    <NodeDefine ClassType="Random" Label="随机节点" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机节点</Describe>
+    <NodeDefine ClassType="IfElse" Label="IfElse" Category="" ShowContent="false" NodeType="Composite">
+      <Describe />
+      <Fields />
+    </NodeDefine>
+    <NodeDefine ClassType="Sequence" Label="顺序节点" Category="" ShowContent="false" NodeType="Composite">
+      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
+      <Fields />
+    </NodeDefine>
+    <NodeDefine ClassType="SelectorProbability" Label="概率选择节点" Category="" ShowContent="false" NodeType="Composite">
+      <Describe>概率选择节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>Priority</FieldName>
+          <Label>优先级</Label>
+          <Show>true</Show>
+          <FieldType>RepeatIntField</FieldType>
+          <Describe />
+        </NodeField>
+      </Fields>
+    </NodeDefine>
+    <NodeDefine ClassType="RandomSelector" Label="随机选择" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机选择节点</Describe>
       <Fields />
     </NodeDefine>
     <NodeDefine ClassType="Selector" Label="选择节点" Category="" ShowContent="false" NodeType="Composite">
       <Describe>选择节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="RandomSequence" Label="随机序列" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机序列节点</Describe>
+    <NodeDefine ClassType="Random" Label="随机节点" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机节点</Describe>
       <Fields />
     </NodeDefine>
     <NodeDefine ClassType="Parallel" Label="并行节点" Category="" ShowContent="false" NodeType="Composite">
@@ -150,55 +179,8 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Sequence" Label="顺序节点" Category="" ShowContent="false" NodeType="Composite">
-      <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
-      <Fields />
-    </NodeDefine>
-    <NodeDefine ClassType="IfElse" Label="IfElse" Category="" ShowContent="false" NodeType="Composite">
-      <Describe />
-      <Fields />
-    </NodeDefine>
-    <NodeDefine ClassType="RandomSelector" Label="随机选择" Category="随机" ShowContent="false" NodeType="Composite">
-      <Describe>随机选择节点</Describe>
-      <Fields />
-    </NodeDefine>
-    <NodeDefine ClassType="SelectorProbability" Label="概率选择节点" Category="" ShowContent="false" NodeType="Composite">
-      <Describe>概率选择节点</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>Priority</FieldName>
-          <Label>优先级</Label>
-          <Show>true</Show>
-          <FieldType>RepeatIntField</FieldType>
-          <Describe />
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="Not" Label="取反节点" Category="" ShowContent="false" NodeType="Decorator">
-      <Describe>取反节点</Describe>
-      <Fields />
-    </NodeDefine>
-    <NodeDefine ClassType="Frames" Label="帧数节点" Category="" ShowContent="true" NodeType="Decorator">
-      <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>Frames</FieldName>
-          <Label>持续帧数</Label>
-          <Show>true</Show>
-          <FieldType>IntField</FieldType>
-          <Describe>持续帧数</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>1</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="SuccessUntil" Label="直到子节点返回True" Category="" ShowContent="false" NodeType="Decorator">
-      <Describe>直到子节点返回true</Describe>
-      <Fields />
-    </NodeDefine>
-    <NodeDefine ClassType="Success" Label="成功节点" Category="" ShowContent="false" NodeType="Decorator">
-      <Describe>成功节点</Describe>
+    <NodeDefine ClassType="RandomSequence" Label="随机序列" Category="随机" ShowContent="false" NodeType="Composite">
+      <Describe>随机序列节点</Describe>
       <Fields />
     </NodeDefine>
     <NodeDefine ClassType="Failure" Label="失败节点" Category="" ShowContent="false" NodeType="Decorator">
@@ -235,308 +217,87 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="CompareFloat" Label="比较Float节点" Category="" ShowContent="false" NodeType="Condition">
-      <Describe>Compare节点对左右参数进行比较</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>LeftType</FieldName>
-          <Label>左参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>LeftParameter</FieldName>
-          <Label>左参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>左边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>CompareType</FieldName>
-          <Label>比较操作符</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>CompareType</m_EnumType>
-            <EnumType>CompareType</EnumType>
-            <DefaultValue>Less</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightType</FieldName>
-          <Label>右参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightParameter</FieldName>
-          <Label>右参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>右边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="CompareInt" Label="比较Int节点" Category="" ShowContent="false" NodeType="Condition">
-      <Describe>Compare节点对左右参数进行比较</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>LeftType</FieldName>
-          <Label>左参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>LeftParameter</FieldName>
-          <Label>左参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>左边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>CompareType</FieldName>
-          <Label>比较操作符</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>CompareType</m_EnumType>
-            <EnumType>CompareType</EnumType>
-            <DefaultValue>Less</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightType</FieldName>
-          <Label>右参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightParameter</FieldName>
-          <Label>右参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>右边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="CompareString" Label="比较String节点" Category="" ShowContent="false" NodeType="Condition">
-      <Describe>Compare节点对左右参数进行比较</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>LeftType</FieldName>
-          <Label>左参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>LeftParameter</FieldName>
-          <Label>左参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>左边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>CompareType</FieldName>
-          <Label>比较操作符</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>CompareType</m_EnumType>
-            <EnumType>CompareType</EnumType>
-            <DefaultValue>Less</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightType</FieldName>
-          <Label>右参数类型</Label>
-          <Show>false</Show>
-          <FieldType>EnumField</FieldType>
-          <Describe />
-          <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>ParameterType</m_EnumType>
-            <EnumType>ParameterType</EnumType>
-            <DefaultValue>Agent</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>RightParameter</FieldName>
-          <Label>右参数名</Label>
-          <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>右边参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="Noop" Label="空操作节点" Category="" ShowContent="false" NodeType="Action">
-      <Describe>空操作节点</Describe>
+    <NodeDefine ClassType="Success" Label="成功节点" Category="" ShowContent="false" NodeType="Decorator">
+      <Describe>成功节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="AssignmentString" Label="赋值节点(String)" Category="" ShowContent="false" NodeType="Action">
-      <Describe>赋值节点(String)</Describe>
+    <NodeDefine ClassType="Not" Label="取反节点" Category="" ShowContent="false" NodeType="Decorator">
+      <Describe>取反节点</Describe>
+      <Fields />
+    </NodeDefine>
+    <NodeDefine ClassType="Frames" Label="帧数节点" Category="" ShowContent="true" NodeType="Decorator">
+      <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
       <Fields>
         <NodeField>
-          <FieldName>ParameterName</FieldName>
-          <Label>变量名</Label>
+          <FieldName>Frames</FieldName>
+          <Label>持续帧数</Label>
           <Show>true</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>参数变量名</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>Parameter</FieldName>
-          <Label>赋值字符串</Label>
-          <Show>true</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>参数值</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
+          <FieldType>IntField</FieldType>
+          <Describe>持续帧数</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>1</DefaultValue>
+          </DefaultValue>
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="CreateUnit" Label="创建Unit" Category="" ShowContent="false" NodeType="Action">
-      <Describe>创建Unit</Describe>
+    <NodeDefine ClassType="SuccessUntil" Label="直到子节点返回True" Category="" ShowContent="false" NodeType="Decorator">
+      <Describe>直到子节点返回true</Describe>
+      <Fields />
+    </NodeDefine>
+    <NodeDefine ClassType="Compare" Label="比较节点" Category="" ShowContent="false" NodeType="Condition">
+      <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields>
         <NodeField>
-          <FieldName>ID</FieldName>
-          <Label>Unit唯一识别</Label>
-          <Show>true</Show>
-          <FieldType>IntField</FieldType>
-          <Describe>Unit唯一识别</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>0</DefaultValue>
+          <FieldName>LeftType</FieldName>
+          <Label>左参数类型</Label>
+          <Show>false</Show>
+          <FieldType>EnumField</FieldType>
+          <Describe />
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>ParameterType</m_EnumType>
+            <EnumType>ParameterType</EnumType>
+            <DefaultValue>GlobalVar</DefaultValue>
           </DefaultValue>
         </NodeField>
         <NodeField>
-          <FieldName>Name</FieldName>
-          <Label>单位名称</Label>
-          <Show>false</Show>
+          <FieldName>LeftParameter</FieldName>
+          <Label>左参数名</Label>
+          <Show>true</Show>
           <FieldType>StringField</FieldType>
-          <Describe>单位名称</Describe>
+          <Describe>左边参数变量名</Describe>
           <DefaultValue xsi:type="StringDefaultValue" />
         </NodeField>
         <NodeField>
-          <FieldName>UnitType</FieldName>
-          <Label>Unit类型</Label>
+          <FieldName>CompareType</FieldName>
+          <Label>比较操作符</Label>
           <Show>true</Show>
           <FieldType>EnumField</FieldType>
-          <Describe>Unit类型</Describe>
+          <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
           <DefaultValue xsi:type="EnumDefaultValue">
-            <m_EnumType>EUnitType</m_EnumType>
-            <EnumType>EUnitType</EnumType>
-            <DefaultValue>None</DefaultValue>
+            <m_EnumType>CompareType</m_EnumType>
+            <EnumType>CompareType</EnumType>
+            <DefaultValue>Less</DefaultValue>
           </DefaultValue>
         </NodeField>
         <NodeField>
-          <FieldName>Res</FieldName>
-          <Label>资源路径</Label>
+          <FieldName>RightType</FieldName>
+          <Label>右参数类型</Label>
           <Show>false</Show>
-          <FieldType>StringField</FieldType>
-          <Describe>资源路径</Describe>
-          <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>EulerAngles</FieldName>
-          <Label>单位旋转欧拉角</Label>
-          <Show>false</Show>
-          <FieldType>Vector3</FieldType>
-          <Describe>单位旋转欧拉角</Describe>
-          <DefaultValue xsi:type="Vector3DefaultValue">
-            <X>0</X>
-            <Y>0</Y>
-            <Z>0</Z>
+          <FieldType>EnumField</FieldType>
+          <Describe />
+          <DefaultValue xsi:type="EnumDefaultValue">
+            <m_EnumType>ParameterType</m_EnumType>
+            <EnumType>ParameterType</EnumType>
+            <DefaultValue>GlobalVar</DefaultValue>
           </DefaultValue>
         </NodeField>
         <NodeField>
-          <FieldName>Position</FieldName>
-          <Label>单位位置</Label>
-          <Show>true</Show>
-          <FieldType>Vector3</FieldType>
-          <Describe>单位位置</Describe>
-          <DefaultValue xsi:type="Vector3DefaultValue">
-            <X>0</X>
-            <Y>0</Y>
-            <Z>0</Z>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>Hp</FieldName>
-          <Label>单位血量</Label>
-          <Show>false</Show>
-          <FieldType>IntField</FieldType>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>100</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-        <NodeField>
-          <FieldName>HpMax</FieldName>
-          <Label>单位血量上限</Label>
-          <Show>false</Show>
-          <FieldType>IntField</FieldType>
-          <Describe>单位血量上限</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>100</DefaultValue>
-          </DefaultValue>
-        </NodeField>
-      </Fields>
-    </NodeDefine>
-    <NodeDefine ClassType="AssignmentInt" Label="赋值节点(Int)" Category="" ShowContent="false" NodeType="Action">
-      <Describe>赋值节点</Describe>
-      <Fields>
-        <NodeField>
-          <FieldName>ParameterName</FieldName>
-          <Label>变量名</Label>
+          <FieldName>RightParameter</FieldName>
+          <Label>右参数名</Label>
           <Show>true</Show>
           <FieldType>StringField</FieldType>
-          <Describe>参数变量名</Describe>
+          <Describe>右边参数变量名</Describe>
           <DefaultValue xsi:type="StringDefaultValue" />
-        </NodeField>
-        <NodeField>
-          <FieldName>Parameter</FieldName>
-          <Label>赋值Int</Label>
-          <Show>true</Show>
-          <FieldType>IntField</FieldType>
-          <Describe>参数值</Describe>
-          <DefaultValue xsi:type="IntDefaultValue">
-            <DefaultValue>0</DefaultValue>
-          </DefaultValue>
         </NodeField>
       </Fields>
     </NodeDefine>
@@ -587,6 +348,54 @@
           <Show>true</Show>
           <FieldType>StringField</FieldType>
           <Describe>输出的内容</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+      </Fields>
+    </NodeDefine>
+    <NodeDefine ClassType="AssignmentInt" Label="赋值节点(Int)" Category="" ShowContent="false" NodeType="Action">
+      <Describe>赋值节点</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>ParameterName</FieldName>
+          <Label>变量名</Label>
+          <Show>true</Show>
+          <FieldType>StringField</FieldType>
+          <Describe>参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>Parameter</FieldName>
+          <Label>赋值Int</Label>
+          <Show>true</Show>
+          <FieldType>IntField</FieldType>
+          <Describe>参数值</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
+      </Fields>
+    </NodeDefine>
+    <NodeDefine ClassType="Noop" Label="空操作节点" Category="" ShowContent="false" NodeType="Action">
+      <Describe>空操作节点</Describe>
+      <Fields />
+    </NodeDefine>
+    <NodeDefine ClassType="AssignmentString" Label="赋值节点(String)" Category="" ShowContent="false" NodeType="Action">
+      <Describe>赋值节点(String)</Describe>
+      <Fields>
+        <NodeField>
+          <FieldName>ParameterName</FieldName>
+          <Label>变量名</Label>
+          <Show>true</Show>
+          <FieldType>StringField</FieldType>
+          <Describe>参数变量名</Describe>
+          <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>Parameter</FieldName>
+          <Label>赋值字符串</Label>
+          <Show>true</Show>
+          <FieldType>StringField</FieldType>
+          <Describe>参数值</Describe>
           <DefaultValue xsi:type="StringDefaultValue" />
         </NodeField>
       </Fields>

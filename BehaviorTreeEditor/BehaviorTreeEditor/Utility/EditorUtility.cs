@@ -632,6 +632,14 @@ namespace BehaviorTreeEditor
                 data.GlobalVariable.VariableFields.Add(variableFieldData);
             }
 
+            //Context变量
+            for (int i = 0; i < treeData.ContextVariable.VariableFields.Count; i++)
+            {
+                VariableFieldDesigner variableField = treeData.ContextVariable.VariableFields[i];
+                BTData.BaseField variableFieldData = CreateVariableField(variableField);
+                data.ContextVariable.VariableFields.Add(variableFieldData);
+            }
+
             for (int i = 0; i < treeData.BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner behaviorTree = treeData.BehaviorTrees[i];
@@ -647,6 +655,15 @@ namespace BehaviorTreeEditor
         {
             BTData.BehaviorTreeElement data = new BTData.BehaviorTreeElement();
             data.ID = behaviorTree.ID;
+
+            //行为树变量
+            for (int i = 0; i < behaviorTree.BehaviorTreeVariableFields.Count; i++)
+            {
+                VariableFieldDesigner field = behaviorTree.BehaviorTreeVariableFields[i];
+                if (field == null)
+                    continue;
+                data.BehaviorTreeVariables.Add(CreateVariableField(field));
+            }
 
             for (int i = 0; i < behaviorTree.Fields.Count; i++)
             {

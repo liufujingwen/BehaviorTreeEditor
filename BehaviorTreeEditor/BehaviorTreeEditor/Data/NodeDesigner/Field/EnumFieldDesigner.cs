@@ -77,5 +77,25 @@ namespace BehaviorTreeEditor
                 return 0;
             }
         }
+
+        [Browsable(false)]
+        public int ValueIndex
+        {
+            get
+            {
+                CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(m_EnumType);
+                if (customEnum != null)
+                {
+                    for (int i = 0; i < customEnum.Enums.Count; i++)
+                    {
+                        EnumItem enumItem = customEnum.Enums[i];
+                        if (enumItem.EnumStr == m_Value)
+                            return i;
+                    }
+                }
+                return 0;
+            }
+        }
+
     }
 }

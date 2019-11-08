@@ -55,6 +55,7 @@
             this.视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.类视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.枚举视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.全局变量视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.全局变量视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.context变量视图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -299,7 +300,8 @@
             this.视图ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.类视图ToolStripMenuItem,
             this.枚举视图ToolStripMenuItem,
-            this.全局变量视图ToolStripMenuItem});
+            this.全局变量视图ToolStripMenuItem,
+            this.context变量视图ToolStripMenuItem});
             this.视图ToolStripMenuItem.Name = "视图ToolStripMenuItem";
             this.视图ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
             this.视图ToolStripMenuItem.Text = "视图";
@@ -317,6 +319,13 @@
             this.枚举视图ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.枚举视图ToolStripMenuItem.Text = "枚举视图";
             this.枚举视图ToolStripMenuItem.Click += new System.EventHandler(this.枚举视图ToolStripMenuItem_Click);
+            // 
+            // 全局变量视图ToolStripMenuItem
+            // 
+            this.全局变量视图ToolStripMenuItem.Name = "全局变量视图ToolStripMenuItem";
+            this.全局变量视图ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.全局变量视图ToolStripMenuItem.Text = "全局变量视图";
+            this.全局变量视图ToolStripMenuItem.Click += new System.EventHandler(this.全局变量视图ToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -477,12 +486,12 @@
             this.toolStripMenuItem4.Text = "删除行为树";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
-            // 全局变量视图ToolStripMenuItem
+            // context变量视图ToolStripMenuItem
             // 
-            this.全局变量视图ToolStripMenuItem.Name = "全局变量视图ToolStripMenuItem";
-            this.全局变量视图ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.全局变量视图ToolStripMenuItem.Text = "全局变量视图";
-            this.全局变量视图ToolStripMenuItem.Click += new System.EventHandler(this.全局变量视图ToolStripMenuItem_Click);
+            this.context变量视图ToolStripMenuItem.Name = "context变量视图ToolStripMenuItem";
+            this.context变量视图ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.context变量视图ToolStripMenuItem.Text = "Context变量视图";
+            this.context变量视图ToolStripMenuItem.Click += new System.EventHandler(this.context变量视图ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -562,5 +571,6 @@
         private System.Windows.Forms.ToolStripMenuItem 删除分组ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 编辑分组ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 全局变量视图ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem context变量视图ToolStripMenuItem;
     }
 }

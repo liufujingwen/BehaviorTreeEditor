@@ -27,6 +27,7 @@ namespace BehaviorTreeEditor
             label3.Text = string.Format("修改{0}的枚举项", m_CustomEnum.EnumType);
             textBox1.Text = m_EnumItem.EnumStr;
             textBox2.Text = m_EnumItem.EnumValue.ToString();
+            textBox3.Text = m_EnumItem.Describe;
         }
 
         private void cancelBTN_Click(object sender, EventArgs e)

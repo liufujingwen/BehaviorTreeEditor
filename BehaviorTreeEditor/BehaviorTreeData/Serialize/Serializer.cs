@@ -19,7 +19,7 @@ namespace BTData
             list.Add(typeof(NodeData));
             list.Add(typeof(BehaviorTreeData));
 
-            list.Add(typeof(GlobalVariableData));
+            list.Add(typeof(VariableData));
 
             list.Add(typeof(IntField));
             list.Add(typeof(RepeatIntField));

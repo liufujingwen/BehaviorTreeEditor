@@ -5,14 +5,21 @@ namespace BehaviorTreeEditor
 {
     public class BehaviorTreeDataDesigner
     {
-        private GlobalVariableDesigner m_GlobalVariable = new GlobalVariableDesigner();
+        private VariableDesigner m_GlobalVariable = new VariableDesigner();
+        private VariableDesigner m_ContextVariable = new VariableDesigner();
         private List<Group> m_Groups = new List<Group>();
         private List<BehaviorTreeDesigner> m_BehaviorTrees = new List<BehaviorTreeDesigner>();
 
-        public GlobalVariableDesigner GlobalVariable
+        public VariableDesigner GlobalVariable
         {
             get { return m_GlobalVariable; }
             set { m_GlobalVariable = value; }
+        }
+
+        public VariableDesigner ContextVariable
+        {
+            get { return m_ContextVariable; }
+            set { m_ContextVariable = value; }
         }
 
         public List<Group> Groups

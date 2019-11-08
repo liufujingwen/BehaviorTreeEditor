@@ -11,15 +11,15 @@ namespace BehaviorTreeEditor
 {
     public partial class GlobalVariableForm : Form
     {
-        private GlobalVariableDesigner m_EditGlobalVariable;
-        private GlobalVariableDesigner m_GlobalVariable;
+        private VariableDesigner m_EditGlobalVariable;
+        private VariableDesigner m_GlobalVariable;
         private string m_OldContent = null;
 
-        public GlobalVariableForm(GlobalVariableDesigner globalVariable)
+        public GlobalVariableForm(VariableDesigner globalVariable)
         {
             m_GlobalVariable = globalVariable;
             m_OldContent = XmlUtility.ObjectToString(globalVariable);
-            m_EditGlobalVariable = XmlUtility.StringToObject<GlobalVariableDesigner>(m_OldContent);
+            m_EditGlobalVariable = XmlUtility.StringToObject<VariableDesigner>(m_OldContent);
             InitializeComponent();
         }
 

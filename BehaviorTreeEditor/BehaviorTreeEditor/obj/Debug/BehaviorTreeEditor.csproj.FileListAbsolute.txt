@@ -72,3 +72,5 @@ C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.NodePropertyUserControl.resources
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.ZoomScalerUserControl.resources
 C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.EditBehaviorTreeForm.resources
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.ContextVariableForm.resources
+C:\D\Projects\BehaviorTreeEditor\BehaviorTreeEditor\BehaviorTreeEditor\obj\Debug\BehaviorTreeEditor.UIControls.CompareUserControl.resources

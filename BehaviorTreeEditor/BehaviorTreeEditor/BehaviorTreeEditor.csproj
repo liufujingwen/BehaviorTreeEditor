@@ -49,8 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\Variable\ContextVariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Variable\ContextVariableForm.Designer.cs">
+      <DependentUpon>ContextVariableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\NodeDesigner\VariableType.cs" />
-    <Compile Include="Data\NodeDesigner\Variable\GlobalVariableDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\Variable\VariableDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Variable\VariableFieldDesigner.cs" />
     <Compile Include="Form\Group\EditGroupForm.cs">
       <SubType>Form</SubType>
@@ -159,6 +165,12 @@
     <Compile Include="TreeView\Group.cs" />
     <Compile Include="TreeView\GroupItem.cs" />
     <Compile Include="TreeView\TreeViewManager.cs" />
+    <Compile Include="UIControls\CompareUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\CompareUserControl.Designer.cs">
+      <DependentUpon>CompareUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\NodePropertyUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -275,6 +287,9 @@
     <Compile Include="Utility\Vec2.cs" />
     <Compile Include="Data\WorkSpaceData.cs" />
     <Compile Include="Utility\XmlUtility.cs" />
+    <EmbeddedResource Include="Form\Variable\ContextVariableForm.resx">
+      <DependentUpon>ContextVariableForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\Group\AddGroupForm.resx">
       <DependentUpon>AddGroupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -335,6 +350,9 @@
     </Compile>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\CompareUserControl.resx">
+      <DependentUpon>CompareUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ContentUserControl.resx">
       <DependentUpon>ContentUserControl.cs</DependentUpon>

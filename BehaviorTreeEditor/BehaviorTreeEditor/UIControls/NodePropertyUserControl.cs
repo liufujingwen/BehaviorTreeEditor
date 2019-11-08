@@ -19,6 +19,7 @@ namespace BehaviorTreeEditor.UIControls
         }
 
         private NodeDesigner m_Node;
+        private CompareUserControl m_CompareUserControl;
 
         public NodePropertyUserControl()
         {
@@ -28,6 +29,10 @@ namespace BehaviorTreeEditor.UIControls
 
         private void NodePropertyUserControl_Load(object sender, EventArgs e)
         {
+            m_CompareUserControl = new CompareUserControl();
+            panel3.Controls.Add(m_CompareUserControl);
+            m_CompareUserControl.Visible = false;
+
             ImageList il = new ImageList();
             //设置高度
             il.ImageSize = new Size(1, 20);
@@ -61,7 +66,23 @@ namespace BehaviorTreeEditor.UIControls
                 describeTB.Text = m_Node.Describe;
             }
 
-            BindFields();
+            if (m_Node != null)
+            {
+                //比较节点特殊处理
+                if (m_Node.ClassType == "Compare")
+                {
+                    listView1.Visible = false;
+                    m_CompareUserControl.Visible = true;
+                    m_CompareUserControl.SetNode(m_Node);
+                }
+                else
+                {
+                    listView1.Visible = true;
+                    m_CompareUserControl.Visible = false;
+
+                    BindFields();
+                }
+            }
         }
 
         private void BindFields()
