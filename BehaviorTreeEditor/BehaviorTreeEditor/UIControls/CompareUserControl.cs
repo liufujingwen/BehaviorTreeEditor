@@ -23,8 +23,8 @@ namespace BehaviorTreeEditor.UIControls
         {
             m_BindState = false;
 
-            CBB_LeftCompareType.Items.Clear();
-            CBB_RightCompareType.Items.Clear();
+            CBB_LeftParameterType.Items.Clear();
+            CBB_RightParameterType.Items.Clear();
 
             CBB_RightParameter.Items.Clear();
             CBB_CompareType.Items.Clear();
@@ -33,19 +33,19 @@ namespace BehaviorTreeEditor.UIControls
             for (int i = 0; i < variableCustomEnum.Enums.Count; i++)
             {
                 EnumItem enumItem = variableCustomEnum.Enums[i];
-                CBB_LeftCompareType.Items.Add(enumItem.EnumStr);
-                CBB_RightCompareType.Items.Add(enumItem.EnumStr);
+                CBB_LeftParameterType.Items.Add(enumItem.EnumStr);
+                CBB_RightParameterType.Items.Add(enumItem.EnumStr);
             }
 
             //绑定左边参数类型
             FieldDesigner leftFieldDesigner = m_Node.FindFieldByName("LeftType");
             EnumFieldDesigner leftEnumFieldDesigner = leftFieldDesigner.Field as EnumFieldDesigner;
-            CBB_LeftCompareType.SelectedIndex = leftEnumFieldDesigner.ValueIndex;
+            CBB_LeftParameterType.SelectedIndex = leftEnumFieldDesigner.ValueIndex;
 
             //绑定右边参数类型
             FieldDesigner rightFieldDesigner = m_Node.FindFieldByName("RightType");
             EnumFieldDesigner rightEnumFieldDesigner = rightFieldDesigner.Field as EnumFieldDesigner;
-            CBB_RightCompareType.SelectedIndex = rightEnumFieldDesigner.ValueIndex;
+            CBB_RightParameterType.SelectedIndex = rightEnumFieldDesigner.ValueIndex;
 
             //绑定左边参数名
             BindLeftParameter(leftEnumFieldDesigner.Value);
@@ -68,7 +68,7 @@ namespace BehaviorTreeEditor.UIControls
         }
 
         //改变左边参数类型
-        private void CBB_LeftCompareType_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBB_LeftParameterType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!m_BindState)
                 return;
@@ -77,7 +77,7 @@ namespace BehaviorTreeEditor.UIControls
             EnumFieldDesigner leftEnumFieldDesigner = leftFieldDesigner.Field as EnumFieldDesigner;
 
             CustomEnum leftNodeType = MainForm.Instance.NodeTemplate.FindEnum("VariableType");
-            EnumItem enumItem = leftNodeType.FindEnum(CBB_LeftCompareType.Text.Trim());
+            EnumItem enumItem = leftNodeType.FindEnum(CBB_LeftParameterType.Text.Trim());
 
             leftEnumFieldDesigner.Value = enumItem.EnumStr;
 
@@ -90,7 +90,7 @@ namespace BehaviorTreeEditor.UIControls
         }
 
         //改变右边参数类型
-        private void CBB_RightCompareType_SelectedIndexChanged(object sender, EventArgs e)
+        private void CBB_RightParameterType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!m_BindState)
                 return;
@@ -99,7 +99,7 @@ namespace BehaviorTreeEditor.UIControls
             EnumFieldDesigner rightEnumFieldDesigner = rightFieldDesigner.Field as EnumFieldDesigner;
 
             CustomEnum leftNodeType = MainForm.Instance.NodeTemplate.FindEnum("VariableType");
-            EnumItem enumItem = leftNodeType.FindEnum(CBB_RightCompareType.Text.Trim());
+            EnumItem enumItem = leftNodeType.FindEnum(CBB_RightParameterType.Text.Trim());
 
             rightEnumFieldDesigner.Value = enumItem.EnumStr;
 
@@ -230,6 +230,12 @@ namespace BehaviorTreeEditor.UIControls
             FieldDesigner compareFieldDesigner = m_Node.FindFieldByName("CompareType");
             EnumFieldDesigner compareEnumFieldDesigner = compareFieldDesigner.Field as EnumFieldDesigner;
             compareEnumFieldDesigner.Value = enumItem.EnumStr;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //检测错误
+            //todo...
         }
     }
 }

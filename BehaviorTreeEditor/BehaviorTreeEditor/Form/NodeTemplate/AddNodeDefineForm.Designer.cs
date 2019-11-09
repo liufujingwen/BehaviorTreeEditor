@@ -45,7 +45,7 @@
             this.新建ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.showContentCB = new System.Windows.Forms.CheckBox();
+            this.CBB_CheckField = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.labelTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -200,7 +200,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.showContentCB);
+            this.groupBox1.Controls.Add(this.CBB_CheckField);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.labelTB);
             this.groupBox1.Controls.Add(this.label5);
@@ -218,23 +218,23 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
-            // showContentCB
+            // CBB_CheckField
             // 
-            this.showContentCB.AutoSize = true;
-            this.showContentCB.Location = new System.Drawing.Point(717, 25);
-            this.showContentCB.Name = "showContentCB";
-            this.showContentCB.Size = new System.Drawing.Size(18, 17);
-            this.showContentCB.TabIndex = 11;
-            this.showContentCB.UseVisualStyleBackColor = true;
+            this.CBB_CheckField.AutoSize = true;
+            this.CBB_CheckField.Location = new System.Drawing.Point(717, 25);
+            this.CBB_CheckField.Name = "CBB_CheckField";
+            this.CBB_CheckField.Size = new System.Drawing.Size(18, 17);
+            this.CBB_CheckField.TabIndex = 11;
+            this.CBB_CheckField.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(592, 26);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 15);
+            this.label6.Size = new System.Drawing.Size(112, 15);
             this.label6.TabIndex = 10;
-            this.label6.Text = "展示内容到节点：";
+            this.label6.Text = "是否检测字段：";
             // 
             // labelTB
             // 
@@ -381,7 +381,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.TextBox labelTB;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox showContentCB;
+        private System.Windows.Forms.CheckBox CBB_CheckField;
         private System.Windows.Forms.Label label6;
     }
 }

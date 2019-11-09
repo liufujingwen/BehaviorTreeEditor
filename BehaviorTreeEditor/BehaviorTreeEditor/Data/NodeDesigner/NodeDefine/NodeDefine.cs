@@ -37,13 +37,13 @@ namespace BehaviorTreeEditor
             set { m_Category = value; }
         }
 
-        private bool m_ShowContent;
-        [Category("常规"), DisplayName("展示内容"), Description("是否在节点展示内容")]
+        private bool m_CheckField = true;
+        [Category("常规"), DisplayName("字段检测"), Description("是否进行字段检测"), DefaultValue(true)]
         [XmlAttribute]
-        public bool ShowContent
+        public bool CheckField
         {
-            get { return m_ShowContent; }
-            set { m_ShowContent = value; }
+            get { return m_CheckField; }
+            set { m_CheckField = value; }
         }
 
         //节点类型
@@ -283,7 +283,7 @@ namespace BehaviorTreeEditor
             m_Category = nodeDefine.Category;
             m_NodeType = nodeDefine.NodeType;
             m_Describe = nodeDefine.Describe;
-            m_ShowContent = nodeDefine.ShowContent;
+            m_CheckField = nodeDefine.CheckField;
 
             m_Fields.Clear();
             m_Fields.AddRange(nodeDefine.Fields);

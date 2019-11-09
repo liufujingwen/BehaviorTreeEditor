@@ -555,7 +555,7 @@ namespace BehaviorTreeEditor
             if (listView2.SelectedItems.Count > 0)
             {
                 VariableFieldListContent content = new VariableFieldListContent();
-                foreach (ListViewItem lvItem in listView1.SelectedItems)
+                foreach (ListViewItem lvItem in listView2.SelectedItems)
                 {
                     if (lvItem.Tag is VariableFieldDesigner)
                         content.DataList.Add((VariableFieldDesigner)lvItem.Tag);

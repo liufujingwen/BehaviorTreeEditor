@@ -20,6 +20,7 @@ namespace BehaviorTreeEditor.UIControls
 
         private NodeDesigner m_Node;
         private CompareUserControl m_CompareUserControl;
+        private SetVariableUserControl m_SetVariableUserControl;
 
         public NodePropertyUserControl()
         {
@@ -32,6 +33,10 @@ namespace BehaviorTreeEditor.UIControls
             m_CompareUserControl = new CompareUserControl();
             panel3.Controls.Add(m_CompareUserControl);
             m_CompareUserControl.Visible = false;
+
+            m_SetVariableUserControl = new SetVariableUserControl();
+            panel3.Controls.Add(m_SetVariableUserControl);
+            m_SetVariableUserControl.Visible = false;
 
             ImageList il = new ImageList();
             //设置高度
@@ -72,12 +77,22 @@ namespace BehaviorTreeEditor.UIControls
                 if (m_Node.ClassType == "Compare")
                 {
                     listView1.Visible = false;
+                    m_SetVariableUserControl.Visible = false;
                     m_CompareUserControl.Visible = true;
                     m_CompareUserControl.SetNode(m_Node);
+                }
+                //设置变量节点
+                else if (m_Node.ClassType == "SetVariable")
+                {
+                    listView1.Visible = false;
+                    m_SetVariableUserControl.Visible = true;
+                    m_CompareUserControl.Visible = false;
+                    m_SetVariableUserControl.SetNode(m_Node);
                 }
                 else
                 {
                     listView1.Visible = true;
+                    m_SetVariableUserControl.Visible = false;
                     m_CompareUserControl.Visible = false;
 
                     BindFields();

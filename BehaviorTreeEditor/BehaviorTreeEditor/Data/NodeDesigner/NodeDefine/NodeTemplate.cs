@@ -235,7 +235,7 @@ namespace BehaviorTreeEditor
             Frames.ClassType = "Frames";
             Frames.Label = "帧数节点";
             Frames.NodeType = NodeType.Decorator;
-            Frames.ShowContent = true;
+            Frames.CheckField = true;
             NodeField FramesField = new NodeField() { FieldName = "Frames", Label = "持续帧数", FieldType = FieldType.IntField, Describe = "持续帧数", Show = true };
             (FramesField.DefaultValue as IntDefaultValue).DefaultValue = 1;
             Frames.AddField(FramesField);
@@ -294,10 +294,12 @@ namespace BehaviorTreeEditor
             Compare_LeftType.Label = "左参数类型";
             Compare.AddField(Compare_LeftType);
             //左边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名" });
+            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名", Show = true });
+            //左边常数值
+            Compare.AddField(new NodeField() { FieldName = "LeftConstValue", Label = "左边常数值", FieldType = FieldType.IntField, Describe = "左边常数值，左边参数类型为Const生效" });
 
             //比较符号
-            NodeField Compare_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=" };
+            NodeField Compare_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=", Show = true };
             (Compare_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
             Compare_Type.Label = "比较操作符";
             Compare.AddField(Compare_Type);
@@ -308,42 +310,28 @@ namespace BehaviorTreeEditor
             Compare_RightType.Label = "右参数类型";
             Compare.AddField(Compare_RightType);
             //右边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名" });
+            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名", Show = true });
             AddClass(Compare);
+            //左边常数值
+            Compare.AddField(new NodeField() { FieldName = "RightConstValue", Label = "右边常数值", FieldType = FieldType.IntField, Describe = "右边常数值，右边参数类型为Const生效" });
 
             #endregion
 
             #region 动作节点
 
-            //赋值节点Int
-            NodeDefine AssignmentInt = new NodeDefine();
-            AssignmentInt.ClassType = "AssignmentInt";
-            AssignmentInt.Label = "赋值节点(Int)";
-            AssignmentInt.NodeType = NodeType.Action;
-            AssignmentInt.Describe = "赋值节点";
-            AssignmentInt.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
-            AssignmentInt.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值Int", FieldType = FieldType.IntField, Describe = "参数值", Show = true });
-            AddClass(AssignmentInt);
-
-            //赋值节点Float
-            NodeDefine AssignmentFloat = new NodeDefine();
-            AssignmentFloat.ClassType = "AssignmentFloat";
-            AssignmentFloat.Label = "赋值节点(Float)";
-            AssignmentFloat.NodeType = NodeType.Action;
-            AssignmentFloat.Describe = "赋值节点(Float)";
-            AssignmentFloat.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
-            AssignmentFloat.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值Float", FieldType = FieldType.FloatField, Describe = "参数值", Show = true });
-            AddClass(AssignmentFloat);
-
-            //赋值节点String
-            NodeDefine AssignmentString = new NodeDefine();
-            AssignmentString.ClassType = "AssignmentString";
-            AssignmentString.Label = "赋值节点(String)";
-            AssignmentString.NodeType = NodeType.Action;
-            AssignmentString.Describe = "赋值节点(String)";
-            AssignmentString.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
-            AssignmentString.AddField(new NodeField() { FieldName = "Parameter", Label = "赋值字符串", FieldType = FieldType.StringField, Describe = "参数值", Show = true });
-            AddClass(AssignmentString);
+            //设置变量节点
+            NodeDefine SetVariable = new NodeDefine();
+            SetVariable.CheckField = false;
+            SetVariable.ClassType = "SetVariable";
+            SetVariable.Label = "设置变量节点";
+            SetVariable.NodeType = NodeType.Action;
+            SetVariable.Describe = "设置变量节点";
+            NodeField setVariableNodeField = new NodeField() { FieldName = "ParameterType", FieldType = FieldType.EnumField, Describe = "" };
+            (setVariableNodeField.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+            SetVariable.AddField(setVariableNodeField);
+            SetVariable.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
+            SetVariable.AddField(new NodeField() { FieldName = "ParameterValue", Label = "变量值", FieldType = FieldType.IntField, Describe = "参数值", Show = true });
+            AddClass(SetVariable);
 
             //等待节点
             NodeDefine Wait = new NodeDefine();

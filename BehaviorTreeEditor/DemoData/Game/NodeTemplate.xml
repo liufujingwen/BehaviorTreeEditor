@@ -118,15 +118,15 @@
     </CustomEnum>
   </Enums>
   <Nodes>
-    <NodeDefine ClassType="IfElse" Label="IfElse" Category="" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="IfElse" Label="IfElse" Category="" NodeType="Composite">
       <Describe />
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Sequence" Label="顺序节点" Category="" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="Sequence" Label="顺序节点" Category="" NodeType="Composite">
       <Describe>Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="SelectorProbability" Label="概率选择节点" Category="" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="SelectorProbability" Label="概率选择节点" Category="" NodeType="Composite">
       <Describe>概率选择节点</Describe>
       <Fields>
         <NodeField>
@@ -138,19 +138,19 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="RandomSelector" Label="随机选择" Category="随机" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="RandomSelector" Label="随机选择" Category="随机" NodeType="Composite">
       <Describe>随机选择节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Selector" Label="选择节点" Category="" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="Selector" Label="选择节点" Category="" NodeType="Composite">
       <Describe>选择节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Random" Label="随机节点" Category="随机" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="Random" Label="随机节点" Category="随机" NodeType="Composite">
       <Describe>随机节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Parallel" Label="并行节点" Category="" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="Parallel" Label="并行节点" Category="" NodeType="Composite">
       <Describe>Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”</Describe>
       <Fields>
         <NodeField>
@@ -179,15 +179,15 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="RandomSequence" Label="随机序列" Category="随机" ShowContent="false" NodeType="Composite">
+    <NodeDefine ClassType="RandomSequence" Label="随机序列" Category="随机" NodeType="Composite">
       <Describe>随机序列节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Failure" Label="失败节点" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="Failure" Label="失败节点" Category="" NodeType="Decorator">
       <Describe>失败节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Loop" Label="循环节点" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="Loop" Label="循环节点" Category="" NodeType="Decorator">
       <Describe>循环节点 -1无限循环</Describe>
       <Fields>
         <NodeField>
@@ -202,7 +202,7 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Time" Label="时间" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="Time" Label="时间" Category="" NodeType="Decorator">
       <Describe>指定时间内运行</Describe>
       <Fields>
         <NodeField>
@@ -217,15 +217,15 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Success" Label="成功节点" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="Success" Label="成功节点" Category="" NodeType="Decorator">
       <Describe>成功节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Not" Label="取反节点" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="Not" Label="取反节点" Category="" NodeType="Decorator">
       <Describe>取反节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Frames" Label="帧数节点" Category="" ShowContent="true" NodeType="Decorator">
+    <NodeDefine ClassType="Frames" Label="帧数节点" Category="" NodeType="Decorator">
       <Describe>帧数节点用于在指定的帧数内，持续调用其子节点</Describe>
       <Fields>
         <NodeField>
@@ -240,11 +240,11 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="SuccessUntil" Label="直到子节点返回True" Category="" ShowContent="false" NodeType="Decorator">
+    <NodeDefine ClassType="SuccessUntil" Label="直到子节点返回True" Category="" NodeType="Decorator">
       <Describe>直到子节点返回true</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="Compare" Label="比较节点" Category="" ShowContent="false" NodeType="Condition">
+    <NodeDefine ClassType="Compare" Label="比较节点" Category="" NodeType="Condition">
       <Describe>Compare节点对左右参数进行比较</Describe>
       <Fields>
         <NodeField>
@@ -266,6 +266,16 @@
           <FieldType>StringField</FieldType>
           <Describe>左边参数变量名</Describe>
           <DefaultValue xsi:type="StringDefaultValue" />
+        </NodeField>
+        <NodeField>
+          <FieldName>LeftConstValue</FieldName>
+          <Label>左边常数值</Label>
+          <Show>false</Show>
+          <FieldType>IntField</FieldType>
+          <Describe>左边常数值，左边参数类型为Const生效</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
         </NodeField>
         <NodeField>
           <FieldName>CompareType</FieldName>
@@ -299,9 +309,19 @@
           <Describe>右边参数变量名</Describe>
           <DefaultValue xsi:type="StringDefaultValue" />
         </NodeField>
+        <NodeField>
+          <FieldName>RightConstValue</FieldName>
+          <Label>右边常数值</Label>
+          <Show>false</Show>
+          <FieldType>IntField</FieldType>
+          <Describe>右边常数值，右边参数类型为Const生效</Describe>
+          <DefaultValue xsi:type="IntDefaultValue">
+            <DefaultValue>0</DefaultValue>
+          </DefaultValue>
+        </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="AssignmentFloat" Label="赋值节点(Float)" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="AssignmentFloat" Label="赋值节点(Float)" Category="" NodeType="Action">
       <Describe>赋值节点(Float)</Describe>
       <Fields>
         <NodeField>
@@ -324,7 +344,7 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Wait" Label="等待节点" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="Wait" Label="等待节点" Category="" NodeType="Action">
       <Describe>等待节点</Describe>
       <Fields>
         <NodeField>
@@ -339,7 +359,7 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Log" Label="输出节点" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="Log" Label="输出节点" Category="" NodeType="Action">
       <Describe>输出log节点</Describe>
       <Fields>
         <NodeField>
@@ -352,7 +372,7 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="AssignmentInt" Label="赋值节点(Int)" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="AssignmentInt" Label="赋值节点(Int)" Category="" NodeType="Action">
       <Describe>赋值节点</Describe>
       <Fields>
         <NodeField>
@@ -375,11 +395,11 @@
         </NodeField>
       </Fields>
     </NodeDefine>
-    <NodeDefine ClassType="Noop" Label="空操作节点" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="Noop" Label="空操作节点" Category="" NodeType="Action">
       <Describe>空操作节点</Describe>
       <Fields />
     </NodeDefine>
-    <NodeDefine ClassType="AssignmentString" Label="赋值节点(String)" Category="" ShowContent="false" NodeType="Action">
+    <NodeDefine ClassType="AssignmentString" Label="赋值节点(String)" Category="" NodeType="Action">
       <Describe>赋值节点(String)</Describe>
       <Fields>
         <NodeField>

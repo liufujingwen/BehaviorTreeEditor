@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.CBB_LeftCompareType = new System.Windows.Forms.ComboBox();
+            this.CBB_LeftParameterType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.CBB_CompareType = new System.Windows.Forms.ComboBox();
@@ -39,11 +40,14 @@
             this.CBB_RightParameter = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.CBB_RightCompareType = new System.Windows.Forms.ComboBox();
+            this.CBB_RightParameterType = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -57,12 +61,12 @@
             // 
             // CBB_LeftCompareType
             // 
-            this.CBB_LeftCompareType.FormattingEnabled = true;
-            this.CBB_LeftCompareType.Location = new System.Drawing.Point(98, 34);
-            this.CBB_LeftCompareType.Name = "CBB_LeftCompareType";
-            this.CBB_LeftCompareType.Size = new System.Drawing.Size(259, 23);
-            this.CBB_LeftCompareType.TabIndex = 1;
-            this.CBB_LeftCompareType.SelectedIndexChanged += new System.EventHandler(this.CBB_LeftCompareType_SelectedIndexChanged);
+            this.CBB_LeftParameterType.FormattingEnabled = true;
+            this.CBB_LeftParameterType.Location = new System.Drawing.Point(98, 34);
+            this.CBB_LeftParameterType.Name = "CBB_LeftCompareType";
+            this.CBB_LeftParameterType.Size = new System.Drawing.Size(250, 23);
+            this.CBB_LeftParameterType.TabIndex = 1;
+            this.CBB_LeftParameterType.SelectedIndexChanged += new System.EventHandler(this.CBB_LeftParameterType_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -87,7 +91,7 @@
             this.CBB_CompareType.FormattingEnabled = true;
             this.CBB_CompareType.Location = new System.Drawing.Point(104, 38);
             this.CBB_CompareType.Name = "CBB_CompareType";
-            this.CBB_CompareType.Size = new System.Drawing.Size(259, 23);
+            this.CBB_CompareType.Size = new System.Drawing.Size(244, 23);
             this.CBB_CompareType.TabIndex = 5;
             this.CBB_CompareType.SelectedIndexChanged += new System.EventHandler(this.CBB_CompareType_SelectedIndexChanged);
             // 
@@ -96,7 +100,7 @@
             this.groupBox1.Controls.Add(this.CBB_LeftParameter);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.CBB_LeftCompareType);
+            this.groupBox1.Controls.Add(this.CBB_LeftParameterType);
             this.groupBox1.Location = new System.Drawing.Point(12, 18);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(369, 120);
@@ -109,7 +113,7 @@
             this.CBB_LeftParameter.FormattingEnabled = true;
             this.CBB_LeftParameter.Location = new System.Drawing.Point(98, 74);
             this.CBB_LeftParameter.Name = "CBB_LeftParameter";
-            this.CBB_LeftParameter.Size = new System.Drawing.Size(259, 23);
+            this.CBB_LeftParameter.Size = new System.Drawing.Size(250, 23);
             this.CBB_LeftParameter.TabIndex = 3;
             this.CBB_LeftParameter.SelectedIndexChanged += new System.EventHandler(this.CBB_LeftParameter_SelectedIndexChanged);
             // 
@@ -118,7 +122,7 @@
             this.groupBox2.Controls.Add(this.CBB_RightParameter);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.CBB_RightCompareType);
+            this.groupBox2.Controls.Add(this.CBB_RightParameterType);
             this.groupBox2.Location = new System.Drawing.Point(12, 293);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(369, 120);
@@ -131,7 +135,7 @@
             this.CBB_RightParameter.FormattingEnabled = true;
             this.CBB_RightParameter.Location = new System.Drawing.Point(98, 74);
             this.CBB_RightParameter.Name = "CBB_RightParameter";
-            this.CBB_RightParameter.Size = new System.Drawing.Size(259, 23);
+            this.CBB_RightParameter.Size = new System.Drawing.Size(250, 23);
             this.CBB_RightParameter.TabIndex = 4;
             this.CBB_RightParameter.SelectedIndexChanged += new System.EventHandler(this.CBB_RightParameter_SelectedIndexChanged);
             // 
@@ -155,12 +159,12 @@
             // 
             // CBB_RightCompareType
             // 
-            this.CBB_RightCompareType.FormattingEnabled = true;
-            this.CBB_RightCompareType.Location = new System.Drawing.Point(98, 34);
-            this.CBB_RightCompareType.Name = "CBB_RightCompareType";
-            this.CBB_RightCompareType.Size = new System.Drawing.Size(259, 23);
-            this.CBB_RightCompareType.TabIndex = 1;
-            this.CBB_RightCompareType.SelectedIndexChanged += new System.EventHandler(this.CBB_RightCompareType_SelectedIndexChanged);
+            this.CBB_RightParameterType.FormattingEnabled = true;
+            this.CBB_RightParameterType.Location = new System.Drawing.Point(98, 34);
+            this.CBB_RightParameterType.Name = "CBB_RightCompareType";
+            this.CBB_RightParameterType.Size = new System.Drawing.Size(250, 23);
+            this.CBB_RightParameterType.TabIndex = 1;
+            this.CBB_RightParameterType.SelectedIndexChanged += new System.EventHandler(this.CBB_RightParameterType_SelectedIndexChanged);
             // 
             // groupBox3
             // 
@@ -171,6 +175,14 @@
             this.groupBox3.Size = new System.Drawing.Size(369, 88);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // CompareUserControl
             // 
@@ -187,6 +199,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -194,7 +207,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox CBB_LeftCompareType;
+        private System.Windows.Forms.ComboBox CBB_LeftParameterType;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox CBB_CompareType;
@@ -202,9 +215,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox CBB_RightCompareType;
+        private System.Windows.Forms.ComboBox CBB_RightParameterType;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox CBB_LeftParameter;
         private System.Windows.Forms.ComboBox CBB_RightParameter;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

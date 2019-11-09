@@ -177,6 +177,12 @@
     <Compile Include="UIControls\NodePropertyUserControl.Designer.cs">
       <DependentUpon>NodePropertyUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\SetVariableUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\SetVariableUserControl.Designer.cs">
+      <DependentUpon>SetVariableUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility\BezierLink.cs" />
     <Compile Include="CollectionEditor.cs" />
     <Compile Include="Form\NodeTemplate\EditNodeDefineForm.cs">
@@ -359,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\NodePropertyUserControl.resx">
       <DependentUpon>NodePropertyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\SetVariableUserControl.resx">
+      <DependentUpon>SetVariableUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ZoomScalerUserControl.resx">
       <DependentUpon>ZoomScalerUserControl.cs</DependentUpon>

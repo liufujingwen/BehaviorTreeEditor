@@ -34,7 +34,7 @@ namespace BehaviorTreeEditor
             }
             nodeTypeCBB.SelectedIndex = (int)m_EditNodeDefine.NodeType - 1;
 
-            showContentCB.Checked = m_EditNodeDefine.ShowContent;
+            CBB_CheckField.Checked = m_EditNodeDefine.CheckField;
             labelTB.Text = m_EditNodeDefine.Label;
             categoryTB.Text = m_EditNodeDefine.Category;
             describeTB.Text = m_EditNodeDefine.Describe;
@@ -66,7 +66,7 @@ namespace BehaviorTreeEditor
             m_EditNodeDefine.Label = labelTB.Text.Trim();
             m_EditNodeDefine.Describe = describeTB.Text.Trim();
             m_EditNodeDefine.Category = categoryTB.Text.Trim();
-            m_EditNodeDefine.ShowContent = showContentCB.Checked;
+            m_EditNodeDefine.CheckField = CBB_CheckField.Checked;
 
             //校验节点类是否合法
             VerifyInfo verifyNodeDefine = m_EditNodeDefine.VerifyNodeDefine();

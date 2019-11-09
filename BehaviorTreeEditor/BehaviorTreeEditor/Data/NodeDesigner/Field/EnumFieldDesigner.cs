@@ -59,6 +59,16 @@ namespace BehaviorTreeEditor
             return string.IsNullOrEmpty(m_Value) ? string.Empty : m_Value;
         }
 
+        public EnumItem GetEnumItemByIndex(int index)
+        {
+            CustomEnum customEnum = MainForm.Instance.NodeTemplate.FindEnum(m_EnumType);
+
+            if (index >= 0 && index < customEnum.Enums.Count)
+                return customEnum.Enums[index];
+
+            return null;
+        }
+
         [Browsable(false)]
         public int ValueInt
         {

@@ -58,6 +58,7 @@ namespace BehaviorTreeEditor
                 switch (e.KeyCode)
                 {
                     case Keys.C:
+
                         Exec("Copy");
                         break;
                     case Keys.V:

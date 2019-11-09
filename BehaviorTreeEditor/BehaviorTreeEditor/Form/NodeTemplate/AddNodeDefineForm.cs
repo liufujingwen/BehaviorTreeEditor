@@ -51,7 +51,7 @@ namespace BehaviorTreeEditor
             m_NodeDefine.NodeType = (NodeType)(nodeTypeCBB.SelectedIndex + 1);
             m_NodeDefine.Describe = describeTB.Text.Trim();
             m_NodeDefine.Category = categoryTB.Text.Trim();
-            m_NodeDefine.ShowContent = showContentCB.Checked;
+            m_NodeDefine.CheckField = CBB_CheckField.Checked;
             m_NodeDefine.Label = labelTB.Text.Trim();
 
             //校验节点类是否合法
