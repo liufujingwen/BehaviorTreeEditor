@@ -83,9 +83,9 @@ namespace R7BehaviorTree
         /// 根据类型获取AgentData
         /// </summary>
         /// <param name="behaviorTreeType">行为树类型</param>
-        /// <param name="id">AgentId</param>
+        /// <param name="id">行为树id</param>
         /// <returns></returns>
-        public BehaviorTreeElement GetAgentData(int behaviorTreeType, string id)
+        public BehaviorTreeElement GetBehaviroTreeData(int behaviorTreeType, string id)
         {
             BehaviorTreeData treeData = null;
 
@@ -189,7 +189,7 @@ namespace R7BehaviorTree
             if (behaviorTree == null)
             {
                 behaviorTree = new BehaviorTree();
-                BehaviorTreeElement behaviorTreeElement = GetAgentData(behaviorTreeType, behaviorTreeId);
+                BehaviorTreeElement behaviorTreeElement = GetBehaviroTreeData(behaviorTreeType, behaviorTreeId);
                 behaviorTree.SetData(behaviorTreeElement);
                 behaviorTree.StartNode = CreateNode(behaviorTreeElement.StartNode);
                 behaviorTree.BehaviorTreeType = behaviorTreeType;
@@ -361,6 +361,12 @@ namespace R7BehaviorTree
                 throw new Exception(msg);
             }
 
+            //重置节点状态
+            if (node.Status != ENodeStatus.None)
+            {
+                node.Status = ENodeStatus.None;
+            }
+
             IProxyManager proxyManager = null;
             for (int i = 0; i < m_ProxyManagers.Count; i++)
             {
@@ -413,13 +419,13 @@ namespace R7BehaviorTree
 
                     behaviorTree.Run(deltatime);
 
-                    //if (behaviorTree.Status == ENodeStatus.Failed || behaviorTree.Status == ENodeStatus.Succeed)
-                    //{
-                    //    Runnings.RemoveAt(i);
-                    //    i--;
-                    //    behaviorTree.Destroy();
-                    //    Despawn(behaviorTree);
-                    //}
+                    if (behaviorTree.Status == ENodeStatus.Failed || behaviorTree.Status == ENodeStatus.Succeed)
+                    {
+                        Runnings.RemoveAt(i);
+                        i--;
+                        behaviorTree.Destroy();
+                        Despawn(behaviorTree);
+                    }
                 }
             }
         }

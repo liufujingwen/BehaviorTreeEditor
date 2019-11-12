@@ -31,8 +31,9 @@
   <Groups />
   <BehaviorTrees>
     <BehaviorTreeDesigner>
-      <ID>New_637089106646876573</ID>
+      <ID>Map</ID>
       <GroupName />
+      <Describe />
       <Fields />
       <BehaviorTreeVariableFields />
       <Nodes>
@@ -70,11 +71,15 @@
           <Transitions>
             <Transition>
               <FromNodeID>1</FromNodeID>
+              <ToNodeID>2</ToNodeID>
+            </Transition>
+            <Transition>
+              <FromNodeID>1</FromNodeID>
               <ToNodeID>3</ToNodeID>
             </Transition>
             <Transition>
               <FromNodeID>1</FromNodeID>
-              <ToNodeID>2</ToNodeID>
+              <ToNodeID>4</ToNodeID>
             </Transition>
           </Transitions>
           <ID>1</ID>
@@ -86,23 +91,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5250</x>
-            <y>5000</y>
+            <x>5292</x>
+            <y>4868</y>
             <position>
-              <x>5250</x>
-              <y>5000</y>
+              <x>5292</x>
+              <y>4868</y>
             </position>
             <center>
-              <x>5325</x>
-              <y>5030</y>
+              <x>5367</x>
+              <y>4898</y>
             </center>
             <min>
-              <x>5250</x>
-              <y>5000</y>
+              <x>5292</x>
+              <y>4868</y>
             </min>
             <max>
-              <x>5400</x>
-              <y>5060</y>
+              <x>5442</x>
+              <y>4928</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -110,10 +115,10 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5250</xMin>
-            <yMin>5000</yMin>
-            <xMax>5400</xMax>
-            <yMax>5060</yMax>
+            <xMin>5292</xMin>
+            <yMin>4868</yMin>
+            <xMax>5442</xMax>
+            <yMax>4928</yMax>
           </Rect>
           <Transitions />
           <ID>2</ID>
@@ -126,23 +131,23 @@
         </NodeDesigner>
         <NodeDesigner>
           <Rect>
-            <x>5262.5</x>
-            <y>4890</y>
+            <x>5293.3335</x>
+            <y>4984.3335</y>
             <position>
-              <x>5262.5</x>
-              <y>4890</y>
+              <x>5293.3335</x>
+              <y>4984.3335</y>
             </position>
             <center>
-              <x>5337.5</x>
-              <y>4920</y>
+              <x>5368.3335</x>
+              <y>5014.3335</y>
             </center>
             <min>
-              <x>5262.5</x>
-              <y>4890</y>
+              <x>5293.3335</x>
+              <y>4984.3335</y>
             </min>
             <max>
-              <x>5412.5</x>
-              <y>4950</y>
+              <x>5443.3335</x>
+              <y>5044.3335</y>
             </max>
             <width>150</width>
             <height>60</height>
@@ -150,80 +155,74 @@
               <x>150</x>
               <y>60</y>
             </size>
-            <xMin>5262.5</xMin>
-            <yMin>4890</yMin>
-            <xMax>5412.5</xMax>
-            <yMax>4950</yMax>
+            <xMin>5293.3335</xMin>
+            <yMin>4984.3335</yMin>
+            <xMax>5443.3335</xMax>
+            <yMax>5044.3335</yMax>
           </Rect>
           <Transitions />
           <ID>3</ID>
           <StartNode>false</StartNode>
-          <ClassType>Compare</ClassType>
-          <Label>比较节点</Label>
-          <NodeType>Condition</NodeType>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
           <Fields>
             <FieldDesigner>
-              <FieldName>LeftType</FieldName>
-              <Label>左参数类型</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe />
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>ParameterType</EnumType>
-                <Value>GlobalVar</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>LeftParameter</FieldName>
-              <Label>左参数名</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>左边参数变量名</Describe>
-              <Field xsi:type="StringFieldDesigner">
-                <Value>GlobalTest1</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>LeftConstValue</FieldName>
-              <Label>左边常数值</Label>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
               <FieldType>IntField</FieldType>
-              <Describe>左边常数值，左边参数类型为Const生效</Describe>
+              <Describe>等待时间（毫秒）</Describe>
               <Field xsi:type="IntFieldDesigner">
-                <Value>0</Value>
+                <Value>1000</Value>
               </Field>
             </FieldDesigner>
+          </Fields>
+        </NodeDesigner>
+        <NodeDesigner>
+          <Rect>
+            <x>5300.3335</x>
+            <y>5080.3335</y>
+            <position>
+              <x>5300.3335</x>
+              <y>5080.3335</y>
+            </position>
+            <center>
+              <x>5375.3335</x>
+              <y>5110.3335</y>
+            </center>
+            <min>
+              <x>5300.3335</x>
+              <y>5080.3335</y>
+            </min>
+            <max>
+              <x>5450.3335</x>
+              <y>5140.3335</y>
+            </max>
+            <width>150</width>
+            <height>60</height>
+            <size>
+              <x>150</x>
+              <y>60</y>
+            </size>
+            <xMin>5300.3335</xMin>
+            <yMin>5080.3335</yMin>
+            <xMax>5450.3335</xMax>
+            <yMax>5140.3335</yMax>
+          </Rect>
+          <Transitions />
+          <ID>4</ID>
+          <StartNode>false</StartNode>
+          <ClassType>Wait</ClassType>
+          <Label>等待节点</Label>
+          <NodeType>Action</NodeType>
+          <Fields>
             <FieldDesigner>
-              <FieldName>CompareType</FieldName>
-              <Label>比较操作符</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe>比较符号&lt;、&gt;、&lt;=、&gt;=、==、!=</Describe>
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>CompareType</EnumType>
-                <Value>Less</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>RightType</FieldName>
-              <Label>右参数类型</Label>
-              <FieldType>EnumField</FieldType>
-              <Describe />
-              <Field xsi:type="EnumFieldDesigner">
-                <EnumType>ParameterType</EnumType>
-                <Value>GlobalVar</Value>
-              </Field>
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>RightParameter</FieldName>
-              <Label>右参数名</Label>
-              <FieldType>StringField</FieldType>
-              <Describe>右边参数变量名</Describe>
-              <Field xsi:type="StringFieldDesigner" />
-            </FieldDesigner>
-            <FieldDesigner>
-              <FieldName>RightConstValue</FieldName>
-              <Label>右边常数值</Label>
+              <FieldName>Millisecond</FieldName>
+              <Label>等待时间(毫秒)</Label>
               <FieldType>IntField</FieldType>
-              <Describe>右边常数值，右边参数类型为Const生效</Describe>
+              <Describe>等待时间（毫秒）</Describe>
               <Field xsi:type="IntFieldDesigner">
-                <Value>0</Value>
+                <Value>1000</Value>
               </Field>
             </FieldDesigner>
           </Fields>

@@ -105,7 +105,6 @@ namespace R7BehaviorTree
 
             SetActive(false);
             OnDestroy();
-            Status = ENodeStatus.None;
             Context = null;
             NodeProxy = null;
         }

@@ -12,16 +12,13 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.32f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -301,6 +298,7 @@
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatVector2Field.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\RepeatVector3Field.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\StringField.cs" />
+    <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\VariableData.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector2.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector2Field.cs" />
     <Compile Include="Assets\BehaviorTree.Core\BehaviorTreeData\Data\Vector3.cs" />
