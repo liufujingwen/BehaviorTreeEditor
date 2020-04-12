@@ -155,6 +155,11 @@
     <Compile Include="NodeClassTreeView\NodeTreeViewManager.cs" />
     <Compile Include="NodeClassTreeView\NodeTypeItem.cs" />
     <Compile Include="NodeClassTreeView\TreeViewItem.cs" />
+    <Compile Include="Properties\NodeIcons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NodeIcons.resx</DependentUpon>
+    </Compile>
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,6 +349,10 @@
     <EmbeddedResource Include="Form\Variable\GlobalVariableForm.resx">
       <DependentUpon>GlobalVariableForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\NodeIcons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NodeIcons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -383,6 +392,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NodeIcons\Accessor.png" />
+    <Content Include="NodeIcons\Action.png" />
+    <Content Include="NodeIcons\Agent.png" />
+    <Content Include="NodeIcons\BT.png" />
+    <Content Include="NodeIcons\Condition.png" />
+    <Content Include="NodeIcons\Dialogue.png" />
+    <Content Include="NodeIcons\Eye.png" />
+    <Content Include="NodeIcons\Filter.png" />
+    <Content Include="NodeIcons\FlipSelector.png" />
+    <Content Include="NodeIcons\FS.png" />
+    <Content Include="NodeIcons\FSM.png" />
+    <Content Include="NodeIcons\Halt.png" />
+    <Content Include="NodeIcons\IndexSwitcher.png" />
+    <Content Include="NodeIcons\Inspect.png" />
+    <Content Include="NodeIcons\Interruptor.png" />
+    <Content Include="NodeIcons\List.png" />
+    <Content Include="NodeIcons\Lock.png" />
+    <Content Include="NodeIcons\Log.png" />
+    <Content Include="NodeIcons\MacroIn.png" />
+    <Content Include="NodeIcons\MacroOut.png" />
+    <Content Include="NodeIcons\Parallel.png" />
+    <Content Include="NodeIcons\Priority.png" />
+    <Content Include="NodeIcons\ProbabilitySelector.png" />
+    <Content Include="NodeIcons\Remap.png" />
+    <Content Include="NodeIcons\Repeat.png" />
+    <Content Include="NodeIcons\Selector.png" />
+    <Content Include="NodeIcons\Sequencer.png" />
+    <Content Include="NodeIcons\Set.png" />
+    <Content Include="NodeIcons\Shield.png" />
+    <Content Include="NodeIcons\StepIterator.png" />
+    <Content Include="NodeIcons\Timeout.png" />
+    <Content Include="NodeIcons\UpwardsArrow.png" />
     <Content Include="Resources\ActionEditor.ico" />
     <Content Include="Resources\add.bmp" />
     <Content Include="Resources\browser.bmp" />

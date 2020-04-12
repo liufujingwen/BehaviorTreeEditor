@@ -2,6 +2,8 @@ using BehaviorTreeEditor.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 
 namespace BehaviorTreeEditor
 {
@@ -11,10 +13,26 @@ namespace BehaviorTreeEditor
 
         static EditorUtility()
         {
-            NameStringFormat.LineAlignment = StringAlignment.Center;
-            NameStringFormat.Alignment = StringAlignment.Center;
+            TitleStringFormat.LineAlignment = StringAlignment.Center;
+            TitleStringFormat.Alignment = StringAlignment.Center;
             //框选范围用虚线
             SelectionModePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+            NodeIconDic.Clear();
+
+            PropertyInfo[] properties = typeof(NodeIcons).GetProperties(BindingFlags.NonPublic | BindingFlags.Static);
+            for (int i = 0; i < properties.Length; i++)
+            {
+                PropertyInfo propertyInfo = properties[i];
+                if (propertyInfo.PropertyType != typeof(Bitmap))
+                    continue;
+                Bitmap bitmap = propertyInfo.GetValue(null, null) as Bitmap;
+                NodeIconDic.Add(propertyInfo.Name, bitmap);
+            }
+
+            TitleStringFormat.Alignment = StringAlignment.Center;
+            ContentStringFormat.Alignment = StringAlignment.Near;
+            DescribeStringFormat.Alignment = StringAlignment.Near;
         }
 
         #region ==================Background===================
@@ -67,9 +85,11 @@ namespace BehaviorTreeEditor
 
         //节点字体
         public static Font NodeTitleFont = new Font("宋体", 12, FontStyle.Regular);
-        public static Font NodeContentFont = new Font("宋体", 12, FontStyle.Regular);
-        public static Brush NodeTitleFontBrush = new SolidBrush(Color.White);
-        public static Brush NodeContentFontBrush = new SolidBrush(Color.Black);
+        public static Font NodeContentFont = new Font("宋体", 9, FontStyle.Regular);
+        public static Font DescribeFont = new Font("宋体", 9, FontStyle.Regular);
+        public static Brush NodeTitleFontBrush = new SolidBrush(Color.Black);
+        public static Brush NodeContentFontBrush = new SolidBrush(Color.White);
+        public static Brush DescribeFontBrush = new SolidBrush(Color.White);
         //节点错误 笔刷
         public static Brush NodeErrorBrush = new SolidBrush(Color.Red);
 
@@ -82,7 +102,11 @@ namespace BehaviorTreeEditor
         //普通状态图片
         public static Brush NodeTitleBrush = new SolidBrush(Color.FromArgb(255, 54, 74, 85));
         public static Brush NodeContentBrush = new TextureBrush(Resources.NodeBackground_Light);//普通状态图片
-        public static StringFormat NameStringFormat = new StringFormat(StringFormatFlags.NoWrap);
+        public static StringFormat TitleStringFormat = new StringFormat(StringFormatFlags.NoWrap);
+        public static StringFormat ContentStringFormat = new StringFormat(StringFormatFlags.NoWrap);
+        public static StringFormat DescribeStringFormat = new StringFormat(StringFormatFlags.NoWrap);
+
+        public static Dictionary<string, Bitmap> NodeIconDic = new Dictionary<string, Bitmap>();
 
         #endregion
 
@@ -248,13 +272,29 @@ namespace BehaviorTreeEditor
             //画标题底框
             //graphics.DrawImage(Resources.NodeBackground_Dark, titleRect);
             graphics.FillRectangle(NodeTitleBrush, titleRect);
-            //标题
-            graphics.DrawString(node.Title, NodeTitleFont, NodeTitleFontBrush, titleRect.x + titleRect.width / 2.0f, titleRect.y + titleRect.height / 2.0f, EditorUtility.NameStringFormat);
+
             //画内容底框
             graphics.FillRectangle(NodeContentBrush, contentRect);
+            //节点图片
+            if (!string.IsNullOrEmpty(node.NodeDefine.NodeIcon))
+            {
+                Bitmap nodeIcon;
+                if (NodeIconDic.TryGetValue(node.NodeDefine.NodeIcon, out nodeIcon))
+                    graphics.DrawImage(nodeIcon, new PointF(titleRect.x + titleRect.width / 2 - nodeIcon.Width / 2, titleRect.y + 3));
+            }
+
+            //标题
+            graphics.DrawString(node.Title, NodeTitleFont, NodeTitleFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, TitleStringFormat);
 
             //渲染内容
-            graphics.DrawString(node.ShowContent(), NodeContentFont, NodeContentFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, EditorUtility.NameStringFormat);
+            string content = node.ShowContent();
+            SizeF contentSize = graphics.MeasureString(content, NodeContentFont);
+            graphics.DrawString(content, NodeContentFont, NodeContentFontBrush, contentRect.x, contentRect.y + contentRect.height + 10, ContentStringFormat);
+
+            //描述
+            string describe = node.Describe;
+            SizeF describeSize = graphics.MeasureString(content, DescribeFont);
+            graphics.DrawString(describe, DescribeFont, DescribeFontBrush, contentRect.x, contentRect.y + contentRect.height + contentSize.Height + 10, DescribeStringFormat);
 
             //选中边框
             if (on && !DebugManager.Instance.Debugging)

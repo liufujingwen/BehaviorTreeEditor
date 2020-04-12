@@ -58,9 +58,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.describeTB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.nodeIconPB = new System.Windows.Forms.PictureBox();
+            this.nodeIconCBB = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nodeIconPB)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewFields
@@ -77,10 +83,9 @@
             this.listViewFields.GridLines = true;
             this.listViewFields.HideSelection = false;
             this.listViewFields.LabelEdit = true;
-            this.listViewFields.Location = new System.Drawing.Point(3, 21);
-            this.listViewFields.Margin = new System.Windows.Forms.Padding(4);
+            this.listViewFields.Location = new System.Drawing.Point(2, 16);
             this.listViewFields.Name = "listViewFields";
-            this.listViewFields.Size = new System.Drawing.Size(826, 323);
+            this.listViewFields.Size = new System.Drawing.Size(620, 260);
             this.listViewFields.TabIndex = 1;
             this.listViewFields.UseCompatibleStateImageBehavior = false;
             this.listViewFields.View = System.Windows.Forms.View.Details;
@@ -115,10 +120,10 @@
             // enterBTN
             // 
             this.enterBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterBTN.Location = new System.Drawing.Point(731, 663);
-            this.enterBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.enterBTN.Location = new System.Drawing.Point(548, 530);
+            this.enterBTN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.enterBTN.Name = "enterBTN";
-            this.enterBTN.Size = new System.Drawing.Size(112, 32);
+            this.enterBTN.Size = new System.Drawing.Size(84, 26);
             this.enterBTN.TabIndex = 5;
             this.enterBTN.Text = "确定";
             this.enterBTN.UseVisualStyleBackColor = true;
@@ -127,10 +132,10 @@
             // cancelBTN
             // 
             this.cancelBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelBTN.Location = new System.Drawing.Point(574, 663);
-            this.cancelBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cancelBTN.Location = new System.Drawing.Point(430, 530);
+            this.cancelBTN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelBTN.Name = "cancelBTN";
-            this.cancelBTN.Size = new System.Drawing.Size(112, 32);
+            this.cancelBTN.Size = new System.Drawing.Size(84, 26);
             this.cancelBTN.TabIndex = 4;
             this.cancelBTN.Text = "取消";
             this.cancelBTN.UseVisualStyleBackColor = true;
@@ -147,13 +152,13 @@
             this.新建ToolStripMenuItem,
             this.删除ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 130);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 120);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
@@ -161,20 +166,20 @@
             // 
             this.粘贴ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(105, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
             // 
             // 选项ToolStripMenuItem
             // 
             this.选项ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
-            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.选项ToolStripMenuItem.Text = "选项";
             this.选项ToolStripMenuItem.Click += new System.EventHandler(this.选项ToolStripMenuItem_Click);
             // 
@@ -182,7 +187,7 @@
             // 
             this.新建ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.新建ToolStripMenuItem.Name = "新建ToolStripMenuItem";
-            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.新建ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.新建ToolStripMenuItem.Text = "新建";
             this.新建ToolStripMenuItem.Click += new System.EventHandler(this.新建ToolStripMenuItem_Click);
             // 
@@ -190,7 +195,7 @@
             // 
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
@@ -200,15 +205,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.listViewFields);
-            this.groupBox2.Location = new System.Drawing.Point(12, 289);
+            this.groupBox2.Location = new System.Drawing.Point(9, 231);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(832, 347);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(624, 278);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "字段预览(右键展示操作菜单)";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.CBB_CheckField);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.labelTB);
@@ -221,126 +229,172 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.describeTB);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Location = new System.Drawing.Point(11, 10);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(832, 271);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(624, 217);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
             // CBB_CheckField
             // 
             this.CBB_CheckField.AutoSize = true;
-            this.CBB_CheckField.Location = new System.Drawing.Point(742, 25);
+            this.CBB_CheckField.Location = new System.Drawing.Point(556, 20);
+            this.CBB_CheckField.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CBB_CheckField.Name = "CBB_CheckField";
-            this.CBB_CheckField.Size = new System.Drawing.Size(18, 17);
+            this.CBB_CheckField.Size = new System.Drawing.Size(15, 14);
             this.CBB_CheckField.TabIndex = 13;
             this.CBB_CheckField.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(617, 26);
+            this.label6.Location = new System.Drawing.Point(463, 21);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(112, 15);
+            this.label6.Size = new System.Drawing.Size(89, 12);
             this.label6.TabIndex = 12;
             this.label6.Text = "是否检测字段：";
             // 
             // labelTB
             // 
-            this.labelTB.Location = new System.Drawing.Point(64, 58);
-            this.labelTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelTB.Location = new System.Drawing.Point(48, 46);
+            this.labelTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.labelTB.Name = "labelTB";
-            this.labelTB.Size = new System.Drawing.Size(456, 25);
+            this.labelTB.Size = new System.Drawing.Size(343, 21);
             this.labelTB.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 61);
+            this.label5.Location = new System.Drawing.Point(5, 49);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 8;
             this.label5.Text = "标签：";
             // 
             // categoryTB
             // 
-            this.categoryTB.Location = new System.Drawing.Point(65, 128);
-            this.categoryTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.categoryTB.Location = new System.Drawing.Point(49, 102);
+            this.categoryTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.categoryTB.Name = "categoryTB";
-            this.categoryTB.Size = new System.Drawing.Size(456, 25);
+            this.categoryTB.Size = new System.Drawing.Size(343, 21);
             this.categoryTB.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 131);
+            this.label4.Location = new System.Drawing.Point(5, 105);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 6;
             this.label4.Text = "类别：";
             // 
             // nodeTypeCBB
             // 
             this.nodeTypeCBB.FormattingEnabled = true;
-            this.nodeTypeCBB.Location = new System.Drawing.Point(64, 96);
-            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nodeTypeCBB.Location = new System.Drawing.Point(48, 77);
+            this.nodeTypeCBB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nodeTypeCBB.Name = "nodeTypeCBB";
-            this.nodeTypeCBB.Size = new System.Drawing.Size(456, 23);
+            this.nodeTypeCBB.Size = new System.Drawing.Size(343, 20);
             this.nodeTypeCBB.TabIndex = 5;
             // 
             // classTypeTB
             // 
-            this.classTypeTB.Location = new System.Drawing.Point(65, 23);
-            this.classTypeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.classTypeTB.Location = new System.Drawing.Point(49, 18);
+            this.classTypeTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.classTypeTB.Name = "classTypeTB";
-            this.classTypeTB.Size = new System.Drawing.Size(456, 25);
+            this.classTypeTB.Size = new System.Drawing.Size(343, 21);
             this.classTypeTB.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 98);
+            this.label3.Location = new System.Drawing.Point(5, 78);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 4;
             this.label3.Text = "类型：";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 26);
+            this.label1.Location = new System.Drawing.Point(6, 21);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 15);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "类名：";
             // 
             // describeTB
             // 
-            this.describeTB.Location = new System.Drawing.Point(65, 166);
-            this.describeTB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.describeTB.Location = new System.Drawing.Point(49, 133);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
-            this.describeTB.Size = new System.Drawing.Size(535, 69);
+            this.describeTB.Size = new System.Drawing.Size(373, 56);
             this.describeTB.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 170);
+            this.label2.Location = new System.Drawing.Point(6, 136);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "描述：";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.nodeIconCBB);
+            this.groupBox3.Controls.Add(this.nodeIconPB);
+            this.groupBox3.Location = new System.Drawing.Point(457, 46);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(161, 100);
+            this.groupBox3.TabIndex = 14;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "图标";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // nodeIconPB
+            // 
+            this.nodeIconPB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.nodeIconPB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nodeIconPB.Location = new System.Drawing.Point(21, 44);
+            this.nodeIconPB.Name = "nodeIconPB";
+            this.nodeIconPB.Size = new System.Drawing.Size(121, 50);
+            this.nodeIconPB.TabIndex = 0;
+            this.nodeIconPB.TabStop = false;
+            // 
+            // nodeIconCBB
+            // 
+            this.nodeIconCBB.FormattingEnabled = true;
+            this.nodeIconCBB.Location = new System.Drawing.Point(21, 18);
+            this.nodeIconCBB.Name = "nodeIconCBB";
+            this.nodeIconCBB.Size = new System.Drawing.Size(121, 20);
+            this.nodeIconCBB.TabIndex = 1;
+            this.nodeIconCBB.SelectedIndexChanged += new System.EventHandler(this.nodeIconCBB_SelectedIndexChanged);
+            // 
             // EditNodeDefineForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 715);
+            this.ClientSize = new System.Drawing.Size(641, 572);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.enterBTN);
             this.Controls.Add(this.cancelBTN);
             this.Controls.Add(this.groupBox2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EditNodeDefineForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "编辑节点";
@@ -349,6 +403,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nodeIconPB)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -383,5 +439,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox CBB_CheckField;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox nodeIconCBB;
+        private System.Windows.Forms.PictureBox nodeIconPB;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

@@ -55,8 +55,9 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(354, 834);
+            this.panel1.Size = new System.Drawing.Size(266, 667);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -66,9 +67,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.listView1);
-            this.panel3.Location = new System.Drawing.Point(0, 224);
+            this.panel3.Location = new System.Drawing.Point(0, 179);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(354, 607);
+            this.panel3.Size = new System.Drawing.Size(266, 486);
             this.panel3.TabIndex = 1;
             // 
             // listView1
@@ -82,8 +84,9 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(352, 605);
+            this.listView1.Size = new System.Drawing.Size(264, 484);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -123,27 +126,31 @@
             this.panel2.Controls.Add(this.label14);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(354, 221);
+            this.panel2.Size = new System.Drawing.Size(266, 177);
             this.panel2.TabIndex = 0;
             this.panel2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.panel2_PreviewKeyDown);
             // 
             // describeTB
             // 
             this.describeTB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.describeTB.Location = new System.Drawing.Point(12, 113);
+            this.describeTB.Location = new System.Drawing.Point(9, 90);
+            this.describeTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.describeTB.Multiline = true;
             this.describeTB.Name = "describeTB";
-            this.describeTB.Size = new System.Drawing.Size(332, 103);
+            this.describeTB.Size = new System.Drawing.Size(250, 83);
             this.describeTB.TabIndex = 27;
+            this.describeTB.TextChanged += new System.EventHandler(this.describeTB_TextChanged);
             // 
             // nodeTypeLab
             // 
             this.nodeTypeLab.AutoSize = true;
             this.nodeTypeLab.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nodeTypeLab.Location = new System.Drawing.Point(76, 66);
+            this.nodeTypeLab.Location = new System.Drawing.Point(57, 53);
+            this.nodeTypeLab.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nodeTypeLab.Name = "nodeTypeLab";
-            this.nodeTypeLab.Size = new System.Drawing.Size(61, 15);
+            this.nodeTypeLab.Size = new System.Drawing.Size(47, 12);
             this.nodeTypeLab.TabIndex = 26;
             this.nodeTypeLab.Text = "Action";
             // 
@@ -151,9 +158,10 @@
             // 
             this.nodeIdLab.AutoSize = true;
             this.nodeIdLab.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nodeIdLab.Location = new System.Drawing.Point(77, 39);
+            this.nodeIdLab.Location = new System.Drawing.Point(58, 31);
+            this.nodeIdLab.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nodeIdLab.Name = "nodeIdLab";
-            this.nodeIdLab.Size = new System.Drawing.Size(34, 15);
+            this.nodeIdLab.Size = new System.Drawing.Size(26, 12);
             this.nodeIdLab.TabIndex = 25;
             this.nodeIdLab.Text = "100";
             // 
@@ -161,55 +169,61 @@
             // 
             this.classTypeLab.AutoSize = true;
             this.classTypeLab.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.classTypeLab.Location = new System.Drawing.Point(75, 11);
+            this.classTypeLab.Location = new System.Drawing.Point(56, 9);
+            this.classTypeLab.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.classTypeLab.Name = "classTypeLab";
-            this.classTypeLab.Size = new System.Drawing.Size(79, 15);
+            this.classTypeLab.Size = new System.Drawing.Size(61, 12);
             this.classTypeLab.TabIndex = 24;
             this.classTypeLab.Text = "Sequence";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 66);
+            this.label11.Location = new System.Drawing.Point(7, 53);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 15);
+            this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 23;
             this.label11.Text = "类  型：";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 95);
+            this.label12.Location = new System.Drawing.Point(7, 76);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 15);
+            this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 22;
             this.label12.Text = "描  述：";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 38);
+            this.label13.Location = new System.Drawing.Point(7, 30);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(68, 15);
+            this.label13.Size = new System.Drawing.Size(53, 12);
             this.label13.TabIndex = 21;
             this.label13.Text = "节点ID：";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 12);
+            this.label14.Location = new System.Drawing.Point(7, 10);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(67, 15);
+            this.label14.Size = new System.Drawing.Size(53, 12);
             this.label14.TabIndex = 20;
             this.label14.Text = "节点类：";
             // 
             // NodePropertyUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NodePropertyUserControl";
-            this.Size = new System.Drawing.Size(354, 834);
+            this.Size = new System.Drawing.Size(266, 667);
             this.Load += new System.EventHandler(this.NodePropertyUserControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);

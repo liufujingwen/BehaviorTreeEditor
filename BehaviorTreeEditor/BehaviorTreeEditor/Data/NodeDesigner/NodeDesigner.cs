@@ -43,8 +43,19 @@ namespace BehaviorTreeEditor
         [XmlIgnore]
         public NodeDesigner ParentNode;
 
+        private NodeDefine m_NodeDefine;
+
         [XmlIgnore]
-        public NodeDefine NodeDefine { get; set; }
+        public NodeDefine NodeDefine
+        {
+            get
+            {
+                if (m_NodeDefine == null)
+                    m_NodeDefine = MainForm.Instance.NodeTemplate.FindNode(ClassType);
+                return m_NodeDefine;
+            }
+            set { m_NodeDefine = value; }
+        }
 
         public int ID
         {
@@ -236,9 +247,6 @@ namespace BehaviorTreeEditor
         public string ShowContent()
         {
             if (NodeDefine == null)
-                NodeDefine = MainForm.Instance.NodeTemplate.FindNode(ClassType);
-
-            if (NodeDefine == null)
                 throw new Exception(ClassType + "的" + nameof(NodeDefine) + "为空");
 
             string content = string.Empty;
@@ -262,8 +270,6 @@ namespace BehaviorTreeEditor
 
             if (showCount > 0)
                 content += "]";
-            else
-                content = Describe;
 
             return content;
         }

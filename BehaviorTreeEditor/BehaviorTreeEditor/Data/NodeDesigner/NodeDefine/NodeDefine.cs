@@ -18,6 +18,16 @@ namespace BehaviorTreeEditor
             set { m_ClassType = value; }
         }
 
+        private string m_NodeIcon;
+        [Category("常规"), DisplayName("节点图标"), Description("节点图标")]
+        [XmlAttribute]
+        public string NodeIcon
+        {
+            get { return m_NodeIcon; }
+            set { m_NodeIcon = value; }
+        }
+
+
         private string m_Label;
 
         [Category("常规"), DisplayName("标签"), Description("中文名")]

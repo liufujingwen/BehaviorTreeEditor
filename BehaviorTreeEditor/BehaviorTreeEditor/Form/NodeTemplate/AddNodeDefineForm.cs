@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BehaviorTreeEditor
@@ -19,6 +20,29 @@ namespace BehaviorTreeEditor
 
         private void AddDefineForm_Load(object sender, EventArgs e)
         {
+            //绑定节点图标
+            nodeIconCBB.Items.Clear();
+            int index = 0;
+            int selectedIndex = index;
+            foreach (var kv in EditorUtility.NodeIconDic)
+            {
+                nodeIconCBB.Items.Add(kv.Key);
+                if (kv.Key == m_NodeDefine.NodeIcon)
+                    selectedIndex = index;
+                index++;
+            }
+            nodeIconCBB.SelectedIndex = selectedIndex;
+
+            Bitmap bitmap;
+            if (EditorUtility.NodeIconDic.TryGetValue(m_NodeDefine.NodeIcon, out bitmap))
+            {
+                nodeIconPB.Image = bitmap;
+            }
+            else
+            {
+                nodeIconPB.Image = null;
+            }
+
             nodeTypeCBB.Items.Clear();
             string[] enumNames = Enum.GetNames(typeof(NodeType));
             for (int i = 1; i < enumNames.Length; i++)
@@ -53,6 +77,7 @@ namespace BehaviorTreeEditor
             m_NodeDefine.Category = categoryTB.Text.Trim();
             m_NodeDefine.CheckField = CBB_CheckField.Checked;
             m_NodeDefine.Label = labelTB.Text.Trim();
+            m_NodeDefine.NodeIcon = nodeIconCBB.Text;
 
             //校验节点类是否合法
             VerifyInfo verifyNodeDefine = m_NodeDefine.VerifyNodeDefine();
@@ -363,6 +388,22 @@ namespace BehaviorTreeEditor
             Exec("Refresh");
             MainForm.Instance.ShowInfo("交换成功 时间:" + DateTime.Now);
             listViewFields.Items[selectIdx].Selected = true;
+        }
+
+        private void nodeIconCBB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = nodeIconCBB.Text;
+            Bitmap bitmap;
+            if (EditorUtility.NodeIconDic.TryGetValue(value, out bitmap))
+            {
+                nodeIconPB.Image = bitmap;
+                m_NodeDefine.NodeIcon = value;
+            }
+            else
+            {
+                m_NodeDefine.NodeIcon = null;
+                nodeIconPB.Image = null;
+            }
         }
     }
 }

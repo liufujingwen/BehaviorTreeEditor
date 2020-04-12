@@ -207,5 +207,11 @@ namespace BehaviorTreeEditor.UIControls
                 }
             }
         }
+
+        private void describeTB_TextChanged(object sender, EventArgs e)
+        {
+            if (m_Node != null)
+                m_Node.Describe = describeTB.Text;
+        }
     }
 }
