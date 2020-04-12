@@ -32,5 +32,11 @@
     <Setting Name="SaveWarnning" Type="System.String" Scope="User">
       <Value Profile="(Default)">是否保存修改?</Value>
     </Setting>
+    <Setting Name="ShowContent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowDescribe" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

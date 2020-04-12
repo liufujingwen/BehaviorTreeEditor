@@ -90,6 +90,12 @@ namespace BehaviorTreeEditor
         public static Brush NodeTitleFontBrush = new SolidBrush(Color.Black);
         public static Brush NodeContentFontBrush = new SolidBrush(Color.White);
         public static Brush DescribeFontBrush = new SolidBrush(Color.White);
+
+        //节点内容背景画笔
+        public static Brush ContentBackgroundBrush = new SolidBrush(Color.FromArgb(100, Color.Gray));
+        //节点内容背景画笔
+        public static Brush DescribeBackgroundBrush = new SolidBrush(Color.FromArgb(100, Color.Gray));
+
         //节点错误 笔刷
         public static Brush NodeErrorBrush = new SolidBrush(Color.Red);
 
@@ -150,25 +156,25 @@ namespace BehaviorTreeEditor
         //节点标题Rect
         public static Rect GetTitleRect(NodeDesigner node)
         {
-            return new Rect(node.Rect.x, node.Rect.y, node.Rect.width, EditorUtility.TitleNodeHeight);
+            return new Rect(node.Rect.x, node.Rect.y, node.Rect.width, TitleNodeHeight);
         }
 
         //节点内容Rect
         public static Rect GetContentRect(NodeDesigner node)
         {
-            return new Rect(node.Rect.x, node.Rect.y + EditorUtility.TitleNodeHeight, node.Rect.width, node.Rect.height - EditorUtility.TitleNodeHeight);
+            return new Rect(node.Rect.x, node.Rect.y + TitleNodeHeight, node.Rect.width, node.Rect.height - TitleNodeHeight);
         }
 
         //左边连接点
         public static Vec2 GetLeftLinkPoint(NodeDesigner node)
         {
-            return new Vec2(node.Rect.x, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f);
+            return new Vec2(node.Rect.x, node.Rect.y + TitleNodeHeight / 2.0f);
         }
 
         //右边连接点
         public static Vec2 GetRightLinkPoint(NodeDesigner node)
         {
-            return new Vec2(node.Rect.x + node.Rect.width, node.Rect.y + EditorUtility.TitleNodeHeight / 2.0f);
+            return new Vec2(node.Rect.x + node.Rect.width, node.Rect.y + TitleNodeHeight / 2.0f);
         }
 
         /// <summary>
@@ -180,7 +186,7 @@ namespace BehaviorTreeEditor
         /// <param name="offset">偏移</param>
         public static void DrawGridLines(Graphics graphics, Rect rect, int gridSize, Vec2 offset, bool normal)
         {
-            Pen pen = normal ? EditorUtility.LineNormalPen : EditorUtility.LineBoldPen;
+            Pen pen = normal ? LineNormalPen : LineBoldPen;
 
             offset = -offset;
 
@@ -212,10 +218,10 @@ namespace BehaviorTreeEditor
         /// </summary>
         public static void DrawNodeLinkPoint(Graphics graphics, NodeDesigner node)
         {
-            Vec2 leftPoint = EditorUtility.GetLeftLinkPoint(node);
-            Vec2 rightPoint = EditorUtility.GetRightLinkPoint(node);
+            Vec2 leftPoint = GetLeftLinkPoint(node);
+            Vec2 rightPoint = GetRightLinkPoint(node);
 
-            float halfSize = EditorUtility.NodeLinkPointSize / 2.0f;
+            float halfSize = NodeLinkPointSize / 2.0f;
             leftPoint.x -= halfSize;
             leftPoint.y -= halfSize;
 
@@ -224,16 +230,16 @@ namespace BehaviorTreeEditor
 
             if (node.StartNode)
             {
-                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+                graphics.FillEllipse(NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, NodeLinkPointSize, NodeLinkPointSize));
             }
             else if (node.NodeType == NodeType.Composite || node.NodeType == NodeType.Decorator)
             {
-                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
-                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+                graphics.FillEllipse(NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, NodeLinkPointSize, NodeLinkPointSize));
+                graphics.FillEllipse(NodeLinkPointBrush, new RectangleF(rightPoint.x, rightPoint.y, NodeLinkPointSize, NodeLinkPointSize));
             }
             else
             {
-                graphics.FillEllipse(EditorUtility.NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, EditorUtility.NodeLinkPointSize, EditorUtility.NodeLinkPointSize));
+                graphics.FillEllipse(NodeLinkPointBrush, new RectangleF(leftPoint.x, leftPoint.y, NodeLinkPointSize, NodeLinkPointSize));
             }
         }
 
@@ -242,14 +248,14 @@ namespace BehaviorTreeEditor
         /// </summary>
         public static void DrawStartNode(Graphics graphics, NodeDesigner node)
         {
-            Rect rect = EditorUtility.GetTitleRect(node);
+            Rect rect = GetTitleRect(node);
 
             if (!node.StartNode)
             {
                 return;
             }
 
-            graphics.FillRectangle(EditorUtility.StartNodeLogoBrush, new Rectangle((int)rect.x, (int)(rect.y - EditorUtility.StartNodeHeight), (int)rect.width, EditorUtility.StartNodeHeight));
+            graphics.FillRectangle(StartNodeLogoBrush, new Rectangle((int)rect.x, (int)(rect.y - StartNodeHeight), (int)rect.width, StartNodeHeight));
         }
 
         /// <summary>
@@ -286,20 +292,37 @@ namespace BehaviorTreeEditor
             //标题
             graphics.DrawString(node.Title, NodeTitleFont, NodeTitleFontBrush, contentRect.x + contentRect.width / 2.0f, contentRect.y + contentRect.height / 2.0f, TitleStringFormat);
 
+            float maxY = contentRect.y + contentRect.height + 8;
+
             //渲染内容
-            string content = node.ShowContent();
-            SizeF contentSize = graphics.MeasureString(content, NodeContentFont);
-            graphics.DrawString(content, NodeContentFont, NodeContentFontBrush, contentRect.x, contentRect.y + contentRect.height + 10, ContentStringFormat);
+            if (Settings.Default.ShowContent)
+            {
+                string content = node.ShowContent();
+                if (!string.IsNullOrEmpty(content))
+                {
+                    SizeF contentSize = graphics.MeasureString(content, NodeContentFont);
+                    graphics.FillRectangle(ContentBackgroundBrush, new RectangleF(contentRect.x - 2, maxY - 2, contentSize.Width + 4, contentSize.Height + 4));
+                    graphics.DrawString(content, NodeContentFont, NodeContentFontBrush, contentRect.x, maxY, ContentStringFormat);
+                    maxY += contentSize.Height + 8;
+                }
+            }
 
             //描述
-            string describe = node.Describe;
-            SizeF describeSize = graphics.MeasureString(content, DescribeFont);
-            graphics.DrawString(describe, DescribeFont, DescribeFontBrush, contentRect.x, contentRect.y + contentRect.height + contentSize.Height + 10, DescribeStringFormat);
+            if (Settings.Default.ShowDescribe)
+            {
+                string describe = node.Describe;
+                if (!string.IsNullOrEmpty(describe))
+                {
+                    SizeF describeSize = graphics.MeasureString(describe, DescribeFont);
+                    graphics.FillRectangle(DescribeBackgroundBrush, new RectangleF(contentRect.x - 2, maxY - 2, describeSize.Width + 4, describeSize.Height + 4));
+                    graphics.DrawString(describe, DescribeFont, DescribeFontBrush, contentRect.x, maxY, DescribeStringFormat);
+                }
+            }
 
             //选中边框
             if (on && !DebugManager.Instance.Debugging)
             {
-                graphics.DrawRectangle(EditorUtility.NodeSelectedPen, node.Rect);
+                graphics.DrawRectangle(NodeSelectedPen, node.Rect);
             }
 
             //处理错误
@@ -310,28 +333,28 @@ namespace BehaviorTreeEditor
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("开始节点不能没有父节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("开始节点不能没有父节点", NodeTitleFont, NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (!node.StartNode && node.ParentNode == null)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("没有父节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("没有父节点", NodeTitleFont, NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if ((node.NodeType == NodeType.Composite || node.NodeType == NodeType.Decorator) && node.Transitions.Count == 0)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("没有子节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("没有子节点", NodeTitleFont, NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (node.NodeType == NodeType.Decorator && node.Transitions.Count > 1)
             {
                 hasError = true;
                 errorCount++;
-                graphics.DrawString("装饰节点只能有一个子节点", EditorUtility.NodeTitleFont, EditorUtility.NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
+                graphics.DrawString("装饰节点只能有一个子节点", NodeTitleFont, NodeErrorBrush, contentRect.x, contentRect.yMax + (errorCount * 20));
             }
 
             if (hasError)

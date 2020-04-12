@@ -142,5 +142,29 @@ namespace BehaviorTreeEditor.Properties {
                 this["SaveWarnning"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowContent {
+            get {
+                return ((bool)(this["ShowContent"]));
+            }
+            set {
+                this["ShowContent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowDescribe {
+            get {
+                return ((bool)(this["ShowDescribe"]));
+            }
+            set {
+                this["ShowDescribe"] = value;
+            }
+        }
     }
 }

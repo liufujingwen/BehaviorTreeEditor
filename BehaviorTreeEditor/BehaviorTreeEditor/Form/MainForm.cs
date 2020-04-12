@@ -56,6 +56,9 @@ namespace BehaviorTreeEditor
 
         private void NewMainForm_Load(object sender, EventArgs e)
         {
+            toolStripMenuItem7.Checked = Settings.Default.ShowContent;
+            toolStripMenuItem8.Checked = Settings.Default.ShowDescribe;
+
             int width = Screen.PrimaryScreen.Bounds.Width;
             int height = Screen.PrimaryScreen.Bounds.Height;
 
@@ -1190,6 +1193,20 @@ namespace BehaviorTreeEditor
         private void stopToolStripButton_Click(object sender, EventArgs e)
         {
             DebugManager.Instance.Stop();
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowContent = !Settings.Default.ShowContent;
+            toolStripMenuItem7.Checked = Settings.Default.ShowContent;
+            Settings.Default.Save();
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowDescribe = !Settings.Default.ShowDescribe;
+            toolStripMenuItem8.Checked = Settings.Default.ShowDescribe;
+            Settings.Default.Save();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BehaviorTreeEditor.Properties;
+using System.Collections.Generic;
 
 namespace BehaviorTreeEditor
 {
@@ -127,240 +128,301 @@ namespace BehaviorTreeEditor
             m_Nodes.Clear();
             #region 组合节点
             //并行节点
-            NodeDefine parallelNode = new NodeDefine();
-            parallelNode.ClassType = "Parallel";
-            parallelNode.Label = "并行节点";
-            parallelNode.NodeType = NodeType.Composite;
-            parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
-            //成功条件
-            NodeField parallelNodeSuccessType = new NodeField() { FieldName = "SuccessType", FieldType = FieldType.EnumField, Describe = "成功条件" };
-            EnumDefaultValue parallelNodeSuccessEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
-            parallelNodeSuccessEnumDefaultValue.EnumType = "SUCCESS_POLICY";
-            parallelNodeSuccessEnumDefaultValue.DefaultValue = "SUCCEED_ON_ALL";
-            parallelNodeSuccessType.Label = "成功条件";
-            parallelNode.AddField(parallelNodeSuccessType);
-            //失败条件
-            NodeField parallelNodeFailType = new NodeField() { FieldName = "FailType", FieldType = FieldType.EnumField, Describe = "失败条件" };
-            EnumDefaultValue parallelNodeFailTypeEnumDefaultValue = parallelNodeFailType.DefaultValue as EnumDefaultValue;
-            parallelNodeFailTypeEnumDefaultValue.EnumType = "FAILURE_POLICY";
-            parallelNodeFailTypeEnumDefaultValue.DefaultValue = "FAIL_ON_ONE";
-            parallelNodeFailType.Label = "失败条件";
-            parallelNode.AddField(parallelNodeFailType);
-            AddClass(parallelNode);
+            {
+                NodeDefine parallelNode = new NodeDefine();
+                parallelNode.ClassType = "Parallel";
+                parallelNode.NodeIcon = "Parallel";
+                parallelNode.Label = "并行节点";
+                parallelNode.NodeType = NodeType.Composite;
+                parallelNode.Describe = "Parallel节点在一般意义上是并行的执行其子节点，即“一边做A，一边做B”";
+
+                //成功条件
+                NodeField parallelNodeSuccessType = new NodeField() { FieldName = "SuccessType", FieldType = FieldType.EnumField, Describe = "成功条件" };
+                EnumDefaultValue parallelNodeSuccessEnumDefaultValue = parallelNodeSuccessType.DefaultValue as EnumDefaultValue;
+                parallelNodeSuccessEnumDefaultValue.EnumType = "SUCCESS_POLICY";
+                parallelNodeSuccessEnumDefaultValue.DefaultValue = "SUCCEED_ON_ALL";
+                parallelNodeSuccessType.Label = "成功条件";
+                parallelNode.AddField(parallelNodeSuccessType);
+
+                //失败条件
+                NodeField parallelNodeFailType = new NodeField() { FieldName = "FailType", FieldType = FieldType.EnumField, Describe = "失败条件" };
+                EnumDefaultValue parallelNodeFailTypeEnumDefaultValue = parallelNodeFailType.DefaultValue as EnumDefaultValue;
+                parallelNodeFailTypeEnumDefaultValue.EnumType = "FAILURE_POLICY";
+                parallelNodeFailTypeEnumDefaultValue.DefaultValue = "FAIL_ON_ONE";
+                parallelNodeFailType.Label = "失败条件";
+                parallelNode.AddField(parallelNodeFailType);
+                AddClass(parallelNode);
+            }
 
             //顺序节点
-            NodeDefine sequenceNode = new NodeDefine();
-            sequenceNode.ClassType = "Sequence";
-            sequenceNode.Label = "顺序节点";
-            sequenceNode.NodeType = NodeType.Composite;
-            sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
-            AddClass(sequenceNode);
+            {
+                NodeDefine sequenceNode = new NodeDefine();
+                sequenceNode.ClassType = "Sequence";
+                sequenceNode.NodeIcon = "Sequencer";
+                sequenceNode.Label = "顺序节点";
+                sequenceNode.NodeType = NodeType.Composite;
+                sequenceNode.Describe = "Sequence节点以给定的顺序依次执行其子节点，直到所有子节点成功返回，该节点也返回成功。只要其中某个子节点失败，那么该节点也失败。";
+                AddClass(sequenceNode);
+            }
 
             //选择节点
-            NodeDefine Selector = new NodeDefine();
-            Selector.ClassType = "Selector";
-            Selector.Label = "选择节点";
-            Selector.Category = "";
-            Selector.NodeType = NodeType.Composite;
-            Selector.Describe = "选择节点";
-            AddClass(Selector);
+            {
+                NodeDefine Selector = new NodeDefine();
+                Selector.ClassType = "Selector";
+                Selector.NodeIcon = "Selector";
+                Selector.Label = "选择节点";
+                Selector.Category = "";
+                Selector.NodeType = NodeType.Composite;
+                Selector.Describe = "选择节点";
+                AddClass(Selector);
+            }
 
             //ifelse
-            NodeDefine IfElse = new NodeDefine();
-            IfElse.ClassType = "IfElse";
-            IfElse.Label = "IfElse";
-            IfElse.NodeType = NodeType.Composite;
-            IfElse.Describe = "";
-            AddClass(IfElse);
+            {
+                NodeDefine IfElse = new NodeDefine();
+                IfElse.ClassType = "IfElse";
+                IfElse.NodeIcon = "BT";
+                IfElse.Label = "IfElse";
+                IfElse.NodeType = NodeType.Composite;
+                IfElse.Describe = "";
+                AddClass(IfElse);
+            }
 
             //随机节点
-            NodeDefine Random = new NodeDefine();
-            Random.ClassType = "Random";
-            Random.Label = "随机节点";
-            Random.Category = "随机";
-            Random.NodeType = NodeType.Composite;
-            Random.Describe = "随机节点";
-            AddClass(Random);
+            {
+                NodeDefine Random = new NodeDefine();
+                Random.ClassType = "Random";
+                Random.NodeIcon = "BT";
+                Random.Label = "随机节点";
+                Random.Category = "随机";
+                Random.NodeType = NodeType.Composite;
+                Random.Describe = "随机节点";
+                AddClass(Random);
+            }
 
             //随机选择节点
-            NodeDefine RandomSelector = new NodeDefine();
-            RandomSelector.ClassType = "RandomSelector";
-            RandomSelector.Label = "随机选择";
-            RandomSelector.Category = "随机";
-            RandomSelector.NodeType = NodeType.Composite;
-            RandomSelector.Describe = "随机选择节点";
-            AddClass(RandomSelector);
+            {
+                NodeDefine RandomSelector = new NodeDefine();
+                RandomSelector.ClassType = "RandomSelector";
+                RandomSelector.NodeIcon = "BT";
+                RandomSelector.Label = "随机选择";
+                RandomSelector.Category = "随机";
+                RandomSelector.NodeType = NodeType.Composite;
+                RandomSelector.Describe = "随机选择节点";
+                AddClass(RandomSelector);
+            }
 
             //随机序列节点
-            NodeDefine RandomSequence = new NodeDefine();
-            RandomSequence.ClassType = "RandomSequence";
-            RandomSequence.Label = "随机序列";
-            RandomSequence.Category = "随机";
-            RandomSequence.NodeType = NodeType.Composite;
-            RandomSequence.Describe = "随机序列节点";
-            AddClass(RandomSequence);
+            {
+                NodeDefine RandomSequence = new NodeDefine();
+                RandomSequence.ClassType = "RandomSequence";
+                RandomSequence.NodeIcon = "Sequencer";
+                RandomSequence.Label = "随机序列";
+                RandomSequence.Category = "随机";
+                RandomSequence.NodeType = NodeType.Composite;
+                RandomSequence.Describe = "随机序列节点";
+                AddClass(RandomSequence);
+            }
 
             //概率选择节点
-            NodeDefine SelectorProbability = new NodeDefine();
-            SelectorProbability.ClassType = "SelectorProbability";
-            SelectorProbability.Label = "概率选择节点";
-            SelectorProbability.Category = "";
-            SelectorProbability.NodeType = NodeType.Composite;
-            SelectorProbability.Describe = "概率选择节点";
-            SelectorProbability.AddField(new NodeField() { FieldName = "Priority", Label = "优先级", FieldType = FieldType.RepeatIntField, Describe = "", Show = true });
-            AddClass(SelectorProbability);
+            {
+                NodeDefine SelectorProbability = new NodeDefine();
+                SelectorProbability.ClassType = "SelectorProbability";
+                SelectorProbability.NodeIcon = "BT";
+                SelectorProbability.Label = "概率选择节点";
+                SelectorProbability.Category = "";
+                SelectorProbability.NodeType = NodeType.Composite;
+                SelectorProbability.Describe = "概率选择节点";
+                SelectorProbability.AddField(new NodeField() { FieldName = "Priority", Label = "优先级", FieldType = FieldType.RepeatIntField, Describe = "", Show = true });
+                AddClass(SelectorProbability);
+            }
 
             #endregion
 
             #region 装饰节点
 
             //成功节点
-            NodeDefine Success = new NodeDefine();
-            Success.ClassType = "Success";
-            Success.Label = "成功节点";
-            Success.NodeType = NodeType.Decorator;
-            Success.Describe = "成功节点";
-            AddClass(Success);
+            {
+                NodeDefine Success = new NodeDefine();
+                Success.ClassType = "Success";
+                Success.NodeIcon = "BT";
+                Success.Label = "成功节点";
+                Success.NodeType = NodeType.Decorator;
+                Success.Describe = "成功节点";
+                AddClass(Success);
+            }
 
             //失败节点
-            NodeDefine Failure = new NodeDefine();
-            Failure.ClassType = "Failure";
-            Failure.Label = "失败节点";
-            Failure.NodeType = NodeType.Decorator;
-            Failure.Describe = "失败节点";
-            AddClass(Failure);
+            {
+                NodeDefine Failure = new NodeDefine();
+                Failure.ClassType = "Failure";
+                Failure.NodeIcon = "BT";
+                Failure.Label = "失败节点";
+                Failure.NodeType = NodeType.Decorator;
+                Failure.Describe = "失败节点";
+                AddClass(Failure);
+            }
 
             //帧数节点用于在指定的帧数内，持续调用其子节点
-            NodeDefine Frames = new NodeDefine();
-            Frames.ClassType = "Frames";
-            Frames.Label = "帧数节点";
-            Frames.NodeType = NodeType.Decorator;
-            Frames.CheckField = true;
-            NodeField FramesField = new NodeField() { FieldName = "Frames", Label = "持续帧数", FieldType = FieldType.IntField, Describe = "持续帧数", Show = true };
-            (FramesField.DefaultValue as IntDefaultValue).DefaultValue = 1;
-            Frames.AddField(FramesField);
-            Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
-            AddClass(Frames);
+            {
+                NodeDefine Frames = new NodeDefine();
+                Frames.ClassType = "Frames";
+                Frames.NodeIcon = "BT";
+                Frames.Label = "帧数节点";
+                Frames.NodeType = NodeType.Decorator;
+                Frames.CheckField = true;
+                NodeField FramesField = new NodeField() { FieldName = "Frames", Label = "持续帧数", FieldType = FieldType.IntField, Describe = "持续帧数", Show = true };
+                (FramesField.DefaultValue as IntDefaultValue).DefaultValue = 1;
+                Frames.AddField(FramesField);
+                Frames.Describe = "帧数节点用于在指定的帧数内，持续调用其子节点";
+                AddClass(Frames);
+            }
 
             //循环节点 -1无限循环
-            NodeDefine Loop = new NodeDefine();
-            Loop.ClassType = "Loop";
-            Loop.Label = "循环节点";
-            Loop.NodeType = NodeType.Decorator;
-            Loop.Describe = "循环节点 -1无限循环";
-            Loop.AddField(new NodeField() { FieldName = "LoopTimes", Label = "循环次数", FieldType = FieldType.IntField, Describe = "循环次数", Show = true });
-            AddClass(Loop);
+            {
+                NodeDefine Loop = new NodeDefine();
+                Loop.ClassType = "Loop";
+                Loop.NodeIcon = "Repeat";
+                Loop.Label = "循环节点";
+                Loop.NodeType = NodeType.Decorator;
+                Loop.Describe = "循环节点 -1无限循环";
+                Loop.AddField(new NodeField() { FieldName = "LoopTimes", Label = "循环次数", FieldType = FieldType.IntField, Describe = "循环次数", Show = true });
+                AddClass(Loop);
+            }
 
             //取反节点
-            NodeDefine Not = new NodeDefine();
-            Not.ClassType = "Not";
-            Not.Label = "取反节点";
-            Not.NodeType = NodeType.Decorator;
-            Not.Describe = "取反节点";
-            AddClass(Not);
+            {
+                NodeDefine Not = new NodeDefine();
+                Not.ClassType = "Not";
+                Not.NodeIcon = "BT";
+                Not.Label = "取反节点";
+                Not.NodeType = NodeType.Decorator;
+                Not.Describe = "取反节点";
+                AddClass(Not);
+            }
 
             //指定时间内运行
-            NodeDefine Time = new NodeDefine();
-            Time.ClassType = "Time";
-            Time.Label = "时间";
-            Time.NodeType = NodeType.Decorator;
-            Time.Describe = "指定时间内运行";
-            NodeField TimeField = new NodeField() { FieldName = "Duration", Label = "持续时间(毫秒)", FieldType = FieldType.IntField, Describe = "持续时间(毫秒)", Show = true };
-            (TimeField.DefaultValue as IntDefaultValue).DefaultValue = 1000;
-            Time.AddField(TimeField);
-            AddClass(Time);
+            {
+                NodeDefine Time = new NodeDefine();
+                Time.ClassType = "Time";
+                Time.NodeIcon = "Time";
+                Time.Label = "时间";
+                Time.NodeType = NodeType.Decorator;
+                Time.Describe = "指定时间内运行";
+                NodeField TimeField = new NodeField() { FieldName = "Duration", Label = "持续时间(毫秒)", FieldType = FieldType.IntField, Describe = "持续时间(毫秒)", Show = true };
+                (TimeField.DefaultValue as IntDefaultValue).DefaultValue = 1000;
+                Time.AddField(TimeField);
+                AddClass(Time);
+            }
 
             //阻塞，直到子节点返回true
-            NodeDefine SuccessUntil = new NodeDefine();
-            SuccessUntil.ClassType = "SuccessUntil";
-            SuccessUntil.Label = "直到子节点返回True";
-            SuccessUntil.NodeType = NodeType.Decorator;
-            SuccessUntil.Describe = "直到子节点返回true";
-            AddClass(SuccessUntil);
+            {
+                NodeDefine SuccessUntil = new NodeDefine();
+                SuccessUntil.ClassType = "SuccessUntil";
+                SuccessUntil.NodeIcon = "BT";
+                SuccessUntil.Label = "直到子节点返回True";
+                SuccessUntil.NodeType = NodeType.Decorator;
+                SuccessUntil.Describe = "直到子节点返回true";
+                AddClass(SuccessUntil);
+            }
 
             #endregion
 
             #region 条件节点
+            {
+                //比较节点
+                NodeDefine Compare = new NodeDefine();
+                Compare.ClassType = "Compare";
+                Compare.NodeIcon = "Condition";
+                Compare.Label = "比较节点";
+                Compare.NodeType = NodeType.Condition;
+                Compare.Describe = "Compare节点对左右参数进行比较";
+                //左边参数类型
+                NodeField Compare_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
+                (Compare_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+                Compare_LeftType.Label = "左参数类型";
+                Compare.AddField(Compare_LeftType);
+                //左边参数变量名
+                Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名", Show = true });
+                //左边常数值
+                Compare.AddField(new NodeField() { FieldName = "LeftConstValue", Label = "左边常数值", FieldType = FieldType.IntField, Describe = "左边常数值，左边参数类型为Const生效" });
 
-            //比较节点
-            NodeDefine Compare = new NodeDefine();
-            Compare.ClassType = "Compare";
-            Compare.Label = "比较节点";
-            Compare.NodeType = NodeType.Condition;
-            Compare.Describe = "Compare节点对左右参数进行比较";
-            //左边参数类型
-            NodeField Compare_LeftType = new NodeField() { FieldName = "LeftType", FieldType = FieldType.EnumField, Describe = "" };
-            (Compare_LeftType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            Compare_LeftType.Label = "左参数类型";
-            Compare.AddField(Compare_LeftType);
-            //左边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "LeftParameter", Label = "左参数名", FieldType = FieldType.StringField, Describe = "左边参数变量名", Show = true });
-            //左边常数值
-            Compare.AddField(new NodeField() { FieldName = "LeftConstValue", Label = "左边常数值", FieldType = FieldType.IntField, Describe = "左边常数值，左边参数类型为Const生效" });
+                //比较符号
+                NodeField Compare_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=", Show = true };
+                (Compare_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
+                Compare_Type.Label = "比较操作符";
+                Compare.AddField(Compare_Type);
 
-            //比较符号
-            NodeField Compare_Type = new NodeField() { FieldName = "CompareType", FieldType = FieldType.EnumField, Describe = "比较符号<、>、<=、>=、==、!=", Show = true };
-            (Compare_Type.DefaultValue as EnumDefaultValue).EnumType = "CompareType";
-            Compare_Type.Label = "比较操作符";
-            Compare.AddField(Compare_Type);
-
-            //右边边参数类型
-            NodeField Compare_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
-            (Compare_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            Compare_RightType.Label = "右参数类型";
-            Compare.AddField(Compare_RightType);
-            //右边参数变量名
-            Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名", Show = true });
-            AddClass(Compare);
-            //左边常数值
-            Compare.AddField(new NodeField() { FieldName = "RightConstValue", Label = "右边常数值", FieldType = FieldType.IntField, Describe = "右边常数值，右边参数类型为Const生效" });
+                //右边边参数类型
+                NodeField Compare_RightType = new NodeField() { FieldName = "RightType", FieldType = FieldType.EnumField, Describe = "" };
+                (Compare_RightType.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+                Compare_RightType.Label = "右参数类型";
+                Compare.AddField(Compare_RightType);
+                //右边参数变量名
+                Compare.AddField(new NodeField() { FieldName = "RightParameter", Label = "右参数名", FieldType = FieldType.StringField, Describe = "右边参数变量名", Show = true });
+                AddClass(Compare);
+                //左边常数值
+                Compare.AddField(new NodeField() { FieldName = "RightConstValue", Label = "右边常数值", FieldType = FieldType.IntField, Describe = "右边常数值，右边参数类型为Const生效" });
+            }
 
             #endregion
 
             #region 动作节点
 
             //设置变量节点
-            NodeDefine SetVariable = new NodeDefine();
-            SetVariable.CheckField = false;
-            SetVariable.ClassType = "SetVariable";
-            SetVariable.Label = "设置变量节点";
-            SetVariable.NodeType = NodeType.Action;
-            SetVariable.Describe = "设置变量节点";
-            NodeField setVariableNodeField = new NodeField() { FieldName = "ParameterType", FieldType = FieldType.EnumField, Describe = "" };
-            (setVariableNodeField.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
-            SetVariable.AddField(setVariableNodeField);
-            SetVariable.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
-            SetVariable.AddField(new NodeField() { FieldName = "ParameterValue", Label = "变量值", FieldType = FieldType.IntField, Describe = "参数值", Show = true });
-            AddClass(SetVariable);
+            {
+                NodeDefine SetVariable = new NodeDefine();
+                SetVariable.CheckField = false;
+                SetVariable.ClassType = "SetVariable";
+                SetVariable.NodeIcon = "Action";
+                SetVariable.Label = "设置变量节点";
+                SetVariable.NodeType = NodeType.Action;
+                SetVariable.Describe = "设置变量节点";
+                NodeField setVariableNodeField = new NodeField() { FieldName = "ParameterType", FieldType = FieldType.EnumField, Describe = "" };
+                (setVariableNodeField.DefaultValue as EnumDefaultValue).EnumType = "ParameterType";
+                SetVariable.AddField(setVariableNodeField);
+                SetVariable.AddField(new NodeField() { FieldName = "ParameterName", Label = "变量名", FieldType = FieldType.StringField, Describe = "参数变量名", Show = true });
+                SetVariable.AddField(new NodeField() { FieldName = "ParameterValue", Label = "变量值", FieldType = FieldType.IntField, Describe = "参数值", Show = true });
+                AddClass(SetVariable);
+            }
 
             //等待节点
-            NodeDefine Wait = new NodeDefine();
-            Wait.ClassType = "Wait";
-            Wait.Label = "等待节点";
-            Wait.NodeType = NodeType.Action;
-            Wait.Describe = "等待节点";
-            NodeField WaintField = new NodeField() { FieldName = "Millisecond", Label = "等待时间(毫秒)", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）", Show = true };
-            IntDefaultValue WaintFieldDefaultField = WaintField.DefaultValue as IntDefaultValue;
-            WaintFieldDefaultField.DefaultValue = 1000;
-            Wait.AddField(WaintField);
-            AddClass(Wait);
+            {
+                NodeDefine Wait = new NodeDefine();
+                Wait.ClassType = "Wait";
+                Wait.NodeIcon = "Action";
+                Wait.Label = "等待节点";
+                Wait.NodeType = NodeType.Action;
+                Wait.Describe = "等待节点";
+                NodeField WaintField = new NodeField() { FieldName = "Millisecond", Label = "等待时间(毫秒)", FieldType = FieldType.IntField, Describe = "等待时间（毫秒）", Show = true };
+                IntDefaultValue WaintFieldDefaultField = WaintField.DefaultValue as IntDefaultValue;
+                WaintFieldDefaultField.DefaultValue = 1000;
+                Wait.AddField(WaintField);
+                AddClass(Wait);
+            }
 
             //空操作节点
-            NodeDefine Noop = new NodeDefine();
-            Noop.ClassType = "Noop";
-            Noop.Label = "空操作节点";
-            Noop.NodeType = NodeType.Action;
-            Noop.Describe = "空操作节点";
-            AddClass(Noop);
+            {
+                NodeDefine Noop = new NodeDefine();
+                Noop.ClassType = "Noop";
+                Noop.NodeIcon = "Action";
+                Noop.Label = "空操作节点";
+                Noop.NodeType = NodeType.Action;
+                Noop.Describe = "空操作节点";
+                AddClass(Noop);
+            }
 
             //输出Log节点
-            NodeDefine Log = new NodeDefine();
-            Log.ClassType = "Log";
-            Log.Label = "输出节点";
-            Log.NodeType = NodeType.Action;
-            Log.Describe = "输出log节点";
-            Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容", Show = true });
-            AddClass(Log);
+            {
+                NodeDefine Log = new NodeDefine();
+                Log.ClassType = "Log";
+                Log.NodeIcon = "Log";
+                Log.Label = "输出节点";
+                Log.NodeType = NodeType.Action;
+                Log.Describe = "输出log节点";
+                Log.AddField(new NodeField() { FieldName = "Content", Label = "输出内容", FieldType = FieldType.StringField, Describe = "输出的内容", Show = true });
+                AddClass(Log);
+            }
 
             #endregion
         }
@@ -398,7 +460,6 @@ namespace BehaviorTreeEditor
 
             return false;
         }
-
 
         public bool AddEnum(CustomEnum customEnum)
         {
