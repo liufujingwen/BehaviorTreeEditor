@@ -167,8 +167,9 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeView\BehaviorTreeItem.cs" />
-    <Compile Include="TreeView\Group.cs" />
+    <Compile Include="TreeView\BehaviorGroup.cs" />
     <Compile Include="TreeView\GroupItem.cs" />
+    <Compile Include="TreeView\ITreeViewItem.cs" />
     <Compile Include="TreeView\TreeViewManager.cs" />
     <Compile Include="UIControls\CompareUserControl.cs">
       <SubType>UserControl</SubType>

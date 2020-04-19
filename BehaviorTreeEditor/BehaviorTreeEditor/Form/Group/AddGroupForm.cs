@@ -32,7 +32,7 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            Group group = new Group();
+            BehaviorGroup group = new BehaviorGroup();
             group.GroupName = groupName;
 
             MainForm.Instance.TreeViewManager.AddGroup(group);

@@ -12,14 +12,14 @@ namespace BehaviorTreeEditor
     public partial class EditGroupForm : Form
     {
         private string m_OldContent;
-        Group m_Group;
-        Group m_EditGroup;
+        BehaviorGroup m_Group;
+        BehaviorGroup m_EditGroup;
 
-        public EditGroupForm(Group group)
+        public EditGroupForm(BehaviorGroup group)
         {
             m_Group = group;
             m_OldContent = XmlUtility.ObjectToString(m_Group);
-            m_EditGroup = XmlUtility.StringToObject<Group>(m_OldContent);
+            m_EditGroup = XmlUtility.StringToObject<BehaviorGroup>(m_OldContent);
 
             InitializeComponent();
         }

@@ -62,10 +62,9 @@ namespace BehaviorTreeEditor
             int width = Screen.PrimaryScreen.Bounds.Width;
             int height = Screen.PrimaryScreen.Bounds.Height;
 
-            this.Width = (int)(width * 0.9f);
-            this.Height = (int)(height * 0.8f);
-            this.Location = new System.Drawing.Point((int)(width / 2f - this.Width / 2f),
-                (int)(height / 2f - this.Height / 2f));
+            Width = (int)(width * 0.9f);
+            Height = (int)(height * 0.8f);
+            Location = new Point((int)(width / 2f - this.Width / 2f), (int)(height / 2f - this.Height / 2f));
 
             m_ContentUserControl = new ContentUserControl();
             m_ContentUserControl.Dock = DockStyle.Fill;
@@ -197,10 +196,43 @@ namespace BehaviorTreeEditor
                 switch (e.KeyCode)
                 {
                     case Keys.C:
-                        Exec(OperationType.CopyBehaviorTree);
+
+                        if (treeView1.SelectedNode.Tag is BehaviorTreeItem behaviorTreeItem)
+                            Exec(OperationType.CopyBehaviorTree);
+                        else if (treeView1.SelectedNode.Tag is GroupItem groupItem)
+                            Exec(OperationType.CopyGroup);
+
                         break;
                     case Keys.V:
-                        Exec(OperationType.PasteBehaviorTree);
+
+                        //尝试粘贴行为树
+                        try
+                        {
+                            BehaviorTreeListContent behaviorTreeContent = XmlUtility.StringToObject<BehaviorTreeListContent>(Clipboard.GetText());
+                            if (behaviorTreeContent != null)
+                            {
+                                Exec(OperationType.PasteBehaviorTree);
+                                return;
+                            }
+                        }
+                        catch { }
+
+                        //尝试粘贴分组
+                        try
+                        {
+                            BehaviorTreeGroupListContent groupContent = XmlUtility.StringToObject<BehaviorTreeGroupListContent>(Clipboard.GetText());
+                            if (groupContent != null)
+                            {
+                                Exec(OperationType.PasteBehaviorTreeGroup);
+                                return;
+                            }
+
+                        }
+                        catch { }
+
+                        ShowInfo("无法进行粘贴，错误信息：");
+                        ShowMessage("无法进行粘贴，错误信息：");
+
                         break;
                     case Keys.Up:
                         Exec(OperationType.SwapBehaviorTree, true);
@@ -324,7 +356,6 @@ namespace BehaviorTreeEditor
             }
 
             BehaviorTreeDesigner behaviorTree = new BehaviorTreeDesigner();
-            behaviorTree.GroupName = group;
             string behaviorTreeID = "New_" + DateTime.Now.Ticks;
             do
             {
@@ -398,6 +429,16 @@ namespace BehaviorTreeEditor
             }
         }
 
+        public class BehaviorTreeGroupListContent
+        {
+            private List<BehaviorGroup> m_DataList = new List<BehaviorGroup>();
+
+            public List<BehaviorGroup> DataList
+            {
+                get { return m_DataList; }
+            }
+        }
+
         /// <summary>
         /// 复制行为树
         /// </summary>
@@ -427,6 +468,66 @@ namespace BehaviorTreeEditor
         }
 
         /// <summary>
+        /// 复制分组
+        /// </summary>
+        private void CopyBehaviorGroup()
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                if (!(treeView1.SelectedNode.Tag is GroupItem groupItem))
+                {
+                    return;
+                }
+
+                BehaviorTreeGroupListContent content = new BehaviorTreeGroupListContent();
+                content.DataList.Add(groupItem.Group);
+
+                if (content.DataList.Count > 0)
+                    Clipboard.SetText(XmlUtility.ObjectToString(content));
+
+                MainForm.Instance.ShowInfo("您复制了" + content.DataList.Count.ToString() + "个分组！！！");
+            }
+            else
+            {
+                MainForm.Instance.ShowInfo("您必须选择一个分组进行复制！！！");
+                MainForm.Instance.ShowMessage("您必须选择一个分组进行复制！！！", "警告");
+            }
+        }
+
+        /// <summary>
+        /// 粘贴行为树分组
+        /// </summary>
+        private void PasteBehaviorTreeGroup()
+        {
+            try
+            {
+                BehaviorTreeGroupListContent content = XmlUtility.StringToObject<BehaviorTreeGroupListContent>(Clipboard.GetText());
+
+                for (int i = 0; i < content.DataList.Count; i++)
+                {
+                    BehaviorGroup behaviorGroup = content.DataList[i];
+
+                    string groupName = behaviorGroup.GroupName;
+                    do
+                    {
+                        groupName += "_New";
+                    }
+                    while (BehaviorTreeData.ExistBehaviorGroup(groupName));
+
+                    behaviorGroup.GroupName = groupName;
+                    TreeViewManager.AddGroup(behaviorGroup);
+                }
+
+                ShowInfo("您粘贴了" + content.DataList.Count + "个分组！！！");
+            }
+            catch (Exception ex)
+            {
+                ShowInfo("无法进行粘贴，错误信息：" + ex.Message);
+                ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
+            }
+        }
+
+        /// <summary>
         /// 粘贴行为树
         /// </summary>
         private void PasteBehaviorTree()
@@ -438,10 +539,10 @@ namespace BehaviorTreeEditor
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
                     BehaviorTreeDesigner behaviorTree = content.DataList[i];
-                    string behaviorTreeID = "New_" + DateTime.Now.Ticks;
+                    string behaviorTreeID = behaviorTree.ID;
                     do
                     {
-                        behaviorTreeID = "New_" + DateTime.Now.Ticks;
+                        behaviorTreeID += "_New";
                     } while (BehaviorTreeData.ExistBehaviorTree(behaviorTreeID));
 
                     behaviorTree.ID = behaviorTreeID;
@@ -596,7 +697,7 @@ namespace BehaviorTreeEditor
                 return;
 
             GroupItem groupItem = treeView1.SelectedNode.Tag as GroupItem;
-            Group group = groupItem.Group;
+            BehaviorGroup group = groupItem.Group;
 
             if (MessageBox.Show(string.Format("确定删除分组[{0}]吗?", group.GroupName), "提示",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -607,7 +708,7 @@ namespace BehaviorTreeEditor
         }
 
         //更新Group
-        private void UpdateGroup(string oldName, Group group)
+        private void UpdateGroup(string oldName, BehaviorGroup group)
         {
             TreeViewManager.UpdateGroup(oldName, group);
         }
@@ -628,7 +729,7 @@ namespace BehaviorTreeEditor
             if (MessageBox.Show(string.Format("确定删除行为树{0}吗?", behaviorTree.ID), "提示",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                TreeViewManager.RemoveBehaviorTree(behaviorTree.ID);
+                TreeViewManager.RemoveBehaviorTree(behaviorTree);
             }
         }
 
@@ -812,8 +913,14 @@ namespace BehaviorTreeEditor
                     //复制行为树
                     CopyBehaviorTree();
                     break;
+                case OperationType.CopyGroup:
+                    CopyBehaviorGroup();
+                    break;
                 case OperationType.PasteBehaviorTree:
                     PasteBehaviorTree();
+                    break;
+                case OperationType.PasteBehaviorTreeGroup:
+                    PasteBehaviorTreeGroup();
                     break;
                 case OperationType.Refresh:
                     //刷新所有行为树
@@ -846,7 +953,7 @@ namespace BehaviorTreeEditor
                     EditGroup();
                     break;
                 case OperationType.UpdateGroup:
-                    UpdateGroup((string)args[0], (Group)args[1]);
+                    UpdateGroup((string)args[0], (BehaviorGroup)args[1]);
                     break;
                 case OperationType.DeleteGroup:
                     //删除分组

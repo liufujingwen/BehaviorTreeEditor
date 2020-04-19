@@ -2,10 +2,10 @@
 
 namespace BehaviorTreeEditor
 {
-    public class BehaviorTreeItem
+    public class BehaviorTreeItem : ITreeViewItem
     {
+        public TreeNode TreeNode { get; set; }
         public GroupItem GroupItem;
-        public TreeNode TreeNode;
         public BehaviorTreeDesigner BehaviorTree;
     }
 }

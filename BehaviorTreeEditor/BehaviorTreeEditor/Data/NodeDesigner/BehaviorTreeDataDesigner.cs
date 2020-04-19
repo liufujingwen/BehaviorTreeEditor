@@ -7,7 +7,7 @@ namespace BehaviorTreeEditor
     {
         private VariableDesigner m_GlobalVariable = new VariableDesigner();
         private VariableDesigner m_ContextVariable = new VariableDesigner();
-        private List<Group> m_Groups = new List<Group>();
+        private List<BehaviorGroup> m_Groups = new List<BehaviorGroup>();
         private List<BehaviorTreeDesigner> m_BehaviorTrees = new List<BehaviorTreeDesigner>();
 
         public VariableDesigner GlobalVariable
@@ -22,7 +22,7 @@ namespace BehaviorTreeEditor
             set { m_ContextVariable = value; }
         }
 
-        public List<Group> Groups
+        public List<BehaviorGroup> Groups
         {
             get { return m_Groups; }
             set { m_Groups = value; }
@@ -42,15 +42,13 @@ namespace BehaviorTreeEditor
         public bool ExistBehaviorTree(BehaviorTreeDesigner behaviroTree)
         {
             if (behaviroTree == null)
-                throw new Exception("BehaviorTreeData.ExistBehaviorTree() error: behaviroTree = null");
+                throw new ArgumentNullException("behaviroTree is null.");
 
             for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner tempBehaviorTree = m_BehaviorTrees[i];
                 if (tempBehaviorTree == null)
                     continue;
-                if (tempBehaviorTree == behaviroTree)
-                    return true;
                 if (tempBehaviorTree.ID == behaviroTree.ID)
                     return true;
             }
@@ -87,8 +85,14 @@ namespace BehaviorTreeEditor
         /// <returns>true:添加成功</returns>
         public bool AddBehaviorTree(BehaviorTreeDesigner behaviorTree)
         {
+            if (behaviorTree == null)
+                throw new ArgumentNullException("behaviorTree is null."); ;
+
             if (ExistBehaviorTree(behaviorTree))
                 return false;
+
+            if (m_BehaviorTrees.Contains(behaviorTree))
+                throw new Exception(string.Format("重复添加behaviorTree:{0}", behaviorTree.ID));
 
             m_BehaviorTrees.Add(behaviorTree);
 
@@ -113,6 +117,77 @@ namespace BehaviorTreeEditor
                 if (temp.ID == behaviroTree.ID)
                 {
                     m_BehaviorTrees.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 判断分组是否存在
+        /// </summary>
+        /// <param name="groupName">分组名称</param>
+        /// <returns>true:存在</returns>
+        public bool ExistBehaviorGroup(string groupName)
+        {
+            if (string.IsNullOrEmpty(groupName))
+                throw new ArgumentException("BehaviorTreeDataDesigner.ExistBehaviorGroup() error: groupName = null");
+
+            for (int i = 0; i < m_Groups.Count; i++)
+            {
+                BehaviorGroup behaviorGroup = m_Groups[i];
+                if (behaviorGroup == null)
+                    continue;
+                if (behaviorGroup.GroupName == groupName)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 添加行为树分组
+        /// </summary>
+        /// <param name="behaviorGroup"></param>
+        public void AddGroup(BehaviorGroup behaviorGroup)
+        {
+            if (behaviorGroup == null)
+                throw new ArgumentException("BehaviorTreeDataDesigner.AddGroup() error: behaviorGroup = null.");
+
+            if (ExistBehaviorGroup(behaviorGroup.GroupName))
+                return;
+
+            if (m_Groups.Contains(behaviorGroup))
+                throw new Exception(string.Format("BehaviorTreeDataDesigner.AddGroup() error: m_Groups aready contains behaviorGroup:{0}.", behaviorGroup.GroupName));
+
+            m_Groups.Add(behaviorGroup);
+        }
+
+        /// <summary>
+        /// 删除行为树分组
+        /// </summary>
+        /// <param name="behaviorGroup"></param>
+        public bool RemoveGroup(BehaviorGroup behaviorGroup)
+        {
+            if (behaviorGroup == null)
+                throw new ArgumentException("BehaviorTreeDataDesigner.RemoveGroup() error: behaviorGroup = null.");
+
+            if (!ExistBehaviorGroup(behaviorGroup.GroupName))
+                return false;
+
+            for (int i = 0; i < m_Groups.Count; i++)
+            {
+                BehaviorGroup temp = m_Groups[i];
+                if (temp == null)
+                    continue;
+
+                if (string.IsNullOrEmpty(temp.GroupName))
+                    continue;
+
+                if (temp.GroupName == behaviorGroup.GroupName)
+                {
+                    m_Groups.RemoveAt(i);
                     return true;
                 }
             }

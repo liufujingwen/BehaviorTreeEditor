@@ -6,7 +6,7 @@ namespace BehaviorTreeEditor
     public class BehaviorTreeDesigner
     {
         private string m_TreeID;
-        private string m_GroupName;
+        private string m_Name;
         private string m_Describe;
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
         private List<VariableFieldDesigner> m_BehaviorTreeVariables = new List<VariableFieldDesigner>();
@@ -19,10 +19,10 @@ namespace BehaviorTreeEditor
             set { m_TreeID = value; }
         }
 
-        public string GroupName
+        public string Name
         {
-            get { return m_GroupName; }
-            set { m_GroupName = value; }
+            get { return m_Name; }
+            set { m_Name = value; }
         }
 
         public string Describe
