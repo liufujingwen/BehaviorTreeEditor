@@ -239,6 +239,25 @@ namespace BehaviorTreeEditor
             if (verifyID.HasError)
                 return verifyID;
 
+            for (int i = 0; i < m_Groups.Count; i++)
+            {
+                BehaviorGroupDesigner group = m_Groups[i];
+
+                if (group == null)
+                    continue;
+
+                for (int j = 0; j < group.BehaviorTrees.Count; j++)
+                {
+                    BehaviorTreeDesigner behaviorTree = group.BehaviorTrees[j];
+                    if (behaviorTree != null)
+                    {
+                        VerifyInfo verifyBehaviorTree = behaviorTree.VerifyBehaviorTree();
+                        if (verifyBehaviorTree.HasError)
+                            return verifyBehaviorTree;
+                    }
+                }
+            }
+
             for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];
@@ -271,6 +290,23 @@ namespace BehaviorTreeEditor
         /// </summary>
         public void AjustData()
         {
+            for (int i = 0; i < m_Groups.Count; i++)
+            {
+                BehaviorGroupDesigner group = m_Groups[i];
+
+                if (group == null)
+                    continue;
+
+                for (int j = 0; j < group.BehaviorTrees.Count; j++)
+                {
+                    BehaviorTreeDesigner behaviorTree = group.BehaviorTrees[j];
+                    if (behaviorTree != null)
+                    {
+                        behaviorTree.AjustData();
+                    }
+                }
+            }
+
             for (int i = 0; i < m_BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner behaviorTree = m_BehaviorTrees[i];

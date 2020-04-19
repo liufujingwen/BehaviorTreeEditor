@@ -311,6 +311,11 @@ namespace BehaviorTreeEditor
 
                     contextMenuStrip1.Show(treeView1, e.Location);
                 }
+                else if (e.Button == MouseButtons.Left)
+                {
+                    TreeNode node = treeView1.GetNodeAt(e.X, e.Y);
+                    treeView1.SelectedNode = node;
+                }
             }
             else if (e.Clicks == 2)
             {
@@ -1281,10 +1286,11 @@ namespace BehaviorTreeEditor
         {
             if ((e.State & TreeNodeStates.Selected) != 0)
             {
-                e.Graphics.FillRectangle(HighLight, Rectangle.Inflate(e.Node.Bounds, 2, 0));
+                RectangleF rect = new RectangleF(e.Bounds.X, e.Bounds.Y, treeView1.Width, e.Bounds.Height);
+                e.Graphics.FillRectangle(HighLight, rect);
                 Font nodeFont = e.Node.NodeFont;
                 if (nodeFont == null) nodeFont = ((TreeView)sender).Font;
-                e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.White, Rectangle.Inflate(e.Bounds, 2, 0));
+                e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.White, rect);
             }
             else
             {
