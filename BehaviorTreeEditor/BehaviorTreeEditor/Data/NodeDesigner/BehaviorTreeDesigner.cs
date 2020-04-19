@@ -617,6 +617,7 @@ namespace BehaviorTreeEditor
                 return;
 
             m_TreeID = behaviorTree.ID;
+            m_Name = behaviorTree.Name;
             m_Describe = behaviorTree.Describe;
 
             m_Fields.Clear();

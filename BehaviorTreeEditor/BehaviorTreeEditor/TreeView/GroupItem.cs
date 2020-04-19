@@ -5,7 +5,7 @@ namespace BehaviorTreeEditor
     public class GroupItem : ITreeViewItem
     {
         public TreeNode TreeNode { get; set; }
-        public BehaviorGroup Group;
+        public BehaviorGroupDesigner Group;
 
         public BehaviorTreeItem AddBehaviorTree(BehaviorTreeDesigner behaviorTree, int index = -1)
         {

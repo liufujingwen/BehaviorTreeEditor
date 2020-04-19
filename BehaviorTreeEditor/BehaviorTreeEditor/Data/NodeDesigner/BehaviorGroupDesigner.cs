@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace BehaviorTreeEditor
 {
-    public class BehaviorGroup
+    public class BehaviorGroupDesigner
     {
         private List<BehaviorTreeDesigner> m_BehaviorTrees = new List<BehaviorTreeDesigner>();
 
-
-        public BehaviorGroup()
+        public BehaviorGroupDesigner()
         {
         }
 
-        public BehaviorGroup(string groupName)
+        public BehaviorGroupDesigner(string groupName)
         {
             GroupName = groupName;
         }
 
         public string GroupName = string.Empty;
+        public string Describe;
 
         public List<BehaviorTreeDesigner> BehaviorTrees
         {

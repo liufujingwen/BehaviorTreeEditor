@@ -7,7 +7,7 @@ namespace BehaviorTreeEditor
     {
         private VariableDesigner m_GlobalVariable = new VariableDesigner();
         private VariableDesigner m_ContextVariable = new VariableDesigner();
-        private List<BehaviorGroup> m_Groups = new List<BehaviorGroup>();
+        private List<BehaviorGroupDesigner> m_Groups = new List<BehaviorGroupDesigner>();
         private List<BehaviorTreeDesigner> m_BehaviorTrees = new List<BehaviorTreeDesigner>();
 
         public VariableDesigner GlobalVariable
@@ -22,7 +22,7 @@ namespace BehaviorTreeEditor
             set { m_ContextVariable = value; }
         }
 
-        public List<BehaviorGroup> Groups
+        public List<BehaviorGroupDesigner> Groups
         {
             get { return m_Groups; }
             set { m_Groups = value; }
@@ -136,7 +136,7 @@ namespace BehaviorTreeEditor
 
             for (int i = 0; i < m_Groups.Count; i++)
             {
-                BehaviorGroup behaviorGroup = m_Groups[i];
+                BehaviorGroupDesigner behaviorGroup = m_Groups[i];
                 if (behaviorGroup == null)
                     continue;
                 if (behaviorGroup.GroupName == groupName)
@@ -150,7 +150,7 @@ namespace BehaviorTreeEditor
         /// 添加行为树分组
         /// </summary>
         /// <param name="behaviorGroup"></param>
-        public void AddGroup(BehaviorGroup behaviorGroup)
+        public void AddGroup(BehaviorGroupDesigner behaviorGroup)
         {
             if (behaviorGroup == null)
                 throw new ArgumentException("BehaviorTreeDataDesigner.AddGroup() error: behaviorGroup = null.");
@@ -168,7 +168,7 @@ namespace BehaviorTreeEditor
         /// 删除行为树分组
         /// </summary>
         /// <param name="behaviorGroup"></param>
-        public bool RemoveGroup(BehaviorGroup behaviorGroup)
+        public bool RemoveGroup(BehaviorGroupDesigner behaviorGroup)
         {
             if (behaviorGroup == null)
                 throw new ArgumentException("BehaviorTreeDataDesigner.RemoveGroup() error: behaviorGroup = null.");
@@ -178,7 +178,7 @@ namespace BehaviorTreeEditor
 
             for (int i = 0; i < m_Groups.Count; i++)
             {
-                BehaviorGroup temp = m_Groups[i];
+                BehaviorGroupDesigner temp = m_Groups[i];
                 if (temp == null)
                     continue;
 

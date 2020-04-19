@@ -32,6 +32,7 @@ namespace BehaviorTreeEditor
         {
             textBox1.Text = m_EditBehaviorTree.ID;
             textBox2.Text = m_EditBehaviorTree.Describe;
+            textBox3.Text = m_EditBehaviorTree.Name;
 
             listView1.Items.Clear();
             listView2.Items.Clear();
@@ -682,6 +683,7 @@ namespace BehaviorTreeEditor
             }
 
             string behaviorTreeId = textBox1.Text.Trim();
+            string behaviorName = textBox3.Text.Trim();
 
             if (m_BehaviorTree.ID != behaviorTreeId)
             {
@@ -695,6 +697,7 @@ namespace BehaviorTreeEditor
 
             m_EditBehaviorTree.ID = behaviorTreeId;
             m_EditBehaviorTree.Describe = textBox2.Text.Trim();
+            m_EditBehaviorTree.Name = textBox3.Text.Trim();
 
             //检验行为树是否合法
             VerifyInfo verifyBehaviorTree = m_EditBehaviorTree.VerifyBehaviorTree();

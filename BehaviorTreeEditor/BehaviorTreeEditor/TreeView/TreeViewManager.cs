@@ -8,13 +8,13 @@ namespace BehaviorTreeEditor
     {
         private Form m_Form;
         private TreeView m_TreeView;
-        private List<BehaviorGroup> m_Groups;
+        private List<BehaviorGroupDesigner> m_Groups;
         private List<BehaviorTreeDesigner> m_BehaviorTrees;
 
         public TreeView TreeView;
         public Dictionary<string, GroupItem> GroupDic = new Dictionary<string, GroupItem>();
 
-        public TreeViewManager(Form form, TreeView treeView, List<BehaviorGroup> groups, List<BehaviorTreeDesigner> behaviorTrees)
+        public TreeViewManager(Form form, TreeView treeView, List<BehaviorGroupDesigner> groups, List<BehaviorTreeDesigner> behaviorTrees)
         {
             m_Form = form;
             m_Groups = groups;
@@ -29,6 +29,11 @@ namespace BehaviorTreeEditor
         public string GetTreeNodeName(BehaviorTreeDesigner behaviorTree)
         {
             return string.IsNullOrEmpty(behaviorTree.Name) ? behaviorTree.ID : string.Format("{0} ({1})", behaviorTree.ID, behaviorTree.Name);
+        }
+
+        public string GetGroupTreeNodeName(BehaviorGroupDesigner behaviorGroup)
+        {
+            return string.IsNullOrEmpty(behaviorGroup.Describe) ? behaviorGroup.GroupName : string.Format("{0} ({1})", behaviorGroup.GroupName, behaviorGroup.Describe);
         }
 
         public void RefreshByTreeNode()
@@ -92,7 +97,7 @@ namespace BehaviorTreeEditor
             //分组优先
             for (int i = 0; i < m_Groups.Count; i++)
             {
-                BehaviorGroup group = m_Groups[i];
+                BehaviorGroupDesigner group = m_Groups[i];
                 BindGroup(group);
             }
 
@@ -200,20 +205,23 @@ namespace BehaviorTreeEditor
         {
             for (int i = 0; i < m_Groups.Count; i++)
             {
-                BehaviorGroup group = m_Groups[i];
+                BehaviorGroupDesigner group = m_Groups[i];
                 if (group.GroupName == groupName)
                     return true;
             }
             return false;
         }
 
-        public void UpdateGroup(string oldName, BehaviorGroup group)
+        public void UpdateGroup(BehaviorGroupDesigner original, BehaviorGroupDesigner group)
         {
+            original.GroupName = group.GroupName;
+            original.Describe = group.Describe;
+
             foreach (var kv in GroupDic)
             {
-                if (kv.Value.Group == group)
+                if (kv.Value.Group == original)
                 {
-                    kv.Value.TreeNode.Text = group.GroupName;
+                    kv.Value.TreeNode.Text = GetGroupTreeNodeName(original);
                 }
             }
         }
@@ -252,11 +260,11 @@ namespace BehaviorTreeEditor
             if (string.IsNullOrEmpty(groupName) || GroupDic.ContainsKey(groupName))
                 return null;
 
-            BehaviorGroup group = new BehaviorGroup(groupName);
+            BehaviorGroupDesigner group = new BehaviorGroupDesigner(groupName);
             return AddGroup(group);
         }
 
-        public void DeleteGroup(BehaviorGroup group)
+        public void DeleteGroup(BehaviorGroupDesigner group)
         {
             foreach (var kv in GroupDic)
             {
@@ -270,7 +278,7 @@ namespace BehaviorTreeEditor
             m_Groups.Remove(group);
         }
 
-        public GroupItem AddGroup(BehaviorGroup group)
+        public GroupItem AddGroup(BehaviorGroupDesigner group)
         {
             if (string.IsNullOrEmpty(group.GroupName) || GroupDic.ContainsKey(group.GroupName))
                 return null;
@@ -281,7 +289,7 @@ namespace BehaviorTreeEditor
             groupItem.Group = group;
             GroupDic.Add(group.GroupName, groupItem);
 
-            TreeNode treeNode = m_TreeView.Nodes.Insert(m_Groups.Count - 1, group.GroupName);
+            TreeNode treeNode = m_TreeView.Nodes.Insert(m_Groups.Count - 1, GetGroupTreeNodeName(group));
             treeNode.Tag = groupItem;
             groupItem.TreeNode = treeNode;
 
@@ -301,7 +309,7 @@ namespace BehaviorTreeEditor
             return groupItem;
         }
 
-        public void BindGroup(BehaviorGroup group)
+        public void BindGroup(BehaviorGroupDesigner group)
         {
             if (string.IsNullOrEmpty(group.GroupName) || GroupDic.ContainsKey(group.GroupName))
                 return;
@@ -311,7 +319,7 @@ namespace BehaviorTreeEditor
             groupItem.Group.GroupName = group.GroupName;
             GroupDic.Add(group.GroupName, groupItem);
 
-            TreeNode treeNode = m_TreeView.Nodes.Add(group.GroupName);
+            TreeNode treeNode = m_TreeView.Nodes.Add(GetGroupTreeNodeName(group));
             treeNode.Tag = groupItem;
             groupItem.TreeNode = treeNode;
 

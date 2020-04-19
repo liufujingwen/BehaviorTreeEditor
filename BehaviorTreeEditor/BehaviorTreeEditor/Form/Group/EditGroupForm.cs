@@ -12,14 +12,14 @@ namespace BehaviorTreeEditor
     public partial class EditGroupForm : Form
     {
         private string m_OldContent;
-        BehaviorGroup m_Group;
-        BehaviorGroup m_EditGroup;
+        BehaviorGroupDesigner m_Group;
+        BehaviorGroupDesigner m_EditGroup;
 
-        public EditGroupForm(BehaviorGroup group)
+        public EditGroupForm(BehaviorGroupDesigner group)
         {
             m_Group = group;
             m_OldContent = XmlUtility.ObjectToString(m_Group);
-            m_EditGroup = XmlUtility.StringToObject<BehaviorGroup>(m_OldContent);
+            m_EditGroup = XmlUtility.StringToObject<BehaviorGroupDesigner>(m_OldContent);
 
             InitializeComponent();
         }
@@ -27,11 +27,13 @@ namespace BehaviorTreeEditor
         private void EditGroup_Load(object sender, EventArgs e)
         {
             textBox1.Text = m_EditGroup.GroupName;
+            textBox2.Text = m_EditGroup.Describe;
         }
 
         private void editGroupBTN_Click(object sender, EventArgs e)
         {
             string groupName = textBox1.Text.Trim();
+            string describe = textBox2.Text.Trim();
 
             if (string.IsNullOrEmpty(groupName))
             {
@@ -39,7 +41,7 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            if (MainForm.Instance.TreeViewManager.ExistGroup(groupName))
+            if (m_Group.GroupName != m_EditGroup.GroupName && MainForm.Instance.TreeViewManager.ExistGroup(groupName))
             {
                 MainForm.Instance.ShowMessage(string.Format("{0}，已存在", groupName));
                 return;
@@ -47,12 +49,13 @@ namespace BehaviorTreeEditor
 
             string oldName = m_Group.GroupName;
             m_EditGroup.GroupName = groupName;
+            m_EditGroup.Describe = describe;
 
             string content = XmlUtility.ObjectToString(m_EditGroup);
             if (m_OldContent != content)
             {
                 m_Group.GroupName = m_EditGroup.GroupName;
-                MainForm.Instance.Exec(OperationType.UpdateGroup, oldName, m_Group);
+                MainForm.Instance.Exec(OperationType.UpdateGroup, m_Group, m_EditGroup);
                 MainForm.Instance.ShowInfo(string.Format("分组{0}改为{1} 时间:{2}", oldName, m_Group.GroupName, DateTime.Now));
             }
 

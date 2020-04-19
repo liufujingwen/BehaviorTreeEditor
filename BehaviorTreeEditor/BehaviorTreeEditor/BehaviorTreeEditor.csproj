@@ -167,7 +167,7 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeView\BehaviorTreeItem.cs" />
-    <Compile Include="TreeView\BehaviorGroup.cs" />
+    <Compile Include="Data\NodeDesigner\BehaviorGroupDesigner.cs" />
     <Compile Include="TreeView\GroupItem.cs" />
     <Compile Include="TreeView\ITreeViewItem.cs" />
     <Compile Include="TreeView\TreeViewManager.cs" />

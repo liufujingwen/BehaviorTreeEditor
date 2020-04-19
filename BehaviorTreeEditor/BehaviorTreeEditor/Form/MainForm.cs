@@ -431,9 +431,9 @@ namespace BehaviorTreeEditor
 
         public class BehaviorTreeGroupListContent
         {
-            private List<BehaviorGroup> m_DataList = new List<BehaviorGroup>();
+            private List<BehaviorGroupDesigner> m_DataList = new List<BehaviorGroupDesigner>();
 
-            public List<BehaviorGroup> DataList
+            public List<BehaviorGroupDesigner> DataList
             {
                 get { return m_DataList; }
             }
@@ -505,7 +505,7 @@ namespace BehaviorTreeEditor
 
                 for (int i = 0; i < content.DataList.Count; i++)
                 {
-                    BehaviorGroup behaviorGroup = content.DataList[i];
+                    BehaviorGroupDesigner behaviorGroup = content.DataList[i];
 
                     string groupName = behaviorGroup.GroupName;
                     do
@@ -697,7 +697,7 @@ namespace BehaviorTreeEditor
                 return;
 
             GroupItem groupItem = treeView1.SelectedNode.Tag as GroupItem;
-            BehaviorGroup group = groupItem.Group;
+            BehaviorGroupDesigner group = groupItem.Group;
 
             if (MessageBox.Show(string.Format("确定删除分组[{0}]吗?", group.GroupName), "提示",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -708,9 +708,9 @@ namespace BehaviorTreeEditor
         }
 
         //更新Group
-        private void UpdateGroup(string oldName, BehaviorGroup group)
+        private void UpdateGroup(BehaviorGroupDesigner original, BehaviorGroupDesigner group)
         {
-            TreeViewManager.UpdateGroup(oldName, group);
+            TreeViewManager.UpdateGroup(original, group);
         }
 
         /// <summary>
@@ -953,7 +953,7 @@ namespace BehaviorTreeEditor
                     EditGroup();
                     break;
                 case OperationType.UpdateGroup:
-                    UpdateGroup((string)args[0], (BehaviorGroup)args[1]);
+                    UpdateGroup((BehaviorGroupDesigner)args[0], (BehaviorGroupDesigner)args[1]);
                     break;
                 case OperationType.DeleteGroup:
                     //删除分组

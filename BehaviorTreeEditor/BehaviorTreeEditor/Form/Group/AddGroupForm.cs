@@ -19,6 +19,7 @@ namespace BehaviorTreeEditor
         private void addGroupBTN_Click(object sender, EventArgs e)
         {
             string groupName = textBox1.Text.Trim();
+            string describe = textBox2.Text.Trim();
 
             if (string.IsNullOrEmpty(groupName))
             {
@@ -32,8 +33,9 @@ namespace BehaviorTreeEditor
                 return;
             }
 
-            BehaviorGroup group = new BehaviorGroup();
+            BehaviorGroupDesigner group = new BehaviorGroupDesigner();
             group.GroupName = groupName;
+            group.Describe = describe;
 
             MainForm.Instance.TreeViewManager.AddGroup(group);
             this.Close();
