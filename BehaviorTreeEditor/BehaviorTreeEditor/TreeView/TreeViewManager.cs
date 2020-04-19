@@ -24,7 +24,11 @@ namespace BehaviorTreeEditor
             m_TreeView.DragEnter += new DragEventHandler(DragEnter);
             m_TreeView.DragDrop += new DragEventHandler(DragDrop);
             m_TreeView.DragOver += new DragEventHandler(DragOver);
+        }
 
+        public string GetTreeNodeName(BehaviorTreeDesigner behaviorTree)
+        {
+            return string.IsNullOrEmpty(behaviorTree.Name) ? behaviorTree.ID : string.Format("{0} ({1})", behaviorTree.ID, behaviorTree.Name);
         }
 
         public void RefreshByTreeNode()
@@ -134,8 +138,7 @@ namespace BehaviorTreeEditor
             BehaviorTreeItem behaviorTreeItem = new BehaviorTreeItem();
             behaviorTreeItem.BehaviorTree = behaviorTree;
 
-            string name = string.IsNullOrEmpty(behaviorTree.Name) ? behaviorTree.ID : string.Format("{0} ({1})", behaviorTree.ID, behaviorTree.Name);
-            TreeNode treeNode = m_TreeView.Nodes.Add(name);
+            TreeNode treeNode = m_TreeView.Nodes.Add(GetTreeNodeName(behaviorTree));
             treeNode.Tag = behaviorTreeItem;
             behaviorTreeItem.GroupItem = null;
             behaviorTreeItem.TreeNode = treeNode;
@@ -147,7 +150,7 @@ namespace BehaviorTreeEditor
         {
             BehaviorTreeItem behaviorTreeItem = FindBehaviorTreeItem(behaviorTree);
             if (behaviorTreeItem != null)
-                behaviorTreeItem.TreeNode.Text = behaviorTree.ID;
+                behaviorTreeItem.TreeNode.Text = GetTreeNodeName(behaviorTree);
         }
 
         public BehaviorTreeItem FindBehaviorTreeItem(BehaviorTreeDesigner behaviorTree)
@@ -315,8 +318,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < group.BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner behaviorTree = group.BehaviorTrees[i];
-                string name = string.IsNullOrEmpty(behaviorTree.Name) ? behaviorTree.ID : string.Format("{0} ({1})", behaviorTree.ID, behaviorTree.Name);
-                TreeNode tempTreeNode = treeNode.Nodes.Add(name);
+                TreeNode tempTreeNode = treeNode.Nodes.Add(GetTreeNodeName(behaviorTree));
                 BehaviorTreeItem behaviorTreeItem = new BehaviorTreeItem();
                 behaviorTreeItem.BehaviorTree = behaviorTree;
                 behaviorTreeItem.GroupItem = groupItem;
