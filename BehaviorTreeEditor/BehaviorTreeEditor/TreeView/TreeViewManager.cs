@@ -118,7 +118,6 @@ namespace BehaviorTreeEditor
 
             m_BehaviorTrees.Add(behaviorTree);
             BehaviorTreeItem behaviorTreeItem = BindBehaviorTreeItem(behaviorTree);
-            m_TreeView.SelectedNode = behaviorTreeItem.TreeNode;
             return behaviorTreeItem;
         }
 
@@ -509,8 +508,6 @@ namespace BehaviorTreeEditor
                     RemoveBehaviorTree(selectedBehaviorTreeItem.BehaviorTree);
                 }
 
-                selectedBehaviorTreeItem.TreeNode.Remove();
-
                 string id = selectedBehaviorTreeItem.BehaviorTree.ID;
                 while (dropGroupItem.Group.ExistBehaviorTree(id))
                     id += "_New";
@@ -560,7 +557,6 @@ namespace BehaviorTreeEditor
 
                         GroupItem groupItem = dropBehaviorTreeItem.GroupItem as GroupItem;
                         int dropIndex = GetGroupIndex(groupItem, dropNode);
-                        selectedBehaviorTreeItem.TreeNode.Remove();
 
                         string id = selectedBehaviorTreeItem.BehaviorTree.ID;
                         while (groupItem.Group.ExistBehaviorTree(id))
@@ -600,21 +596,14 @@ namespace BehaviorTreeEditor
                     if (dropBehaviorTreeItem.GroupItem == null)
                     {
                         GroupItem groupItem = selectedBehaviorTreeItem.GroupItem as GroupItem;
-                        int dropIndex = GetTreeViewIndex(dropNode);
-                        groupItem.Group.RemoveBehaviorTree(dropBehaviorTreeItem.BehaviorTree);
-                        selectedBehaviorTreeItem.TreeNode.Remove();
+                        groupItem.RemoveBehaviorTree(selectedBehaviorTreeItem.BehaviorTree);
 
-                        BehaviorTreeDesigner lastBehaviorTree = null;
-                        if (dropIndex < m_TreeView.Nodes.Count)
-                        {
-                            BehaviorTreeItem behaviorTreeItem = m_TreeView.Nodes[dropIndex].Tag as BehaviorTreeItem;
-                            lastBehaviorTree = behaviorTreeItem.BehaviorTree;
-                        }
+                        string id = selectedBehaviorTreeItem.BehaviorTree.ID;
+                        while (ExistBehaviorTree(id))
+                            id += "_New";
 
-                        m_TreeView.Nodes.Add(selectedBehaviorTreeItem.TreeNode);
-                        selectedBehaviorTreeItem.GroupItem = null;
-
-                        AddLast(selectedBehaviorTreeItem.BehaviorTree);
+                        selectedBehaviorTreeItem.BehaviorTree.ID = id;
+                        SetSelectItem(AddBehaviorTree(selectedBehaviorTreeItem.BehaviorTree));
                     }
                     //组内交换
                     else if (selectedBehaviorTreeItem.GroupItem.Group.GroupName == dropBehaviorTreeItem.GroupItem.Group.GroupName)
@@ -650,7 +639,6 @@ namespace BehaviorTreeEditor
                         {
                             //从没有分组的列表移除
                             RemoveBehaviorTree(selectedBehaviorTreeItem.BehaviorTree);
-                            selectedBehaviorTreeItem.TreeNode.Remove();
                         }
                         else
                         {
