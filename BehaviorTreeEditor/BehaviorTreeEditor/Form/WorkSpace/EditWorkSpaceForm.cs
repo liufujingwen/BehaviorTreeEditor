@@ -87,13 +87,20 @@ namespace BehaviorTreeEditor
                     }
 
                     //移动节点xml文件
-                    string oldXmlDataFile = Path.Combine(m_OldWorkSpaceDirectory, m_OldWorkSpaceName + Settings.Default.BehaviorTreeDataFileSuffix);
-                    string newXmlDataFile = MainForm.Instance.GetBehaviorTreeDataPath();
-                    if (File.Exists(oldXmlDataFile))
+                    string[] xmlFiles = Directory.GetFiles(m_OldWorkSpaceDirectory, $"*{Settings.Default.BehaviorTreeDataFileSuffix}");
+                    for (int i = 0; i < xmlFiles.Length; i++)
                     {
-                        if (File.Exists(newXmlDataFile))
-                            File.Delete(newXmlDataFile);
-                        File.Move(oldXmlDataFile, newXmlDataFile);
+                        string file = xmlFiles[i];
+                        string fileName = Path.GetFileName(file);
+
+                        if (fileName.EndsWith(Settings.Default.BehaviorTreeSuffix, StringComparison.Ordinal) || fileName.EndsWith(Settings.Default.GroupSuffix, StringComparison.Ordinal))
+                        {
+                            string oldXmlDataFile = file;
+                            string newXmlDataFile = Path.Combine(Settings.Default.WorkDirectory, fileName);
+                            if (File.Exists(newXmlDataFile))
+                                File.Delete(newXmlDataFile);
+                            File.Move(oldXmlDataFile, newXmlDataFile);
+                        }
                     }
 
                     //移动NodeTemplate文件
@@ -104,6 +111,16 @@ namespace BehaviorTreeEditor
                         if (File.Exists(newNodeTemplateXmlFile))
                             File.Delete(newNodeTemplateXmlFile);
                         File.Move(oldNodeTemplateXmlFile, newNodeTemplateXmlFile);
+                    }
+
+                    //移动全局变量文件
+                    string oldGlobalVariableFile = Path.Combine(m_OldWorkSpaceDirectory, Settings.Default.GlobalVariableFile);
+                    string newGlobalVariableFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.GlobalVariableFile);
+                    if (File.Exists(oldGlobalVariableFile))
+                    {
+                        if (File.Exists(newGlobalVariableFile))
+                            File.Delete(newGlobalVariableFile);
+                        File.Move(oldGlobalVariableFile, newGlobalVariableFile);
                     }
                 }
 

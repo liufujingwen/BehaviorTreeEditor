@@ -166,5 +166,41 @@ namespace BehaviorTreeEditor.Properties {
                 this["ShowDescribe"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GlobalVariable.xml")]
+        public string GlobalVariableFile {
+            get {
+                return ((string)(this["GlobalVariableFIle"]));
+            }
+            set {
+                this["GlobalVariableFIle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".group.xml")]
+        public string GroupSuffix {
+            get {
+                return ((string)(this["GroupSuffix"]));
+            }
+            set {
+                this["GroupSuffix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".tree.xml")]
+        public string BehaviorTreeSuffix {
+            get {
+                return ((string)(this["BehaviorTreeSuffix"]));
+            }
+            set {
+                this["BehaviorTreeSuffix"] = value;
+            }
+        }
     }
 }

@@ -1112,11 +1112,45 @@ namespace BehaviorTreeEditor
                 NodeTemplateStringContent = XmlUtility.ObjectToString(NodeTemplate);
             }
 
-
-            if (XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData))
+            string[] xmlFiles = Directory.GetFiles(Settings.Default.WorkDirectory, $"*{Settings.Default.BehaviorTreeDataFileSuffix}");
+            for (int i = 0; i < xmlFiles.Length; i++)
             {
-                BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
+                string file = xmlFiles[i];
+                string fileName = Path.GetFileName(file);
+
+                if (fileName.EndsWith(Settings.Default.BehaviorTreeSuffix, StringComparison.Ordinal))
+                {
+                    File.Delete(file);
+                    continue;
+                }
+
+                if (fileName.EndsWith(Settings.Default.GroupSuffix, StringComparison.Ordinal))
+                {
+                    File.Delete(file);
+                }
             }
+
+            //保存行为树
+            for (int i = 0; i < BehaviorTreeData.BehaviorTrees.Count; i++)
+            {
+                BehaviorTreeDesigner behaviorTree = BehaviorTreeData.BehaviorTrees[i];
+                string saveFile = Path.Combine(Settings.Default.WorkDirectory, $"{behaviorTree.ID}{Settings.Default.BehaviorTreeSuffix}");
+                XmlUtility.Save(saveFile, behaviorTree);
+            }
+
+            //保存组
+            for (int i = 0; i < BehaviorTreeData.Groups.Count; i++)
+            {
+                BehaviorGroupDesigner group = BehaviorTreeData.Groups[i];
+                string saveFile = Path.Combine(Settings.Default.WorkDirectory, $"{group.GroupName}{Settings.Default.GroupSuffix}");
+                XmlUtility.Save(saveFile, group);
+            }
+
+            //保存全局变量
+            string globalVarFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.GlobalVariableFile);
+            XmlUtility.Save(globalVarFile, BehaviorTreeData.GlobalVariable);
+
+            BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
 
             //序列化成二进制
             BTData.BehaviorTreeData treeData = EditorUtility.CreateTreeData(BehaviorTreeData);
@@ -1243,13 +1277,51 @@ namespace BehaviorTreeEditor
 
         public void LoadBehaviorTreeData()
         {
-            //读取行为树数据
-            BehaviorTreeData = XmlUtility.Read<BehaviorTreeDataDesigner>(GetBehaviorTreeDataPath());
-            if (BehaviorTreeData == null)
+            string[] xmlFiles = Directory.GetFiles(Settings.Default.WorkDirectory, $"*{Settings.Default.BehaviorTreeDataFileSuffix}");
+
+            List<string> behaviorTreeList = new List<string>(xmlFiles.Length / 2);
+            List<string> groupList = new List<string>(xmlFiles.Length / 2);
+
+            for (int i = 0; i < xmlFiles.Length; i++)
             {
-                BehaviorTreeData = new BehaviorTreeDataDesigner();
-                XmlUtility.Save(GetBehaviorTreeDataPath(), BehaviorTreeData);
+                string file = xmlFiles[i];
+                string fileName = Path.GetFileName(file);
+
+                if (fileName.EndsWith(Settings.Default.BehaviorTreeSuffix, StringComparison.Ordinal))
+                {
+                    behaviorTreeList.Add(file);
+                    continue;
+                }
+
+                if (fileName.EndsWith(Settings.Default.GroupSuffix, StringComparison.Ordinal))
+                {
+                    groupList.Add(file);
+                }
             }
+
+            BehaviorTreeData = new BehaviorTreeDataDesigner();
+
+            //读取没有组的行为树
+            for (int i = 0; i < behaviorTreeList.Count; i++)
+            {
+                string file = behaviorTreeList[i];
+                BehaviorTreeDesigner behaviorTree = XmlUtility.Read<BehaviorTreeDesigner>(file);
+                BehaviorTreeData.BehaviorTrees.Add(behaviorTree);
+            }
+
+            //读取组
+            for (int i = 0; i < groupList.Count; i++)
+            {
+                string file = groupList[i];
+                BehaviorGroupDesigner group = XmlUtility.Read<BehaviorGroupDesigner>(file);
+                BehaviorTreeData.Groups.Add(group);
+            }
+
+            //读取全局变量
+            string globalVarFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.GlobalVariableFile);
+            VariableDesigner variable = XmlUtility.Read<VariableDesigner>(globalVarFile);
+            if (variable != null)
+                BehaviorTreeData.GlobalVariable = variable;
 
             BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
 
@@ -1273,6 +1345,38 @@ namespace BehaviorTreeEditor
                                         NodeDesigner fromNode = behaviorTree.FindNodeByID(transition.FromNodeID);
                                         NodeDesigner toNode = behaviorTree.FindNodeByID(transition.ToNodeID);
                                         transition.Set(toNode, fromNode);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (BehaviorTreeData.Groups.Count > 0)
+            {
+                for (int i = 0; i < BehaviorTreeData.Groups.Count; i++)
+                {
+                    BehaviorGroupDesigner behaviorGroup = BehaviorTreeData.Groups[i];
+                    for (int ii = 0; ii < behaviorGroup.BehaviorTrees.Count; ii++)
+                    {
+                        BehaviorTreeDesigner behaviorTree = behaviorGroup.BehaviorTrees[ii];
+                        if (behaviorTree != null)
+                        {
+                            if (behaviorTree.Nodes.Count > 0)
+                            {
+                                for (int iii = 0; iii < behaviorTree.Nodes.Count; iii++)
+                                {
+                                    NodeDesigner node = behaviorTree.Nodes[iii];
+                                    if (node.Transitions.Count > 0)
+                                    {
+                                        for (int iiii = 0; iiii < node.Transitions.Count; iiii++)
+                                        {
+                                            Transition transition = node.Transitions[iiii];
+                                            NodeDesigner fromNode = behaviorTree.FindNodeByID(transition.FromNodeID);
+                                            NodeDesigner toNode = behaviorTree.FindNodeByID(transition.ToNodeID);
+                                            transition.Set(toNode, fromNode);
+                                        }
                                     }
                                 }
                             }

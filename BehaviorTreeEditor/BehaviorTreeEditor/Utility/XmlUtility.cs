@@ -17,10 +17,13 @@ namespace BehaviorTreeEditor
                 File.Delete(fileName);
 
             FileStream stream = File.Open(fileName, FileMode.Create, FileAccess.Write);
+            //去掉命名空间
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
             XmlSerializer serializer = new XmlSerializer(typeof(T));
             XmlTextWriter writer = new XmlTextWriter(stream, UTF8);
             writer.Formatting = Formatting.Indented;
-            serializer.Serialize(writer, data);
+            serializer.Serialize(writer, data, ns);
             writer.Close();
             stream.Close();
             return true;

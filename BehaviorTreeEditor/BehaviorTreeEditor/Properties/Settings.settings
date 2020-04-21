@@ -38,5 +38,14 @@
     <Setting Name="ShowDescribe" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="GlobalVariableFIle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GlobalVariable.xml</Value>
+    </Setting>
+    <Setting Name="GroupSuffix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.group.xml</Value>
+    </Setting>
+    <Setting Name="BehaviorTreeSuffix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.tree.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
