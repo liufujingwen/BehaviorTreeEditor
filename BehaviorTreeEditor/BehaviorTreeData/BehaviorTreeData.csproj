@@ -36,10 +36,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\BehaviorTreeElement.cs" />
-    <Compile Include="Data\BaseField.cs" />
-    <Compile Include="Data\VariableData.cs" />
     <Compile Include="Data\BehaviorTreeData.cs" />
+    <Compile Include="Data\BaseField.cs" />
+    <Compile Include="Data\GroupData.cs" />
+    <Compile Include="Data\VariableData.cs" />
+    <Compile Include="Data\TreeDatas.cs" />
     <Compile Include="Data\BooleanField.cs" />
     <Compile Include="Data\ColorField.cs" />
     <Compile Include="Data\DoubleField.cs" />

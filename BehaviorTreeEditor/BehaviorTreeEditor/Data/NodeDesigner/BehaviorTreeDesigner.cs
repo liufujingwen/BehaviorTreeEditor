@@ -11,7 +11,7 @@ namespace BehaviorTreeEditor
         private List<FieldDesigner> m_Fields = new List<FieldDesigner>();
         private List<VariableFieldDesigner> m_BehaviorTreeVariables = new List<VariableFieldDesigner>();
         private List<NodeDesigner> m_Nodes = new List<NodeDesigner>();
-
+        private int m_Index;
 
         public string ID
         {
@@ -47,6 +47,12 @@ namespace BehaviorTreeEditor
         {
             get { return m_Nodes; }
             set { m_Nodes = value; }
+        }
+
+        public int Index
+        {
+            get { return m_Index; }
+            set { m_Index = value; }
         }
 
         public int GenNodeID()

@@ -46,7 +46,7 @@ namespace BehaviorTreeEditor
                 stream.Close();
                 return instance;
             }
-            catch (InvalidOperationException ex)
+            catch
             {
                 if (stream != null)
                     stream.Close();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BehaviorTreeEditor
 {
-    public class BehaviorTreeDataDesigner
+    public class TreeDatasDesigner
     {
         private VariableDesigner m_GlobalVariable = new VariableDesigner();
         private VariableDesigner m_ContextVariable = new VariableDesigner();

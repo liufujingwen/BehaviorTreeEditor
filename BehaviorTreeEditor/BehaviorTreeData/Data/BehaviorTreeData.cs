@@ -6,18 +6,19 @@ namespace BTData
 {
     public partial class BehaviorTreeData : Binary
     {
-        public VariableData GlobalVariable = new VariableData();
-        public VariableData ContextVariable = new VariableData();
-        public List<BehaviorTreeElement> BehaviorTrees = new List<BehaviorTreeElement>();
+        public string ID;
+        public List<BaseField> Fields = new List<BaseField>();
+        public List<BaseField> BehaviorTreeVariables = new List<BaseField>();
+        public NodeData StartNode;
 
         public override void Read(ref Reader reader)
         {
-            reader.Read(ref GlobalVariable).Read(ref ContextVariable).Read(ref BehaviorTrees);
+            reader.Read(ref ID).Read(ref Fields).Read(ref BehaviorTreeVariables).Read(ref StartNode);
         }
 
         public override void Write(ref Writer writer)
         {
-            writer.Write(GlobalVariable).Write(ContextVariable).Write(BehaviorTrees);
+            writer.Write(ID).Write(Fields).Write(BehaviorTreeVariables).Write(StartNode);
         }
     }
 }

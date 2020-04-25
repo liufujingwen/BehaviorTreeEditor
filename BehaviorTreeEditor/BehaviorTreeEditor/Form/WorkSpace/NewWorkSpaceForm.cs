@@ -79,7 +79,7 @@ namespace BehaviorTreeEditor
             MainForm.Instance.NodeTemplateStringContent = XmlUtility.ObjectToString(MainForm.Instance.NodeTemplate);
 
             //初始化行为树数据
-            MainForm.Instance.BehaviorTreeData = new BehaviorTreeDataDesigner();
+            MainForm.Instance.BehaviorTreeData = new TreeDatasDesigner();
             XmlUtility.Save(MainForm.Instance.GetBehaviorTreeDataPath(), MainForm.Instance.BehaviorTreeData);
             MainForm.Instance.BehaviorTreeDataStringContent = XmlUtility.ObjectToString(MainForm.Instance.BehaviorTreeData);
 

@@ -22,7 +22,7 @@ namespace SerializeTest
 
         public static void TestIntField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             IntField intField = new IntField();
@@ -40,12 +40,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(repeatIntField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestLongField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             LongField longField = new LongField();
@@ -63,12 +63,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(repeatLongField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestFloatField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             FloatField floatField = new FloatField();
@@ -86,12 +86,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(repeatFloatField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestDoubleField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             DoubleField doubleField = new DoubleField();
@@ -109,12 +109,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(repeatDoubleField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestEnumField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             EnumField enumField = new EnumField();
@@ -123,12 +123,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(enumField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestBooleanField()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
             behaviorTree.StartNode = new NodeData();
 
             BooleanField booleanField = new BooleanField();
@@ -137,12 +137,12 @@ namespace SerializeTest
             behaviorTree.StartNode.Fields.Add(booleanField);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
 
         public static void TestNode()
         {
-            BehaviorTreeElement behaviorTree = new BehaviorTreeElement();
+            BehaviorTreeData behaviorTree = new BehaviorTreeData();
 
             //添加开始节点
             behaviorTree.StartNode = new NodeData();
@@ -174,7 +174,7 @@ namespace SerializeTest
             behaviorTree.StartNode.Childs.Add(node2);
 
             byte[] bytes = Serializer.Serialize(behaviorTree);
-            BehaviorTreeElement deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeElement>(bytes);
+            BehaviorTreeData deBehaviorTreeData = Serializer.DeSerialize<BehaviorTreeData>(bytes);
         }
     }
 }

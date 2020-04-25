@@ -18,6 +18,7 @@ namespace BehaviorTreeEditor
 
         public string GroupName = string.Empty;
         public string Describe;
+        public int Index;
 
         public List<BehaviorTreeDesigner> BehaviorTrees
         {

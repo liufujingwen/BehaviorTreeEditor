@@ -242,7 +242,7 @@
       <DependentUpon>NodeTemplateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\NodeDesigner\BehaviorTreeDesigner.cs" />
-    <Compile Include="Data\NodeDesigner\BehaviorTreeDataDesigner.cs" />
+    <Compile Include="Data\NodeDesigner\TreeDatasDesigner.cs" />
     <Compile Include="Data\NodeDesigner\CustomEnum.cs" />
     <Compile Include="Data\NodeDesigner\Field\BaseFieldDesigner.cs" />
     <Compile Include="Data\NodeDesigner\Field\FieldDesigner.cs" />

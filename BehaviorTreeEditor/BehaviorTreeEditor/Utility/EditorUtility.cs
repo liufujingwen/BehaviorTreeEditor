@@ -683,9 +683,9 @@ namespace BehaviorTreeEditor
 
         #region serialize bytes 
 
-        public static BTData.BehaviorTreeData CreateTreeData(BehaviorTreeDataDesigner treeData)
+        public static BTData.TreeDatas CreateTreeData(TreeDatasDesigner treeData)
         {
-            BTData.BehaviorTreeData data = new BTData.BehaviorTreeData();
+            BTData.TreeDatas data = new BTData.TreeDatas();
 
             //全局变量
             for (int i = 0; i < treeData.GlobalVariable.VariableFields.Count; i++)
@@ -711,12 +711,20 @@ namespace BehaviorTreeEditor
                 data.BehaviorTrees.Add(CreateBehaviorTreeData(behaviorTree));
             }
 
+            for (int i = 0; i < treeData.Groups.Count; i++)
+            {
+                BehaviorGroupDesigner group = treeData.Groups[i];
+                if (group == null)
+                    continue;
+                data.Groups.Add(CreateBehaviorGroupData(group));
+            }
+
             return data;
         }
 
-        public static BTData.BehaviorTreeElement CreateBehaviorTreeData(BehaviorTreeDesigner behaviorTree)
+        public static BTData.BehaviorTreeData CreateBehaviorTreeData(BehaviorTreeDesigner behaviorTree)
         {
-            BTData.BehaviorTreeElement data = new BTData.BehaviorTreeElement();
+            BTData.BehaviorTreeData data = new BTData.BehaviorTreeData();
             data.ID = behaviorTree.ID;
 
             //行为树变量
@@ -739,6 +747,22 @@ namespace BehaviorTreeEditor
             NodeDesigner startNode = behaviorTree.GetStartNode();
             if (startNode != null)
                 data.StartNode = CreateNode(behaviorTree, startNode);
+
+            return data;
+        }
+
+        public static BTData.GroupData CreateBehaviorGroupData(BehaviorGroupDesigner group)
+        {
+            BTData.GroupData data = new BTData.GroupData();
+            data.GroupName = group.GroupName;
+
+            for (int i = 0; i < group.BehaviorTrees.Count; i++)
+            {
+                BehaviorTreeDesigner behaviorTree = group.BehaviorTrees[i];
+                if (behaviorTree == null)
+                    continue;
+                data.BehaviorTrees.Add(CreateBehaviorTreeData(behaviorTree));
+            }
 
             return data;
         }

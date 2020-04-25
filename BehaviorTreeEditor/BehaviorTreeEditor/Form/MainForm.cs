@@ -29,7 +29,7 @@ namespace BehaviorTreeEditor
         public string NodeTemplateStringContent;
 
         //行为树数据
-        public BehaviorTreeDataDesigner BehaviorTreeData;
+        public TreeDatasDesigner BehaviorTreeData;
 
         //行为树数据上一次保存的时候的内容，用于检测行为树dirty
         public string BehaviorTreeDataStringContent;
@@ -513,11 +513,10 @@ namespace BehaviorTreeEditor
                     BehaviorGroupDesigner behaviorGroup = content.DataList[i];
 
                     string groupName = behaviorGroup.GroupName;
-                    do
+                    while (BehaviorTreeData.ExistBehaviorGroup(groupName))
                     {
                         groupName += "_New";
                     }
-                    while (BehaviorTreeData.ExistBehaviorGroup(groupName));
 
                     behaviorGroup.GroupName = groupName;
                     TreeViewManager.AddGroup(behaviorGroup);
@@ -545,10 +544,10 @@ namespace BehaviorTreeEditor
                 {
                     BehaviorTreeDesigner behaviorTree = content.DataList[i];
                     string behaviorTreeID = behaviorTree.ID;
-                    do
+                    while (BehaviorTreeData.ExistBehaviorTree(behaviorTreeID))
                     {
                         behaviorTreeID += "_New";
-                    } while (BehaviorTreeData.ExistBehaviorTree(behaviorTreeID));
+                    } 
 
                     behaviorTree.ID = behaviorTreeID;
                     TreeViewManager.AddBehaviorTree(behaviorTree);
@@ -663,7 +662,7 @@ namespace BehaviorTreeEditor
             NodeTemplate = new NodeTemplate();
             NodeTemplate.ResetEnums();
             NodeTemplate.ResetNodes();
-            BehaviorTreeData = new BehaviorTreeDataDesigner();
+            BehaviorTreeData = new TreeDatasDesigner();
             CreateTreeViewManager();
             SetSelectedBehaviorTree(null);
         }
@@ -1134,6 +1133,7 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < BehaviorTreeData.BehaviorTrees.Count; i++)
             {
                 BehaviorTreeDesigner behaviorTree = BehaviorTreeData.BehaviorTrees[i];
+                //behaviorTree.Index = i;
                 string saveFile = Path.Combine(Settings.Default.WorkDirectory, $"{behaviorTree.ID}{Settings.Default.BehaviorTreeSuffix}");
                 XmlUtility.Save(saveFile, behaviorTree);
             }
@@ -1142,6 +1142,13 @@ namespace BehaviorTreeEditor
             for (int i = 0; i < BehaviorTreeData.Groups.Count; i++)
             {
                 BehaviorGroupDesigner group = BehaviorTreeData.Groups[i];
+                group.Index = i;
+
+                for (int j = 0; j < group.BehaviorTrees.Count; j++)
+                {
+                    group.BehaviorTrees[j].Index = j;
+                }
+
                 string saveFile = Path.Combine(Settings.Default.WorkDirectory, $"{group.GroupName}{Settings.Default.GroupSuffix}");
                 XmlUtility.Save(saveFile, group);
             }
@@ -1153,7 +1160,7 @@ namespace BehaviorTreeEditor
             BehaviorTreeDataStringContent = XmlUtility.ObjectToString(BehaviorTreeData);
 
             //序列化成二进制
-            BTData.BehaviorTreeData treeData = EditorUtility.CreateTreeData(BehaviorTreeData);
+            BTData.TreeDatas treeData = EditorUtility.CreateTreeData(BehaviorTreeData);
             if (treeData != null)
             {
                 string savePath = GetNodeDataSavePath();
@@ -1299,7 +1306,7 @@ namespace BehaviorTreeEditor
                 }
             }
 
-            BehaviorTreeData = new BehaviorTreeDataDesigner();
+            BehaviorTreeData = new TreeDatasDesigner();
 
             //读取没有组的行为树
             for (int i = 0; i < behaviorTreeList.Count; i++)
@@ -1309,6 +1316,8 @@ namespace BehaviorTreeEditor
                 BehaviorTreeData.BehaviorTrees.Add(behaviorTree);
             }
 
+            BehaviorTreeData.BehaviorTrees.Sort((l, r) => l.Index.CompareTo(r.Index));
+
             //读取组
             for (int i = 0; i < groupList.Count; i++)
             {
@@ -1316,6 +1325,8 @@ namespace BehaviorTreeEditor
                 BehaviorGroupDesigner group = XmlUtility.Read<BehaviorGroupDesigner>(file);
                 BehaviorTreeData.Groups.Add(group);
             }
+
+            BehaviorTreeData.Groups.Sort((l, r) => l.Index.CompareTo(r.Index));
 
             //读取全局变量
             string globalVarFile = Path.Combine(Settings.Default.WorkDirectory, Settings.Default.GlobalVariableFile);
