@@ -48,12 +48,13 @@
             this.treeView1.HideSelection = false;
             this.treeView1.ItemHeight = 25;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "节点0";
             treeNode1.Text = "节点0";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            this.treeView1.Size = new System.Drawing.Size(1047, 588);
+            this.treeView1.Size = new System.Drawing.Size(785, 470);
             this.treeView1.TabIndex = 0;
             this.treeView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
             this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
@@ -68,21 +69,21 @@
             this.删除ToolStripMenuItem,
             this.重置ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 108);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 108);
             // 
             // 添加类ToolStripMenuItem
             // 
             this.添加类ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources._new;
             this.添加类ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.添加类ToolStripMenuItem.Name = "添加类ToolStripMenuItem";
-            this.添加类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.添加类ToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
             this.添加类ToolStripMenuItem.Text = "添加类";
             this.添加类ToolStripMenuItem.Click += new System.EventHandler(this.添加类ToolStripMenuItem_Click);
             // 
             // 编辑类ToolStripMenuItem
             // 
             this.编辑类ToolStripMenuItem.Name = "编辑类ToolStripMenuItem";
-            this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.编辑类ToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
             this.编辑类ToolStripMenuItem.Text = "编辑类";
             this.编辑类ToolStripMenuItem.Click += new System.EventHandler(this.编辑类ToolStripMenuItem_Click);
             // 
@@ -91,26 +92,28 @@
             this.删除ToolStripMenuItem.Image = global::BehaviorTreeEditor.Properties.Resources.delete;
             this.删除ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // 重置ToolStripMenuItem
             // 
             this.重置ToolStripMenuItem.Name = "重置ToolStripMenuItem";
-            this.重置ToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+            this.重置ToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
             this.重置ToolStripMenuItem.Text = "重置";
             this.重置ToolStripMenuItem.Click += new System.EventHandler(this.重置ToolStripMenuItem_Click);
             // 
             // NodeTemplateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 588);
+            this.ClientSize = new System.Drawing.Size(785, 470);
             this.Controls.Add(this.treeView1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NodeTemplateForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "节点查看窗口";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NodeTemplateForm_FormClosing);
             this.Load += new System.EventHandler(this.NodeTemplateForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

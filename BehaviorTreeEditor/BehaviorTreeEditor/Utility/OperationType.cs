@@ -23,5 +23,6 @@
         EditGroup,//编辑分组
         DeleteGroup,//删除分组
         UpdateGroup,//更新分组
+        AjustData,//修正数据
     }
 }

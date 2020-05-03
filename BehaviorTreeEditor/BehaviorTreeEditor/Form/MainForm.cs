@@ -963,6 +963,10 @@ namespace BehaviorTreeEditor
                     //删除分组
                     DeleteGroup();
                     break;
+                case OperationType.AjustData:
+                    //修正数据
+                    AjustData();
+                    break;
             }
 
             return true;
@@ -1058,6 +1062,21 @@ namespace BehaviorTreeEditor
             editWorkSpaceForm.ShowDialog();
         }
 
+        /// <summary>
+        /// 修正数据
+        /// </summary>
+        public void AjustData()
+        {
+            //移除未定义的枚举字段
+            NodeTemplate.RemoveUnDefineEnumField();
+
+            //移除未定义的节点
+            BehaviorTreeData.RemoveUnDefineNode();
+
+            //修正数据，和模板的保持一致
+            BehaviorTreeData.AjustData();
+        }
+
         //保存
         public void Save()
         {
@@ -1070,14 +1089,8 @@ namespace BehaviorTreeEditor
             if (NodeTemplate == null || BehaviorTreeData == null)
                 return;
 
-            //移除未定义的枚举字段
-            NodeTemplate.RemoveUnDefineEnumField();
-
-            //移除未定义的节点
-            BehaviorTreeData.RemoveUnDefineNode();
-
-            //修正数据，和模板的保持一致
-            BehaviorTreeData.AjustData();
+            //修正数据
+            AjustData();
 
             //检验枚举
             VerifyInfo verifyEnum = NodeTemplate.VerifyEnum();

@@ -666,6 +666,28 @@ namespace BehaviorTreeEditor
                 NodeDesigner node = m_Nodes[i];
                 NodeDefine nodeDefine = MainForm.Instance.NodeTemplate.FindNode(node.ClassType);
 
+                //找不到定义的节点直接移除
+                if (nodeDefine == null)
+                {
+                    if (node.ParentNode != null)
+                    {
+                        for (int j = 0; j < node.ParentNode.Transitions.Count; j++)
+                        {
+                            Transition transition = node.ParentNode.Transitions[j];
+                            if (transition.ToNode == node)
+                            {
+                                node.ParentNode.Transitions.RemoveAt(j);
+                                break;
+                            }
+                        }
+                    }
+
+                    node.ParentNode = null;
+                    m_Nodes.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
                 //修正节点标签
                 if (node.Label != nodeDefine.Label)
                 {

@@ -233,5 +233,10 @@ namespace BehaviorTreeEditor
                 MainForm.Instance.ShowMessage("无法进行粘贴，错误信息：" + ex.Message, "警告");
             }
         }
+
+        private void NodeTemplateForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainForm.Instance.Exec(OperationType.AjustData);
+        }
     }
 }
